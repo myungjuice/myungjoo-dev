@@ -17,7 +17,6 @@
     "import",
     "jsx-a11y",
     "@typescript-eslint",
-    "react-refresh",
     "prettier"
   ],
   "extends": [
@@ -44,11 +43,6 @@
     "react/jsx-curly-brace-presence": [
       "warn",
       { "props": "never", "children": "never" }
-    ],
-
-    "react-refresh/only-export-components": [
-      "warn",
-      { "allowConstantExport": true }
     ],
 
     "import/order": [
