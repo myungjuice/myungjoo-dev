@@ -11,14 +11,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "import",
-    "jsx-a11y",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["react", "react-hooks", "import", "jsx-a11y", "@typescript-eslint", "prettier"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -32,28 +25,17 @@
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [
-      "warn",
-      { "extensions": [".tsx", ".ts", ".jsx", ".js"] }
-    ],
+    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx", ".ts", ".jsx", ".js"] }],
     "react/self-closing-comp": "warn",
     "react/jsx-boolean-value": ["warn", "never"],
     "react/prop-types": "off",
     "react/no-unknown-property": "error",
-    "react/jsx-curly-brace-presence": [
-      "warn",
-      { "props": "never", "children": "never" }
-    ],
+    "react/jsx-curly-brace-presence": ["warn", { "props": "never", "children": "never" }],
 
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling", "index"]
-        ],
+        "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
         "pathGroupsExcludedImportTypes": ["builtin"],
         "newlines-between": "always",
         "alphabetize": {
@@ -102,11 +84,10 @@
       "version": "detect"
     },
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      "typescript": {
+        "project": "./tsconfig.json"
       },
-      "alias": {
-        "map": [["@", "./src"]],
+      "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
