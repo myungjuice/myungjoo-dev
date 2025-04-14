@@ -8,7 +8,7 @@ import {
   TableRow,
   TableCell,
   TableCaption,
-} from './table';
+} from '../table';
 
 describe('Table 컴포넌트', () => {
   it('헤더와 셀 포함한 테이블이 렌더링된다', () => {

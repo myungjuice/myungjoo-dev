@@ -1,6 +1,6 @@
 import { act } from '@testing-library/react';
 
-import { useCountStore } from './useCountStore';
+import { useCountStore } from '../useCountStore';
 
 describe('useCountStore', () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { Input } from './input';
+import { Input } from '../input';
 
 describe('Input 컴포넌트', () => {
   it('기본 렌더링이 정상적으로 동작한다', () => {

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { Label } from './label';
+import { Label } from '../label';
 
 describe('Label 컴포넌트', () => {
   it('children을 포함해 렌더링된다', () => {

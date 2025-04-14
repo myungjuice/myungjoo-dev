@@ -1,4 +1,4 @@
-import { cn } from './utils';
+import { cn } from '../utils';
 
 describe('cn 함수 (className 유틸리티)', () => {
   it('문자열 클래스들을 공백으로 잘 병합한다', () => {

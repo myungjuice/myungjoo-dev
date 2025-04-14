@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import { Button } from './button';
+import { Button } from '../button';
 
 describe('Button 컴포넌트', () => {
   it('기본 렌더링이 정상적으로 동작한다', () => {

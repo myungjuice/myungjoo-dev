@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
+} from '@/components/ui/dropdownMenu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -28,8 +28,8 @@ type SectionProps = {
 };
 
 const Section = ({ title, children }: SectionProps) => (
-  <section className='flex flex-col justify-center space-y-6 rounded-2xl bg-white p-6 shadow'>
-    <h2 className='text-2xl font-semibold text-gray-800'>{title}</h2>
+  <section className='flex flex-col justify-center space-y-6 rounded-2xl bg-secondary p-6 shadow'>
+    <h2 className='text-2xl font-semibold'>{title}</h2>
     {children}
   </section>
 );
@@ -39,7 +39,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1 className='mb-10 text-center text-4xl font-bold text-gray-800'>Home</h1>
+      <h1 className='mb-10 text-center text-4xl font-bold'>Home</h1>
 
       <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
         <Section title='Zustand Counter'>
