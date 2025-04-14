@@ -1,0 +1,22 @@
+{
+  "not-found": {
+    "title": "페이지를 찾을 수 없어요",
+    "description": "존재하지 않는 경로이거나, 삭제된 페이지일 수 있어요.",
+    "buttonText": "홈으로 돌아가기"
+  },
+  "main": {
+    "zustandSectionTitle": "Zustand 카운터",
+    "resetButtonText": "초기화",
+    "designSystemSectionTitle": "Tailwind CSS 디자인 시스템",
+    "shadcnButtonSectionTitle": "Shadcn UI - 버튼",
+    "shadcnDropdownSectionTitle": "Shadcn UI - 드롭다운",
+    "shadcnDropdownTitle": "옵션을 선택하세요",
+    "shadcnDropdownOption": "옵션",
+    "shadcnInputSectionTitle": "Shadcn UI - 인풋",
+    "shadcnInputLabel": "이메일",
+    "shadcnInputPlaceholder": "이메일을 입력하세요",
+    "shadcnTableSectionTitle": "Shadcn UI - 테이블",
+    "shadcnTableColName": "이름",
+    "shadcnTableColEmail": "이메일"
+  }
+}

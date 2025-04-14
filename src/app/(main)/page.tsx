@@ -44,7 +44,7 @@ const HomePage = () => {
     reset: state.reset,
   }));
 
-  const { t } = useTranslation('home');
+  const { t } = useTranslation('main');
 
   return (
     <div>
@@ -118,22 +118,27 @@ const HomePage = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='w-48'>
-                선택하세요
+                {t('shadcnDropdownTitle')}
                 <ChevronDown className='ml-2 h-4 w-4' />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-48'>
-              <DropdownMenuItem>Option 1</DropdownMenuItem>
-              <DropdownMenuItem>Option 2</DropdownMenuItem>
-              <DropdownMenuItem>Option 3</DropdownMenuItem>
+              <DropdownMenuItem>{t('shadcnDropdownOption')} 1</DropdownMenuItem>
+              <DropdownMenuItem>{t('shadcnDropdownOption')} 2</DropdownMenuItem>
+              <DropdownMenuItem>{t('shadcnDropdownOption')} 3</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </Section>
 
         <Section title={t('shadcnInputSectionTitle')}>
           <div className='space-y-2'>
-            <Label htmlFor='email'>Email</Label>
-            <Input id='email' type='email' placeholder='your@email.com' className='w-3xs' />
+            <Label htmlFor='email'>{t('shadcnInputLabel')}</Label>
+            <Input
+              id='email'
+              type='email'
+              placeholder={t('shadcnInputPlaceholder')}
+              className='w-3xs'
+            />
           </div>
         </Section>
 
@@ -141,8 +146,8 @@ const HomePage = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
+                <TableHead>{t('shadcnTableColName')}</TableHead>
+                <TableHead>{t('shadcnTableColEmail')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
