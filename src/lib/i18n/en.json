@@ -1,4 +1,9 @@
 {
+  "error": {
+    "title": "Error",
+    "description": "An error occurred while processing your request.",
+    "buttonText": "Try Again"
+  },
   "not-found": {
     "title": "Page Not Found",
     "description": "The page may not exist or has been deleted.",
