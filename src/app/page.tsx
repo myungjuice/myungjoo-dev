@@ -38,7 +38,7 @@ const HomePage = () => {
   const { count, increase, decrease, reset } = useCountStore();
 
   return (
-    <main className='min-h-screen bg-gray-100 p-6'>
+    <div>
       <h1 className='mb-10 text-center text-4xl font-bold text-gray-800'>Home</h1>
 
       <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
@@ -141,7 +141,7 @@ const HomePage = () => {
           </Table>
         </Section>
       </div>
-    </main>
+    </div>
   );
 };
 
