@@ -11,6 +11,27 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json"
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts", "*.test.tsx"],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
   "plugins": ["react", "react-hooks", "import", "jsx-a11y", "@typescript-eslint", "prettier"],
   "extends": [
     "eslint:recommended",
@@ -78,18 +99,5 @@
     "jsx-a11y/anchor-is-valid": "warn",
 
     "prettier/prettier": "warn"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    },
-    "import/resolver": {
-      "typescript": {
-        "project": "./tsconfig.json"
-      },
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
   }
 }
