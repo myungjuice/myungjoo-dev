@@ -21,6 +21,7 @@ import {
   TableRow,
   TableCell,
 } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 import { useCountStore } from '@/store/useCountStore';
 
 type SectionProps = {
@@ -36,7 +37,13 @@ const Section = ({ title, children }: SectionProps) => (
 );
 
 const HomePage = () => {
-  const { count, increase, decrease, reset } = useCountStore();
+  const { count, increase, decrease, reset } = useCountStore(state => ({
+    count: state.count,
+    increase: state.increase,
+    decrease: state.decrease,
+    reset: state.reset,
+  }));
+
   const { t } = useTranslation('home');
 
   return (
@@ -45,7 +52,15 @@ const HomePage = () => {
 
       <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
         <Section title={t('zustandSectionTitle')}>
-          <div className='text-4xl font-bold text-blue-600'>{count}</div>
+          <div
+            className={cn(
+              'text-4xl font-bold',
+              count > 0 && 'text-blue-600',
+              count < 0 && 'text-red-600'
+            )}
+          >
+            {count}
+          </div>
           <div className='flex gap-4'>
             <button
               onClick={increase}
@@ -102,7 +117,7 @@ const HomePage = () => {
         <Section title={t('shadcnDropdownSectionTitle')}>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='w-3xs'>
+              <Button variant='outline' className='w-48'>
                 선택하세요
                 <ChevronDown className='ml-2 h-4 w-4' />
               </Button>

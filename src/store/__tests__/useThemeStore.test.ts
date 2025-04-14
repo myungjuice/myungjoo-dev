@@ -1,6 +1,6 @@
 import { act } from 'react';
 
-import { useThemeStore } from '../useThemeStore';
+import { themeStore as useThemeStore } from '../useThemeStore';
 
 describe('useThemeStore', () => {
   beforeEach(() => {

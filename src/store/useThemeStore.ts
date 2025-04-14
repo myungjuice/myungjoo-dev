@@ -1,6 +1,8 @@
+import { useShallow } from 'zustand/react/shallow';
+
 import { createStore } from '.';
 
-interface Store {
+interface ThemeStore {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
   setDarkMode: (isDarkMode: boolean) => void;
@@ -10,7 +12,7 @@ const initialState = {
   isDarkMode: false,
 };
 
-export const useThemeStore = createStore<Store>(
+export const themeStore = createStore<ThemeStore>(
   set => ({
     ...initialState,
     toggleDarkMode: () => set(state => ({ isDarkMode: !state.isDarkMode })),
@@ -21,3 +23,6 @@ export const useThemeStore = createStore<Store>(
   'themeStore',
   true
 );
+
+export const useThemeStore = <T>(selector: (state: ThemeStore) => T): T =>
+  themeStore(useShallow(selector));

@@ -1,10 +1,12 @@
+import { useShallow } from 'zustand/react/shallow';
+
 import i18n from '@/lib/i18n/client';
 
 import { createStore } from '.';
 
 type Language = 'ko' | 'en';
 
-export interface LangStore {
+interface LangStore {
   lang: Language;
   setLang: (lang: Language) => void;
 }
@@ -13,7 +15,7 @@ const initialState = {
   lang: 'ko' as Language,
 };
 
-export const useLangStore = createStore<LangStore>(
+export const langStore = createStore<LangStore>(
   set => ({
     ...initialState,
     setLang: lang => {
@@ -24,3 +26,6 @@ export const useLangStore = createStore<LangStore>(
   'langStore',
   true
 );
+
+export const useLangStore = <T>(selector: (state: LangStore) => T): T =>
+  langStore(useShallow(selector));

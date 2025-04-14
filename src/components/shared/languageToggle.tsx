@@ -9,8 +9,10 @@ import useMounted from '@/hooks/useMounted';
 import { useLangStore } from '@/store/useLangStore';
 
 const LanguageToggle = () => {
-  const lang = useLangStore(state => state.lang);
-  const setLang = useLangStore(state => state.setLang);
+  const { lang, setLang } = useLangStore(state => ({
+    lang: state.lang,
+    setLang: state.setLang,
+  }));
 
   const { i18n } = useTranslation();
   const mounted = useMounted();

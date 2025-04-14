@@ -1,6 +1,8 @@
+import { useShallow } from 'zustand/react/shallow';
+
 import { createStore } from '.';
 
-interface Store {
+interface CountStore {
   count: number;
   increase: () => void;
   decrease: () => void;
@@ -11,7 +13,7 @@ const initialState = {
   count: 0,
 };
 
-export const useCountStore = createStore<Store>(
+export const countStore = createStore<CountStore>(
   set => ({
     ...initialState,
     increase: () => {
@@ -28,3 +30,6 @@ export const useCountStore = createStore<Store>(
   }),
   'countStore'
 );
+
+export const useCountStore = <T>(selector: (state: CountStore) => T): T =>
+  countStore(useShallow(selector));

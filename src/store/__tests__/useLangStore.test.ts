@@ -2,7 +2,7 @@ import { act } from 'react';
 
 import i18n from '@/lib/i18n/client';
 
-import { useLangStore } from '../useLangStore';
+import { langStore as useLangStore } from '../useLangStore';
 
 jest.mock('@/lib/i18n/client', () => ({
   __esModule: true,

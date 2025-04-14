@@ -8,8 +8,10 @@ import useMounted from '@/hooks/useMounted';
 import { useThemeStore } from '@/store/useThemeStore';
 
 const DarkModeToggle = () => {
-  const isDarkMode = useThemeStore(state => state.isDarkMode);
-  const toggleDarkMode = useThemeStore(state => state.toggleDarkMode);
+  const { isDarkMode, toggleDarkMode } = useThemeStore(state => ({
+    isDarkMode: state.isDarkMode,
+    toggleDarkMode: state.toggleDarkMode,
+  }));
 
   const mounted = useMounted();
 
