@@ -1,6 +1,6 @@
 import { createStore } from '.';
 
-interface CountStore {
+interface Store {
   count: number;
   increase: () => void;
   decrease: () => void;
@@ -11,7 +11,7 @@ const initialState = {
   count: 0,
 };
 
-export const useCountStore = createStore<CountStore>(
+export const useCountStore = createStore<Store>(
   set => ({
     ...initialState,
     increase: () => {

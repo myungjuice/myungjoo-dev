@@ -5,7 +5,6 @@ import useMounted from '../useMounted';
 
 const TestComponent = () => {
   const mounted = useMounted();
-
   return <div>{mounted && <span data-testid='mounted'>Mounted</span>}</div>;
 };
 

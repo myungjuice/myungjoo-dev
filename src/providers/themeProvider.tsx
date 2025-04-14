@@ -2,32 +2,43 @@
 
 import React, { useEffect } from 'react';
 
+import useMounted from '@/hooks/useMounted';
 import { useThemeStore } from '@/store/useThemeStore';
 
-interface ThemeProviderProps {
+type Props = {
   children: React.ReactNode;
-}
+};
 
-const ThemeProvider = ({ children }: ThemeProviderProps) => {
+const ThemeProvider = ({ children }: Props) => {
+  const mounted = useMounted();
+
   const isDarkMode = useThemeStore(state => state.isDarkMode);
-  const toggleDarkMode = useThemeStore(state => state.toggleDarkMode);
+  const setDarkMode = useThemeStore(state => state.setDarkMode);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('themeStore') || '{}');
     const isPersistDarkMode = stored?.state?.isDarkMode;
-    const root = document.documentElement;
 
     if (isPersistDarkMode !== undefined && isPersistDarkMode !== isDarkMode) {
-      toggleDarkMode();
-      return;
+      setDarkMode(isPersistDarkMode);
     }
+  }, [isDarkMode, setDarkMode]);
 
-    if (isDarkMode) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
+  useEffect(() => {
+    if (mounted) {
+      const root = document.documentElement;
+
+      if (isDarkMode) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
     }
-  }, [isDarkMode, toggleDarkMode]);
+  }, [isDarkMode, mounted]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return <>{children}</>;
 };

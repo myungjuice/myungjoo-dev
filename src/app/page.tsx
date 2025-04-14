@@ -2,6 +2,7 @@
 
 import { ChevronDown } from 'lucide-react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -28,7 +29,7 @@ type SectionProps = {
 };
 
 const Section = ({ title, children }: SectionProps) => (
-  <section className='flex flex-col justify-center space-y-6 rounded-2xl bg-secondary p-6 shadow'>
+  <section className='flex flex-col space-y-6 rounded-2xl bg-secondary p-6 shadow'>
     <h2 className='text-2xl font-semibold'>{title}</h2>
     {children}
   </section>
@@ -36,15 +37,16 @@ const Section = ({ title, children }: SectionProps) => (
 
 const HomePage = () => {
   const { count, increase, decrease, reset } = useCountStore();
+  const { t } = useTranslation('home');
 
   return (
     <div>
       <h1 className='mb-10 text-center text-4xl font-bold'>Home</h1>
 
       <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
-        <Section title='Zustand Counter'>
-          <div className='text-center text-4xl font-bold text-blue-600'>{count}</div>
-          <div className='flex justify-center gap-4'>
+        <Section title={t('zustandSectionTitle')}>
+          <div className='text-4xl font-bold text-blue-600'>{count}</div>
+          <div className='flex gap-4'>
             <button
               onClick={increase}
               className='cursor-pointer rounded bg-blue-500 px-4 py-2 text-white transition hover:bg-blue-600'
@@ -61,12 +63,12 @@ const HomePage = () => {
               onClick={reset}
               className='cursor-pointer rounded bg-gray-500 px-4 py-2 text-white transition hover:bg-gray-600'
             >
-              Reset
+              {t('resetButtonText')}
             </button>
           </div>
         </Section>
 
-        <Section title='Tailwind CSS Design System'>
+        <Section title={t('designSystemSectionTitle')}>
           <div className='grid grid-cols-2 gap-4'>
             <div>
               <div className='font-semibold text-blue-100'>blue-100</div>
@@ -86,7 +88,7 @@ const HomePage = () => {
           </div>
         </Section>
 
-        <Section title='Shadcn UI - Button Samples'>
+        <Section title={t('shadcnButtonSectionTitle')}>
           <div className='flex flex-wrap gap-4'>
             <Button variant='default'>Default</Button>
             <Button variant='secondary'>Secondary</Button>
@@ -97,7 +99,7 @@ const HomePage = () => {
           </div>
         </Section>
 
-        <Section title='Shadcn UI - Dropdown'>
+        <Section title={t('shadcnDropdownSectionTitle')}>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='w-3xs'>
@@ -113,14 +115,14 @@ const HomePage = () => {
           </DropdownMenu>
         </Section>
 
-        <Section title='Shadcn UI - Input'>
+        <Section title={t('shadcnInputSectionTitle')}>
           <div className='space-y-2'>
             <Label htmlFor='email'>Email</Label>
             <Input id='email' type='email' placeholder='your@email.com' className='w-3xs' />
           </div>
         </Section>
 
-        <Section title='Shadcn UI - Table'>
+        <Section title={t('shadcnTableSectionTitle')}>
           <Table>
             <TableHeader>
               <TableRow>

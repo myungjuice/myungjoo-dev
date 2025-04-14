@@ -77,7 +77,12 @@
     ],
     "import/newline-after-import": "warn",
 
-    "no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
+
+    "no-unused-vars": "off",
     "no-undef": "error",
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-alert": "warn",

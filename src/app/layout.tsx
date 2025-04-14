@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import React from 'react';
 
 import Layout from '@/components/layout';
-import ThemeProvider from '@/providers/themeProvider';
+import Providers from '@/providers';
 
 import '@/styles/globals.css';
 
@@ -22,31 +22,16 @@ export const metadata: Metadata = {
   description: 'Introduce myself',
 };
 
-const setInitialTheme = `
-  (function() {
-    try {
-      const stored = localStorage.getItem('themeStore');
-      const isDark = JSON.parse(stored || '{}')?.state?.isDarkMode;
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      }
-    } catch (e) {}
-  })();
-`;
-
 const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html suppressHydrationWarning lang='en'>
-    <head>
-      <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
-    </head>
+  <html lang='en'>
     <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <ThemeProvider>
+      <Providers>
         <Layout>{children}</Layout>
-      </ThemeProvider>
+      </Providers>
     </body>
   </html>
 );
