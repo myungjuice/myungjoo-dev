@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 
-import useMounted from '../useMounted';
+import useMounted from '../use-mounted';
 
 const TestComponent = () => {
   const mounted = useMounted();

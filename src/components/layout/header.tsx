@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import DarkModeToggle from '@/components/shared/darkModeToggle';
-import LanguageToggle from '@/components/shared/languageToggle';
+import DarkModeToggle from '@/components/shared/dark-mode-toggle';
+import LanguageToggle from '@/components/shared/language-toggle';
 
 const Header = () => (
   <header className='w-full border-b py-3'>

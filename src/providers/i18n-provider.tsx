@@ -3,9 +3,9 @@
 import React, { useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
-import useMounted from '@/hooks/useMounted';
+import useMounted from '@/hooks/use-mounted';
 import i18n from '@/lib/i18n/client';
-import { useLangStore } from '@/store/useLangStore';
+import { useLangStore } from '@/store/use-lang-store';
 
 type Props = {
   children: React.ReactNode;

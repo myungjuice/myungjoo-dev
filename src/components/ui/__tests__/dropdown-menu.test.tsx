@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '../dropdownMenu';
+} from '../dropdown-menu';
 
 describe('DropdownMenu 컴포넌트', () => {
   it('트리거 버튼 클릭 시 메뉴가 열린다', async () => {

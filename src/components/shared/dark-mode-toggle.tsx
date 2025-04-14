@@ -4,8 +4,8 @@ import { Moon, Sun, Loader } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
-import useMounted from '@/hooks/useMounted';
-import { useThemeStore } from '@/store/useThemeStore';
+import useMounted from '@/hooks/use-mounted';
+import { useThemeStore } from '@/store/use-theme-store';
 
 const DarkModeToggle = () => {
   const { isDarkMode, toggleDarkMode } = useThemeStore(state => ({

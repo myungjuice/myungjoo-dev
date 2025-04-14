@@ -1,7 +1,7 @@
 import React from 'react';
 
-import I18nProvider from './i18nProvider';
-import ThemeProvider from './themeProvider';
+import I18nProvider from './i18n-provider';
+import ThemeProvider from './theme-provider';
 
 interface ProvidersProps {
   children: React.ReactNode;

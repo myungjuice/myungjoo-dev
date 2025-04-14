@@ -5,8 +5,8 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
-import useMounted from '@/hooks/useMounted';
-import { useLangStore } from '@/store/useLangStore';
+import useMounted from '@/hooks/use-mounted';
+import { useLangStore } from '@/store/use-lang-store';
 
 const LanguageToggle = () => {
   const { lang, setLang } = useLangStore(state => ({

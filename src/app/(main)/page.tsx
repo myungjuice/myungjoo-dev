@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/components/ui/dropdownMenu';
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -22,7 +22,7 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { useCountStore } from '@/store/useCountStore';
+import { useCountStore } from '@/store/use-count-store';
 
 type SectionProps = {
   title: string;

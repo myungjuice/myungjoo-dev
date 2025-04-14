@@ -2,8 +2,8 @@
 
 import React, { useEffect } from 'react';
 
-import useMounted from '@/hooks/useMounted';
-import { useThemeStore } from '@/store/useThemeStore';
+import useMounted from '@/hooks/use-mounted';
+import { useThemeStore } from '@/store/use-theme-store';
 
 type Props = {
   children: React.ReactNode;
