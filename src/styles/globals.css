@@ -1,6 +1,6 @@
 @import 'tailwindcss';
-
-@config "../../tailwind.config.ts";
+@import './shadcn.css';
+@config '../../tailwind.config.ts';
 
 :root {
   --background: #ffffff;
