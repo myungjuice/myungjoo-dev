@@ -1,0 +1,12 @@
+{
+  "ko": {
+    "title": "페이지를 찾을 수 없어요",
+    "description": "존재하지 않는 경로이거나, 삭제된 페이지일 수 있어요.",
+    "buttonText": "홈으로 돌아가기"
+  },
+  "en": {
+    "title": "Page Not Found",
+    "description": "The page may not exist or has been deleted.",
+    "buttonText": "Go to Home"
+  }
+}

@@ -1,15 +1,5 @@
 {
-  "error": {
-    "title": "오류가 발생했어요",
-    "description": "문제가 발생했습니다. 나중에 다시 시도해주세요.",
-    "buttonText": "다시 시도하기"
-  },
-  "not-found": {
-    "title": "페이지를 찾을 수 없어요",
-    "description": "존재하지 않는 경로이거나, 삭제된 페이지일 수 있어요.",
-    "buttonText": "홈으로 돌아가기"
-  },
-  "main": {
+  "ko": {
     "zustandSectionTitle": "Zustand 카운터",
     "resetButtonText": "초기화",
     "designSystemSectionTitle": "Tailwind CSS 디자인 시스템",
@@ -23,5 +13,20 @@
     "shadcnTableSectionTitle": "Shadcn UI - 테이블",
     "shadcnTableColName": "이름",
     "shadcnTableColEmail": "이메일"
+  },
+  "en": {
+    "zustandSectionTitle": "Zustand Counter",
+    "resetButtonText": "Reset",
+    "designSystemSectionTitle": "Tailwind CSS Design System",
+    "shadcnButtonSectionTitle": "Shadcn UI - Button Samples",
+    "shadcnDropdownSectionTitle": "Shadcn UI - Dropdown",
+    "shadcnDropdownOption": "Option",
+    "shadcnDropdownTitle": "Select an option",
+    "shadcnInputSectionTitle": "Shadcn UI - Input",
+    "shadcnInputLabel": "Email",
+    "shadcnInputPlaceholder": "Enter your email",
+    "shadcnTableSectionTitle": "Shadcn UI - Table",
+    "shadcnTableColName": "Name",
+    "shadcnTableColEmail": "Email"
   }
 }

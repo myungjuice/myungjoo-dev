@@ -1,8 +1,9 @@
 import i18next, { use as i18nextUse } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import en from './en.json';
-import ko from './ko.json';
+import error from './error.json';
+import main from './main.json';
+import notFound from './not-found.json';
 
 i18nextUse.call(i18next, initReactI18next).init({
   fallbackLng: 'ko',
@@ -14,8 +15,16 @@ i18nextUse.call(i18next, initReactI18next).init({
     escapeValue: false,
   },
   resources: {
-    ko,
-    en,
+    ko: {
+      main: main.ko,
+      'not-found': notFound.ko,
+      error: error.ko,
+    },
+    en: {
+      main: main.en,
+      'not-found': notFound.en,
+      error: error.en,
+    },
   },
 });
 

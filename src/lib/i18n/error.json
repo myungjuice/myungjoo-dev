@@ -1,0 +1,12 @@
+{
+  "ko": {
+    "title": "오류가 발생했어요",
+    "description": "문제가 발생했습니다. 나중에 다시 시도해주세요.",
+    "buttonText": "다시 시도하기"
+  },
+  "en": {
+    "title": "Error",
+    "description": "An error occurred while processing your request.",
+    "buttonText": "Try Again"
+  }
+}
