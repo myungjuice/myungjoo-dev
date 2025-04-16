@@ -9,7 +9,9 @@ interface ProvidersProps {
 
 const Providers = ({ children }: ProvidersProps) => (
   <I18nProvider>
-    <ThemeProvider>{children}</ThemeProvider>
+    <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+      {children}
+    </ThemeProvider>
   </I18nProvider>
 );
 

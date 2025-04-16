@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import DarkModeToggle from '@/components/shared/dark-mode-toggle';
 import LanguageToggle from '@/components/shared/language-toggle';
+import ThemeDropdownButton from '@/components/shared/theme-dropdown-button';
 
 const Header = () => (
   <header className='w-full border-b py-3'>
@@ -12,7 +12,7 @@ const Header = () => (
 
       <div className='flex items-center gap-4'>
         <LanguageToggle />
-        <DarkModeToggle />
+        <ThemeDropdownButton />
       </div>
     </div>
   </header>
