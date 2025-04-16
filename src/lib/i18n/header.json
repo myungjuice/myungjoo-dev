@@ -1,0 +1,16 @@
+{
+  "ko": {
+    "language-kr": "한국어",
+    "language-en": "영어",
+    "theme-light": "라이트 모드",
+    "theme-dark": "다크 모드",
+    "theme-system": "시스템 모드"
+  },
+  "en": {
+    "language-kr": "Korean",
+    "language-en": "English",
+    "theme-light": "Light Mode",
+    "theme-dark": "Dark Mode",
+    "theme-system": "System Mode"
+  }
+}

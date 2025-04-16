@@ -3,6 +3,7 @@
 import { Moon, Sun, SunMoon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -23,6 +24,7 @@ const themes: Record<Theme, React.ReactNode> = {
 
 const ThemeDropdownButton = () => {
   const { theme, setTheme } = useTheme();
+  const { t } = useTranslation('header');
 
   const handleThemeChange = (newTheme: Theme) => () => {
     setTheme(newTheme);
@@ -41,19 +43,19 @@ const ThemeDropdownButton = () => {
           className={cn(theme === 'light' && 'bg-muted')}
           onClick={handleThemeChange('light')}
         >
-          Light
+          {t('theme-light')}
         </DropdownMenuItem>
         <DropdownMenuItem
           className={cn(theme === 'dark' && 'bg-muted')}
           onClick={handleThemeChange('dark')}
         >
-          Dark
+          {t('theme-dark')}
         </DropdownMenuItem>
         <DropdownMenuItem
           className={cn(theme === 'system' && 'bg-muted')}
           onClick={handleThemeChange('system')}
         >
-          System
+          {t('theme-system')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

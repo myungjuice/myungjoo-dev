@@ -20,7 +20,7 @@ const LanguageToggle = () => {
     setLang: state.setLang,
   }));
 
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation('header');
 
   const handleToggleLanguage = () => {
     const newLang = i18n.language === 'ko' ? 'en' : 'ko';
@@ -33,7 +33,7 @@ const LanguageToggle = () => {
       <DropdownMenuTrigger asChild>
         <Button variant='outline'>
           <Globe className='h-5 w-5' />
-          {lang === 'ko' ? 'KR' : 'EN'}
+          {lang === 'ko' ? t('language-kr') : t('language-en')}
           <span className='sr-only'>Toggle language</span>
         </Button>
       </DropdownMenuTrigger>
@@ -42,13 +42,13 @@ const LanguageToggle = () => {
           className={cn(lang === 'ko' && 'bg-muted')}
           onClick={handleToggleLanguage}
         >
-          KR
+          {t('language-kr')}
         </DropdownMenuItem>
         <DropdownMenuItem
           className={cn(lang === 'en' && 'bg-muted')}
           onClick={handleToggleLanguage}
         >
-          EN
+          {t('language-en')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
