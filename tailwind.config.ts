@@ -9,6 +9,9 @@ const config: Config = {
     extend: {
       colors,
       fontSize,
+      fontFamily: {
+        fira: ['var(--font-fira)', 'monospace'],
+      },
     },
   },
   plugins: [],
