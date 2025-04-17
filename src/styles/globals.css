@@ -5,12 +5,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #020618;
   --font-fira: 'Fira Code', monospace;
 }
 
 .dark {
-  --background: #171717;
+  --background: #020618;
   --foreground: #ffffff;
 }
 

@@ -17,8 +17,8 @@ const NotFoundContents = () => {
     () => `
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 
 const NotFound = () => {
   useEffect(() => {
@@ -42,7 +42,7 @@ export default NotFound;
 
   return (
     <div className='flex min-h-[calc(100vh-80px-114px)] flex-col items-center justify-center gap-10 px-4 py-10'>
-      <div className='flex h-full w-full flex-col items-center justify-center gap-10 text-sm sm:gap-20 md:flex-row'>
+      <div className='flex h-full w-full flex-col items-center justify-center gap-10 text-sm'>
         <Image src='/images/404.png' alt='404' width={304} height={165} priority />
         <CodeHighlight rawCode={rawCode} />
       </div>

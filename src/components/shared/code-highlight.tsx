@@ -47,8 +47,8 @@ const CodeHighlight = ({ rawCode }: CodeHighlightProps) => {
   return (
     <div
       className={cn(
-        'w-full overflow-x-hidden rounded-lg py-6 shadow-lg sm:w-auto',
-        !isLoading && 'overflow-x-auto bg-slate-050 py-6 sm:pr-6 sm:pl-2 dark:bg-slate-950'
+        'w-full overflow-x-hidden rounded-lg py-6 shadow-lg md:w-auto',
+        !isLoading && 'overflow-x-auto bg-slate-050 py-6 md:pr-6 md:pl-2 dark:bg-slate-950'
       )}
     >
       {isLoading ? (
