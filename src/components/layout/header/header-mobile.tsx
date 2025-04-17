@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FiMenu, FiX } from 'react-icons/fi';
 
 import LanguageToggle from '@/components/shared/language-toggle';
 import ThemeDropdownButton from '@/components/shared/theme-dropdown-button';
@@ -45,9 +45,9 @@ const HeaderMobile = () => {
           onClick={handleMenuToggle(!open)}
         >
           {open ? (
-            <X className='h-6 w-6 text-slate-500' />
+            <FiX className='h-6 w-6 text-slate-500' />
           ) : (
-            <Menu className='h-6 w-6 text-slate-500' />
+            <FiMenu className='h-6 w-6 text-slate-500' />
           )}
         </button>
       </div>

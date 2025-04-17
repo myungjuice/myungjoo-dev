@@ -1,8 +1,8 @@
 'use client';
 
-import { Globe } from 'lucide-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { FiGlobe } from 'react-icons/fi';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -32,7 +32,7 @@ const LanguageToggle = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='outline'>
-          <Globe className='h-5 w-5' />
+          <FiGlobe className='h-5 w-5' />
           {lang === 'ko' ? '한국어' : 'English'}
           <span className='sr-only'>Toggle language</span>
         </Button>

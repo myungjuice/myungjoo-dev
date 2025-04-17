@@ -1,9 +1,10 @@
 'use client';
 
-import { Moon, Sun, SunMoon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { FiSun, FiMoon } from 'react-icons/fi';
+import { TbSunMoon } from 'react-icons/tb';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,9 +18,9 @@ import { cn } from '@/lib/utils';
 type Theme = 'light' | 'dark' | 'system';
 
 const themes: Record<Theme, React.ReactNode> = {
-  light: <Sun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
-  dark: <Moon className='h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:rotate-0' />,
-  system: <SunMoon className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
+  light: <FiSun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
+  dark: <FiMoon className='h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:rotate-0' />,
+  system: <TbSunMoon className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
 };
 
 const ThemeDropdownButton = () => {
