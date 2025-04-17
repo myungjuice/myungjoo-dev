@@ -3,27 +3,24 @@ import { initReactI18next } from 'react-i18next';
 
 import error from './error.json';
 import header from './header.json';
-import main from './main.json';
 import notFound from './not-found.json';
 
 i18nextUse.call(i18next, initReactI18next).init({
   fallbackLng: 'ko',
   supportedLngs: ['ko', 'en'],
   lng: 'ko',
-  ns: ['main', 'not-found', 'error', 'header'],
-  defaultNS: 'main',
+  ns: ['not-found', 'error', 'header'],
+  defaultNS: 'header',
   interpolation: {
     escapeValue: false,
   },
   resources: {
     ko: {
-      main: main.ko,
       'not-found': notFound.ko,
       error: error.ko,
       header: header.ko,
     },
     en: {
-      main: main.en,
       'not-found': notFound.en,
       error: error.en,
       header: header.en,
