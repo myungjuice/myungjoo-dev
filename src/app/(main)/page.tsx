@@ -30,7 +30,7 @@ type SectionProps = {
 };
 
 const Section = ({ title, children }: SectionProps) => (
-  <section className='flex flex-col space-y-6 rounded-2xl bg-secondary p-6 shadow'>
+  <section className='flex flex-col space-y-6 rounded-2xl p-6 shadow'>
     <h2 className='text-heading-h5 font-semibold'>{title}</h2>
     {children}
   </section>
