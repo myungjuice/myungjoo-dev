@@ -1,12 +1,16 @@
 {
   "ko": {
     "title": "장명주",
+    "mobile-menu-title": "메뉴",
+    "mobile-theme-preferences": "환경 설정",
     "theme-light": "라이트 모드",
     "theme-dark": "다크 모드",
     "theme-system": "시스템 모드"
   },
   "en": {
     "title": "MyungJoo Jang",
+    "mobile-menu-title": "navigate",
+    "mobile-theme-preferences": "preferences",
     "theme-light": "Light Mode",
     "theme-dark": "Dark Mode",
     "theme-system": "System Mode"
