@@ -6,10 +6,10 @@ import { FiAlertTriangle } from 'react-icons/fi';
 
 import { Button } from '@/components/ui/button';
 
-interface ErrorProps {
+type ErrorProps = {
   error: Error;
   reset: () => void;
-}
+};
 
 const GlobalError = ({ error, reset }: ErrorProps) => {
   const { t } = useTranslation('error');

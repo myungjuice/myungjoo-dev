@@ -6,10 +6,10 @@ import { createStore } from '.';
 
 type Language = 'ko' | 'en';
 
-interface LangStore {
+type LangStore = {
   lang: Language;
   setLang: (lang: Language) => void;
-}
+};
 
 const initialState = {
   lang: 'ko' as Language,

@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './shadcn.css';
+@import './custom.css';
 @config '../../tailwind.config.ts';
 
 :root {

@@ -1,12 +1,12 @@
 {
   "ko": {
-    "title": "페이지를 찾을 수 없어요",
-    "description": "존재하지 않는 경로이거나, 삭제된 페이지일 수 있어요.",
-    "buttonText": "홈으로 돌아가기"
+    "console_01": "앗! 여긴 없는 페이지예요. 😅",
+    "console_02": "홈페이지로 돌아가 더 많은 콘텐츠를 확인해보세요.",
+    "back_home": "홈으로 돌아가기"
   },
   "en": {
-    "title": "Page Not Found",
-    "description": "The page may not exist or has been deleted.",
-    "buttonText": "Go to Home"
+    "console_01": "Oops! This page doesn’t exist. 😅",
+    "console_02": "Go back to the homepage and check out more content.",
+    "back_home": "Back to home"
   }
 }

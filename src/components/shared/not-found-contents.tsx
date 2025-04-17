@@ -1,24 +1,56 @@
+/* eslint-disable no-console */
 'use client';
 
-import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GiGhost } from 'react-icons/gi';
 
+import CodeHighlight from '@/components/shared/code-highlight';
 import { Button } from '@/components/ui/button';
 
-const NotFoundClient = () => {
+const NotFoundContents = () => {
+  const router = useRouter();
   const { t } = useTranslation('not-found');
 
+  const rawCode = useMemo(
+    () => `
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
+
+const NotFound = () => {
+  useEffect(() => {
+    console.log("${t('console_01')}");
+    console.log("${t('console_02')}");
+    redirect('/');
+  }, []);
+
+  return null;
+};
+
+export default NotFound;
+`,
+    [t]
+  );
+
+  useEffect(() => {
+    console.log(t('console_01'));
+    console.log(t('console_02'));
+  }, [t]);
+
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center px-6 text-center'>
-      <GiGhost className='mb-4 h-20 w-20 text-muted-foreground' />
-      <h1 className='text-4xl font-bold tracking-tight'>{t('title')}</h1>
-      <p className='mt-2 text-muted-foreground'>{t('description')}</p>
-      <Link href='/' passHref>
-        <Button className='mt-6'>{t('buttonText')}</Button>
-      </Link>
+    <div className='flex min-h-[calc(100vh-80px-114px)] flex-col items-center justify-center gap-10 px-4 py-10'>
+      <div className='flex h-full w-full flex-col items-center justify-center gap-10 text-sm sm:gap-20 md:flex-row'>
+        <Image src='/images/404.png' alt='404' width={304} height={165} priority />
+        <CodeHighlight rawCode={rawCode} />
+      </div>
+      <Button variant='destructive' onClick={() => router.push('/')}>
+        {t('back_home')}
+      </Button>
     </div>
   );
 };
 
-export default NotFoundClient;
+export default NotFoundContents;

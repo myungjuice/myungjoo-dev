@@ -1,0 +1,32 @@
+pre.shiki {
+  padding: 0.5rem 0;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  background-color: transparent !important;
+  counter-reset: line;
+  font-size: 12px;
+  width: max-content;
+  min-width: 100%;
+}
+
+pre.shiki * {
+  font-style: normal !important;
+  font-family: var(--font-fira) !important;
+}
+
+pre.shiki .line {
+  display: flex;
+  position: relative;
+  line-height: 0.25;
+}
+
+pre.shiki .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2rem;
+  margin-right: 1rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
