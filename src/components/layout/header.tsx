@@ -5,7 +5,7 @@ import ThemeDropdownButton from '@/components/shared/theme-dropdown-button';
 
 const Header = () => (
   <header className='w-full border-b py-3'>
-    <div className='mx-auto flex max-w-screen-2xl items-center justify-between px-6'>
+    <div className='mx-auto flex items-center justify-between'>
       <Link href='/' className='text-xl font-bold'>
         PORTFOLIO
       </Link>
