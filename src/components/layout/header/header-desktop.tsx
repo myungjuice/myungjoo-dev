@@ -6,7 +6,7 @@ import LogoTitle from './logo-title';
 import NavItem from './nav-item';
 
 const HeaderDesktop = () => (
-  <div className='relative flex h-full w-full items-center gap-4 border-b border-slate-400 bg-gray-100 px-4 dark:border-slate-700 dark:bg-slate-900'>
+  <div className='relative flex h-full w-full items-center gap-4 rounded-t-lg border-b border-slate-400 bg-gray-100 px-4 dark:border-slate-700 dark:bg-slate-900'>
     <div className='w-36 shrink-0'>
       <LogoTitle />
     </div>
