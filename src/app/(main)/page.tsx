@@ -31,7 +31,7 @@ type SectionProps = {
 
 const Section = ({ title, children }: SectionProps) => (
   <section className='flex flex-col space-y-6 rounded-2xl bg-secondary p-6 shadow'>
-    <h2 className='text-2xl font-semibold'>{title}</h2>
+    <h2 className='text-heading-h5 font-semibold'>{title}</h2>
     {children}
   </section>
 );
@@ -96,10 +96,18 @@ const HomePage = () => {
           </div>
 
           <div className='space-y-2'>
-            <div className='text-heading-800-40'>heading-800-40</div>
-            <div className='text-body-600-24'>body-600-24</div>
-            <div className='text-body-400-20'>body-400-20</div>
-            <div className='text-caption-600-12'>caption-600-12</div>
+            <div className='text-body-sm'>body-sm</div>
+            <div className='text-body-md'>body-md</div>
+            <div className='text-body-lg'>body-lg</div>
+            <div className='text-body-sm-bold'>body-sm-bold</div>
+            <div className='text-body-md-bold'>body-md-bold</div>
+            <div className='text-body-lg-bold'>body-lg-bold</div>
+            <div className='text-heading-h6'>heading-h6</div>
+            <div className='text-heading-h5'>heading-h5</div>
+            <div className='text-heading-h4'>heading-h4</div>
+            <div className='text-heading-h3'>heading-h3</div>
+            <div className='text-heading-h2'>heading-h2</div>
+            <div className='text-heading-h1'>heading-h1</div>
           </div>
         </Section>
 

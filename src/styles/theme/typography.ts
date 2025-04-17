@@ -1,8 +1,16 @@
 const typography = {
-  'heading-800-40': ['40px', { fontWeight: 800, lineHeight: '54.4px', letterSpacing: '-0.16px' }],
-  'body-600-24': ['24px', { fontWeight: 600, lineHeight: '36px', letterSpacing: '-0.096px' }],
-  'body-400-20': ['20px', { fontWeight: 400, lineHeight: '30px', letterSpacing: '-0.08px' }],
-  'caption-600-12': ['12px', { fontWeight: 600, lineHeight: '18px', letterSpacing: '-0.024px' }],
+  'body-sm': ['14px', { fontWeight: 450, lineHeight: '19.6px' }],
+  'body-sm-bold': ['14px', { fontWeight: 700, lineHeight: '19.6px' }],
+  'body-md': ['16px', { fontWeight: 450, lineHeight: '24px' }],
+  'body-md-bold': ['16px', { fontWeight: 700, lineHeight: '24px' }],
+  'body-lg': ['18px', { fontWeight: 450, lineHeight: '27px' }],
+  'body-lg-bold': ['18px', { fontWeight: 700, lineHeight: '27px' }],
+  'heading-h6': ['20px', { fontWeight: 450, lineHeight: '30px' }],
+  'heading-h5': ['24px', { fontWeight: 450, lineHeight: '33.6px' }],
+  'heading-h4': ['30px', { fontWeight: 450, lineHeight: '42px' }],
+  'heading-h3': ['36px', { fontWeight: 450, lineHeight: '46.8px' }],
+  'heading-h2': ['48px', { fontWeight: 450, lineHeight: '57.6px' }],
+  'heading-h1': ['60px', { fontWeight: 450, lineHeight: '66px' }],
 };
 
 export default typography;
