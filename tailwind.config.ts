@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
-import { colors, fontSize } from './src/styles/theme';
+import colors from './src/styles/theme/colors';
+import typography from './src/styles/theme/typography';
 
 const config: Config = {
   darkMode: 'class',
@@ -8,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors,
-      fontSize,
+      fontSize: typography,
       fontFamily: {
         fira: ['var(--font-fira)', 'monospace'],
       },

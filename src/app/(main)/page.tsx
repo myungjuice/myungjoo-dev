@@ -86,12 +86,12 @@ const HomePage = () => {
         <Section title={t('designSystemSectionTitle')}>
           <div className='grid grid-cols-2 gap-4'>
             <div>
-              <div className='font-semibold text-blue-100'>blue-100</div>
-              <div className='font-semibold text-blue-200'>blue-200</div>
+              <div className='font-semibold text-gray-600'>gray-600</div>
+              <div className='font-semibold text-red-600'>red-600</div>
             </div>
             <div>
-              <div className='font-semibold text-green-100'>green-100</div>
-              <div className='font-semibold text-green-200'>green-200</div>
+              <div className='font-semibold text-green-600'>green-600</div>
+              <div className='font-semibold text-orange-600'>orange-600</div>
             </div>
           </div>
 
