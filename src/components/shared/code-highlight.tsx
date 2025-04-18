@@ -6,20 +6,18 @@ import { createHighlighter, type Highlighter } from 'shiki';
 
 import Spinner from '@/components/ui/spinner';
 import { cn } from '@/lib/utils';
+import type { Theme, Themes, CodeHighlightProps } from '@/types/code-highlight';
 
-type CodeHighlightProps = {
-  rawCode: string;
-  className?: string;
-};
-
-type Theme = 'dark' | 'light';
-
-const themes: Record<Theme, string> = {
+const defaultThemes: Themes = {
   dark: 'rose-pine-moon',
   light: 'rose-pine-dawn',
 };
 
-const getCodeHtml = async (code: string, theme: Theme = 'dark'): Promise<string> => {
+const getCodeHtml = async (
+  code: string,
+  theme: Theme = 'dark',
+  themes: Themes
+): Promise<string> => {
   const cachedHighlighter: Highlighter = await createHighlighter({
     themes: [themes.light, themes.dark],
     langs: ['js', 'ts', 'jsx', 'tsx', 'json', 'html', 'css'],
@@ -33,18 +31,18 @@ const getCodeHtml = async (code: string, theme: Theme = 'dark'): Promise<string>
   return html;
 };
 
-const CodeHighlight = ({ rawCode, className }: CodeHighlightProps) => {
+const CodeHighlight = ({ rawCode, className, themes = defaultThemes }: CodeHighlightProps) => {
   const { resolvedTheme } = useTheme();
   const [highlighted, setHighlighted] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
-    getCodeHtml(rawCode.trim(), resolvedTheme === 'light' ? 'light' : 'dark').then(html => {
+    getCodeHtml(rawCode.trim(), resolvedTheme === 'light' ? 'light' : 'dark', themes).then(html => {
       setHighlighted(html);
       setIsLoading(false);
     });
-  }, [rawCode, resolvedTheme]);
+  }, [rawCode, resolvedTheme, themes]);
 
   return (
     <div
