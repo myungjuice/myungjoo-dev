@@ -20,7 +20,7 @@ const LanguageToggle = () => {
     setLang: state.setLang,
   }));
 
-  const { i18n, t } = useTranslation('header');
+  const { i18n } = useTranslation('header');
 
   const handleToggleLanguage = () => {
     const newLang = i18n.language === 'ko' ? 'en' : 'ko';
