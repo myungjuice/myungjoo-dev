@@ -4,10 +4,12 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { createHighlighter, type Highlighter } from 'shiki';
 
+import Spinner from '@/components/ui/spinner';
 import { cn } from '@/lib/utils';
 
 type CodeHighlightProps = {
   rawCode: string;
+  className?: string;
 };
 
 type Theme = 'dark' | 'light';
@@ -31,7 +33,7 @@ const getCodeHtml = async (code: string, theme: Theme = 'dark'): Promise<string>
   return html;
 };
 
-const CodeHighlight = ({ rawCode }: CodeHighlightProps) => {
+const CodeHighlight = ({ rawCode, className }: CodeHighlightProps) => {
   const { resolvedTheme } = useTheme();
   const [highlighted, setHighlighted] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
@@ -52,8 +54,8 @@ const CodeHighlight = ({ rawCode }: CodeHighlightProps) => {
       )}
     >
       {isLoading ? (
-        <div className='flex h-96 w-96 items-center justify-center'>
-          <div className='h-5 w-5 animate-spin rounded-full border-2 border-gray-400 border-t-transparent dark:border-gray-600 dark:border-t-transparent' />
+        <div className={cn('flex h-32 w-32 items-center justify-center', className)}>
+          <Spinner />
         </div>
       ) : (
         <div

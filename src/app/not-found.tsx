@@ -51,7 +51,7 @@ export default NotFound;
           priority
           className='absolute -top-30'
         />
-        <CodeHighlight rawCode={rawCode} />
+        <CodeHighlight rawCode={rawCode} className='h-80 w-96' />
       </div>
       <Button variant='destructive' onClick={() => router.push('/')}>
         {t('back_home')}
