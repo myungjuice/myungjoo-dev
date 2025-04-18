@@ -1,0 +1,22 @@
+{
+  "ko": {
+    "game_win": "잘 했어요!",
+    "game_over": "게임 오버!",
+    "game_button": "다시 하기",
+    "control_text_01": "키보드를 사용하세요",
+    "control_text_02": "방향키로 조작",
+    "food": "남은 음식",
+    "start_button": "게임 시작",
+    "focus": "포커스 벗어남!"
+  },
+  "en": {
+    "game_win": "WELL DONE!",
+    "game_over": "GAME OVER!",
+    "game_button": "Play again",
+    "control_text_01": "use keyboard",
+    "control_text_02": "arrows to play",
+    "food": "food left",
+    "start_button": "Play game",
+    "focus": "Focus lost!"
+  }
+}

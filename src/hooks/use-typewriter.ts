@@ -15,8 +15,8 @@ export const useTypewriter = ({
   lines,
   speed = 100,
   isLoop = false,
-  deleteSpeed = 100,
-  pauseDelay = 2000,
+  deleteSpeed = 50,
+  pauseDelay = 3000,
   onComplete,
 }: Props) => {
   const [typedTexts, setTypedTexts] = useState<string[]>(Array(lines.length).fill(''));
