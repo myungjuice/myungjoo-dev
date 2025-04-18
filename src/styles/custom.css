@@ -30,3 +30,17 @@ pre.shiki .line::before {
   font-variant-numeric: tabular-nums;
   opacity: 0.6;
 }
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
