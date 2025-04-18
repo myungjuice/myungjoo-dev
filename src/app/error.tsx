@@ -1,33 +1,63 @@
+/* eslint-disable no-console */
 'use client';
 
-import { useEffect } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiAlertTriangle } from 'react-icons/fi';
 
+import CodeHighlight from '@/components/shared/code-highlight';
 import { Button } from '@/components/ui/button';
 
-type ErrorProps = {
-  error: Error;
-  reset: () => void;
-};
-
-const GlobalError = ({ error, reset }: ErrorProps) => {
+const ErrorPage = () => {
+  const router = useRouter();
   const { t } = useTranslation('error');
 
+  const rawCode = useMemo(
+    () => `
+'use client';
+
+import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
+
+const Error = () => {
   useEffect(() => {
-    console.error('🚨 Error caught by error boundary:', error);
-  }, [error]);
+    console.log("${t('console_01')}");
+    console.log("${t('console_02')}");
+    redirect('/');
+  }, []);
+
+  return null;
+};
+
+export default Error;
+`,
+    [t]
+  );
+
+  useEffect(() => {
+    console.log(t('console_01'));
+    console.log(t('console_02'));
+  }, [t]);
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center px-6 text-center'>
-      <FiAlertTriangle className='mb-4 h-20 w-20 text-destructive' />
-      <h1 className='text-3xl font-bold tracking-tight'>{t('title')}</h1>
-      <p className='mt-2 text-muted-foreground'>{t('description')}</p>
-      <Button variant='outline' className='mt-6' onClick={() => reset()}>
-        {t('buttonText')}
+    <div className='flex min-h-[calc(100vh-80px-114px)] flex-col items-center justify-center gap-10 px-4 py-10'>
+      <div className='relative flex h-full w-full flex-col items-center justify-center pt-40 text-sm'>
+        <Image
+          src='/images/error.png'
+          alt='404'
+          width={304}
+          height={165}
+          priority
+          className='absolute -top-20'
+        />
+        <CodeHighlight rawCode={rawCode} />
+      </div>
+      <Button variant='destructive' onClick={() => router.push('/')}>
+        {t('back_home')}
       </Button>
     </div>
   );
 };
 
-export default GlobalError;
+export default ErrorPage;

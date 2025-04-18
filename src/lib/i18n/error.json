@@ -1,12 +1,12 @@
 {
   "ko": {
-    "title": "오류가 발생했어요",
-    "description": "문제가 발생했습니다. 나중에 다시 시도해주세요.",
-    "buttonText": "다시 시도하기"
+    "console_01": "앗! 무언가 잘못됐어요. 😢",
+    "console_02": "홈페이지로 돌아가서 다시 시도해 주세요.",
+    "back_home": "홈으로 돌아가기"
   },
   "en": {
-    "title": "Error",
-    "description": "An error occurred while processing your request.",
-    "buttonText": "Try Again"
+    "console_01": "Oops! Something went wrong. 😢",
+    "console_02": "Please go back to the homepage and try again.",
+    "back_home": "Back to home"
   }
 }
