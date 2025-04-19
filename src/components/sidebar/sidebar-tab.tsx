@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { aboutPageData } from '@/constants/about';
+import { cn } from '@/lib/utils';
 import { useAboutPageStore } from '@/store/use-about-page-store';
 import type { AboutTabKey } from '@/types/about';
 
@@ -11,17 +12,26 @@ const SidebarTab = () => {
     setTab: state.setTab,
   }));
 
+  const handleTabClick = (key: string) => () => {
+    setTab(key as AboutTabKey);
+  };
+
   return (
     <div className='hidden flex-col gap-2 border-r border-slate-400 px-2 py-4 lg:flex dark:border-slate-700'>
       {tabEntries.map(([key, value]) => (
         <Button
-          variant={selectedTab === key ? 'outline' : 'ghost'}
+          variant='ghost'
           size='lg'
           className='w-full'
           key={key}
-          onClick={() => setTab(key as AboutTabKey)}
+          onClick={handleTabClick(key)}
         >
-          <value.icon className='size-6 text-slate-700 dark:text-slate-400' />
+          <value.icon
+            className={cn(
+              'size-6 text-slate-400 dark:text-slate-400',
+              selectedTab === key && 'text-slate-900 dark:text-slate-100'
+            )}
+          />
         </Button>
       ))}
     </div>

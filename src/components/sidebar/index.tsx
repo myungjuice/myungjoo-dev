@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Sidebar = ({ children }: Props) => (
-  <aside className='flex h-full w-[300px] border-slate-400 lg:border-r dark:border-slate-700'>
+  <aside className='flex h-full w-full border-slate-400 lg:w-[300px] lg:border-r dark:border-slate-700'>
     {children}
   </aside>
 );

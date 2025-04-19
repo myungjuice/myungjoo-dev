@@ -2,7 +2,12 @@
 
 import SectionTitle from '@/components/shared/section-title';
 import Sidebar from '@/components/sidebar';
+import { navLinks } from '@/constants/header';
 import { useAboutPageStore } from '@/store/use-about-page-store';
+
+import SidebarContent from './_components/sidebar-content';
+
+const pageTitle = navLinks.find(item => item.href === '/about')?.label || '_about-me';
 
 const About = () => {
   const { selectedTab, selectedMenu, setTab } = useAboutPageStore(state => ({
@@ -19,8 +24,8 @@ const About = () => {
     <div className='flex flex-col lg:h-full lg:flex-row'>
       <Sidebar>
         <Sidebar.Tab />
-        <Sidebar.Content pageTitle='_about-me' title={selectedTab}>
-          SidebarContent
+        <Sidebar.Content pageTitle={pageTitle}>
+          <SidebarContent />
         </Sidebar.Content>
       </Sidebar>
 
