@@ -18,9 +18,11 @@ const initialSnake = [
   { x: 10, y: 22 },
 ];
 
+const initialFood = { x: 10, y: 5 };
+
 export const useCanvasSnakeGame = (canvasRef: RefObject<HTMLCanvasElement | null>) => {
   const [snake, setSnake] = useState<Position[]>(initialSnake);
-  const [food, setFood] = useState<Position>({ x: 10, y: 5 });
+  const [food, setFood] = useState<Position>(initialFood);
   const [score, setScore] = useState(0);
   const [gameStatus, setGameStatus] = useState<GameStatus>('ready');
 
@@ -119,27 +121,16 @@ export const useCanvasSnakeGame = (canvasRef: RefObject<HTMLCanvasElement | null
     });
   }, [food, score]);
 
-  useEffect(() => {
-    loopRef.current = (time: number) => {
-      if (gameStatusRef.current !== 'playing') return;
-
-      const delta = time - lastTimeRef.current;
-      if (delta > snakeSpeed) {
-        move();
-        lastTimeRef.current = time;
-      }
-
-      draw();
-      frameRef.current = requestAnimationFrame(loopRef.current);
-    };
-  }, [move, draw]);
-
-  const initGame = useCallback(() => {
+  const clearGame = (nextGameStatus: GameStatus) => {
     setSnake(initialSnake);
-    setFood(generateFood(initialSnake));
+    setFood(initialFood);
     setScore(0);
-    setGameStatus('playing');
-    gameStatusRef.current = 'playing';
+    setGameStatus(nextGameStatus);
+    gameStatusRef.current = nextGameStatus;
+  };
+
+  const startGame = useCallback(() => {
+    clearGame('playing');
     directionRef.current = 'up';
     lastTimeRef.current = performance.now();
 
@@ -150,10 +141,9 @@ export const useCanvasSnakeGame = (canvasRef: RefObject<HTMLCanvasElement | null
     }, 50);
   }, [draw]);
 
-  const handleRestart = useCallback(() => {
-    setGameStatus('ready');
-    gameStatusRef.current = 'ready';
-  }, []);
+  const restartGame = () => {
+    clearGame('ready');
+  };
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     switch (e.key) {
@@ -172,6 +162,21 @@ export const useCanvasSnakeGame = (canvasRef: RefObject<HTMLCanvasElement | null
     }
   }, []);
 
+  useEffect(() => {
+    loopRef.current = (time: number) => {
+      if (gameStatusRef.current !== 'playing') return;
+
+      const delta = time - lastTimeRef.current;
+      if (delta > snakeSpeed) {
+        move();
+        lastTimeRef.current = time;
+      }
+
+      draw();
+      frameRef.current = requestAnimationFrame(loopRef.current);
+    };
+  }, [move, draw]);
+
   useEffect(
     () => () => {
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
@@ -180,9 +185,9 @@ export const useCanvasSnakeGame = (canvasRef: RefObject<HTMLCanvasElement | null
   );
 
   return {
-    initGame,
+    startGame,
+    restartGame,
     handleKeyDown,
-    handleRestart,
     draw,
     score,
     gameStatus,

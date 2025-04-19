@@ -7,10 +7,11 @@ import { cn } from '@/lib/utils';
 
 interface Props {
   status: 'win' | 'fail';
+  onStart: () => void;
   onRestart: () => void;
 }
 
-const GameOverOverlay = ({ status, onRestart }: Props) => {
+const GameOverOverlay = ({ status, onStart, onRestart }: Props) => {
   const { t } = useTranslation('snake');
 
   return (
@@ -25,10 +26,17 @@ const GameOverOverlay = ({ status, onRestart }: Props) => {
       <div className='h-12'>
         <Button
           variant='ghost'
-          onClick={onRestart}
+          onClick={onStart}
           className='h-full w-full font-bold text-slate-800 hover:bg-slate-100 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white'
         >
           {t('game_button')}
+        </Button>
+        <Button
+          variant='ghost'
+          onClick={onRestart}
+          className='h-full w-full font-bold text-slate-800 hover:bg-slate-100 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white'
+        >
+          {t('game_reset_button')}
         </Button>
       </div>
     </div>

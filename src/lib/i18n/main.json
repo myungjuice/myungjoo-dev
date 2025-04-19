@@ -1,13 +1,13 @@
 {
   "ko": {
-    "console_01": "게임을 완료하면 계속 진행할 수 있어요.",
+    "console_01": "배고픈 뱀에게 맛있는 간식을 주세요😋",
     "console_02": "GitHub에서 제 프로젝트를 확인해보세요:",
     "text_01": "안녕하세요. 저는",
     "name": "장명주",
     "text_02": "프론트엔드 개발자"
   },
   "en": {
-    "console_01": "complete the game to continue",
+    "console_01": "Give the hungry snake a tasty treat 😋",
     "console_02": "find my project on Github:",
     "text_01": "Hi all. I am",
     "name": "MyungJoo Jang",

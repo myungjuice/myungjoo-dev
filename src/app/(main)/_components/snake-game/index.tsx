@@ -21,12 +21,13 @@ const SnakeGame = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const snakeContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const { score, gameStatus, initGame, handleKeyDown, draw } = useCanvasSnakeGame(canvasRef);
+  const { score, gameStatus, startGame, restartGame, handleKeyDown, draw } =
+    useCanvasSnakeGame(canvasRef);
 
   const handleStart = () => {
     if (snakeContainerRef.current) snakeContainerRef.current.focus();
 
-    initGame();
+    startGame();
   };
 
   useEffect(() => {
@@ -82,7 +83,8 @@ const SnakeGame = () => {
 
         {gameStatus !== 'ready' && gameStatus !== 'playing' && (
           <GameOverOverlay
-            onRestart={handleStart}
+            onStart={handleStart}
+            onRestart={restartGame}
             status={gameStatus === 'over' ? 'fail' : 'win'}
           />
         )}
