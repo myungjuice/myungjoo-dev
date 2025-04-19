@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import CodeHighlight from '@/components/shared/code-highlight';
+import FadeInUp from '@/components/shared/fade-in-up';
 import Typewriter from '@/components/shared/typewriter';
 
 import SnakeGame from './_components/snake-game';
@@ -62,14 +63,20 @@ export default Hello;
   return (
     <div className='flex h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-10'>
       <div className='h-[110px] sm:h-[139px]'>
-        <Typewriter lines={lines} isLoop />
+        <FadeInUp>
+          <Typewriter lines={lines} isLoop />
+        </FadeInUp>
       </div>
       <div className='flex w-full items-center justify-center gap-5 xl:flex-row'>
         <div className='w-full sm:w-fit'>
-          <CodeHighlight rawCode={rawCode} className='h-80 w-full sm:w-[548px]' />
+          <FadeInUp>
+            <CodeHighlight rawCode={rawCode} className='h-80 w-full sm:w-[548px]' />
+          </FadeInUp>
         </div>
         <div className='hidden items-center justify-center xl:flex'>
-          <SnakeGame />
+          <FadeInUp>
+            <SnakeGame />
+          </FadeInUp>
         </div>
       </div>
     </div>
