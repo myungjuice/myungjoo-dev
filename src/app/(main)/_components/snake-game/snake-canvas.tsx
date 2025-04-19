@@ -11,7 +11,7 @@ const SnakeCanvas = ({ canvasRef }: Props) => (
     <canvas
       ref={canvasRef}
       width={240}
-      height={360}
+      height={410}
       className='rounded-lg bg-slate-200 shadow-inner shadow-black dark:bg-slate-800'
     />
   </div>

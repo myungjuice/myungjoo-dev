@@ -51,7 +51,7 @@ export default Error;
           priority
           className='absolute -top-20'
         />
-        <CodeHighlight rawCode={rawCode} className='h-80 w-96' />
+        <CodeHighlight rawCode={rawCode} loadingClassName='h-80 w-96' />
       </div>
       <Button variant='destructive' onClick={() => router.push('/')}>
         {t('back_home')}

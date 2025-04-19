@@ -1,6 +1,7 @@
 import i18next, { use as i18nextUse } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import about from './about';
 import error from './error.json';
 import header from './header.json';
 import main from './main.json';
@@ -11,7 +12,7 @@ i18nextUse.call(i18next, initReactI18next).init({
   fallbackLng: 'ko',
   supportedLngs: ['ko', 'en'],
   lng: 'ko',
-  ns: ['main', 'not-found', 'error', 'header', 'snake'],
+  ns: ['main', 'not-found', 'error', 'header', 'snake', 'about'],
   defaultNS: 'main',
   interpolation: {
     escapeValue: false,
@@ -23,6 +24,7 @@ i18nextUse.call(i18next, initReactI18next).init({
       main: main.ko,
       'not-found': notFound.ko,
       snake: snake.ko,
+      about: about.ko,
     },
     en: {
       error: error.en,
@@ -30,6 +32,7 @@ i18nextUse.call(i18next, initReactI18next).init({
       main: main.en,
       'not-found': notFound.en,
       snake: snake.en,
+      about: about.en,
     },
   },
 });

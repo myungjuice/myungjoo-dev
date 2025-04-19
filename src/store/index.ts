@@ -12,7 +12,7 @@ export const createStore = <T extends object>(
     enabled: process.env.NEXT_PUBLIC_ENV === 'development',
   });
 
-  const enhanced = withPersist ? persist(base, { name: storeName, skipHydration: true }) : base;
+  const enhanced = withPersist ? persist(base, { name: storeName, skipHydration: false }) : base;
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

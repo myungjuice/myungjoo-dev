@@ -7,7 +7,7 @@ type Direction = 'up' | 'down' | 'left' | 'right';
 type GameStatus = 'ready' | 'playing' | 'win' | 'over';
 
 const cellSize = 10;
-const rows = 36;
+const rows = 41;
 const cols = 24;
 const winScore = 10;
 const snakeSpeed = 75;

@@ -34,7 +34,7 @@ const footerLinks: FooterLink[] = [
 ];
 
 const Footer = () => (
-  <footer className='w-full rounded-b-lg border-t border-slate-400 text-slate-500 sm:h-14 dark:border-slate-700 dark:text-slate-400'>
+  <footer className='min-h-14 w-full rounded-b-lg border-t border-slate-400 text-slate-500 dark:border-slate-700 dark:text-slate-400'>
     <div className='flex h-full flex-col items-center sm:flex-row'>
       {footerLinks.map(({ label, href, icon: Icon }, idx) => (
         <a
