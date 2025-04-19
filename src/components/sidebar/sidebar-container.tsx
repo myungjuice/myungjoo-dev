@@ -1,13 +1,12 @@
-import { type ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 import { useAboutPageStore } from '@/store/use-about-page-store';
 
 type Props = {
   pageTitle: string;
-  children: ReactNode;
 };
 
-const SidebarContent = ({ pageTitle, children }: Props) => {
+const SidebarContent = ({ pageTitle, children }: PropsWithChildren<Props>) => {
   const { selectedTab } = useAboutPageStore(state => ({
     selectedTab: state.selectedTab,
     setMenu: state.setMenu,

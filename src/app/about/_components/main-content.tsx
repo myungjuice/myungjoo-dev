@@ -15,7 +15,7 @@ const MainContent = () => {
   );
 
   return (
-    <div className='flex-1 p-6'>
+    <div className='flex-2 p-6'>
       <p>{contents}</p>
     </div>
   );

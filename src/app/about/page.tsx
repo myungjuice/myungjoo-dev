@@ -5,6 +5,7 @@ import Sidebar from '@/components/sidebar';
 import { navLinks } from '@/constants/header';
 import { useAboutPageStore } from '@/store/use-about-page-store';
 
+import Divider from './_components/divider';
 import MainContent from './_components/main-content';
 import SideContent from './_components/side-content';
 import SidebarContent from './_components/sidebar-content';
@@ -27,12 +28,11 @@ const About = () => {
 
       <div className='flex h-full flex-1 flex-col'>
         <SectionTitle text={selectedMenu} />
-        <div className='flex h-full flex-col lg:flex-row'>
+        <div className='flex h-full flex-col 2xl:flex-row'>
           <MainContent />
-          <div className='hidden h-full w-10 justify-center border-r border-l border-slate-400 py-4 lg:flex dark:border-slate-700'>
-            <div className='h-2 w-6 bg-slate-500' />
-          </div>
+          <Divider />
           <SideContent />
+          <Divider />
         </div>
       </div>
     </div>
