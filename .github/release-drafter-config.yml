@@ -33,7 +33,6 @@ version-resolver:
   default: 'patch'
 template: |
   ## $RESOLVED_VERSION
-  put in release summary
 
   ### Highlights
 
