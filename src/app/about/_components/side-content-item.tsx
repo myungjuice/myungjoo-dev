@@ -34,7 +34,7 @@ const SideContentItem = ({ username, createdAt, comments, stars, rawCode }: Prop
           <div className='flex flex-col gap-1 text-body-sm leading-tight'>
             <span className='font-bold text-indigo-500'>@{username}</span>
             <span className='text-slate-500 dark:text-slate-400'>
-              {language === 'ko' ? `${createdAt} 전에 생성 됨` : `Created ${createdAt} days ago`}
+              {language === 'ko' ? `${createdAt}일 전에 생성 됨` : `Created ${createdAt} days ago`}
             </span>
           </div>
         </div>
