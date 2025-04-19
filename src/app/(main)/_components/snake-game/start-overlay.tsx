@@ -16,7 +16,7 @@ const StartOverlay = ({ onStart }: Props) => {
     <div className='absolute bottom-20 z-[3] w-60 transform text-center'>
       <Button
         onClick={onStart}
-        className='cursor-pointer rounded-lg border bg-[#FEA55F] px-4 py-2 text-body-sm text-black hover:bg-[#ffb277]'
+        className='cursor-pointer rounded-lg border !bg-[#FEA55F] px-4 py-2 text-body-sm text-black hover:!bg-[#ffb277] hover:text-black'
       >
         {t('start_button')}
       </Button>

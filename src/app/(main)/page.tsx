@@ -70,7 +70,7 @@ export default Hello;
       <div className='flex w-full items-center justify-center gap-5 xl:flex-row'>
         <div className='w-full sm:w-fit'>
           <FadeInUp>
-            <CodeHighlight rawCode={rawCode} className='h-80 w-full sm:w-[548px]' />
+            <CodeHighlight rawCode={rawCode} loadingClassName='w-full sm:w-[548px]' />
           </FadeInUp>
         </div>
         <div className='hidden items-center justify-center xl:flex'>

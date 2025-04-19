@@ -27,11 +27,11 @@ const SideContentItem = ({ username, createdAt, comments, stars, rawCode }: Prop
         </div>
         <div className='flex flex-col gap-1 text-body-sm leading-tight'>
           <span className='font-bold text-indigo-500'>@{username}</span>
-          <span className='text-slate-800 dark:text-slate-400'>Created {createdAt}</span>
+          <span className='text-slate-500 dark:text-slate-400'>Created {createdAt}</span>
         </div>
       </div>
 
-      <div className='flex items-center gap-4 text-body-sm text-slate-800 dark:text-slate-400'>
+      <div className='flex items-center gap-4 text-body-sm text-slate-500 dark:text-slate-400'>
         <div className='flex items-center gap-1'>
           <FaRegCommentDots className='size-3' />
           <span>{comments}</span>

@@ -31,7 +31,12 @@ const getCodeHtml = async (
   return html;
 };
 
-const CodeHighlight = ({ rawCode, className, themes = defaultThemes }: CodeHighlightProps) => {
+const CodeHighlight = ({
+  rawCode,
+  themes = defaultThemes,
+  className,
+  loadingClassName,
+}: CodeHighlightProps) => {
   const { resolvedTheme } = useTheme();
   const [highlighted, setHighlighted] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
@@ -48,16 +53,17 @@ const CodeHighlight = ({ rawCode, className, themes = defaultThemes }: CodeHighl
     <div
       className={cn(
         'w-full overflow-x-hidden rounded-lg py-6 shadow-lg sm:w-auto',
-        !isLoading && 'overflow-x-auto bg-slate-050 py-6 sm:pr-6 sm:pl-2 dark:bg-slate-950'
+        !isLoading && 'overflow-x-auto bg-white py-6 sm:pr-6 sm:pl-2 dark:bg-slate-950',
+        className
       )}
     >
       {isLoading ? (
-        <div className={cn('flex h-32 w-32 items-center justify-center', className)}>
+        <div className={cn('flex h-32 w-32 items-center justify-center', loadingClassName)}>
           <Spinner />
         </div>
       ) : (
         <div
-          className='max-w-none font-fira text-[12px] leading-[1.4]'
+          className='max-w-none text-body-sm'
           dangerouslySetInnerHTML={{ __html: highlighted }}
         />
       )}

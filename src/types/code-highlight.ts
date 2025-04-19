@@ -9,7 +9,6 @@ export type ShikiDarkTheme =
   | 'material-theme-darker'
   | 'min-dark'
   | 'monokai'
-  | 'monokai-pro'
   | 'night-owl'
   | 'nord'
   | 'one-dark-pro'
@@ -21,11 +20,9 @@ export type ShikiDarkTheme =
   | 'solarized-dark'
   | 'tokyo-night'
   | 'vitesse-black'
-  | 'vitesse-dark'
-  | 'z-touch';
+  | 'vitesse-dark';
 
 export type ShikiLightTheme =
-  | 'css-variables'
   | 'github-light'
   | 'github-light-default'
   | 'github-light-high-contrast'
@@ -37,8 +34,6 @@ export type ShikiLightTheme =
   | 'quietlight'
   | 'rose-pine-dawn'
   | 'solarized-light'
-  | 'tokyo-night-day'
-  | 'tokyo-night-light'
   | 'vitesse-light';
 
 export type Theme = 'dark' | 'light';
@@ -50,6 +45,7 @@ export type Themes = {
 
 export type CodeHighlightProps = {
   rawCode: string;
-  className?: string;
   themes?: Themes;
+  className?: string;
+  loadingClassName?: string;
 };
