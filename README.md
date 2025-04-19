@@ -12,11 +12,12 @@
   <img src="https://zustand-demo.pmnd.rs/favicon.ico" alt="Zustand Logo" width="32" />
   &nbsp;
   <img src="https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png" alt="TypeScript Logo" width="32" />
-    &nbsp;
+  &nbsp;
   <img src="https://jestjs.io/img/favicon/favicon.ico" alt="Jest Logo" width="32" />
   &nbsp;
   <img src="https://testing-library.com/img/octopus-128x128.png" alt="Testing Library Logo" width="32" />
-
+  &nbsp;
+  <img src="https://assets.vercel.com/image/upload/q_auto/front/favicon/vercel/favicon.ico" alt="Vercel Logo" width="32" />
 </p>
 
 <p align="center">
@@ -30,7 +31,7 @@
   <img alt="ESLint" src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white" />
   <img alt="Jest" src="https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white" />
   <img alt="Testing Library" src="https://img.shields.io/badge/Testing Library-E33332?style=flat-square&logo=testinglibrary&logoColor=white" />
-
+  <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" />
 </p>
 
 ---
@@ -48,5 +49,10 @@
 | 코드 포맷터   | [Prettier](https://prettier.io)                                           |
 | 린터          | [ESLint](https://eslint.org)                                              |
 | 테스트 도구   | [Jest](https://jestjs.io), [Testing Library](https://testing-library.com) |
+| 배포          | [Vercel](https://vercel.com)                                              |
 
 ---
+
+## ✨ Main Preview
+
+![MJ's Portfolio Main Screenshot](public/images/readme_main.gif)
