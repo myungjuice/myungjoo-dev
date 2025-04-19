@@ -34,7 +34,7 @@
   <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" />
 </p>
 
----
+![MJ's Portfolio Main Screenshot](public/images/readme_main.gif)
 
 ## 🧰 사용 기술 스택
 
@@ -52,7 +52,3 @@
 | 배포          | [Vercel](https://vercel.com)                                              |
 
 ---
-
-## ✨ Main Preview
-
-![MJ's Portfolio Main Screenshot](public/images/readme_main.gif)
