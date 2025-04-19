@@ -16,15 +16,21 @@ import MenuItem from './menu-item';
 const tabs = Object.keys(aboutPageData);
 
 const SidebarContent = () => {
-  const { selectedTab, selectedMenu, setMenu } = useAboutPageStore(state => ({
+  const { selectedTab, selectedMenu, setTab, setMenu } = useAboutPageStore(state => ({
     selectedTab: state.selectedTab,
     selectedMenu: state.selectedMenu,
+    setTab: state.setTab,
     setMenu: state.setMenu,
   }));
 
   const menus = useMemo(() => Object.keys(aboutPageData[selectedTab].menu), [selectedTab]);
 
   const handleMenuClick = (menu: string) => () => {
+    const newTab = tabs.find(tab =>
+      Object.keys(aboutPageData[tab as AboutTabKey].menu).includes(menu)
+    );
+
+    if (newTab && newTab !== selectedTab) setTab(newTab as AboutTabKey);
     setMenu(menu as Menu);
   };
 
