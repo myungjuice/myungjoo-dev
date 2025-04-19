@@ -1,13 +1,19 @@
 import { useMemo } from 'react';
-import { FaFolder } from 'react-icons/fa';
-import { HiChevronRight } from 'react-icons/hi';
 
-import { Button } from '@/components/ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { aboutPageData } from '@/constants/about';
 import { folderColors } from '@/constants/folder-colors';
-import { cn } from '@/lib/utils';
 import { useAboutPageStore } from '@/store/use-about-page-store';
-import { type Menu } from '@/types/about';
+import type { Menu, AboutTabKey } from '@/types/about';
+
+import MenuItem from './menu-item';
+
+const tabs = Object.keys(aboutPageData);
 
 const SidebarContent = () => {
   const { selectedTab, selectedMenu, setMenu } = useAboutPageStore(state => ({
@@ -23,31 +29,46 @@ const SidebarContent = () => {
   };
 
   return (
-    <div>
-      {menus.map((menu, idx) => (
-        <Button
-          key={menu}
-          variant={selectedMenu === menu ? 'outline' : 'ghost'}
-          className='w-full justify-start rounded-none px-0 py-5'
-          onClick={handleMenuClick(menu)}
-        >
-          <div className={cn('flex items-center gap-2 px-6 py-2')}>
-            <HiChevronRight size={20} className={cn(selectedMenu === menu && 'rotate-90')} />
-            <div className='flex items-center gap-1.5'>
-              <FaFolder size={20} className={folderColors[idx]} />
-              <span
-                className={cn(
-                  'text-body-md text-slate-500 dark:text-slate-400',
-                  selectedMenu === menu && 'text-slate-900 dark:text-slate-100'
-                )}
-              >
-                {menu}
-              </span>
-            </div>
-          </div>
-        </Button>
-      ))}
-    </div>
+    <>
+      <div className='block px-6 lg:hidden'>
+        <Accordion type='single' collapsible className='flex w-full flex-col gap-1 sm:flex-row'>
+          {tabs.map(tab => {
+            const tabMenus = Object.keys(aboutPageData[tab as AboutTabKey].menu);
+
+            return (
+              <AccordionItem key={tab} value={tab} className='flex-1'>
+                <AccordionTrigger className='rounded-none bg-gray-300 px-4 dark:bg-slate-700'>
+                  {tab}
+                </AccordionTrigger>
+                <AccordionContent className='border border-gray-300 pb-0 dark:border-slate-700'>
+                  {tabMenus.map((menu, idx) => (
+                    <MenuItem
+                      key={menu}
+                      menu={menu as Menu}
+                      selectedMenu={selectedMenu}
+                      folderColor={folderColors[idx]}
+                      onMenuClick={handleMenuClick}
+                    />
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      </div>
+
+      <div className='hidden lg:block'>
+        {menus.map((menu, idx) => (
+          <MenuItem
+            key={menu}
+            menu={menu as Menu}
+            selectedMenu={selectedMenu}
+            folderColor={folderColors[idx]}
+            onMenuClick={handleMenuClick}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
