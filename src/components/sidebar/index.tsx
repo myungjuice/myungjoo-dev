@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import SidebarContent from './sidebar-content';
+import SidebarContainer from './sidebar-container';
 import SidebarTab from './sidebar-tab';
 
 type Props = {
@@ -14,6 +14,6 @@ const Sidebar = ({ children }: Props) => (
 );
 
 Sidebar.Tab = SidebarTab;
-Sidebar.Content = SidebarContent;
+Sidebar.Container = SidebarContainer;
 
 export default Sidebar;
