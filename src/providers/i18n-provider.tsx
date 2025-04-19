@@ -1,17 +1,13 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect, type PropsWithChildren } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
 import useMounted from '@/hooks/use-mounted';
 import i18n from '@/lib/i18n/client';
 import { useLangStore } from '@/store/use-lang-store';
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const I18nProvider = ({ children }: Props) => {
+const I18nProvider = ({ children }: PropsWithChildren) => {
   const mounted = useMounted();
 
   const lang = useLangStore(state => state.lang);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import React from 'react';
+import { type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import { TbSunMoon } from 'react-icons/tb';
@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils';
 
 type Theme = 'light' | 'dark' | 'system';
 
-const themes: Record<Theme, React.ReactNode> = {
+const themes: Record<Theme, ReactNode> = {
   light: <FiSun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
   dark: <FiMoon className='h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:rotate-0' />,
   system: <TbSunMoon className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Fira_Code } from 'next/font/google';
-import React from 'react';
+import { type PropsWithChildren } from 'react';
 
 import Layout from '@/components/layout';
 import Providers from '@/providers';
@@ -19,11 +19,7 @@ export const metadata: Metadata = {
   description: 'Introduce myself',
 };
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => (
+const RootLayout = ({ children }: Readonly<PropsWithChildren>) => (
   <html lang='en'>
     <body className={`${firaCode.variable} antialiased`}>
       <Providers>
