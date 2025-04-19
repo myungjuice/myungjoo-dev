@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import { aboutTabKoMap } from '@/constants/about';
 import { useAboutPageStore } from '@/store/use-about-page-store';
 
 type Props = {
@@ -12,6 +14,10 @@ const SidebarContent = ({ pageTitle, children }: PropsWithChildren<Props>) => {
     setMenu: state.setMenu,
   }));
 
+  const {
+    i18n: { language },
+  } = useTranslation();
+
   return (
     <div className='flex w-full flex-col'>
       <div className='p-6 lg:hidden'>
@@ -21,7 +27,7 @@ const SidebarContent = ({ pageTitle, children }: PropsWithChildren<Props>) => {
       </div>
       <div className='hidden h-14 w-full items-center justify-center gap-2 border-b border-slate-400 lg:flex dark:border-slate-700'>
         <h2 className='hidden text-body-md text-slate-600 lg:inline dark:text-slate-050'>
-          {selectedTab}
+          {language === 'ko' ? aboutTabKoMap[selectedTab] : selectedTab}
         </h2>
       </div>
 

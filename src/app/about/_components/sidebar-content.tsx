@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Accordion,
@@ -6,13 +7,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { aboutPageData } from '@/constants/about';
+import { aboutTabKoMap, getAboutPageData } from '@/constants/about';
 import { folderColors } from '@/constants/folder-colors';
 import { useAboutPageStore } from '@/store/use-about-page-store';
 import type { Menu, AboutTabKey } from '@/types/about';
 
 import MenuItem from './menu-item';
 
+const aboutPageData = getAboutPageData();
 const tabs = Object.keys(aboutPageData);
 
 const SidebarContent = () => {
@@ -24,6 +26,10 @@ const SidebarContent = () => {
   }));
 
   const menus = useMemo(() => Object.keys(aboutPageData[selectedTab].menu), [selectedTab]);
+
+  const {
+    i18n: { language },
+  } = useTranslation();
 
   const handleMenuClick = (menu: string) => () => {
     const newTab = tabs.find(tab =>
@@ -44,7 +50,7 @@ const SidebarContent = () => {
             return (
               <AccordionItem key={tab} value={tab} className='flex-1'>
                 <AccordionTrigger className='rounded-none bg-gray-300 px-4 dark:bg-slate-700'>
-                  {tab}
+                  {language === 'ko' ? aboutTabKoMap[tab as AboutTabKey] : tab}
                 </AccordionTrigger>
                 <AccordionContent className='border border-gray-300 pb-0 dark:border-slate-700'>
                   {tabMenus.map((menu, idx) => (

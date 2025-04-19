@@ -14,11 +14,7 @@ const AccordionItem = ({
   className,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) => (
-  <AccordionPrimitive.Item
-    data-slot='accordion-item'
-    className={cn('border-b last:border-b-0', className)}
-    {...props}
-  />
+  <AccordionPrimitive.Item data-slot='accordion-item' className={className} {...props} />
 );
 
 const AccordionTrigger = ({

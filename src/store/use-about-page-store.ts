@@ -1,6 +1,6 @@
 import { useShallow } from 'zustand/react/shallow';
 
-import { initialTab, initialMenu, aboutPageData } from '@/constants/about';
+import { initialTab, initialMenu, getAboutPageData } from '@/constants/about';
 import type { AboutTabKey, Menu } from '@/types/about';
 
 import { createStore } from '.';
@@ -12,6 +12,8 @@ type AboutPageStore = {
   setMenu: (menu: Menu) => void;
   reset: () => void;
 };
+
+const aboutPageData = getAboutPageData();
 
 const initialState = {
   selectedTab: initialTab,

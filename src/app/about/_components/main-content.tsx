@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
 import CodeHighlight from '@/components/shared/code-highlight';
-import { aboutPageData } from '@/constants/about';
+import { getAboutPageData } from '@/constants/about';
 import { useAboutPageStore } from '@/store/use-about-page-store';
+import { useLangStore } from '@/store/use-lang-store';
 import type { Themes } from '@/types/code-highlight';
 
 const themes: Themes = {
@@ -11,14 +12,20 @@ const themes: Themes = {
 };
 
 const MainContent = () => {
+  const aboutPageData = getAboutPageData();
+
   const { selectedTab, selectedMenu } = useAboutPageStore(state => ({
     selectedTab: state.selectedTab,
     selectedMenu: state.selectedMenu,
   }));
 
+  useLangStore(state => ({
+    lang: state.lang,
+  }));
+
   const contents = useMemo(
     () => aboutPageData[selectedTab].menu[selectedMenu],
-    [selectedTab, selectedMenu]
+    [selectedTab, selectedMenu, aboutPageData]
   );
 
   return (

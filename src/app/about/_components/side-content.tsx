@@ -36,7 +36,7 @@ function formatDate(date: Date): string {
 
 const sideItems = Array.from({ length: rawCodeList.length }).map((_, i) => ({
   username: 'wkdaudwn11',
-  createdAt: `${Math.floor(Math.random() * 30) + 1} days ago`,
+  createdAt: Math.floor(Math.random() * 30) + 1,
   comments: Math.floor(Math.random() * 999),
   stars: Math.floor(Math.random() * 999),
   rawCode: rawCodeList[i],

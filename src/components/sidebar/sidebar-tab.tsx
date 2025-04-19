@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { aboutPageData } from '@/constants/about';
+import { getAboutPageData } from '@/constants/about';
 import { cn } from '@/lib/utils';
 import { useAboutPageStore } from '@/store/use-about-page-store';
 import type { AboutTabKey } from '@/types/about';
 
+const aboutPageData = getAboutPageData();
 const tabEntries = Object.entries(aboutPageData);
 
 const SidebarTab = () => {
