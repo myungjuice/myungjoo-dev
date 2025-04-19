@@ -5,7 +5,7 @@ type Props = {
 };
 
 const SectionTitle = ({ text }: Props) => (
-  <div className='flex h-12 items-center justify-between border-b border-slate-400 dark:border-slate-700'>
+  <div className='hidden h-12 items-center justify-between border-b border-slate-400 lg:flex dark:border-slate-700'>
     <div className='flex h-full w-60 items-center justify-between border-r border-slate-400 px-6 dark:border-slate-700'>
       <span className='slate-700 dark:slate-500 text-body-md'>{text}</span>
       <RxCross2 className='h-4 w-4 text-slate-500' />
