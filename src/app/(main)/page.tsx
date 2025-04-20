@@ -17,22 +17,35 @@ const MainPage = () => {
 
   const rawCode = useMemo(
     () => `
-'use client';
+import { FaGithub, FaEnvelope } from 'react-icons/fa';
 
-import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
-
-const Hello = () => {
-useEffect(() => {
-    console.log("${t('console_01')}");
-    console.log("${t('console_02')}");
-
-    const githubLink = "${process.env.NEXT_PUBLIC_GITHUB_URL}";
-    redirect(githubLink);
-}, []);
-
-return null;
-};
+const Hello = () => (
+  <div className="space-y-3 rounded-xl p-5 bg-gray-100 dark:bg-slate-900 shadow-md">
+    <h4 className="text-heading-h4">${t('title')}!</h4>
+    <p className="text-body-md flex items-center gap-2">
+      <FaGithub />
+      <span>${t('github')} 👉</span>
+      <a
+        href="${process.env.NEXT_PUBLIC_GITHUB_URL}"
+        className="underline underline-offset-4 hover:text-teal-500 transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Github
+      </a>
+    </p>
+    <p className="text-body-md flex items-center gap-2">
+      <FaEnvelope />
+      <span>${t('email')} 📨</span>
+      <a
+        href="mailto:wkdaudwn1028@gmail.com"
+        className="underline underline-offset-4 hover:text-green-600 transition-colors"
+      >
+        이메일 보내기
+      </a>
+    </p>
+  </div>
+);
 
 export default Hello;
 `,
@@ -68,7 +81,7 @@ export default Hello;
         </FadeInUp>
       </div>
       <div className='flex w-full items-center justify-center gap-5 xl:flex-row'>
-        <div className='w-full sm:w-fit'>
+        <div className='w-full lg:w-fit'>
           <FadeInUp>
             <CodeHighlight rawCode={rawCode} loadingClassName='w-full sm:w-[548px]' />
           </FadeInUp>
