@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import CodeHighlight from '@/components/shared/code-highlight';
+import FadeInUp from '@/components/shared/fade-in-up';
 import { getAboutPageData } from '@/constants/about';
 import { useAboutPageStore } from '@/store/use-about-page-store';
 import { useLangStore } from '@/store/use-lang-store';
@@ -30,11 +31,13 @@ const MainContent = () => {
 
   return (
     <div className='flex-2 p-6'>
-      <CodeHighlight
-        rawCode={contents || ''}
-        className='bg-transparent dark:bg-transparent'
-        themes={themes}
-      />
+      <FadeInUp>
+        <CodeHighlight
+          rawCode={contents || ''}
+          className='bg-transparent dark:bg-transparent'
+          themes={themes}
+        />
+      </FadeInUp>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import FadeInUp from '@/components/shared/fade-in-up';
-import SideContentItem from '@/components/shared/side-content/side-content-item';
+
+import SideContentItem from './side-content-item';
 
 const rawCodeList = [
   `
@@ -42,7 +43,7 @@ const sideItems = Array.from({ length: rawCodeList.length }).map((_, i) => ({
 }));
 
 const SideContent = () => (
-  <div className='flex-1 space-y-8 p-6'>
+  <div className='w-full flex-1 space-y-8 p-6 lg:sticky lg:top-28 lg:self-start'>
     {sideItems.map((item, idx) => (
       <FadeInUp key={item.createdAt + idx} delay={idx * 0.1}>
         <SideContentItem {...item} />
