@@ -76,7 +76,7 @@ export default Hello;
       {
         text: `> ${t('text_02')}`,
         as: 'p' as const,
-        className: 'text-heading-h5 sm:text-heading-h4 text-indigo-500',
+        className: 'text-heading-h5 sm:text-heading-h4 text-teal-500',
       },
     ],
     [t, language]
