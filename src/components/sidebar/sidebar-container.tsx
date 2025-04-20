@@ -6,7 +6,7 @@ type Props = {
 };
 
 const SidebarContent = ({ mobileTitle, desktopTitle, children }: PropsWithChildren<Props>) => (
-  <div className='flex w-full flex-col pt-6 lg:pt-0'>
+  <div className='flex w-full flex-col pt-6 lg:sticky lg:top-14 lg:self-start lg:pt-0'>
     {mobileTitle && (
       <div className='p-6 pt-0 lg:hidden'>
         <h2 className='text-body-sm text-slate-600 sm:text-body-md dark:text-slate-050'>

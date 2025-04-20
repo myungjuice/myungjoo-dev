@@ -10,11 +10,8 @@ export const careerMockData: CareerCompany[] = [
     isWorking: false,
     slogan: 'PlayDapp을 중심으로 다양한 게임·포털·텔레그램 미니앱 등 플랫폼 구축',
     role: 'Frontend Developer (React, Next.js)',
-    logoUrl: '/images/supertree.png',
-    imageSize: {
-      width: 97,
-      height: 100,
-    },
+    logoUrl: '/images/supertree.svg',
+    imageClassName: 'p-[15%]',
     projects: [
       {
         id: 1745139281,
@@ -59,10 +56,7 @@ export const careerMockData: CareerCompany[] = [
     slogan: '다양한 AI·광고·SNS 플랫폼 프로토타입을 주도적으로 개발',
     role: 'Frontend Developer (React)',
     logoUrl: '/images/d.dive.png',
-    imageSize: {
-      width: 200,
-      height: 80,
-    },
+    imageClassName: 'p-[5%]',
     projects: [
       {
         id: 1745139273,
@@ -92,6 +86,7 @@ export const careerMockData: CareerCompany[] = [
     slogan: '다양한 외주 프로젝트와 제휴 서비스를 개발한 첫 커리어',
     role: 'Fullstack Developer (ASP, MSSQL)',
     logoUrl: '',
+    imageClassName: '',
     projects: [
       {
         id: 1745139259,

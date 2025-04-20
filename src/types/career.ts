@@ -16,9 +16,6 @@ export type CareerCompany = {
   role: string;
   tags?: string[];
   logoUrl?: string;
-  imageSize?: {
-    width: number;
-    height: number;
-  };
+  imageClassName?: string;
   projects: CareerProject[];
 };

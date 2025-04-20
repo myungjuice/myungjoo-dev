@@ -48,9 +48,7 @@ const About = () => {
         <div className='flex h-full flex-col 2xl:flex-row'>
           <MainContent />
           <Divider />
-          <div className='sticky top-14 flex-1 self-start'>
-            <SideContent />
-          </div>
+          <SideContent />
           <Divider />
         </div>
       </div>

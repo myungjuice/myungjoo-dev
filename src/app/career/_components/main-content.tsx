@@ -15,56 +15,60 @@ const MainContent = () => {
   return (
     <div className='flex flex-2 flex-col'>
       {filteredCompanies.map((company, idx) => (
-        <div key={company.id} className='flex flex-1 rounded-xl'>
-          <div className='flex justify-center p-10'>
-            <div className='relative flex size-40 items-center justify-center rounded-full bg-white dark:bg-slate-700'>
+        <div
+          key={company.id}
+          className={cn(
+            'flex flex-col px-6 sm:px-10 lg:flex',
+            idx === filteredCompanies.length - 1 ? 'py-6 sm:py-10' : 'pt-6 sm:pt-10'
+          )}
+        >
+          <div className='flex flex-col rounded-t-lg bg-slate-100 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-5 dark:bg-slate-700'>
+            <div className='relative hidden h-28 w-28 items-center justify-center sm:flex'>
               {company.logoUrl ? (
                 <Image
                   src={company.logoUrl}
                   alt={company.name}
-                  width={company.imageSize?.width || 100}
-                  height={company.imageSize?.height || 100}
+                  fill
                   priority
+                  className={cn('object-contain p-[25%]', company.imageClassName)}
                 />
               ) : (
-                <div className='flex size-20 items-center justify-center rounded-full'>
-                  <FiImage className='text-slate-500 dark:text-slate-400' size={50} />
-                </div>
+                <FiImage className='h-14 w-14 text-slate-500 dark:text-slate-400' />
               )}
             </div>
-          </div>
 
-          <div
-            className={cn(
-              'flex w-full flex-col gap-4 border-l border-slate-400 px-10 lg:flex dark:border-slate-700',
-              idx === filteredCompanies.length - 1 ? 'py-10' : 'pt-10'
-            )}
-          >
             <div className='space-y-1'>
-              <p className='text-heading-h5'>{company.name}</p>
-              <p className='text-body-md'>{company.period}</p>
-              <p className='text-body-md'>{company.slogan}</p>
+              <p className='text-heading-h6 xl:text-heading-h5'>{company.name}</p>
+              <p className='text-body-sm xl:text-body-md'>{company.period}</p>
+              <p className='text-body-sm xl:text-body-md'>{company.slogan}</p>
               <p className='inline-block rounded text-body-sm-bold text-teal-500'>{company.role}</p>
             </div>
+          </div>
 
-            {company.projects.map(project => (
-              <div
-                key={project.id}
-                className='w-full space-y-2 rounded-lg bg-white p-5 dark:bg-slate-950'
-              >
-                <div className='flex items-center justify-between gap-2 border-l-4 border-slate-800 px-2'>
-                  <p className='text-body-lg-bold text-gray-700 dark:text-slate-200'>
-                    {project.title}
-                  </p>
-                  <p className='text-body-md text-gray-600 dark:text-slate-300'>{project.period}</p>
-                </div>
-
-                <p className='text-body-md text-gray-600 dark:text-slate-400'>
-                  {project.description}
+          {company.projects.map((project, idx2) => (
+            <div
+              key={project.id}
+              className={cn(
+                'w-full space-y-2 bg-white p-5 dark:bg-slate-950',
+                idx2 === company.projects.length - 1
+                  ? 'rounded-b-lg'
+                  : 'border-b border-slate-500 dark:border-slate-500'
+              )}
+            >
+              <div className='flex items-center justify-between gap-2 border-slate-800 sm:border-l-4 sm:px-2'>
+                <p className='text-body-md-bold text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
+                  {project.title}
                 </p>
               </div>
-            ))}
-          </div>
+              <p className='text-body-sm text-gray-600 xl:text-body-md dark:text-slate-300'>
+                {project.period}
+              </p>
+
+              <p className='text-body-sm text-gray-600 xl:text-body-md dark:text-slate-400'>
+                {project.description}
+              </p>
+            </div>
+          ))}
         </div>
       ))}
     </div>
