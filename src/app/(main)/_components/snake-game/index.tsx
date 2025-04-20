@@ -43,7 +43,7 @@ const SnakeGame = () => {
     <div
       ref={snakeContainerRef}
       className={cn(
-        'snake-container relative flex h-[450px] w-[500px] flex-col items-center justify-between rounded-xl border border-black p-5',
+        'snake-container relative flex h-[400px] w-[500px] flex-col items-center justify-between rounded-xl border border-black p-5',
         gameStatus === 'playing' && 'cursor-none'
       )}
       tabIndex={0}
