@@ -1,11 +1,11 @@
-import { ko, en } from '@/lib/i18n/career.json';
+import careerI18n from '@/lib/i18n/career.json';
 import type { CareerFilterItem } from '@/types/career';
 
 export const CareerFilterList: CareerFilterItem[] = ['supertree', 'd.dive', 'ellen'];
 
 export const careerMockData = {
-  ko,
-  en,
+  ko: careerI18n.ko,
+  en: careerI18n.en,
 };
 
 export const careerKoMap: Record<CareerFilterItem, string> = {
