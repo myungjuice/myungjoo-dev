@@ -1,5 +1,6 @@
 import FadeInUp from '@/components/shared/fade-in-up';
-import SideContentItem from '@/components/shared/side-content/side-content-item';
+
+import SideContentItem from './side-content-item';
 
 const rawCodeList = [
   `

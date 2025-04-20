@@ -1,13 +1,13 @@
 'use client';
 
+import Divider from '@/components/shared/divider';
 import SectionTitle from '@/components/shared/section-title';
+import SideContent from '@/components/shared/side-content';
 import Sidebar from '@/components/sidebar';
 import { navLinks } from '@/constants/header';
 import { useAboutPageStore } from '@/store/use-about-page-store';
 
-import Divider from './_components/divider';
 import MainContent from './_components/main-content';
-import SideContent from './_components/side-content';
 import SidebarContent from './_components/sidebar-content';
 
 const pageTitle = navLinks.find(item => item.href === '/about')?.label || '_about-me';
