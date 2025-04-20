@@ -4,8 +4,11 @@
     "name": "장명주",
     "text_02": "프론트엔드 개발자",
     "title": "GitHub에서 제 프로젝트를 확인해보세요",
-    "github": "이력보다 깃허브가 더 솔직하니까요",
-    "email": "뭔가 더 궁금하다면, 부담 없이"
+    "github": "이력서보다 깃허브가 더 솔직하니까요",
+    "email": "뭔가 더 궁금하다면, 부담 없이",
+    "email_button": "이메일 보내기",
+    "text_04": "React 기반의 인터랙티브한 UI와 사용자 중심 UX를 지향합니다.",
+    "text_05": "작지만 명확한 경험을 설계합니다."
   },
   "en": {
     "text_01": "Hi all. I am",
@@ -13,6 +16,9 @@
     "text_02": "Front-end developer",
     "title": "Check out my projects on GitHub",
     "github": "Because GitHub tells the truth better than a resume",
-    "email": "If you are curious about something, feel free to reach out"
+    "email": "If you are curious about something, feel free to reach out",
+    "email_button": "Send Email",
+    "text_04": "I aim for interactive UIs based on React and user-centered UX.",
+    "text_05": "I design small but clear experiences."
   }
 }
