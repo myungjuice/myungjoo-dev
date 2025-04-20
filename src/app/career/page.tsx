@@ -4,15 +4,22 @@ import Divider from '@/components/shared/divider';
 import SectionTitle from '@/components/shared/section-title';
 import SideContent from '@/components/shared/side-content';
 import Sidebar from '@/components/sidebar';
-import { useAboutPageStore } from '@/store/use-about-page-store';
+import { useCareerPageStore } from '@/store/use-career-page-store';
+import type { CareerFilterItem } from '@/types/career';
 
 import MainContent from './_components/main-content';
 import SidebarContent from './_components/sidebar-content';
 
 const Career = () => {
-  const { selectedMenu } = useAboutPageStore(state => ({
-    selectedMenu: state.selectedMenu,
+  const { selectedFilter, toggleFilter } = useCareerPageStore(state => ({
+    selectedFilter: state.selectedFilter,
+    toggleFilter: state.toggleFilter,
   }));
+
+  const handleClick = (text?: string) => {
+    if (!text) return;
+    toggleFilter(text as CareerFilterItem);
+  };
 
   return (
     <div className='flex flex-col lg:h-full lg:flex-row'>
@@ -23,11 +30,20 @@ const Career = () => {
       </Sidebar>
 
       <div className='flex h-full flex-1 flex-col'>
-        <SectionTitle text={selectedMenu} />
+        <SectionTitle>
+          {selectedFilter.map(filter => (
+            <SectionTitle.Item key={filter} onClose={handleClick}>
+              {filter}
+            </SectionTitle.Item>
+          ))}
+        </SectionTitle>
+
         <div className='flex h-full flex-col 2xl:flex-row'>
           <MainContent />
           <Divider />
-          <SideContent />
+          <div className='sticky top-14 flex-1 self-start'>
+            <SideContent />
+          </div>
           <Divider />
         </div>
       </div>

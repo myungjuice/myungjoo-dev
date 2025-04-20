@@ -6,9 +6,10 @@ import Divider from '@/components/shared/divider';
 import SectionTitle from '@/components/shared/section-title';
 import SideContent from '@/components/shared/side-content';
 import Sidebar from '@/components/sidebar';
-import { aboutTabKoMap } from '@/constants/about';
+import { aboutTabKoMap, aboutMenuKoMap } from '@/constants/about';
 import { navLinks } from '@/constants/header';
 import { useAboutPageStore } from '@/store/use-about-page-store';
+import type { Menu } from '@/types/about';
 
 import MainContent from './_components/main-content';
 import SidebarContent from './_components/sidebar-content';
@@ -38,11 +39,18 @@ const About = () => {
       </Sidebar>
 
       <div className='flex h-full flex-1 flex-col'>
-        <SectionTitle text={selectedMenu} />
+        <SectionTitle>
+          <SectionTitle.Item>
+            {language === 'ko' ? aboutMenuKoMap[selectedMenu as Menu] : selectedMenu}
+          </SectionTitle.Item>
+        </SectionTitle>
+
         <div className='flex h-full flex-col 2xl:flex-row'>
           <MainContent />
           <Divider />
-          <SideContent />
+          <div className='sticky top-14 flex-1 self-start'>
+            <SideContent />
+          </div>
           <Divider />
         </div>
       </div>
