@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 import { FiImage } from 'react-icons/fi';
 
 import FadeInUp from '@/components/shared/fade-in-up';
@@ -11,7 +12,15 @@ import { useCareerPageStore } from '@/store/use-career-page-store';
 const MainContent = () => {
   const selectedFilter = useCareerPageStore(state => state.selectedFilter);
 
-  const filteredCompanies = careerMockData.filter(company => selectedFilter.includes(company.id));
+  const {
+    i18n: { language },
+  } = useTranslation();
+
+  const langCareerMockData = careerMockData[language as 'ko' | 'en'];
+
+  const filteredCompanies = selectedFilter
+    .map(filterId => langCareerMockData[filterId])
+    .filter(Boolean);
 
   return (
     <div className='flex flex-2 flex-col'>

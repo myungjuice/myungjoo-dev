@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Checkbox from '@/components/ui/checkbox';
+import { careerKoMap } from '@/constants/career';
 import { cn } from '@/lib/utils';
 import { useCareerPageStore } from '@/store/use-career-page-store';
 import type { CareerFilterItem } from '@/types/career';
@@ -16,6 +18,10 @@ const MenuItem = ({ menu }: Props) => {
   }));
 
   const isSelected = useMemo(() => selectedFilter.includes(menu), [selectedFilter, menu]);
+
+  const {
+    i18n: { language },
+  } = useTranslation();
 
   const handleCheckedChange = () => {
     toggleFilter(menu);
@@ -34,7 +40,7 @@ const MenuItem = ({ menu }: Props) => {
             isSelected && 'dark:text-slate-200'
           )}
         >
-          {menu}
+          {language === 'ko' ? careerKoMap[menu as CareerFilterItem] : menu}
         </span>
       </label>
     </div>
