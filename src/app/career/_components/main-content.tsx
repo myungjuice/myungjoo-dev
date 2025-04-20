@@ -39,6 +39,7 @@ const MainContent = () => {
                     src={company.logoUrl}
                     alt={company.name}
                     fill
+                    sizes='100px'
                     priority
                     className={cn('object-contain p-[25%]', company.imageClassName)}
                   />
