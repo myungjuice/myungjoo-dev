@@ -3,102 +3,108 @@
     "supertree": {
       "id": "supertree",
       "name": "㈜ 수퍼트리",
-      "period": "2021.06 - 2025.01",
-      "isWorking": false,
-      "slogan": "PlayDapp을 중심으로 다양한 게임·포털·텔레그램 미니앱 등 플랫폼 구축",
+      "period": "2021.06.01 ~ 2024.12.31",
+      "slogan": "PlayDapp 생태계 내에서 블록체인 기반 프론트엔드 플랫폼(마켓, 포털, 미니앱 등) 개발",
       "role": "Frontend Developer (React, Next.js)",
       "logoUrl": "/images/supertree.svg",
       "imageClassName": "p-[15%]",
       "projects": [
         {
-          "id": 1745139281,
-          "title": "EzPlay 사이트 개편 및 텔레그램 연동",
-          "period": "2024.11 - 2024.12",
-          "description": "기존 EzPlay 사이트를 개편하고 텔레그램 로그인/미니앱/광고 시스템을 추가하여 런칭"
+          "id": 1,
+          "title": "EzPlay 리뉴얼 및 텔레그램 미니앱 연동",
+          "description": "기존 EzPlay를 포크하여 디자인을 개선하고 텔레그램 로그인 및 미니앱을 추가하여 새로운 도메인으로 재런칭"
         },
         {
-          "id": 1745139223,
-          "title": "Roblox 관리자 사이트 런칭 및 고도화",
-          "period": "2024.06 - 2024.09",
-          "description": "내부에서 사용하는 Roblox 포인트 지급/권한 관리 관리자 페이지 개발"
+          "id": 2,
+          "title": "Roblox 관리자 사이트 개발",
+          "description": "내부에서 Roblox 포인트 지급, 권한 관리 등을 위한 관리자 시스템을 구축"
         },
         {
-          "id": 1745139236,
-          "title": "멤버스 홈페이지 리뉴얼 및 런칭",
-          "period": "2023.09 - 2024.03",
-          "description": "스크롤/애니메이션 기반 멤버스 홈페이지를 Locomotive Scroll, framer-motion 등으로 구현"
+          "id": 3,
+          "title": "Supertree, PlayDapp, Members 홈페이지 런칭",
+          "description": "Locomotive Scroll, framer-motion을 활용해 인터랙션 중심의 브랜드 사이트 구현"
         },
         {
-          "id": 1745139302,
-          "title": "PlayDapp Marketplace 사이트 전체 리뉴얼",
-          "period": "2022.06",
-          "description": "Polygon, Ethereum 기반 Marketplace를 TS + Emotion + Next.js 기반으로 전체 리뉴얼"
+          "id": 4,
+          "title": "PlayDapp Marketplace 리뉴얼",
+          "description": "Polygon, Ethereum 기반 마켓을 통합하고 Next.js + Typescript + Emotion 기반으로 완전 리빌딩"
         },
         {
-          "id": 1745139218,
-          "title": "PlayDapp Developers 사이트 런칭 및 고도화",
-          "period": "2022.03 - 2022.06",
-          "description": "NFT 등록/관리 기능 포함한 관리자 및 랜딩 페이지 개발"
+          "id": 5,
+          "title": "Marketplace 기능 고도화",
+          "description": "Solana 네트워크 추가, NFT 합성 기능 추가, 슬랙 에러 알림 등 운영에 필요한 기능 고도화"
         }
       ]
     },
     "d.dive": {
       "id": "d.dive",
       "name": "㈜ 디다이브",
-      "period": "2019.08 - 2021.06",
-      "isWorking": false,
-      "slogan": "다양한 AI·광고·SNS 플랫폼 프로토타입을 주도적으로 개발",
+      "period": "2019.08.12 ~ 2021.05.30",
+      "slogan": "광고 통합 플랫폼과 AI 분석 서비스의 프론트엔드를 React 기반으로 주도 개발",
       "role": "Frontend Developer (React)",
       "logoUrl": "/images/d.dive.png",
       "imageClassName": "p-[5%]",
       "projects": [
         {
-          "id": 1745139273,
-          "title": "광고주 플랫폼 백오피스 개발",
-          "period": "2020.01 - 2021.01",
-          "description": "광고 데이터를 시각화하는 통합 백오피스를 React로 구현하고 EC2 환경에 배포"
+          "id": 1,
+          "title": "광고 통합 플랫폼 백오피스 개발",
+          "description": "Figma 기반 화면 기획부터 백엔드 API 연동, EC2 배포까지 전체 프론트엔드 구현을 담당"
         },
         {
-          "id": 1745139252,
-          "title": "Project UYI (AI 기반 SNS 프로토타입)",
-          "period": "2021.03 - 2021.05",
-          "description": "텍스트/음성 기반 AI 그림 생성 SNS 프로토타입을 React로 개발"
+          "id": 2,
+          "title": "광고주 플랫폼 데이터 시각화 시스템 구축",
+          "description": "amCharts와 Plotly를 활용하여 광고 및 SNS 채널 데이터를 시각화하고 인사이트 제공 기능 개발"
         },
         {
-          "id": 1745139307,
+          "id": 3,
           "title": "KBS 드라마 AI 시청률 예측 데모 사이트",
-          "period": "2020.11 - 2020.11",
-          "description": "Python으로 드라마 데이터를 크롤링하고 React로 예측 시각화 데모를 개발"
+          "description": "Python 기반 드라마 데이터 크롤링과 React를 활용한 시청률 예측 분석 결과 시각화"
+        },
+        {
+          "id": 4,
+          "title": "디다이브 회사 홈페이지 및 관리자 시스템 개발",
+          "description": "Express와 MongoDB 기반 API를 구축하고, 관리자 시스템의 구독자/파일 관리 등 주요 기능 개발"
+        },
+        {
+          "id": 5,
+          "title": "크롤링 데이터 관리 플랫폼 개발",
+          "description": "Meteor.js 초기 구조를 React로 리팩토링하고, 다양한 수집 조건을 기반으로 데이터 수집/표시 기능 구현"
         }
       ]
     },
     "ellen": {
       "id": "ellen",
       "name": "㈜ 엘렌",
-      "period": "2017.07 - 2019.07",
-      "isWorking": false,
-      "slogan": "다양한 외주 프로젝트와 제휴 서비스를 개발한 첫 커리어",
+      "period": "2017.07.17 ~ 2019.06.30",
+      "slogan": "자사 쇼핑몰 신규 개발 및 유지보수, 편의점 결제 서비스와 Web 기반 POS 시스템 개발",
       "role": "Fullstack Developer (ASP, MSSQL)",
       "logoUrl": "",
       "imageClassName": "",
       "projects": [
         {
-          "id": 1745139259,
-          "title": "OPWEE 반응형 웹사이트 개발",
-          "period": "2019.04 - 2019.05",
-          "description": "W3C 웹 표준을 준수하여 반응형으로 웹 사이트를 개발하였습니다."
+          "id": 1,
+          "title": "OPWEE 쇼핑몰 개발 및 유지보수",
+          "description": "W3C 웹 표준을 준수한 자사 반응형 쇼핑몰을 신규 개발하고 운영 중 지속적인 유지보수 수행"
         },
         {
-          "id": 1745139209,
-          "title": "프랑켄모노 제휴업체 주문 및 관리자 페이지",
-          "period": "2018.01 - 2019.06",
-          "description": "제휴업체 주문/관리 기능과 관리자 페이지 기능을 지속적으로 개발하고 유지보수."
+          "id": 2,
+          "title": "편의점 결제 서비스 구축",
+          "description": "갤럭시아컴즈와 협업하여 '언니가간다'의 편의점 결제 서비스를 ASP 기반으로 연동 개발"
         },
         {
-          "id": 1745139255,
-          "title": "프랑켄모노 오프라인 매장 포스 개발",
-          "period": "2017.09 - 2017.11",
-          "description": "홍대 오프라인 매장에서 사용할 POS 시스템을 개발하였습니다."
+          "id": 3,
+          "title": "프랑켄모노 관리자 시스템 개발",
+          "description": "스타일쉐어, 무신사 등 제휴처의 주문 관리 및 이메일 발송 기능을 포함한 내부 관리자 페이지 구축"
+        },
+        {
+          "id": 4,
+          "title": "프랑켄모노 Web POS 시스템 개발",
+          "description": "홍대 오프라인 매장에서 사용할 웹 기반 POS 시스템을 단독으로 설계 및 개발"
+        },
+        {
+          "id": 5,
+          "title": "이더리움 채굴기 모니터링 시스템 구축",
+          "description": "채굴기 상태 모니터링 및 제어 기능을 제공하는 ASP 기반 웹 페이지 구현"
         }
       ]
     }
@@ -107,102 +113,108 @@
     "supertree": {
       "id": "supertree",
       "name": "Supertree Inc.",
-      "period": "2021.06 - 2025.01",
-      "isWorking": false,
-      "slogan": "Building various game, portal, and Telegram mini-app platforms around PlayDapp",
+      "period": "2021.06.01 ~ 2024.12.31",
+      "slogan": "Developed blockchain-based frontend platforms within the PlayDapp ecosystem, including marketplaces, portals, and mini-apps",
       "role": "Frontend Developer (React, Next.js)",
       "logoUrl": "/images/supertree.svg",
       "imageClassName": "p-[15%]",
       "projects": [
         {
-          "id": 1745139281,
-          "title": "EzPlay Revamp with Telegram Integration",
-          "period": "2024.11 - 2024.12",
-          "description": "Redesigned EzPlay site and integrated Telegram login, mini-app, and ad system"
+          "id": 1,
+          "title": "EzPlay Renewal with Telegram Mini-App Integration",
+          "description": "Forked the original EzPlay project, redesigned UI, and integrated Telegram login and mini-app features for relaunch under a new domain"
         },
         {
-          "id": 1745139223,
-          "title": "Roblox Admin Panel Launch and Enhancement",
-          "period": "2024.06 - 2024.09",
-          "description": "Developed internal admin panel for managing Roblox point issuance and permissions"
+          "id": 2,
+          "title": "Roblox Admin Panel Development",
+          "description": "Built an internal admin system for managing Roblox point distribution and user permissions"
         },
         {
-          "id": 1745139236,
-          "title": "Members Website Renewal and Launch",
-          "period": "2023.09 - 2024.03",
-          "description": "Implemented scroll and animation-based homepage using Locomotive Scroll and framer-motion"
+          "id": 3,
+          "title": "Brand Website Launch for Supertree, PlayDapp, and Members",
+          "description": "Developed interactive brand sites using Locomotive Scroll and framer-motion"
         },
         {
-          "id": 1745139302,
-          "title": "PlayDapp Marketplace Full Revamp",
-          "period": "2022.06",
-          "description": "Migrated Marketplace to TS + Emotion + Next.js with unified Ethereum/Polygon handling"
+          "id": 4,
+          "title": "PlayDapp Marketplace Renewal",
+          "description": "Unified Ethereum and Polygon networks into a single marketplace and rebuilt the system using Next.js, TypeScript, and Emotion"
         },
         {
-          "id": 1745139218,
-          "title": "PlayDapp Developers Site Launch and Enhancement",
-          "period": "2022.03 - 2022.06",
-          "description": "Developed landing and admin pages for NFT registration and management"
+          "id": 5,
+          "title": "Marketplace Feature Enhancements",
+          "description": "Added Solana network, NFT synthesis functionality, and Slack error notifications to support operations"
         }
       ]
     },
     "d.dive": {
       "id": "d.dive",
       "name": "D.Dive Inc.",
-      "period": "2019.08 - 2021.06",
-      "isWorking": false,
-      "slogan": "Led development of AI, advertising, and SNS platform prototypes",
+      "period": "2019.08.12 ~ 2021.05.30",
+      "slogan": "Led frontend development of integrated advertising platforms and AI analytics services using React",
       "role": "Frontend Developer (React)",
       "logoUrl": "/images/d.dive.png",
       "imageClassName": "p-[5%]",
       "projects": [
         {
-          "id": 1745139273,
-          "title": "Advertiser Platform Admin Development",
-          "period": "2020.01 - 2021.01",
-          "description": "Built integrated advertiser admin panel in React and deployed on EC2"
+          "id": 1,
+          "title": "Ad Platform Admin Dashboard Development",
+          "description": "Led frontend implementation from UI design using Figma to API integration and deployment on EC2"
         },
         {
-          "id": 1745139252,
-          "title": "Project UYI (AI-powered SNS Prototype)",
-          "period": "2021.03 - 2021.05",
-          "description": "Developed a voice/text-based AI sketch SNS prototype using React"
+          "id": 2,
+          "title": "Advertising Data Visualization System",
+          "description": "Visualized advertising and SNS channel data using amCharts and Plotly to deliver actionable insights"
         },
         {
-          "id": 1745139307,
-          "title": "KBS Drama AI Rating Prediction Demo",
-          "period": "2020.11 - 2020.11",
-          "description": "Built a React demo site visualizing drama viewership predictions using Python-scraped data"
+          "id": 3,
+          "title": "KBS Drama AI Viewership Prediction Demo",
+          "description": "Scraped drama data using Python and built a React-based interface to visualize AI-predicted ratings"
+        },
+        {
+          "id": 4,
+          "title": "Corporate Website & Admin System",
+          "description": "Developed Express and MongoDB-based APIs and built core admin features like subscription and file management"
+        },
+        {
+          "id": 5,
+          "title": "Crawling Data Management Platform",
+          "description": "Refactored from Meteor.js to React and implemented flexible data collection and display features"
         }
       ]
     },
     "ellen": {
       "id": "ellen",
       "name": "ELLEN Inc.",
-      "period": "2017.07 - 2019.07",
-      "isWorking": false,
-      "slogan": "First career in outsourced and partnership-based web projects",
+      "period": "2017.07.17 ~ 2019.06.30",
+      "slogan": "Developed and maintained proprietary e-commerce systems including shopping mall, convenience store payment, and web-based POS",
       "role": "Fullstack Developer (ASP, MSSQL)",
       "logoUrl": "",
       "imageClassName": "",
       "projects": [
         {
-          "id": 1745139259,
-          "title": "OPWEE Responsive Website Development",
-          "period": "2019.04 - 2019.05",
-          "description": "Developed responsive website adhering to W3C web standards"
+          "id": 1,
+          "title": "OPWEE Shopping Mall Development & Maintenance",
+          "description": "Built and maintained a responsive in-house shopping mall compliant with W3C web standards"
         },
         {
-          "id": 1745139209,
-          "title": "Frankenmono Partner Order & Admin System",
-          "period": "2018.01 - 2019.06",
-          "description": "Built and maintained order and admin pages for partner integrations"
+          "id": 2,
+          "title": "Convenience Store Payment Integration",
+          "description": "Collaborated with GalaxiaComs to integrate a payment service for convenience stores via ASP-based systems"
         },
         {
-          "id": 1745139255,
-          "title": "Frankenmono Offline POS System",
-          "period": "2017.09 - 2017.11",
-          "description": "Developed POS system for the Frankenmono offline store in Hongdae"
+          "id": 3,
+          "title": "Frankenmono Admin System Development",
+          "description": "Built internal admin tools to manage orders and send emails for multiple sales partners such as StyleShare and MUSINSA"
+        },
+        {
+          "id": 4,
+          "title": "Frankenmono Web-based POS Development",
+          "description": "Solely designed and developed a POS system for Frankenmono’s offline store in Hongdae"
+        },
+        {
+          "id": 5,
+          "title": "Ethereum Mining Rig Monitoring System",
+          "description": "Developed an ASP-based interface to monitor and control the status of Ethereum mining rigs"
         }
       ]
     }

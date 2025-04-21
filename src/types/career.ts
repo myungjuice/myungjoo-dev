@@ -10,8 +10,6 @@ export type CareerProject = {
 export type CareerCompany = {
   id: CareerFilterItem;
   name: string;
-  period: string;
-  isWorking: boolean;
   slogan?: string;
   role: string;
   tags?: string[];
