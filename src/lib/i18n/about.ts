@@ -14,7 +14,7 @@ const about = {
  *  - 2017.07.01 ~ 2019.07.31
  *  - ASP 기반 웹 사이트 및 POS 시스템 개발
  */
-  `,
+`,
     'hard-skills': `
 /**
  * React, Next.js 등 최신 프론트엔드 프레임워크 활용 가능
@@ -52,7 +52,6 @@ const about = {
  * 평소에는 기술 블로그를 구독하거나 오픈소스 코드를 분석하며 개발 인사이트를 넓히고 있습니다.
  */
 `,
-
     education: `
 /**
  * 학점은행제를 통해 컴퓨터공학 학사 학위 취득
@@ -61,7 +60,6 @@ const about = {
  * 웹 프로그래밍(Spring, JSP 등) 기초 학습 경험
  */
 `,
-
     sports: `
 /**
  * 운동을 꾸준히 해야겠다고 매번 다짐하지만… 실행은 잘 안 됩니다.
@@ -85,83 +83,83 @@ const about = {
   },
   en: {
     experience: `
-  /**
-   * Supertree Corp.
-   *  - 2021.06.01 ~ 2024.12.31
-   *  - Frontend development for blockchain services
-   *
-   * D.Dive Corp.
-   *  - 2019.08.01 ~ 2021.06.30
-   *  - Frontend development for ad platforms and AI content services
-   *
-   * ELLEN Corp.
-   *  - 2017.07.01 ~ 2019.07.31
-   *  - Web development and POS system using ASP
-   */
-  `,
+/**
+ * Supertree Corp.
+ *  - 2021.06.01 ~ 2024.12.31
+ *  - Frontend development for blockchain services
+ *
+ * D.Dive Corp.
+ *  - 2019.08.01 ~ 2021.06.30
+ *  - Frontend development for ad platforms and AI content services
+ *
+ * ELLEN Corp.
+ *  - 2017.07.01 ~ 2019.07.31
+ *  - Web development and POS system using ASP
+ */
+`,
     'hard-skills': `
-  /**
-   * Proficient in modern frontend frameworks such as React and Next.js
-   * Extensive experience with TypeScript-based projects
-   * Hands-on with state management libraries like Zustand and Redux
-   * Skilled in various styling approaches: Styled-components, Emotion, TailwindCSS
-   * Experienced in bundlers and monorepo tools: Vite, Turborepo, Webpack
-   * Familiar with various deployment environments: AWS, GitHub Actions, GitLab CI, Vercel, Netlify
-   * Collaborative experience using Jira, Notion, and Slack
-   * Capable of writing test codes with Jest and React Testing Library
-   */
-  `,
+/**
+ * Proficient in modern frontend frameworks such as React and Next.js
+ * Extensive experience with TypeScript-based projects
+ * Hands-on with state management libraries like Zustand and Redux
+ * Skilled in various styling approaches: Styled-components, Emotion, TailwindCSS
+ * Experienced in bundlers and monorepo tools: Vite, Turborepo, Webpack
+ * Familiar with various deployment environments: AWS, GitHub Actions, GitLab CI, Vercel, Netlify
+ * Collaborative experience using Jira, Notion, and Slack
+ * Capable of writing test codes with Jest and React Testing Library
+ */
+`,
     'soft-skills': `
-  /**
-   * Excellent teamwork and communication skills
-   * Experience in close collaboration with designers, planners, and backend developers
-   * Flexible mindset with strong problem-solving skills
-   * Able to adapt quickly to new technologies and feedback
-   */
-  `,
+/**
+ * Excellent teamwork and communication skills
+ * Experience in close collaboration with designers, planners, and backend developers
+ * Flexible mindset with strong problem-solving skills
+ * Able to adapt quickly to new technologies and feedback
+ */
+`,
     bio: `
-  /**
-   * After transitioning to a frontend career, I've built experience around React, Next.js, and TypeScript.
-   * Participated in real-world projects at various companies, gaining hands-on experience in design systems, performance optimization, and CI/CD pipelines.
-   * I pursue a collaborative development culture with a comprehensive understanding of frontend architecture.
-   * I enjoy building intuitive UI with a strong focus on user experience and am always open to new technologies and challenges.
-   */
-  `,
+/**
+ * After transitioning to a frontend career, I've built experience around React, Next.js, and TypeScript.
+ * Participated in real-world projects at various companies, gaining hands-on experience in design systems, performance optimization, and CI/CD pipelines.
+ * I pursue a collaborative development culture with a comprehensive understanding of frontend architecture.
+ * I enjoy building intuitive UI with a strong focus on user experience and am always open to new technologies and challenges.
+ */
+`,
     interests: `
-  /**
-   * I like exploring new frontend tools and trends.
-   * Through side projects, I experiment with UI/UX improvements, design systems, and architecture.
-   * I'm passionate about writing quality code, maintaining tests, and learning from open-source projects.
-   */
-  `,
+/**
+ * I like exploring new frontend tools and trends.
+ * Through side projects, I experiment with UI/UX improvements, design systems, and architecture.
+ * I'm passionate about writing quality code, maintaining tests, and learning from open-source projects.
+ */
+`,
     education: `
-  /**
-   * Bachelor's degree in Computer Science through Academic Credit Bank System
-   * Graduated from Seoul Hoseo Technical College, majoring in Computer Information
-   * Solid foundation in CS: Java, data structures, DB, networks
-   * Basic experience in web programming with JSP and Spring
-   */
-  `,
+/**
+ * Bachelor's degree in Computer Science through Academic Credit Bank System
+ * Graduated from Seoul Hoseo Technical College, majoring in Computer Information
+ * Solid foundation in CS: Java, data structures, DB, networks
+ * Basic experience in web programming with JSP and Spring
+ */
+`,
     sports: `
-  /**
+/**
  * I always tell myself to work out regularly… but it rarely happens.
  * Still, I really enjoy playing table tennis — I lose track of time once I start!
  * At Supertree, we had a ping pong table in the office, and I often played with teammates.
  */
-  `,
+`,
     'favorite-games': `
-  /**
-   * I'm a huge fan of Lost Ark — it's hands down the best game from Smilegate!
-   * I also enjoy watching StarCraft, League of Legends, and PUBG on YouTube rather than playing them.
-   */
-  `,
+/**
+ * I'm a huge fan of Lost Ark — it's hands down the best game from Smilegate!
+ * I also enjoy watching StarCraft, League of Legends, and PUBG on YouTube rather than playing them.
+ */
+`,
     'favorite-foods': `
-  /**
-   * Samgyeopsal (grilled pork belly) is my all-time favorite!
-   * I'm not good with spicy food, but strangely, I still crave it.
-   * I tend to avoid things like beondegi (silkworm pupae), chicken feet, or live octopus.
-   */
-  `,
+/**
+ * Samgyeopsal (grilled pork belly) is my all-time favorite!
+ * I'm not good with spicy food, but strangely, I still crave it.
+ * I tend to avoid things like beondegi (silkworm pupae), chicken feet, or live octopus.
+ */
+`,
   },
 } as const;
 
