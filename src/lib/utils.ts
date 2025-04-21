@@ -7,3 +7,6 @@ export const getMappedKey = <T extends string>(
   map: Record<T, string>,
   text: string
 ): T | undefined => Object.entries(map).find(([, value]) => value === text)?.[0] as T;
+
+export const sortByReference = <T>(target: T[], reference: T[]): T[] =>
+  reference.filter(item => target.includes(item));

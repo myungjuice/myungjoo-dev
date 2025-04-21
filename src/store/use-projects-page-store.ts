@@ -1,6 +1,7 @@
 import { useShallow } from 'zustand/react/shallow';
 
 import { techList } from '@/constants/projects';
+import { sortByReference } from '@/lib/utils';
 import type { Tech } from '@/types/projects';
 
 import { createStore } from '.';
@@ -20,10 +21,12 @@ export const projectsPageStore = createStore<ProjectsPageStore>(
     toggleTech: tech => {
       set(state => {
         const exists = state.selectedTechs.includes(tech);
+        const next = exists
+          ? state.selectedTechs.filter(item => item !== tech)
+          : [...state.selectedTechs, tech];
+
         return {
-          selectedTechs: exists
-            ? state.selectedTechs.filter(item => item !== tech)
-            : [...state.selectedTechs, tech],
+          selectedTechs: sortByReference(next, techList),
         };
       });
     },
