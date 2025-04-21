@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { CareerFilterList } from '@/constants/career';
+import { careerFilterList } from '@/constants/career';
 import { navLinks } from '@/constants/header';
 
 import MenuItem from './menu-item';
@@ -20,7 +20,7 @@ const SidebarContent = () => (
             {accordionTitle}
           </AccordionTrigger>
           <AccordionContent className='border border-gray-300 pb-0 dark:border-slate-700'>
-            {CareerFilterList.map(menu => (
+            {careerFilterList.map(menu => (
               <MenuItem key={menu} menu={menu} />
             ))}
           </AccordionContent>
@@ -29,7 +29,7 @@ const SidebarContent = () => (
     </div>
 
     <div className='hidden space-y-1 px-6 py-5 lg:block'>
-      {CareerFilterList.map(menu => (
+      {careerFilterList.map(menu => (
         <MenuItem key={menu} menu={menu} />
       ))}
     </div>
