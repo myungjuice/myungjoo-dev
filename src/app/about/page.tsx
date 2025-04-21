@@ -39,7 +39,7 @@ const About = () => {
       </Sidebar>
 
       <div className='flex h-full flex-1 flex-col'>
-        <SectionTitle>
+        <SectionTitle className='h-[59px]'>
           <SectionTitle.Item>
             {language === 'ko' ? aboutMenuKoMap[selectedMenu as Menu] : selectedMenu}
           </SectionTitle.Item>

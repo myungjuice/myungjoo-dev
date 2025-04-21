@@ -2,21 +2,19 @@
 
 import { useTranslation } from 'react-i18next';
 
-import Divider from '@/components/shared/divider';
 import SectionTitle from '@/components/shared/section-title';
-import SideContent from '@/components/shared/side-content';
 import Sidebar from '@/components/sidebar';
-import { careerKoMap } from '@/constants/career';
-import { useCareerPageStore } from '@/store/use-career-page-store';
-import type { CareerFilterItem } from '@/types/career';
+import { techKoMap } from '@/constants/projects';
+import { useProjectsPageStore } from '@/store/use-projects-page-store';
+import type { Tech } from '@/types/projects';
 
 import MainContent from './_components/main-content';
 import SidebarContent from './_components/sidebar-content';
 
-const CareerPage = () => {
-  const { selectedFilter, toggleFilter } = useCareerPageStore(state => ({
-    selectedFilter: state.selectedFilter,
-    toggleFilter: state.toggleFilter,
+const ProjectPage = () => {
+  const { selectedTechs, toggleTech } = useProjectsPageStore(state => ({
+    selectedTechs: state.selectedTechs,
+    toggleTech: state.toggleTech,
   }));
 
   const {
@@ -25,7 +23,7 @@ const CareerPage = () => {
 
   const handleClick = (text?: string) => {
     if (!text) return;
-    toggleFilter(text as CareerFilterItem);
+    toggleTech(text as Tech);
   };
 
   return (
@@ -36,23 +34,17 @@ const CareerPage = () => {
         </Sidebar.Container>
       </Sidebar>
       <div className='flex h-full flex-1 flex-col'>
-        <SectionTitle>
-          {selectedFilter.map(filter => (
+        <SectionTitle className='h-14'>
+          {selectedTechs.map(filter => (
             <SectionTitle.Item key={filter} onClose={handleClick}>
-              {language === 'ko' ? careerKoMap[filter as CareerFilterItem] : filter}
+              {language === 'ko' ? techKoMap[filter as Tech] : filter}
             </SectionTitle.Item>
           ))}
         </SectionTitle>
-
-        <div className='flex h-full flex-col 2xl:flex-row'>
-          <MainContent />
-          <Divider />
-          <SideContent />
-          <Divider />
-        </div>
+        <MainContent />
       </div>
     </div>
   );
 };
 
-export default CareerPage;
+export default ProjectPage;

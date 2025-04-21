@@ -1,6 +1,6 @@
 import { useShallow } from 'zustand/react/shallow';
 
-import { CareerFilterList } from '@/constants/career';
+import { careerFilterList } from '@/constants/career';
 import type { CareerFilterItem } from '@/types/career';
 
 import { createStore } from '.';
@@ -11,7 +11,7 @@ type CareerPageStore = {
 };
 
 const initialState = {
-  selectedFilter: [...CareerFilterList],
+  selectedFilter: [...careerFilterList],
 };
 
 export const careerPageStore = createStore<CareerPageStore>(
