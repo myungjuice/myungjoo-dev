@@ -29,12 +29,12 @@ const ProjectCard = memo(({ delay, title, project }: Props) => {
             <Image fill src={project.thumbnailUrl} alt={project.name} sizes='480px' />
           </div>
           <div className='bg-white dark:bg-slate-800'>
-            <div className='flex-1 p-7 pb-0'>
+            <div className='flex-1 p-4 pb-0 sm:p-7 sm:pb-0'>
               <p className='text-body-sm text-slate-600 sm:text-body-md dark:text-slate-300'>
                 {project.description}
               </p>
             </div>
-            <div className='flex w-full items-center justify-between gap-4 p-7 pt-4 sm:w-1/2 sm:pr-0'>
+            <div className='flex w-full items-center gap-4 p-4 pt-4 sm:w-1/2 sm:p-7'>
               <Button className='flex flex-1 items-center p-0'>
                 <a
                   href={project.githubUrl}
