@@ -8,8 +8,6 @@ export type Menu =
   | 'bio'
   | 'interests'
   | 'education'
-  | 'high-school'
-  | 'university'
   | 'sports'
   | 'favorite-games'
   | 'favorite-foods';

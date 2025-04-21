@@ -112,7 +112,7 @@
   "en": {
     "supertree": {
       "id": "supertree",
-      "name": "Supertree Inc.",
+      "name": "Supertree Corp.",
       "period": "2021.06.01 ~ 2024.12.31",
       "slogan": "Developed blockchain-based frontend platforms within the PlayDapp ecosystem, including marketplaces, portals, and mini-apps",
       "role": "Frontend Developer (React, Next.js)",
@@ -148,7 +148,7 @@
     },
     "d.dive": {
       "id": "d.dive",
-      "name": "D.Dive Inc.",
+      "name": "D.Dive Corp.",
       "period": "2019.08.12 ~ 2021.05.30",
       "slogan": "Led frontend development of integrated advertising platforms and AI analytics services using React",
       "role": "Frontend Developer (React)",
@@ -184,7 +184,7 @@
     },
     "ellen": {
       "id": "ellen",
-      "name": "ELLEN Inc.",
+      "name": "ELLEN Corp.",
       "period": "2017.07.17 ~ 2019.06.30",
       "slogan": "Developed and maintained proprietary e-commerce systems including shopping mall, convenience store payment, and web-based POS",
       "role": "Fullstack Developer (ASP, MSSQL)",

@@ -23,8 +23,6 @@ export const getAboutPageData = (): AboutPageData => ({
       bio: i18n.t('about:bio'),
       interests: i18n.t('about:interests'),
       education: i18n.t('about:education'),
-      'high-school': i18n.t('about:high-school'),
-      university: i18n.t('about:university'),
     },
   },
   hobbies: {
@@ -50,8 +48,6 @@ export const aboutMenuKoMap: Record<Menu, string> = {
   bio: '자기소개',
   interests: '관심사',
   education: '학력',
-  'high-school': '고등학교',
-  university: '대학교',
   sports: '운동',
   'favorite-games': '좋아하는 게임',
   'favorite-foods': '좋아하는 음식',
