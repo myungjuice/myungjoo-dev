@@ -73,10 +73,6 @@ const MainContent = () => {
                     {project.title}
                   </p>
                 </div>
-                <p className='text-body-sm text-gray-600 xl:text-body-md dark:text-slate-300'>
-                  {project.period}
-                </p>
-
                 <p className='text-body-sm text-gray-600 xl:text-body-md dark:text-slate-400'>
                   {project.description}
                 </p>
