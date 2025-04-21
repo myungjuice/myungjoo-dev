@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Divider from '@/components/shared/divider';
@@ -7,6 +8,7 @@ import SectionTitle from '@/components/shared/section-title';
 import SideContent from '@/components/shared/side-content';
 import Sidebar from '@/components/sidebar';
 import { careerKoMap } from '@/constants/career';
+import { getMappedKey } from '@/lib/utils';
 import { useCareerPageStore } from '@/store/use-career-page-store';
 import type { CareerFilterItem } from '@/types/career';
 
@@ -23,10 +25,20 @@ const CareerPage = () => {
     i18n: { language },
   } = useTranslation();
 
-  const handleClick = (text?: string) => {
-    if (!text) return;
-    toggleFilter(text as CareerFilterItem);
-  };
+  const handleClick = useCallback(
+    (text?: string) => {
+      if (!text) return;
+
+      const key =
+        language === 'ko'
+          ? getMappedKey<CareerFilterItem>(careerKoMap, text)
+          : (text as CareerFilterItem);
+      if (!key) return;
+
+      toggleFilter(key);
+    },
+    [language, toggleFilter]
+  );
 
   return (
     <div className='flex flex-col lg:h-full lg:flex-row'>
