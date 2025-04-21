@@ -2,7 +2,7 @@ export const navLinks = [
   { href: '/', label: '_hello' },
   { href: '/about', label: '_about-me' },
   { href: '/career', label: '_career' },
-  { href: '/contact', label: '_contact-me' },
+  { href: '/projects', label: '_projects' },
 ];
 
 export const baseLinkClass =
