@@ -1,10 +1,12 @@
 'use client';
 
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import SectionTitle from '@/components/shared/section-title';
 import Sidebar from '@/components/sidebar';
 import { techKoMap } from '@/constants/projects';
+import { getMappedKey } from '@/lib/utils';
 import { useProjectsPageStore } from '@/store/use-projects-page-store';
 import type { Tech } from '@/types/projects';
 
@@ -21,15 +23,22 @@ const ProjectPage = () => {
     i18n: { language },
   } = useTranslation();
 
-  const handleClick = (text?: string) => {
-    if (!text) return;
-    toggleTech(text as Tech);
-  };
+  const handleClick = useCallback(
+    (text?: string) => {
+      if (!text) return;
+
+      const key = language === 'ko' ? getMappedKey<Tech>(techKoMap, text) : (text as Tech);
+      if (!key) return;
+
+      toggleTech(key);
+    },
+    [language, toggleTech]
+  );
 
   return (
     <div className='flex flex-col lg:h-full lg:flex-row'>
       <Sidebar size='md'>
-        <Sidebar.Container desktopTitle={language === 'ko' ? '경력' : 'career'}>
+        <Sidebar.Container desktopTitle={language === 'ko' ? '프로젝트' : 'project'}>
           <SidebarContent />
         </Sidebar.Container>
       </Sidebar>
