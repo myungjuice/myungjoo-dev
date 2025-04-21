@@ -13,7 +13,7 @@ import type { CareerFilterItem } from '@/types/career';
 import MainContent from './_components/main-content';
 import SidebarContent from './_components/sidebar-content';
 
-const Career = () => {
+const CareerPage = () => {
   const { selectedFilter, toggleFilter } = useCareerPageStore(state => ({
     selectedFilter: state.selectedFilter,
     toggleFilter: state.toggleFilter,
@@ -55,4 +55,4 @@ const Career = () => {
   );
 };
 
-export default Career;
+export default CareerPage;
