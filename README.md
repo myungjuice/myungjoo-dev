@@ -1,4 +1,4 @@
-<h1 align="center">🧑‍💻 MJ's Portfolio</h1>
+<h1 align="center">myungjoo.dev</h1>
 
 <p align="center">
   <img src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_dark_background.png" alt="Next.js Logo" width="32" />

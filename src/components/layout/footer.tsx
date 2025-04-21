@@ -17,9 +17,9 @@ const footerLinks: FooterLink[] = [
     icon: FaGithub,
   },
   {
-    label: 'Instagram',
-    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
-    icon: FaInstagram,
+    label: 'LinkedIn',
+    href: process.env.NEXT_PUBLIC_LINKEDIN_URL,
+    icon: FaLinkedin,
   },
   {
     label: 'Wanted',
@@ -27,9 +27,9 @@ const footerLinks: FooterLink[] = [
     icon: FaLink,
   },
   {
-    label: 'LinkedIn',
-    href: process.env.NEXT_PUBLIC_LINKEDIN_URL,
-    icon: FaLinkedin,
+    label: 'Instagram',
+    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
+    icon: FaInstagram,
   },
 ];
 
