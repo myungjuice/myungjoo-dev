@@ -1,6 +1,7 @@
 import { useShallow } from 'zustand/react/shallow';
 
 import { careerFilterList } from '@/constants/career';
+import { sortByReference } from '@/lib/utils';
 import type { CareerFilterItem } from '@/types/career';
 
 import { createStore } from '.';
@@ -20,10 +21,12 @@ export const careerPageStore = createStore<CareerPageStore>(
     toggleFilter: filter => {
       set(state => {
         const exists = state.selectedFilter.includes(filter);
+        const next = exists
+          ? state.selectedFilter.filter(item => item !== filter)
+          : [...state.selectedFilter, filter];
+
         return {
-          selectedFilter: exists
-            ? state.selectedFilter.filter(item => item !== filter)
-            : [...state.selectedFilter, filter],
+          selectedFilter: sortByReference(next, careerFilterList),
         };
       });
     },

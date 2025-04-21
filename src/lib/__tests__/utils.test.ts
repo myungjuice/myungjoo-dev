@@ -1,4 +1,4 @@
-import { cn, getMappedKey } from '../utils';
+import { cn, getMappedKey, sortByReference } from '../utils';
 
 const mockMap = {
   supertree: '수퍼트리',
@@ -43,5 +43,30 @@ describe('getMappedKey 함수', () => {
 
   it('빈 문자열 입력 시 undefined를 반환한다', () => {
     expect(getMappedKey<MockKey>(mockMap, '')).toBeUndefined();
+  });
+});
+
+describe('sortByReference 함수', () => {
+  const reference = ['supertree', 'd.dive', 'ellen'] as const;
+  type Ref = (typeof reference)[number];
+
+  const isInReference = (value: string): value is Ref => reference.includes(value as Ref);
+
+  it('target 배열을 reference 순서대로 정렬한다', () => {
+    const target = ['ellen', 'supertree'] as const;
+    const result = sortByReference([...target], [...reference]);
+    expect(result).toEqual(['supertree', 'ellen']);
+  });
+
+  it('target 배열이 빈 배열이면 빈 배열을 반환한다', () => {
+    const result = sortByReference([], [...reference]);
+    expect(result).toEqual([]);
+  });
+
+  it('target이 reference에 없는 값을 포함해도 무시된다', () => {
+    const target = ['unknown', 'supertree'];
+    const filtered = target.filter(isInReference);
+    const result = sortByReference(filtered, [...reference]);
+    expect(result).toEqual(['supertree']);
   });
 });
