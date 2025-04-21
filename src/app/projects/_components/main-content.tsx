@@ -3,9 +3,10 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import FadeInUp from '@/components/shared/fade-in-up';
 import { projectsMockData } from '@/constants/projects';
 import { useProjectsPageStore } from '@/store/use-projects-page-store';
+
+import ProjectCard from './project-card';
 
 const MainContent = () => {
   const selectedTechs = useProjectsPageStore(state => state.selectedTechs);
@@ -23,14 +24,14 @@ const MainContent = () => {
   }, [language, selectedTechs]);
 
   return (
-    <div className='flex flex-2 flex-col'>
+    <div className='grid auto-rows-fr grid-cols-1 items-stretch gap-6 p-6 lg:p-10 xl:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4'>
       {filteredProjects.map((project, idx) => (
-        <FadeInUp key={project.id} delay={idx * 0.1}>
-          <div className='rounded-md border p-4'>
-            <h3 className='text-lg font-semibold'>{project.name}</h3>
-            <p className='text-sm'>{project.description}</p>
-          </div>
-        </FadeInUp>
+        <ProjectCard
+          key={project.id}
+          delay={idx * 0.1}
+          title={`Project ${idx + 1}`}
+          project={project}
+        />
       ))}
     </div>
   );

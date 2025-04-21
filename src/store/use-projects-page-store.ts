@@ -11,7 +11,7 @@ type ProjectsPageStore = {
 };
 
 const initialState = {
-  selectedTechs: [...Object.keys(techList)] as Tech[],
+  selectedTechs: techList,
 };
 
 export const projectsPageStore = createStore<ProjectsPageStore>(

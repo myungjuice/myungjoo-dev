@@ -2,9 +2,7 @@
 
 import { useTranslation } from 'react-i18next';
 
-import Divider from '@/components/shared/divider';
 import SectionTitle from '@/components/shared/section-title';
-import SideContent from '@/components/shared/side-content';
 import Sidebar from '@/components/sidebar';
 import { techKoMap } from '@/constants/projects';
 import { useProjectsPageStore } from '@/store/use-projects-page-store';
@@ -36,20 +34,14 @@ const ProjectPage = () => {
         </Sidebar.Container>
       </Sidebar>
       <div className='flex h-full flex-1 flex-col'>
-        <SectionTitle>
+        <SectionTitle className='h-14'>
           {selectedTechs.map(filter => (
             <SectionTitle.Item key={filter} onClose={handleClick}>
               {language === 'ko' ? techKoMap[filter as Tech] : filter}
             </SectionTitle.Item>
           ))}
         </SectionTitle>
-
-        <div className='flex h-full flex-col 2xl:flex-row'>
-          <MainContent />
-          <Divider />
-          <SideContent />
-          <Divider />
-        </div>
+        <MainContent />
       </div>
     </div>
   );

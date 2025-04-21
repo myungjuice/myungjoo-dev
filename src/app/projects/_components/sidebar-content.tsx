@@ -21,7 +21,7 @@ const SidebarContent = () => (
             {accordionTitle}
           </AccordionTrigger>
           <AccordionContent className='border border-gray-300 pb-0 dark:border-slate-700'>
-            {Object.keys(techList).map(menu => (
+            {techList.map(menu => (
               <MenuItem key={menu} menu={menu as Tech} />
             ))}
           </AccordionContent>
@@ -30,7 +30,7 @@ const SidebarContent = () => (
     </div>
 
     <div className='hidden space-y-1 px-6 py-5 lg:block'>
-      {Object.keys(techList).map(menu => (
+      {techList.map(menu => (
         <MenuItem key={menu} menu={menu as Tech} />
       ))}
     </div>

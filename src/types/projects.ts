@@ -2,11 +2,11 @@ import type { IconType } from 'react-icons';
 
 type Lang = 'ko' | 'en';
 
-export type Tech = 'react' | 'python';
+export type Tech = 'react';
 
 export type TechIconMap = Record<Tech, IconType>;
 
-export type ProjectName = 'portfolio' | 'blog-ai-writer';
+export type ProjectName = 'portfolio';
 
 export type ProjectItem = {
   id: number;
@@ -15,6 +15,7 @@ export type ProjectItem = {
   thumbnailUrl: string;
   description: string;
   githubUrl: string;
+  githubButtonText: string;
 };
 
 export type ProjectData = Record<ProjectName, ProjectItem>;
