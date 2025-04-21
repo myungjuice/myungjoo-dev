@@ -1,59 +1,28 @@
-'use client';
+import type { Metadata } from 'next';
 
-import { useTranslation } from 'react-i18next';
+import { shared, page } from '@/constants/metadata';
 
-import Divider from '@/components/shared/divider';
-import SectionTitle from '@/components/shared/section-title';
-import SideContent from '@/components/shared/side-content';
-import Sidebar from '@/components/sidebar';
-import { aboutTabKoMap, aboutMenuKoMap } from '@/constants/about';
-import { navLinks } from '@/constants/header';
-import { useAboutPageStore } from '@/store/use-about-page-store';
-import type { Menu } from '@/types/about';
+import About from './_components/about';
 
-import MainContent from './_components/main-content';
-import SidebarContent from './_components/sidebar-content';
-
-const mobileTitle = navLinks.find(item => item.href === '/about')?.label || '_about-me';
-
-const About = () => {
-  const { selectedMenu, selectedTab } = useAboutPageStore(state => ({
-    selectedMenu: state.selectedMenu,
-    selectedTab: state.selectedTab,
-  }));
-
-  const {
-    i18n: { language },
-  } = useTranslation();
-
-  return (
-    <div className='flex flex-col lg:h-full lg:flex-row'>
-      <Sidebar>
-        <Sidebar.Tab />
-        <Sidebar.Container
-          mobileTitle={mobileTitle}
-          desktopTitle={language === 'ko' ? aboutTabKoMap[selectedTab] : selectedTab}
-        >
-          <SidebarContent />
-        </Sidebar.Container>
-      </Sidebar>
-
-      <div className='flex h-full flex-1 flex-col'>
-        <SectionTitle className='h-[59px]'>
-          <SectionTitle.Item>
-            {language === 'ko' ? aboutMenuKoMap[selectedMenu as Menu] : selectedMenu}
-          </SectionTitle.Item>
-        </SectionTitle>
-
-        <div className='flex h-full flex-col 2xl:flex-row'>
-          <MainContent />
-          <Divider />
-          <SideContent />
-          <Divider />
-        </div>
-      </div>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: page.about.title,
+  description: page.about.description,
+  openGraph: {
+    title: page.about.title,
+    description: page.about.description,
+    url: page.about.url,
+    images: [shared.ogImage],
+    siteName: shared.siteName,
+    type: shared.type,
+  },
+  twitter: {
+    card: shared.twitterCard,
+    title: page.about.title,
+    description: page.about.description,
+    images: [shared.ogImage],
+  },
 };
 
-export default About;
+const AboutPage = () => <About />;
+
+export default AboutPage;

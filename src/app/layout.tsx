@@ -3,6 +3,7 @@ import { Fira_Code } from 'next/font/google';
 import { type PropsWithChildren } from 'react';
 
 import Layout from '@/components/layout';
+import { shared, page } from '@/constants/metadata';
 import Providers from '@/providers';
 
 import '@/styles/globals.css';
@@ -15,8 +16,22 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "MJ's Portfolio",
-  description: 'Introduce myself',
+  title: page.root.title,
+  description: page.root.description,
+  openGraph: {
+    title: page.root.title,
+    description: page.root.description,
+    url: page.root.url,
+    images: [shared.ogImage],
+    siteName: shared.siteName,
+    type: shared.type,
+  },
+  twitter: {
+    card: shared.twitterCard,
+    title: page.root.title,
+    description: page.root.description,
+    images: [shared.ogImage],
+  },
 };
 
 const RootLayout = ({ children }: Readonly<PropsWithChildren>) => (
