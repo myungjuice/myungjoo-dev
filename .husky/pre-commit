@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "Lint & Format & Test 실행 중..."
+echo "🔍 Lint, Format, Type Check, Test 실행 중..."
+
 pnpm lint-staged
+pnpm tsc --noEmit
 pnpm test --silent --bail
