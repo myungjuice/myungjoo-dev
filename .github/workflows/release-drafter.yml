@@ -6,18 +6,42 @@ on:
       - main
 
 jobs:
+  check-version-changed:
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.check.outputs.version_changed }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if version changed
+        id: check
+        run: |
+          git fetch origin main --depth=2
+          if git diff HEAD^ HEAD package.json | grep '"version"'; then
+            echo "✅ version changed"
+            echo "version_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "🛑 version not changed"
+            echo "version_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
   check-code-quality:
     name: Code Quality Check
     runs-on: ubuntu-latest
+    needs: check-version-changed
+    if: needs.check-version-changed.outputs.version_changed == 'true'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Install dependencies
         run: pnpm install
@@ -33,9 +57,9 @@ jobs:
 
   update_release_draft:
     name: Draft Release
-    needs: check-code-quality
     runs-on: ubuntu-latest
-    if: success()
+    needs: check-code-quality
+    if: needs.check-code-quality.result == 'success'
     permissions:
       contents: write
     steps:
