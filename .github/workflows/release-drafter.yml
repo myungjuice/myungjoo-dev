@@ -6,8 +6,36 @@ on:
       - main
 
 jobs:
-  update_release_draft:
+  check-code-quality:
+    name: Code Quality Check
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run lint-staged
+        run: pnpm lint-staged
+
+      - name: Run TypeScript type check
+        run: pnpm tsc --noEmit
+
+      - name: Run tests
+        run: pnpm test --silent --bail
+
+  update_release_draft:
+    name: Draft Release
+    needs: check-code-quality
+    runs-on: ubuntu-latest
+    if: success()
     permissions:
       contents: write
     steps:
