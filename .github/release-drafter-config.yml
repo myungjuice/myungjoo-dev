@@ -17,6 +17,9 @@ categories:
     labels:
       - 'release'
       - 'ci'
+      - 'major'
+      - 'minor'
+      - 'patch'
 
 change-template: '- $TITLE #$NUMBER (@$AUTHOR)'
 change-title-escapes: '\<*_&'
@@ -37,8 +40,6 @@ template: |
   ### Highlights
 
   ## Detail
-
-  ## Uncategorized
 
   ## Screens
 
