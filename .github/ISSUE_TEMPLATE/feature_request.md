@@ -1,15 +1,27 @@
 ---
-name: Feature request
-about: 기능 요청
-title: '[feature]'
-labels: 'enhancement'
+name: 🌟 Feature Request
+about: Suggest a new feature or improvement
+title: '[Feature] '
+labels: ['enhancement']
 assignees: ''
 ---
 
-**기능 요청을 하게 된 원인, 이유**
+## ✨ Feature Description
 
-**기능에 대한 명확하고 간결한 설명**
+<!-- Clearly describe the new feature or improvement you are suggesting -->
 
-**기능에 대한 자세한 설명**
+## 💡 Motivation
 
-**관련 스크린샷, 링크, 파일 첨부**
+<!-- Why do you need this feature? What problem does it solve? -->
+
+## 🧩 Proposed Solution
+
+<!-- If you have any ideas on how to implement it, describe them here -->
+
+## 📄 Alternatives Considered (optional)
+
+<!-- Have you considered any alternative solutions or workarounds? -->
+
+## 🙋 Additional Context
+
+<!-- Add any other context, mockups, or references that might help explain the request -->

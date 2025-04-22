@@ -1,21 +1,33 @@
-## 작업 종류
+## 🔍 Overview
 
-- [ ] Bugfix
+<!-- Briefly describe what this PR does -->
+
+## ✅ What’s Included
+
+<!-- Please check the relevant items below -->
+
 - [ ] Feature
-- [ ] Release
-- [ ] Refactor
-- [ ] Style
-- [ ] Environment
-- [ ] Other, please describe:
+- [ ] Bug Fix
+- [ ] UI Enhancement
+- [ ] Performance Improvement
+- [ ] Code Refactor
+- [ ] Test Code
+- [ ] Others (describe below)
 
-## 작업 요약
+## 📸 Screenshots (if applicable)
 
--
+<!-- Add screenshots if the PR includes UI work -->
 
-## 작업 내용 (생략x, 어떤 작업인지 가급적이면 설명, 관련 스크린샷 포함)
+## 🔗 Related Issues
 
--
+<!-- Add related issue numbers if applicable -->
 
-## 테스팅 요구사항
+- Closes #
 
--
+## 💬 Additional Notes
+
+<!-- Any extra context, TODOs, or implementation details -->
+
+## 🙏 Review Notes
+
+<!-- Let reviewers know what to focus on, or anything you're unsure about -->
