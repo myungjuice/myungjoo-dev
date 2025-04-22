@@ -30,9 +30,9 @@ const ProjectCard = memo(({ delay, title, project }: Props) => {
           </div>
           <div className='bg-white dark:bg-slate-800'>
             <div className='flex-1 p-4 pb-0 sm:p-7 sm:pb-0'>
-              <p className='text-body-sm text-slate-600 sm:text-body-md dark:text-slate-300'>
+              <pre className='text-body-sm break-words whitespace-pre-wrap text-slate-600 sm:text-body-md dark:text-slate-300'>
                 {project.description}
-              </p>
+              </pre>
             </div>
             <div className='flex w-full items-center gap-4 p-4 pt-4 sm:w-1/2 sm:p-7'>
               <Button className='flex flex-1 items-center p-0'>
