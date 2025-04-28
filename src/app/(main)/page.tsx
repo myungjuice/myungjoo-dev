@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { shared, page } from '@/constants/metadata';
+import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
 
 import Main from './_components/main';
 
@@ -23,6 +24,11 @@ export const metadata: Metadata = {
   },
 };
 
-const MainPage = () => <Main />;
+const MainPage = async () => {
+  const lang = await getLangFromCookie();
+  console.log('NEXT_LANG 쿠키 값:', lang);
+
+  return <Main />;
+};
 
 export default MainPage;

@@ -26,6 +26,7 @@ const LanguageToggle = () => {
     const newLang = i18n.language === 'ko' ? 'en' : 'ko';
     i18n.changeLanguage(newLang);
     setLang(newLang);
+    document.cookie = `NEXT_LANG=${newLang}; path=/;`;
   };
 
   return (
