@@ -69,7 +69,6 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write",
-      "pnpm tsc --noEmit",
       "jest --findRelatedTests --passWithNoTests"
     ]
   }

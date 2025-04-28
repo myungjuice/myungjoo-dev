@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { FaGithub, FaEnvelope } from 'react-icons/fa';
 
-const Hello = () => {
+const CodeView = () => {
   const { t } = useTranslation('main');
 
   return (
@@ -39,4 +39,4 @@ const Hello = () => {
   );
 };
 
-export default Hello;
+export default CodeView;
