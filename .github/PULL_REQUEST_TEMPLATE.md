@@ -14,7 +14,7 @@
 - [ ] Test Code
 - [ ] Others (describe below)
 
-## 📸 Screenshots (if applicable)
+## 📸 Screenshots
 
 <!-- Add screenshots if the PR includes UI work -->
 
@@ -27,7 +27,3 @@
 ## 💬 Additional Notes
 
 <!-- Any extra context, TODOs, or implementation details -->
-
-## 🙏 Review Notes
-
-<!-- Let reviewers know what to focus on, or anything you're unsure about -->
