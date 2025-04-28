@@ -15,7 +15,7 @@ import CodeView from './code-view';
 import SnakeGame from './snake-game';
 
 const Main = () => {
-  const [isShowCodeHighlight, setIsShowCodeHighlight] = useState(true);
+  const [isShowCodeHighlight, setIsShowCodeHighlight] = useState(false);
 
   const {
     t,
