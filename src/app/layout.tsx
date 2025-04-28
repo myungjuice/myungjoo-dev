@@ -16,6 +16,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://myungjoo.dev'),
   title: page.root.title,
   description: page.root.description,
   openGraph: {
