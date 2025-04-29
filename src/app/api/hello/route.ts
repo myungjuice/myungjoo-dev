@@ -2,10 +2,36 @@ import { NextResponse } from 'next/server';
 
 export const GET = async (request: Request) => {
   const backendUrl = process.env.BACKEND_API_BASE_URL;
-  if (!backendUrl) throw new Error('BACKEND_API_BASE_URL is not defined.');
+  if (!backendUrl) {
+    return NextResponse.json(
+      {
+        success: false,
+        statusCode: 500,
+        data: {
+          message: 'backendUrl is not defined.',
+          path: '/api/hello',
+          timestamp: new Date().toISOString(),
+        },
+      },
+      { status: 500 }
+    );
+  }
 
   const { searchParams } = new URL(request.url);
-  if (!searchParams.get('lang')) throw new Error('Missing "lang" query parameter.');
+  if (!searchParams.get('lang')) {
+    return NextResponse.json(
+      {
+        success: false,
+        statusCode: 400,
+        data: {
+          message: 'Missing "lang" query parameter.',
+          path: '/api/hello',
+          timestamp: new Date().toISOString(),
+        },
+      },
+      { status: 400 }
+    );
+  }
 
   const lang = searchParams.get('lang');
 
