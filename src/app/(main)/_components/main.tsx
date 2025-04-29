@@ -170,7 +170,7 @@ export default Hello;
         </FadeInUp>
       </div>
       <div className='flex w-full items-center justify-center gap-5 xl:flex-row'>
-        <div className={cn('w-full lg:w-fit', isShowCodeHighlight && 'w-full')}>
+        <div className={cn('w-full lg:w-fit')}>
           <FadeInUp>
             <div className='relative w-full'>
               {!isFetching && (

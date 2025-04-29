@@ -5,33 +5,60 @@ import { cn } from '@/lib/utils';
 import type { HelloResponse } from '@/types/hello';
 import type { Language } from '@/types/language';
 
-type SkeletonSize = {
-  height: string;
-  smWidth: string;
+type SkeletonItem = {
+  base: string;
+  smHeight: string;
+  smWidth: Record<Language, string>;
 };
 
 type SkeletonSizeMap = {
-  title: SkeletonSize;
-  github: SkeletonSize;
-  email: SkeletonSize;
-  text01: SkeletonSize;
-  text02: SkeletonSize;
+  title: SkeletonItem;
+  github: SkeletonItem;
+  email: SkeletonItem;
+  text01: SkeletonItem;
+  text02: SkeletonItem;
 };
 
-const SKELETON_SIZES: Record<Language, SkeletonSizeMap> = {
-  ko: {
-    title: { height: '34px', smWidth: '435px' },
-    github: { height: '24px', smWidth: '397px' },
-    email: { height: '24px', smWidth: '378px' },
-    text01: { height: '20px', smWidth: '397px' },
-    text02: { height: '20px', smWidth: '220px' },
+const SKELETON_SIZES: SkeletonSizeMap = {
+  title: {
+    base: 'h-[34px] w-full',
+    smHeight: 'sm:h-[34px]',
+    smWidth: {
+      ko: 'sm:w-[435px]',
+      en: 'sm:w-[460px]',
+    },
   },
-  en: {
-    title: { height: '34px', smWidth: '460px' },
-    github: { height: '24px', smWidth: '590px' },
-    email: { height: '24px', smWidth: '590px' },
-    text01: { height: '20px', smWidth: '530px' },
-    text02: { height: '20px', smWidth: '370px' },
+  github: {
+    base: 'h-[24px] w-full',
+    smHeight: 'sm:h-[24px]',
+    smWidth: {
+      ko: 'sm:w-[397px]',
+      en: 'sm:w-[590px]',
+    },
+  },
+  email: {
+    base: 'h-[24px] w-full',
+    smHeight: 'sm:h-[24px]',
+    smWidth: {
+      ko: 'sm:w-[378px]',
+      en: 'sm:w-[590px]',
+    },
+  },
+  text01: {
+    base: 'h-[20px] w-2/3',
+    smHeight: 'sm:h-[20px]',
+    smWidth: {
+      ko: 'sm:w-[397px]',
+      en: 'sm:w-[530px]',
+    },
+  },
+  text02: {
+    base: 'h-[20px] w-1/2',
+    smHeight: 'sm:h-[20px]',
+    smWidth: {
+      ko: 'sm:w-[220px]',
+      en: 'sm:w-[370px]',
+    },
   },
 };
 
@@ -42,18 +69,22 @@ type Props = {
 };
 
 const CodeView = ({ data, isFetching, language }: Props) => {
-  const skeleton = SKELETON_SIZES[language];
+  const skeleton = SKELETON_SIZES;
 
   return (
     <div
       className={cn(
         'flex w-full flex-col justify-center gap-4 rounded-xl bg-white p-6 shadow-md xl:h-[400px] dark:bg-slate-800',
-        !isFetching && 'pt-14 sm:pt-6'
+        !isFetching && 'pt-14'
       )}
     >
       {isFetching ? (
         <Skeleton
-          className={cn(`h-[${skeleton.title.height}] w-full`, `sm:w-[${skeleton.title.smWidth}]`)}
+          className={cn(
+            skeleton.title.base,
+            skeleton.title.smHeight,
+            skeleton.title.smWidth[language]
+          )}
         />
       ) : (
         <h4 className='text-body-md-bold sm:text-heading-h5'>{data.code.title}</h4>
@@ -64,8 +95,9 @@ const CodeView = ({ data, isFetching, language }: Props) => {
           {isFetching ? (
             <Skeleton
               className={cn(
-                `h-[${skeleton.github.height}] w-full`,
-                `sm:w-[${skeleton.github.smWidth}]`
+                skeleton.github.base,
+                skeleton.github.smHeight,
+                skeleton.github.smWidth[language]
               )}
             />
           ) : (
@@ -88,8 +120,9 @@ const CodeView = ({ data, isFetching, language }: Props) => {
           {isFetching ? (
             <Skeleton
               className={cn(
-                `h-[${skeleton.email.height}] w-full`,
-                `sm:w-[${skeleton.email.smWidth}]`
+                skeleton.email.base,
+                skeleton.email.smHeight,
+                skeleton.email.smWidth[language]
               )}
             />
           ) : (
@@ -112,14 +145,16 @@ const CodeView = ({ data, isFetching, language }: Props) => {
           <>
             <Skeleton
               className={cn(
-                `h-[${skeleton.text01.height}] w-2/3`,
-                `sm:w-[${skeleton.text01.smWidth}]`
+                skeleton.text01.base,
+                skeleton.text01.smHeight,
+                skeleton.text01.smWidth[language]
               )}
             />
             <Skeleton
               className={cn(
-                `h-[${skeleton.text02.height}] w-1/2`,
-                `sm:w-[${skeleton.text02.smWidth}]`
+                skeleton.text02.base,
+                skeleton.text02.smHeight,
+                skeleton.text02.smWidth[language]
               )}
             />
           </>
