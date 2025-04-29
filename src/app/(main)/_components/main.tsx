@@ -1,6 +1,8 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdCode } from 'react-icons/md';
 
 import CodeHighlight from '@/components/shared/code-highlight';
@@ -8,6 +10,7 @@ import FadeInUp from '@/components/shared/fade-in-up';
 import Typewriter from '@/components/shared/typewriter';
 import { Label } from '@/components/ui/label';
 import { Toggle } from '@/components/ui/toggle';
+import { fetchHello } from '@/lib/api/hello';
 import { cn } from '@/lib/utils';
 import type { HelloResponse } from '@/types/hello';
 
@@ -15,11 +18,23 @@ import CodeView from './code-view';
 import SnakeGame from './snake-game';
 
 type Props = {
-  data: HelloResponse;
+  initialData: HelloResponse;
 };
 
-const Main = ({ data }: Props) => {
+const Main = ({ initialData }: Props) => {
   const [isShowCodeHighlight, setIsShowCodeHighlight] = useState(false);
+
+  const {
+    i18n: { language },
+  } = useTranslation();
+
+  const { data, isFetching, isError } = useQuery({
+    queryKey: ['hello', language],
+    queryFn: () => fetchHello({ lang: language }),
+    initialData,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
 
   const rawCode = useMemo(
     () => `
@@ -80,6 +95,14 @@ export default Hello;
     ],
     [data]
   );
+
+  if (isFetching) {
+    return <div>loading</div>;
+  }
+
+  if (isError) {
+    return <div>error</div>;
+  }
 
   return (
     <div className='flex h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-8'>

@@ -29,7 +29,7 @@ const MainPage = async () => {
   const lang = await getLangFromCookie();
   const helloData = await fetchHello({ lang });
 
-  return <Main data={helloData} />;
+  return <Main initialData={helloData} />;
 };
 
 export default MainPage;
