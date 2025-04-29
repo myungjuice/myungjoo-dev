@@ -27,12 +27,9 @@ export const metadata: Metadata = {
 
 const MainPage = async () => {
   const lang = await getLangFromCookie();
-  console.log('NEXT_LANG 쿠키 값:', lang);
-
   const helloData = await fetchHello({ lang });
-  console.log('helloData 응답:', helloData);
 
-  return <Main />;
+  return <Main data={helloData} />;
 };
 
 export default MainPage;
