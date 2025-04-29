@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { MdCode } from 'react-icons/md';
 
 import CodeHighlight from '@/components/shared/code-highlight';
+import ErrorContent from '@/components/shared/error-content';
 import FadeInUp from '@/components/shared/fade-in-up';
 import Typewriter from '@/components/shared/typewriter';
 import { Label } from '@/components/ui/label';
@@ -32,8 +33,9 @@ const Main = ({ initialData }: Props) => {
     queryKey: ['hello', language],
     queryFn: () => fetchHello({ lang: language }),
     initialData,
-    refetchOnMount: true,
+    refetchOnMount: process.env.NODE_ENV === 'development',
     refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const rawCode = useMemo(
@@ -97,11 +99,11 @@ export default Hello;
   );
 
   if (isFetching) {
-    return <div>loading</div>;
+    return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>error</div>;
+    return <ErrorContent />;
   }
 
   return (

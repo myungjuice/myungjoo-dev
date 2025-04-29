@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { shared, page } from '@/constants/metadata';
 import { fetchHello } from '@/lib/api/hello';
@@ -29,7 +30,11 @@ const MainPage = async () => {
   const lang = await getLangFromCookie();
   const helloData = await fetchHello({ lang });
 
-  return <Main initialData={helloData} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Main initialData={helloData} />
+    </Suspense>
+  );
 };
 
 export default MainPage;
