@@ -1,5 +1,4 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { PropsWithChildren } from 'react';
 
 import { cn } from '@/lib/utils';
 
