@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdCode } from 'react-icons/md';
 
@@ -25,10 +25,32 @@ type Props = {
   initialData: HelloResponse;
 };
 
-const SKELETON_SIZES = {
-  line1: { height: '27px', width: '130px' },
-  line2: { height: '66px', width: '383.41px' },
-  line3: { height: '41px', width: '261.61px' },
+type SkeletonSize = {
+  line1: { base: string; sm?: string };
+  line2: { base: string; smHeight: string; smWidth: Record<Language, string> };
+  line3: { base: string; smHeight: string; smWidth: Record<Language, string> };
+};
+
+const SKELETON_SIZES: SkeletonSize = {
+  line1: {
+    base: 'h-[24px] w-[130px] sm:h-[27px]',
+  },
+  line2: {
+    base: 'h-[46.8px] w-full',
+    smHeight: 'sm:h-[66px]',
+    smWidth: {
+      ko: 'sm:w-[383.41px]',
+      en: 'sm:w-[542px]',
+    },
+  },
+  line3: {
+    base: 'h-[33.59px] w-[261.61px]',
+    smHeight: 'sm:h-[41px]',
+    smWidth: {
+      ko: 'sm:w-[261.61px]',
+      en: 'sm:w-[380px]',
+    },
+  },
 };
 
 const Main = ({ initialData }: Props) => {
@@ -107,24 +129,39 @@ export default Hello;
     [data]
   );
 
+  useEffect(() => {
+    setIsShowCodeHighlight(false);
+  }, [language]);
+
   if (isError) {
     return <ErrorContent />;
   }
 
   return (
-    <div className='flex h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-8'>
-      <div className='h-[110px] sm:h-[139px]'>
+    <div
+      className={cn(
+        'flex h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-8',
+        isFetching && 'gap-8'
+      )}
+    >
+      <div className='h-[110px] w-full sm:h-[139px] sm:w-auto'>
         <FadeInUp>
           {isFetching ? (
             <div className='flex flex-col gap-2'>
+              <Skeleton className={SKELETON_SIZES.line1.base} />
               <Skeleton
-                className={`h-[${SKELETON_SIZES.line1.height}] w-[${SKELETON_SIZES.line1.width}]`}
+                className={cn(
+                  SKELETON_SIZES.line2.base,
+                  SKELETON_SIZES.line2.smHeight,
+                  SKELETON_SIZES.line2.smWidth[language as Language]
+                )}
               />
               <Skeleton
-                className={`h-[${SKELETON_SIZES.line2.height}] w-[${SKELETON_SIZES.line2.width}]`}
-              />
-              <Skeleton
-                className={`h-[${SKELETON_SIZES.line3.height}] w-[${SKELETON_SIZES.line3.width}]`}
+                className={cn(
+                  SKELETON_SIZES.line3.base,
+                  SKELETON_SIZES.line3.smHeight,
+                  SKELETON_SIZES.line3.smWidth[language as Language]
+                )}
               />
             </div>
           ) : (
@@ -133,9 +170,9 @@ export default Hello;
         </FadeInUp>
       </div>
       <div className='flex w-full items-center justify-center gap-5 xl:flex-row'>
-        <div className={cn('lg:w-fit', isShowCodeHighlight && 'w-full')}>
+        <div className={cn('w-full lg:w-fit', isShowCodeHighlight && 'w-full')}>
           <FadeInUp>
-            <div className='relative'>
+            <div className='relative w-full'>
               {!isFetching && (
                 <Toggle
                   aria-label='Toggle italic'
