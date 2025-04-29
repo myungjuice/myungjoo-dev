@@ -16,12 +16,19 @@ import { Toggle } from '@/components/ui/toggle';
 import { fetchHello } from '@/lib/api/hello';
 import { cn } from '@/lib/utils';
 import type { HelloResponse } from '@/types/hello';
+import type { Language } from '@/types/language';
 
 import CodeView from './code-view';
 import SnakeGame from './snake-game';
 
 type Props = {
   initialData: HelloResponse;
+};
+
+const SKELETON_SIZES = {
+  line1: { height: '27px', width: '130px' },
+  line2: { height: '66px', width: '383.41px' },
+  line3: { height: '41px', width: '261.61px' },
 };
 
 const Main = ({ initialData }: Props) => {
@@ -110,9 +117,15 @@ export default Hello;
         <FadeInUp>
           {isFetching ? (
             <div className='flex flex-col gap-2'>
-              <Skeleton className='h-[27px] w-[130px]' />
-              <Skeleton className='h-[66px] w-[383.41px]' />
-              <Skeleton className='h-[41px] w-[261.61px]' />
+              <Skeleton
+                className={`h-[${SKELETON_SIZES.line1.height}] w-[${SKELETON_SIZES.line1.width}]`}
+              />
+              <Skeleton
+                className={`h-[${SKELETON_SIZES.line2.height}] w-[${SKELETON_SIZES.line2.width}]`}
+              />
+              <Skeleton
+                className={`h-[${SKELETON_SIZES.line3.height}] w-[${SKELETON_SIZES.line3.width}]`}
+              />
             </div>
           ) : (
             <Typewriter lines={lines} isLoop />
@@ -137,7 +150,7 @@ export default Hello;
               {isShowCodeHighlight ? (
                 <CodeHighlight rawCode={rawCode} loadingClassName='w-full sm:w-[548px]' />
               ) : (
-                <CodeView data={data} isFetching={isFetching} language={language} />
+                <CodeView data={data} isFetching={isFetching} language={language as Language} />
               )}
             </div>
           </FadeInUp>

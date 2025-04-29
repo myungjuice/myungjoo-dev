@@ -3,24 +3,62 @@ import { FaGithub, FaEnvelope } from 'react-icons/fa';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import type { HelloResponse } from '@/types/hello';
+import type { Language } from '@/types/language';
 
 type Props = {
   data: HelloResponse;
   isFetching: boolean;
-  language: string;
+  language: Language;
+};
+
+type SkeletonSize = {
+  title: string;
+  github: string;
+  email: string;
+  text01: string;
+  text02: string;
+};
+
+const SKELETON_WIDTH: Record<Language, SkeletonSize> = {
+  ko: {
+    title: '460.8px',
+    github: '589.61px',
+    email: '589.61px',
+    text01: '529.2px',
+    text02: '369.61px',
+  },
+  en: {
+    title: '460.8px',
+    github: '589.61px',
+    email: '589.61px',
+    text01: '529.2px',
+    text02: '369.61px',
+  },
+};
+
+const SKELETON_HEIGHT: SkeletonSize = {
+  title: '33.59px',
+  github: '6px',
+  email: '6px',
+  text01: '19.59px',
+  text02: '19.59px',
 };
 
 const CodeView = ({ data, isFetching, language }: Props) => (
   <div className='flex flex-col justify-center gap-4 rounded-xl bg-white p-6 pt-14 shadow-md xl:h-[400px] dark:bg-slate-800'>
     {isFetching ? (
-      <Skeleton className={cn('h-[33.59px] w-[434.64px]', language === 'en' && 'w-[460.8px]')} />
+      <Skeleton
+        className={cn(`h-[${SKELETON_HEIGHT.title}] w-[${SKELETON_WIDTH[language].title}]`)}
+      />
     ) : (
       <h4 className='text-body-md-bold sm:text-heading-h5'>{data.code.title}</h4>
     )}
     <div className='space-y-4 sm:space-y-2'>
       <div className='flex flex-col sm:flex-row sm:items-center sm:gap-2'>
         {isFetching ? (
-          <Skeleton className={cn('h-6 w-[397.11px]', language === 'en' && 'w-[589.61px]')} />
+          <Skeleton
+            className={cn(`h-[${SKELETON_HEIGHT.github}] w-[${SKELETON_WIDTH[language].github}]`)}
+          />
         ) : (
           <>
             <FaGithub className='hidden sm:block' />
@@ -38,7 +76,9 @@ const CodeView = ({ data, isFetching, language }: Props) => (
       </div>
       <div className='flex flex-col sm:flex-row sm:items-center sm:gap-2'>
         {isFetching ? (
-          <Skeleton className={cn('h-6 w-[377.92px]', language === 'en' && 'w-[589.61px]')} />
+          <Skeleton
+            className={cn(`h-[${SKELETON_HEIGHT.email}] w-[${SKELETON_WIDTH[language].email}]`)}
+          />
         ) : (
           <>
             <FaEnvelope className='hidden sm:block' />
@@ -57,10 +97,10 @@ const CodeView = ({ data, isFetching, language }: Props) => (
       {isFetching ? (
         <>
           <Skeleton
-            className={cn('h-[19.59px] w-[397.11px]', language === 'en' && 'w-[529.2px]')}
+            className={cn(`h-[${SKELETON_HEIGHT.text01}] w-[${SKELETON_WIDTH[language].text01}]`)}
           />
           <Skeleton
-            className={cn('h-[19.59px] w-[219.95px]', language === 'en' && 'w-[369.61px]')}
+            className={cn(`h-[${SKELETON_HEIGHT.text02}] w-[${SKELETON_WIDTH[language].text02}]`)}
           />
         </>
       ) : (
