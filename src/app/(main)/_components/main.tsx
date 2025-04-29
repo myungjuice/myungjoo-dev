@@ -10,6 +10,8 @@ import ErrorContent from '@/components/shared/error-content';
 import FadeInUp from '@/components/shared/fade-in-up';
 import Typewriter from '@/components/shared/typewriter';
 import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
+import Spinner from '@/components/ui/spinner';
 import { Toggle } from '@/components/ui/toggle';
 import { fetchHello } from '@/lib/api/hello';
 import { cn } from '@/lib/utils';
@@ -44,7 +46,7 @@ import { FaGithub, FaEnvelope } from 'react-icons/fa';
 
 const Hello = () => (
   <div className='flex h-[400px] flex-col justify-center gap-4 rounded-xl bg-white p-6 pt-14 shadow-md dark:bg-slate-800'>
-    <h4 className='text-heading-h6 sm:text-heading-h5'>${data.code.title}!</h4>
+    <h4 className='text-heading-h6 sm:text-heading-h5'>${data.code.title}</h4>
     <div className='space-y-4 sm:space-y-2'>
       <div className='flex flex-col sm:flex-row sm:items-center sm:gap-2'>
         <FaGithub className='hidden sm:block' />
@@ -98,10 +100,6 @@ export default Hello;
     [data]
   );
 
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-
   if (isError) {
     return <ErrorContent />;
   }
@@ -110,32 +108,47 @@ export default Hello;
     <div className='flex h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-8'>
       <div className='h-[110px] sm:h-[139px]'>
         <FadeInUp>
-          <Typewriter lines={lines} isLoop />
+          {isFetching ? (
+            <div className='flex flex-col gap-2'>
+              <Skeleton className='h-[27px] w-[130px]' />
+              <Skeleton className='h-[66px] w-[383.41px]' />
+              <Skeleton className='h-[41px] w-[261.61px]' />
+            </div>
+          ) : (
+            <Typewriter lines={lines} isLoop />
+          )}
         </FadeInUp>
       </div>
       <div className='flex w-full items-center justify-center gap-5 xl:flex-row'>
         <div className={cn('lg:w-fit', isShowCodeHighlight && 'w-full')}>
           <FadeInUp>
             <div className='relative'>
-              <Toggle
-                aria-label='Toggle italic'
-                className='absolute top-2 right-2 z-10'
-                pressed={isShowCodeHighlight}
-                onPressedChange={() => setIsShowCodeHighlight(prev => !prev)}
-              >
-                <MdCode />
-                <Label className='cursor-pointer'>code</Label>
-              </Toggle>
+              {!isFetching && (
+                <Toggle
+                  aria-label='Toggle italic'
+                  className='absolute top-2 right-2 z-10'
+                  pressed={isShowCodeHighlight}
+                  onPressedChange={() => setIsShowCodeHighlight(prev => !prev)}
+                >
+                  <MdCode />
+                  <Label className='cursor-pointer'>code</Label>
+                </Toggle>
+              )}
               {isShowCodeHighlight ? (
                 <CodeHighlight rawCode={rawCode} loadingClassName='w-full sm:w-[548px]' />
               ) : (
-                <CodeView data={data} />
+                <CodeView data={data} isFetching={isFetching} language={language} />
               )}
             </div>
           </FadeInUp>
         </div>
-        <div className='hidden items-center justify-center xl:flex'>
+        <div className='relative hidden items-center justify-center xl:flex'>
           <FadeInUp>
+            {isFetching && (
+              <div className='absolute z-10 flex h-full w-full items-center justify-center rounded-xl bg-black/50'>
+                <Spinner size='md' />
+              </div>
+            )}
             <SnakeGame />
           </FadeInUp>
         </div>
