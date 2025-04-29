@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { shared, page } from '@/constants/metadata';
+import { fetchHello } from '@/lib/api/hello';
 import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
 
 import Main from './_components/main';
@@ -26,9 +28,13 @@ export const metadata: Metadata = {
 
 const MainPage = async () => {
   const lang = await getLangFromCookie();
-  console.log('NEXT_LANG 쿠키 값:', lang);
+  const helloData = await fetchHello({ lang });
 
-  return <Main />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Main initialData={helloData} />
+    </Suspense>
+  );
 };
 
 export default MainPage;
