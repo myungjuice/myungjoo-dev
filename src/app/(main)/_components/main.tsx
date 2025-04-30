@@ -64,6 +64,7 @@ const Main = ({ initialData }: Props) => {
     queryKey: ['hello', language],
     queryFn: () => fetchHello({ lang: language }),
     initialData,
+    enabled: language !== initialData.lang,
     refetchOnMount: process.env.NODE_ENV === 'development',
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
