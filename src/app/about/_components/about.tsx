@@ -37,7 +37,7 @@ const About = ({ tabs, initialData, initialLang }: Props) => {
   } = useTranslation();
 
   const { data, isFetching, isError } = useQuery({
-    queryKey: ['hello', language, selectedTab, selectedMenu],
+    queryKey: ['about', language, selectedTab, selectedMenu],
     queryFn: () =>
       fetchAbout({ lang: language as Language, tabKey: selectedTab, menuKey: selectedMenu }),
     initialData,
