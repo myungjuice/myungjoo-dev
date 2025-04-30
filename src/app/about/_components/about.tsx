@@ -9,13 +9,13 @@ import Sidebar from '@/components/sidebar';
 import { aboutTabKoMap, aboutMenuKoMap } from '@/constants/about';
 import { navLinks } from '@/constants/header';
 import { useAboutPageStore } from '@/store/use-about-page-store';
-import type { Menu, AboutTabKey } from '@/types/about';
+import type { Menu, AboutCategory } from '@/types/about';
 
 import MainContent from './main-content';
 import SidebarContent from './sidebar-content';
 
 type Props = {
-  tabs: AboutTabKey[];
+  tabs: AboutCategory[];
 };
 
 const mobileTitle = navLinks.find(item => item.href === '/about')?.label || '_about-me';
@@ -38,7 +38,7 @@ const About = ({ tabs }: Props) => {
           mobileTitle={mobileTitle}
           desktopTitle={language === 'ko' ? aboutTabKoMap[selectedTab] : selectedTab}
         >
-          <SidebarContent />
+          <SidebarContent tabs={tabs} />
         </Sidebar.Container>
       </Sidebar>
 

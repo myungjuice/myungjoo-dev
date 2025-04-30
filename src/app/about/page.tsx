@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
+import Spinner from '@/components/ui/spinner';
 import { shared, page } from '@/constants/metadata';
 import { fetchAboutCategory } from '@/lib/api/about';
 import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
@@ -27,11 +29,20 @@ export const metadata: Metadata = {
 
 const AboutPage = async () => {
   const lang = await getLangFromCookie();
-  const aboutData = await fetchAboutCategory({ lang });
+  const aboutCategoryData = await fetchAboutCategory({ lang });
+  const tabs = aboutCategoryData.filter(item => item.type === 'tab');
 
-  const tabs = aboutData.filter(item => item.type === 'tab').map(item => item.key);
-
-  return <About tabs={tabs} />;
+  return (
+    <Suspense
+      fallback={
+        <div className='flex h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-8'>
+          <Spinner size='md' />
+        </div>
+      }
+    >
+      <About tabs={tabs} />
+    </Suspense>
+  );
 };
 
 export default AboutPage;

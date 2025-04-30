@@ -2,10 +2,10 @@ import { Button } from '@/components/ui/button';
 import { tabIconMap } from '@/constants/about';
 import { cn } from '@/lib/utils';
 import { useAboutPageStore } from '@/store/use-about-page-store';
-import type { AboutTabKey } from '@/types/about';
+import type { AboutTabKey, AboutCategory } from '@/types/about';
 
 type Props = {
-  tabs: AboutTabKey[];
+  tabs: AboutCategory[];
 };
 
 const SidebarTab = ({ tabs }: Props) => {
@@ -21,20 +21,20 @@ const SidebarTab = ({ tabs }: Props) => {
   return (
     <div className='hidden flex-col gap-2 border-r border-slate-400 px-2 py-4 lg:flex dark:border-slate-700'>
       {tabs.map(tab => {
-        const Icon = tabIconMap[tab];
+        const Icon = tabIconMap[tab.key];
 
         return (
           <Button
             variant='ghost'
             size='lg'
             className='w-full'
-            key={tab}
-            onClick={handleTabClick(tab)}
+            key={tab.key}
+            onClick={handleTabClick(tab.key)}
           >
             <Icon
               className={cn(
                 'size-6 text-slate-400 dark:text-slate-400',
-                selectedTab === tab && 'text-slate-900 dark:text-slate-100'
+                selectedTab === tab.key && 'text-slate-900 dark:text-slate-100'
               )}
             />
           </Button>
