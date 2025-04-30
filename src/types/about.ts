@@ -20,3 +20,19 @@ type AboutSection = {
 };
 
 export type AboutPageData = Record<AboutTabKey, AboutSection>;
+
+export type TabIconMap = Record<AboutTabKey, IconType>;
+
+type AboutCategoryType = 'tab' | 'menu';
+
+export type FetchAboutCategoryParams = {
+  lang: string;
+};
+
+export type AboutCategory = {
+  id: string;
+  type: AboutCategoryType;
+  key: AboutTabKey;
+  name: string;
+  menus: Menu[];
+};

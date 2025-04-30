@@ -2,7 +2,7 @@ import { CgProfile } from 'react-icons/cg';
 import { MdWork, MdSportsEsports } from 'react-icons/md';
 
 import i18n from '@/lib/i18n/client';
-import type { AboutPageData, AboutTabKey, Menu } from '@/types/about';
+import type { AboutPageData, AboutTabKey, Menu, TabIconMap } from '@/types/about';
 
 export const initialTab: AboutTabKey = 'professional';
 
@@ -51,4 +51,10 @@ export const aboutMenuKoMap: Record<Menu, string> = {
   sports: '운동',
   'favorite-games': '좋아하는 게임',
   'favorite-foods': '좋아하는 음식',
+};
+
+export const tabIconMap: TabIconMap = {
+  professional: MdWork,
+  personal: CgProfile,
+  hobbies: MdSportsEsports,
 };

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 
 import { shared, page } from '@/constants/metadata';
+import { fetchAboutCategory } from '@/lib/api/about';
+import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
 
 import About from './_components/about';
 
@@ -23,6 +25,13 @@ export const metadata: Metadata = {
   },
 };
 
-const AboutPage = () => <About />;
+const AboutPage = async () => {
+  const lang = await getLangFromCookie();
+  const aboutData = await fetchAboutCategory({ lang });
+
+  const tabs = aboutData.filter(item => item.type === 'tab').map(item => item.key);
+
+  return <About tabs={tabs} />;
+};
 
 export default AboutPage;
