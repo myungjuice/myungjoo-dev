@@ -34,7 +34,7 @@
   <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" />
 </p>
 
-![MJ's Portfolio Main Screenshot](public/images/readme_main.gif)
+![myungjoo.dev Main Screenshot](public/images/readme_main.gif)
 
 ## 🔗 사이트 바로가기
 
@@ -42,7 +42,7 @@
 
 ## 🔗 백엔드 레포 바로가기
 
-👉 [https://github.com/wkdaudwn11/myungjoo-dev-be](https://github.com/wkdaudwn11/myungjoo-dev-be)
+👉 [https://github.com/myungjuice/myungjoo-dev-be](https://github.com/myungjuice/myungjoo-dev-be)
 
 ## 🧰 사용 기술 스택
 

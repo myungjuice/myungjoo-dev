@@ -3,7 +3,7 @@ const common = {
     id: 1,
     tech: 'react',
     thumbnailUrl: '/images/portfolio_thumbnail.png',
-    githubUrl: 'https://github.com/wkdaudwn11/portfolio',
+    githubUrl: 'https://github.com/myungjuice/myungjoo-dev',
   },
 };
 
@@ -21,7 +21,7 @@ Next.js와 TypeScript로 만들었으며 반응형 디자인과 다크 모드, �
   en: {
     portfolio: {
       ...common.portfolio,
-      name: 'Portfolio Website',
+      name: 'myungjoo.dev',
       description: `This is a website that introduces myself.
 Built with Next.js and TypeScript, it supports responsive design, dark mode, and multilingual features.
 `,
