@@ -34,7 +34,7 @@
   <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" />
 </p>
 
-![MJ's Portfolio Main Screenshot](public/images/readme_main.gif)
+![myungjoo.dev Main Screenshot](public/images/readme_main.gif)
 
 ## 🔗 사이트 바로가기
 
