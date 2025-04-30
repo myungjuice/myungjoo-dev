@@ -1,4 +1,6 @@
-import { type IconType } from 'react-icons';
+import type { IconType } from 'react-icons';
+
+import type { Language } from './language';
 
 export type AboutTabKey = 'professional' | 'personal' | 'hobbies';
 export type Menu =
@@ -26,10 +28,10 @@ export type TabIconMap = Record<AboutTabKey, IconType>;
 type AboutCategoryType = 'tab' | 'menu';
 
 export type FetchAboutCategoryParams = {
-  lang: string;
+  lang: Language;
 };
 
-export type AboutCategory = {
+export type AboutCategoryItem = {
   id: string;
   type: AboutCategoryType;
   key: AboutTabKey;

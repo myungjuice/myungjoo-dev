@@ -1,9 +1,9 @@
 import { axiosInstance } from '@/lib/api';
-import type { FetchAboutCategoryParams, AboutCategory } from '@/types/about';
+import type { FetchAboutCategoryParams, AboutCategoryItem } from '@/types/about';
 
 export const fetchAboutCategory = async (
   params: FetchAboutCategoryParams
-): Promise<AboutCategory[]> =>
+): Promise<AboutCategoryItem[]> =>
   await axiosInstance.get('/api/about/category', {
     params,
   });

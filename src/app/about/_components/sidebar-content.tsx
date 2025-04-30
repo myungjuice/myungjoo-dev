@@ -10,12 +10,12 @@ import {
 import { aboutTabKoMap } from '@/constants/about';
 import { folderColors } from '@/constants/folder-colors';
 import { useAboutPageStore } from '@/store/use-about-page-store';
-import type { Menu, AboutTabKey, AboutCategory } from '@/types/about';
+import type { Menu, AboutTabKey, AboutCategoryItem } from '@/types/about';
 
 import MenuItem from './menu-item';
 
 type Props = {
-  tabs: AboutCategory[];
+  tabs: AboutCategoryItem[];
 };
 
 const SidebarContent = ({ tabs }: Props) => {

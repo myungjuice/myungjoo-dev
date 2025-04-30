@@ -2,10 +2,10 @@ import { Button } from '@/components/ui/button';
 import { tabIconMap } from '@/constants/about';
 import { cn } from '@/lib/utils';
 import { useAboutPageStore } from '@/store/use-about-page-store';
-import type { AboutTabKey, AboutCategory } from '@/types/about';
+import type { AboutTabKey, AboutCategoryItem } from '@/types/about';
 
 type Props = {
-  tabs: AboutCategory[];
+  tabs: AboutCategoryItem[];
 };
 
 const SidebarTab = ({ tabs }: Props) => {

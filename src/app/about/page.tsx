@@ -5,6 +5,7 @@ import Spinner from '@/components/ui/spinner';
 import { shared, page } from '@/constants/metadata';
 import { fetchAboutCategory } from '@/lib/api/about';
 import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
+import { Language } from '@/types/language';
 
 import About from './_components/about';
 
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const AboutPage = async () => {
-  const lang = await getLangFromCookie();
+  const lang = (await getLangFromCookie()) as Language;
   const aboutCategoryData = await fetchAboutCategory({ lang });
   const tabs = aboutCategoryData.filter(item => item.type === 'tab');
 

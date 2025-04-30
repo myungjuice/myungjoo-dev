@@ -1,5 +1,7 @@
+import type { Language } from './language';
+
 export type FetchHelloParams = {
-  lang: string;
+  lang: Language;
 };
 
 export type HelloResponse = {
