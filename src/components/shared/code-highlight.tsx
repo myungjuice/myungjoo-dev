@@ -36,6 +36,7 @@ const CodeHighlight = ({
   themes = defaultThemes,
   className,
   loadingClassName,
+  isFetching,
 }: CodeHighlightProps) => {
   const { resolvedTheme } = useTheme();
   const [highlighted, setHighlighted] = useState<string>('');
@@ -57,7 +58,7 @@ const CodeHighlight = ({
         className
       )}
     >
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <div className={cn('flex h-32 w-32 items-center justify-center', loadingClassName)}>
           <Spinner />
         </div>

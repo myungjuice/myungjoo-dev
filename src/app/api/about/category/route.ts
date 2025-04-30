@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { getErrorData } from '@/lib/get-error-data';
 
-const PATH = '/api/hello';
+const PATH = '/api/about/category';
 
 export const GET = async (request: Request) => {
   const backendUrl = process.env.BACKEND_API_BASE_URL;
@@ -20,7 +20,7 @@ export const GET = async (request: Request) => {
   const lang = searchParams.get('lang');
 
   try {
-    const response = await fetch(`${backendUrl}/hello?lang=${lang}`, {
+    const response = await fetch(`${backendUrl}/about/category?lang=${lang}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

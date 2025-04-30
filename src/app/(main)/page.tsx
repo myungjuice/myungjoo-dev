@@ -5,6 +5,7 @@ import Spinner from '@/components/ui/spinner';
 import { shared, page } from '@/constants/metadata';
 import { fetchHello } from '@/lib/api/hello';
 import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
+import { Language } from '@/types/language';
 
 import Main from './_components/main';
 
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const MainPage = async () => {
-  const lang = await getLangFromCookie();
+  const lang = (await getLangFromCookie()) as Language;
   const helloData = await fetchHello({ lang });
 
   return (

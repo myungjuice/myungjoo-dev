@@ -62,7 +62,7 @@ const Main = ({ initialData }: Props) => {
 
   const { data, isFetching, isError } = useQuery({
     queryKey: ['hello', language],
-    queryFn: () => fetchHello({ lang: language }),
+    queryFn: () => fetchHello({ lang: language as Language }),
     initialData,
     enabled: language !== initialData.lang,
     refetchOnMount: process.env.NODE_ENV === 'development',

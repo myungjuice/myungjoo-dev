@@ -48,4 +48,5 @@ export type CodeHighlightProps = {
   themes?: Themes;
   className?: string;
   loadingClassName?: string;
+  isFetching?: boolean;
 };
