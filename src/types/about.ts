@@ -38,3 +38,18 @@ export type AboutCategoryItem = {
   name: string;
   menus: Menu[];
 };
+
+export type FetchAboutParams = {
+  lang: Language;
+  tabKey: AboutTabKey;
+  menuKey: Menu;
+};
+
+export type AboutResponse = {
+  id: string;
+  tabKey: AboutTabKey;
+  menuKey: Menu;
+  content: string;
+  content_ko: string;
+  content_en: string;
+};

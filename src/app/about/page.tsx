@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import Spinner from '@/components/ui/spinner';
 import { shared, page } from '@/constants/metadata';
-import { fetchAboutCategory } from '@/lib/api/about';
+import { fetchAboutCategory, fetchAbout } from '@/lib/api/about';
 import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
 import { Language } from '@/types/language';
 
@@ -33,6 +33,8 @@ const AboutPage = async () => {
   const aboutCategoryData = await fetchAboutCategory({ lang });
   const tabs = aboutCategoryData.filter(item => item.type === 'tab');
 
+  const aboutData = await fetchAbout({ lang, tabKey: tabs[0].key, menuKey: tabs[0].menus[0] });
+
   return (
     <Suspense
       fallback={
@@ -41,7 +43,7 @@ const AboutPage = async () => {
         </div>
       }
     >
-      <About tabs={tabs} />
+      <About tabs={tabs} initialData={aboutData} initialLang={lang} />
     </Suspense>
   );
 };
