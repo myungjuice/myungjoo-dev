@@ -72,12 +72,12 @@ const About = ({ initialCategoryData, initialData, initialLang }: Props) => {
     refetchOnReconnect: true,
   });
 
-  if (isError) {
-    return <ErrorContent />;
-  }
+  if (isError) return <ErrorContent />;
 
   return (
-    <div className='flex flex-col lg:h-full lg:flex-row'>
+    <div className='relative flex flex-col lg:h-full lg:flex-row'>
+      {isFetching && <div className='absolute inset-0 z-20 flex h-full w-full bg-black/0' />}
+
       <Sidebar>
         <Sidebar.Tab tabs={tabs} />
         <Sidebar.Container mobileTitle={mobileTitle} desktopTitle={selectedTabName}>

@@ -6,7 +6,7 @@ import { shared, page } from '@/constants/metadata';
 import { fetchAboutCategory, fetchAbout } from '@/lib/api/about';
 import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
 import { AboutTabKey, Menu } from '@/types/about';
-import { Language } from '@/types/language';
+import type { Language } from '@/types/language';
 
 import About from './_components/about';
 

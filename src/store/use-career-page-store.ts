@@ -1,33 +1,51 @@
 import { useShallow } from 'zustand/react/shallow';
 
-import { careerFilterList } from '@/constants/career';
-import { sortByReference } from '@/lib/utils';
-import type { CareerFilterItem } from '@/types/career';
+import type { CareerFilterItem, CareerName } from '@/types/career';
 
 import { createStore } from '.';
 
 type CareerPageStore = {
   selectedFilter: CareerFilterItem[];
+  careerNames: CareerName[];
+  setInitialKeys: (keys: CareerFilterItem[]) => void;
+  setCareerNames: (names: CareerName[]) => void;
   toggleFilter: (filter: CareerFilterItem) => void;
 };
 
 const initialState = {
-  selectedFilter: [...careerFilterList],
+  selectedFilter: [],
+  careerNames: [],
 };
 
 export const careerPageStore = createStore<CareerPageStore>(
   set => ({
     ...initialState,
+    setInitialKeys: (keys: CareerFilterItem[]) => {
+      set(() => ({
+        selectedFilter: keys,
+      }));
+    },
+    setCareerNames: (names: CareerName[]) => {
+      set(() => ({
+        careerNames: names,
+      }));
+    },
     toggleFilter: filter => {
       set(state => {
         const exists = state.selectedFilter.includes(filter);
-        const next = exists
+        let selectedFilter = exists
           ? state.selectedFilter.filter(item => item !== filter)
           : [...state.selectedFilter, filter];
 
-        return {
-          selectedFilter: sortByReference(next, careerFilterList),
-        };
+        if (state.careerNames.length > 0) {
+          selectedFilter = selectedFilter.sort(
+            (a, b) =>
+              state.careerNames.findIndex(name => name.key === a) -
+              state.careerNames.findIndex(name => name.key === b)
+          );
+        }
+
+        return { selectedFilter };
       });
     },
   }),
