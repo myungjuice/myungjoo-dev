@@ -5,6 +5,7 @@ import Spinner from '@/components/ui/spinner';
 import { shared, page } from '@/constants/metadata';
 import { fetchAboutCategory, fetchAbout } from '@/lib/api/about';
 import { getLangFromCookie } from '@/lib/get-lang-from-cookie';
+import { AboutTabKey, Menu } from '@/types/about';
 import { Language } from '@/types/language';
 
 import About from './_components/about';
@@ -33,7 +34,11 @@ const AboutPage = async () => {
   const aboutCategoryData = await fetchAboutCategory({ lang });
   const tabs = aboutCategoryData.filter(item => item.type === 'tab');
 
-  const aboutData = await fetchAbout({ lang, tabKey: tabs[0].key, menuKey: tabs[0].menus[0] });
+  const aboutData = await fetchAbout({
+    lang,
+    tabKey: tabs[0].key as AboutTabKey,
+    menuKey: tabs[0].menus[0] as Menu,
+  });
 
   return (
     <Suspense
@@ -43,7 +48,7 @@ const AboutPage = async () => {
         </div>
       }
     >
-      <About tabs={tabs} initialData={aboutData} initialLang={lang} />
+      <About initialCategoryData={aboutCategoryData} initialData={aboutData} initialLang={lang} />
     </Suspense>
   );
 };

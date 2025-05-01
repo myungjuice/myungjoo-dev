@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { tabIconMap } from '@/constants/about';
 import { cn } from '@/lib/utils';
 import { useAboutPageStore } from '@/store/use-about-page-store';
-import type { AboutTabKey, AboutCategoryItem } from '@/types/about';
+import type { AboutTabKey, AboutCategoryItem, Menu } from '@/types/about';
 
 type Props = {
   tabs: AboutCategoryItem[];
@@ -14,14 +14,15 @@ const SidebarTab = ({ tabs }: Props) => {
     setTab: state.setTab,
   }));
 
-  const handleTabClick = (tab: AboutTabKey) => () => {
-    setTab(tab);
+  const handleTabClick = (newTab: AboutTabKey) => () => {
+    const newMenu = tabs.find(tab => tab.key === newTab)?.menus[0];
+    setTab(newTab, newMenu as Menu);
   };
 
   return (
     <div className='hidden flex-col gap-2 border-r border-slate-400 px-2 py-4 lg:flex dark:border-slate-700'>
       {tabs.map(tab => {
-        const Icon = tabIconMap[tab.key];
+        const Icon = tabIconMap[tab.key as AboutTabKey];
 
         return (
           <Button
@@ -29,7 +30,7 @@ const SidebarTab = ({ tabs }: Props) => {
             size='lg'
             className='w-full'
             key={tab.key}
-            onClick={handleTabClick(tab.key)}
+            onClick={handleTabClick(tab.key as AboutTabKey)}
           >
             <Icon
               className={cn(
