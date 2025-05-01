@@ -1,9 +1,10 @@
 import { act } from '@testing-library/react';
 
-import { careerFilterList } from '@/constants/career';
 import type { CareerFilterItem } from '@/types/career';
 
 import { careerPageStore } from '../use-career-page-store';
+
+const careerFilterList: CareerFilterItem[] = ['supertree', 'ddive', 'ellen'];
 
 describe('careerPageStore 상태 테스트', () => {
   beforeEach(() => {
