@@ -48,7 +48,10 @@ const MainContent = ({ data, isFetching }: Props) => {
                     fill
                     sizes='100px'
                     priority
-                    className={cn('object-contain p-[25%]', companyImageClassMap[company.key])}
+                    className={cn(
+                      'object-contain p-[25%]',
+                      companyImageClassMap[company.key] || 'p-[0%]'
+                    )}
                   />
                 ) : (
                   <FiImage className='h-14 w-14 text-slate-500 dark:text-slate-400' />

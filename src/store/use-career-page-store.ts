@@ -20,7 +20,7 @@ const initialState = {
 export const careerPageStore = createStore<CareerPageStore>(
   set => ({
     ...initialState,
-    setInitialKeys: (keys: string[]) => {
+    setInitialKeys: (keys: CareerFilterItem[]) => {
       set(() => ({
         selectedFilter: keys,
       }));
