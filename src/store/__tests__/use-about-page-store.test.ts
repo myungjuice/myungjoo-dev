@@ -27,7 +27,7 @@ describe('useAboutPageStore', () => {
     );
 
     act(() => {
-      result.current.setTab('hobbies');
+      result.current.setTab('hobbies', 'sports');
     });
 
     expect(result.current.selectedTab).toBe('hobbies');
@@ -62,7 +62,7 @@ describe('useAboutPageStore', () => {
     );
 
     act(() => {
-      result.current.setTab('hobbies');
+      result.current.setTab('hobbies', 'sports');
       result.current.setMenu('favorite-games');
     });
 

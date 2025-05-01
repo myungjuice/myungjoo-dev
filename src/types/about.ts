@@ -14,15 +14,6 @@ export type Menu =
   | 'favorite-games'
   | 'favorite-foods';
 
-type AboutMenuMap = Partial<Record<Menu, string>>;
-
-type AboutSection = {
-  icon: IconType;
-  menu: AboutMenuMap;
-};
-
-export type AboutPageData = Record<AboutTabKey, AboutSection>;
-
 export type TabIconMap = Record<AboutTabKey, IconType>;
 
 type AboutCategoryType = 'tab' | 'menu';
@@ -34,7 +25,7 @@ export type FetchAboutCategoryParams = {
 export type AboutCategoryItem = {
   id: string;
   type: AboutCategoryType;
-  key: AboutTabKey;
+  key: AboutTabKey | Menu;
   name: string;
   menus: Menu[];
 };
