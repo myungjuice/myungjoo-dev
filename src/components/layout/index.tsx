@@ -10,6 +10,7 @@ const Layout = ({ children }: PropsWithChildren) => (
       className='absolute top-0 right-0 z-10 hidden sm:block'
       target='_blank'
       aria-label='View source on Github'
+      rel='noopener noreferrer'
     >
       <svg
         width='80'

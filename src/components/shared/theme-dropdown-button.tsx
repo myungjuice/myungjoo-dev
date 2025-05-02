@@ -18,9 +18,9 @@ import { cn } from '@/lib/utils';
 type Theme = 'light' | 'dark' | 'system';
 
 const themes: Record<Theme, ReactNode> = {
-  light: <FiSun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
-  dark: <FiMoon className='h-[1.2rem] w-[1.2rem] scale-3d transition-all' />,
-  system: <TbSunMoon className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
+  light: <FiSun className='h-[1.2rem] w-[1.2rem] rotate-0 transition-all' />,
+  dark: <FiMoon className='h-[1.2rem] w-[1.2rem] rotate-0 transition-all' />,
+  system: <TbSunMoon className='h-[1.2rem] w-[1.2rem] rotate-0 transition-all' />,
 };
 
 const ThemeDropdownButton = () => {
