@@ -5,54 +5,58 @@ import { FaGithub } from 'react-icons/fa';
 import FadeInUp from '@/components/shared/fade-in-up';
 import { Button } from '@/components/ui/button';
 import { techIconMap } from '@/constants/projects';
-import type { ProjectItem } from '@/types/projects';
+import type { FetchProjectItem } from '@/types/projects';
 
 type Props = {
   delay: number;
   title: string;
-  project: ProjectItem;
+  project: FetchProjectItem;
 };
 
-const ProjectCard = memo(({ delay, title, project }: Props) => {
-  const Icon = techIconMap[project.tech];
+const ProjectCard = memo(({ delay, title, project }: Props) => (
+  <FadeInUp delay={delay} className='h-full'>
+    <div className='flex h-full flex-col gap-2'>
+      <div className='flex items-center gap-2 text-body-md'>
+        <p className='text-body-md-bold text-indigo-500'>{title}</p>
+        <p className='text-body-md text-slate-400'>// {project.title}</p>
+      </div>
+      <div className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg'>
+        <div className='relative h-64 w-full'>
+          <div className='absolute top-4 right-4 z-10 flex gap-2'>
+            {Object.keys(techIconMap).map(key => {
+              if (!project.tech_stack.includes(key)) return null;
 
-  return (
-    <FadeInUp delay={delay} className='h-full'>
-      <div className='flex h-full flex-col gap-2'>
-        <div className='flex items-center gap-2 text-body-md'>
-          <p className='text-body-md-bold text-indigo-500'>{title}</p>
-          <p className='text-body-md text-slate-400'>// {project.name}</p>
-        </div>
-        <div className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg'>
-          <div className='relative h-64 w-full'>
-            {Icon && <Icon size={20} className='absolute top-4 right-4 z-10 text-teal-500' />}
-            <Image fill src={project.thumbnailUrl} alt={project.name} sizes='480px' />
+              const Icon = techIconMap[key];
+              return Icon && <Icon key={key} size={20} className='text-teal-500' />;
+            })}
           </div>
-          <div className='bg-white dark:bg-slate-800'>
-            <div className='flex-1 p-4 pb-0 sm:p-7 sm:pb-0'>
-              <pre className='text-body-sm break-words whitespace-pre-wrap text-slate-600 sm:text-body-md dark:text-slate-300'>
-                {project.description}
-              </pre>
-            </div>
-            <div className='flex w-full items-center gap-4 p-4 pt-4 sm:w-1/2 sm:p-7'>
-              <Button className='flex flex-1 items-center p-0'>
-                <a
-                  href={project.githubUrl}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='flex h-full w-full items-center justify-center gap-2 text-body-sm'
-                >
-                  <FaGithub />
-                  {project.githubButtonText}
-                </a>
-              </Button>
-            </div>
+          <Image fill src={project.thumbnail_url} alt={project.title} sizes='480px' />
+        </div>
+
+        <div className='bg-white dark:bg-slate-800'>
+          <div className='flex-1 p-4 pb-0 sm:p-7 sm:pb-0'>
+            <pre className='text-body-sm break-words whitespace-pre-wrap text-slate-600 sm:text-body-md dark:text-slate-300'>
+              {project.description}
+            </pre>
+          </div>
+          <div className='flex w-full items-center gap-4 p-4 pt-4 sm:w-1/2 sm:p-7'>
+            <Button className='flex flex-1 items-center p-0'>
+              <a
+                href={project.github_url}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='flex h-full w-full items-center justify-center gap-2 text-body-sm'
+              >
+                <FaGithub />
+                Github
+              </a>
+            </Button>
           </div>
         </div>
       </div>
-    </FadeInUp>
-  );
-});
+    </div>
+  </FadeInUp>
+));
 
 ProjectCard.displayName = 'ProjectCard';
 

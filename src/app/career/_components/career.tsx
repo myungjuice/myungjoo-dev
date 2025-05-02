@@ -39,13 +39,14 @@ const Career = ({ initialLang, initialData, initialKeys, initialCareerNames }: P
     i18n: { language },
   } = useTranslation();
 
-  const mounted = useMounted();
+  const isMounted = useMounted();
 
   const { data, isFetching, isError } = useQuery<FetchCareerItem[]>({
     queryKey: ['career', language, selectedFilter],
     queryFn: () => fetchCareer({ lang: language as Language, key: selectedFilter }),
     initialData,
-    enabled: language !== initialLang || (mounted && selectedFilter.length !== initialKeys.length),
+    enabled:
+      language !== initialLang || (isMounted && selectedFilter.length !== initialKeys.length),
     refetchOnMount: process.env.NODE_ENV === 'development',
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
@@ -66,11 +67,11 @@ const Career = ({ initialLang, initialData, initialKeys, initialCareerNames }: P
   );
 
   useEffect(() => {
-    if (!mounted) {
+    if (!isMounted) {
       setCareerNames(initialCareerNames);
       setInitialKeys(initialKeys);
     }
-  }, [mounted, initialKeys, initialCareerNames, setCareerNames, setInitialKeys]);
+  }, [isMounted, initialKeys, initialCareerNames, setCareerNames, setInitialKeys]);
 
   if (isError) return <ErrorContent />;
 

@@ -1,23 +1,29 @@
 import { useShallow } from 'zustand/react/shallow';
 
-import { techList } from '@/constants/projects';
-import { sortByReference } from '@/lib/utils';
-import type { Tech } from '@/types/projects';
-
 import { createStore } from '.';
 
 type ProjectsPageStore = {
-  selectedTechs: Tech[];
-  toggleTech: (tech: Tech) => void;
+  techs: string[];
+  selectedTechs: string[];
+  setTechs: (techs: string[]) => void;
+  toggleTech: (tech: string) => void;
+  setInitialTechs: (techs: string[]) => void;
 };
 
 const initialState = {
-  selectedTechs: techList,
+  techs: [],
+  selectedTechs: [],
 };
 
 export const projectsPageStore = createStore<ProjectsPageStore>(
   set => ({
     ...initialState,
+    setTechs: (techs: string[]) => {
+      set({ techs });
+    },
+    setInitialTechs: (techs: string[]) => {
+      set({ selectedTechs: techs });
+    },
     toggleTech: tech => {
       set(state => {
         const exists = state.selectedTechs.includes(tech);
@@ -26,7 +32,7 @@ export const projectsPageStore = createStore<ProjectsPageStore>(
           : [...state.selectedTechs, tech];
 
         return {
-          selectedTechs: sortByReference(next, techList),
+          selectedTechs: next,
         };
       });
     },
