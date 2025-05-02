@@ -12,6 +12,7 @@
 - [ ] Performance Improvement
 - [ ] Code Refactor
 - [ ] Test Code
+- [ ] Release
 - [ ] Others (describe below)
 
 ## 📸 Screenshots
