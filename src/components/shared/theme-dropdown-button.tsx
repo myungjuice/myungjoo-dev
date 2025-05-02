@@ -19,7 +19,7 @@ type Theme = 'light' | 'dark' | 'system';
 
 const themes: Record<Theme, ReactNode> = {
   light: <FiSun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
-  dark: <FiMoon className='h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:rotate-0' />,
+  dark: <FiMoon className='h-[1.2rem] w-[1.2rem] scale-3d transition-all' />,
   system: <TbSunMoon className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all' />,
 };
 
