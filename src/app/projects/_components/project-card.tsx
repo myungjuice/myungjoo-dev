@@ -4,8 +4,9 @@ import { FaGithub } from 'react-icons/fa';
 
 import FadeInUp from '@/components/shared/fade-in-up';
 import { Button } from '@/components/ui/button';
-import { techIconMap } from '@/constants/projects';
 import type { FetchProjectItem } from '@/types/projects';
+
+import TechIcons from './tech-icons';
 
 type Props = {
   delay: number;
@@ -20,17 +21,18 @@ const ProjectCard = memo(({ delay, title, project }: Props) => (
         <p className='text-body-md-bold text-indigo-500'>{title}</p>
         <p className='text-body-md text-slate-400'>// {project.title}</p>
       </div>
-      <div className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg'>
-        <div className='relative h-64 w-full'>
+      <div className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-slate-400 dark:border-slate-700'>
+        <div className='relative h-64 w-full bg-gray-200 dark:bg-slate-950'>
           <div className='absolute top-4 right-4 z-10 flex gap-2'>
-            {Object.keys(techIconMap).map(key => {
-              if (!project.tech_stack.includes(key)) return null;
-
-              const Icon = techIconMap[key];
-              return Icon && <Icon key={key} size={20} className='text-teal-500' />;
-            })}
+            <TechIcons techs={project.tech_stack} />
           </div>
-          <Image fill src={project.thumbnail_url} alt={project.title} sizes='480px' />
+          <Image
+            fill
+            src={project.thumbnail_url}
+            alt={project.title}
+            sizes='480px'
+            className='object-cover [object-position:center_45%]'
+          />
         </div>
 
         <div className='bg-white dark:bg-slate-800'>
