@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin, FaLink, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaLink, FaTelegram } from 'react-icons/fa';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IconType } from 'react-icons/lib';
 
@@ -27,9 +27,9 @@ const footerLinks: FooterLink[] = [
     icon: FaLink,
   },
   {
-    label: 'Instagram',
-    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
-    icon: FaInstagram,
+    label: 'Telegram',
+    href: process.env.NEXT_PUBLIC_TELEGRAM_URL,
+    icon: FaTelegram,
   },
 ];
 
