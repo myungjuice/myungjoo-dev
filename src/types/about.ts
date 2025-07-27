@@ -1,6 +1,4 @@
-import type { IconType } from 'react-icons';
-
-import type { Language } from './language';
+import { type IconType } from 'react-icons';
 
 export type AboutTabKey = 'professional' | 'personal' | 'hobbies';
 export type Menu =
@@ -14,33 +12,11 @@ export type Menu =
   | 'favorite-games'
   | 'favorite-foods';
 
-export type TabIconMap = Record<AboutTabKey, IconType>;
+type AboutMenuMap = Partial<Record<Menu, string>>;
 
-type AboutCategoryType = 'tab' | 'menu';
-
-export type FetchAboutCategoryParams = {
-  lang: Language;
+type AboutSection = {
+  icon: IconType;
+  menu: AboutMenuMap;
 };
 
-export type AboutCategoryItem = {
-  id: string;
-  type: AboutCategoryType;
-  key: AboutTabKey | Menu;
-  name: string;
-  menus: Menu[];
-};
-
-export type FetchAboutParams = {
-  lang: Language;
-  tabKey: AboutTabKey;
-  menuKey: Menu;
-};
-
-export type AboutResponse = {
-  id: string;
-  tabKey: AboutTabKey;
-  menuKey: Menu;
-  content: string;
-  content_ko: string;
-  content_en: string;
-};
+export type AboutPageData = Record<AboutTabKey, AboutSection>;

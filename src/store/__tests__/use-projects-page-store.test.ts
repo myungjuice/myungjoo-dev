@@ -1,8 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 
+import { techList } from '@/constants/projects';
 import { useProjectsPageStore, projectsPageStore } from '@/store/use-projects-page-store';
-
-const techList: string[] = ['react'];
 
 describe('ProjectsPageStore 테스트', () => {
   beforeEach(() => {

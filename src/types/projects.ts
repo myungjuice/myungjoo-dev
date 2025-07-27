@@ -1,26 +1,23 @@
 import type { IconType } from 'react-icons';
 
-import type { Language } from '@/types/language';
+type Lang = 'ko' | 'en';
 
-export type TechIconMap = Record<string, IconType>;
+export type Tech = 'react';
 
-export type FetchProjectParams = {
-  lang: Language;
-  tech: string[];
-};
+export type TechIconMap = Record<Tech, IconType>;
 
-export type FetchProjectItem = {
-  id: string;
-  key: string;
-  lang: Language;
-  title: string;
-  language: string;
-  tech_stack: string[];
-  thumbnail_url: string;
+export type ProjectName = 'portfolio';
+
+export type ProjectItem = {
+  id: number;
+  tech: Tech;
+  name: string;
+  thumbnailUrl: string;
   description: string;
-  github_url: string;
-  site_url: string;
-  displayOrder: number;
-  startDate: string;
-  endDate: string;
+  githubUrl: string;
+  githubButtonText: string;
 };
+
+export type ProjectData = Record<ProjectName, ProjectItem>;
+
+export type ProjectTranslations = Record<Lang, ProjectData>;

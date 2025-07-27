@@ -1,11 +1,14 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Checkbox from '@/components/ui/checkbox';
+import { techKoMap } from '@/constants/projects';
 import { cn } from '@/lib/utils';
 import { useProjectsPageStore } from '@/store/use-projects-page-store';
+import type { Tech } from '@/types/projects';
 
 type Props = {
-  menu: string;
+  menu: Tech;
 };
 
 const MenuItem = ({ menu }: Props) => {
@@ -15,6 +18,10 @@ const MenuItem = ({ menu }: Props) => {
   }));
 
   const isSelected = useMemo(() => selectedTechs.includes(menu), [selectedTechs, menu]);
+
+  const {
+    i18n: { language },
+  } = useTranslation();
 
   const handleCheckedChange = () => {
     toggleTech(menu);
@@ -33,7 +40,7 @@ const MenuItem = ({ menu }: Props) => {
             isSelected && 'dark:text-slate-200'
           )}
         >
-          {menu}
+          {language === 'ko' ? techKoMap[menu as Tech] : menu}
         </span>
       </label>
     </div>
