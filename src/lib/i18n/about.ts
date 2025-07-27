@@ -2,6 +2,10 @@ const about = {
   ko: {
     experience: `
 /**
+ * (주) 씨디알아이
+ *  - 2025.07.21 ~ 
+ *  - AI 기반 뷰티테크 산업 관련 프론트엔드 개발
+ *
  * (주) 수퍼트리
  *  - 2021.06.01 ~ 2024.12.31
  *  - 블록체인 서비스 관련 프론트엔드 개발
@@ -69,8 +73,8 @@ const about = {
 `,
     'favorite-games': `
 /**
- * 로스트아크를 정말 좋아합니다! 스마일게이트에서 만든 게임 중 단연 최고라고 생각해요.
- * 그 외에는 스타, 롤, 배그도 좋아하는데 직접 하진 않고 주로 유튜브로 즐겨봅니다.
+ * 롤, 배그를 간간히 즐겨합니다!
+ * 그리고 스타 및 각종 스팀 게임은 좋아하지만 직접 하진 않고 방송만 가끔 즐겨봅니다.
  */
 `,
     'favorite-foods': `
@@ -84,6 +88,10 @@ const about = {
   en: {
     experience: `
 /**
+ * CDRI Corp.
+ *  - 2025.07.21 ~ 
+ *  - Frontend development for AI-based beauty-tech industry
+ *
  * Supertree Corp.
  *  - 2021.06.01 ~ 2024.12.31
  *  - Frontend development for blockchain services
@@ -149,8 +157,9 @@ const about = {
 `,
     'favorite-games': `
 /**
- * I'm a huge fan of Lost Ark — it's hands down the best game from Smilegate!
- * I also enjoy watching StarCraft, League of Legends, and PUBG on YouTube rather than playing them.
+ * I occasionally enjoy playing League of Legends and PUBG!
+ * Also, I like StarCraft and various Steam games, but I don’t really play them myself— 
+ * I just occasionally enjoy watching streams.
  */
 `,
     'favorite-foods': `

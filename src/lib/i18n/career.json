@@ -1,11 +1,27 @@
 {
   "ko": {
+    "cdri": {
+      "id": "cdri",
+      "name": "㈜ 씨디알아이",
+      "period": "2025.07.21 ~",
+      "slogan": "AI 기반 뷰티테크 산업 관련 프론트엔드 개발",
+      "role": "Frontend Developer",
+      "logoUrl": "/images/cdri.jpg",
+      "imageClassName": "",
+      "projects": [
+        {
+          "id": 1,
+          "title": "입사 후 회사 적응중...",
+          "description": ""
+        }
+      ]
+    },
     "supertree": {
       "id": "supertree",
       "name": "㈜ 수퍼트리",
       "period": "2021.06.01 ~ 2024.12.31",
       "slogan": "PlayDapp 생태계 내에서 블록체인 기반 프론트엔드 플랫폼(마켓, 포털, 미니앱 등) 개발",
-      "role": "Frontend Developer (React, Next.js)",
+      "role": "Frontend Developer (React)",
       "logoUrl": "/images/supertree.svg",
       "imageClassName": "p-[15%]",
       "projects": [
@@ -78,7 +94,7 @@
       "period": "2017.07.17 ~ 2019.06.30",
       "slogan": "자사 쇼핑몰 신규 개발 및 유지보수, 편의점 결제 서비스와 Web 기반 POS 시스템 개발",
       "role": "Fullstack Developer (ASP, MSSQL)",
-      "logoUrl": "",
+      "logoUrl": "/images/ellen.png",
       "imageClassName": "",
       "projects": [
         {
@@ -110,6 +126,22 @@
     }
   },
   "en": {
+    "cdri": {
+      "id": "cdri",
+      "name": "CDRI Corp.",
+      "period": "2025.07.21 ~",
+      "slogan": "Frontend development in the AI-driven beauty tech industry",
+      "role": "Frontend Developer",
+      "logoUrl": "/images/cdri.jpg",
+      "imageClassName": "",
+      "projects": [
+        {
+          "id": 1,
+          "title": "Adjusting to the company after joining…",
+          "description": ""
+        }
+      ]
+    },
     "supertree": {
       "id": "supertree",
       "name": "Supertree Corp.",
@@ -188,7 +220,7 @@
       "period": "2017.07.17 ~ 2019.06.30",
       "slogan": "Developed and maintained proprietary e-commerce systems including shopping mall, convenience store payment, and web-based POS",
       "role": "Fullstack Developer (ASP, MSSQL)",
-      "logoUrl": "",
+      "logoUrl": "/images/ellen.png",
       "imageClassName": "",
       "projects": [
         {

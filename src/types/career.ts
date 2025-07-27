@@ -1,4 +1,4 @@
-export type CareerFilterItem = 'ellen' | 'd.dive' | 'supertree';
+export type CareerFilterItem = 'cdri' | 'ellen' | 'd.dive' | 'supertree';
 
 export type CareerProject = {
   id: number;

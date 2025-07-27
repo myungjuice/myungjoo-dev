@@ -1,7 +1,7 @@
 import careerI18n from '@/lib/i18n/career.json';
 import type { CareerFilterItem } from '@/types/career';
 
-export const careerFilterList: CareerFilterItem[] = ['supertree', 'd.dive', 'ellen'];
+export const careerFilterList: CareerFilterItem[] = ['cdri', 'supertree', 'd.dive', 'ellen'];
 
 export const careerMockData = {
   ko: careerI18n.ko,
@@ -9,6 +9,7 @@ export const careerMockData = {
 };
 
 export const careerKoMap: Record<CareerFilterItem, string> = {
+  cdri: '씨디알아이',
   supertree: '수퍼트리',
   'd.dive': '디다이브',
   ellen: '엘렌',
