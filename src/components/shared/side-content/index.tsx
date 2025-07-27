@@ -100,7 +100,7 @@ const generateUniqueSideItems = (count: number) => {
     usedIndexes.add(rawIndex);
 
     items.push({
-      username: 'myungjuice',
+      username: 'wkdaudwn11',
       createdAt,
       comments: Math.floor(Math.random() * 999),
       stars: Math.floor(Math.random() * 999),
