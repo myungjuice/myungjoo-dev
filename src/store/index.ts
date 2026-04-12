@@ -14,7 +14,6 @@ export const createStore = <T extends object>(
 
   const enhanced = withPersist ? persist(base, { name: storeName, skipHydration: false }) : base;
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return create(enhanced);
 };

@@ -25,8 +25,7 @@ export const metadata: Metadata = {
 };
 
 const MainPage = async () => {
-  const lang = await getLangFromCookie();
-  console.log('NEXT_LANG 쿠키 값:', lang);
+  const _lang = await getLangFromCookie();
 
   return <Main />;
 };
