@@ -27,7 +27,7 @@ const About = () => {
   } = useTranslation();
 
   return (
-    <div className='flex flex-col lg:flex-row lg:items-stretch'>
+    <div className='flex min-h-full w-full flex-col lg:flex-row lg:items-stretch'>
       <Sidebar>
         <Sidebar.Tab />
         <Sidebar.Container
@@ -45,7 +45,7 @@ const About = () => {
           </SectionTitle.Item>
         </SectionTitle>
 
-        <div className='flex min-w-0 flex-col 2xl:flex-row'>
+        <div className='flex min-h-0 min-w-0 flex-1 flex-col 2xl:flex-row 2xl:items-stretch'>
           <MainContent />
           <Divider stickyTopClassName='lg:top-[75px]' />
           <SideContent stickyTopClassName='lg:top-[59px]' />

@@ -121,7 +121,7 @@ const sideItems = generateUniqueSideItems(2);
 const SideContent = ({ stickyTopClassName = 'lg:top-[57px]' }: Props) => (
   <div
     className={cn(
-      'w-full min-w-0 flex-1 space-y-8 p-6 lg:sticky lg:self-start',
+      'w-full min-w-0 flex-1 space-y-8 p-6 lg:sticky lg:self-start 2xl:self-stretch',
       stickyTopClassName
     )}
   >

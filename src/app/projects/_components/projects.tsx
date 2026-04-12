@@ -36,7 +36,7 @@ const Project = () => {
   );
 
   return (
-    <div className='flex flex-col lg:flex-row lg:items-stretch'>
+    <div className='flex min-h-full w-full flex-col lg:flex-row lg:items-stretch'>
       <Sidebar size='md'>
         <Sidebar.Container desktopTitle={language === 'ko' ? '프로젝트' : 'project'}>
           <SidebarContent />
