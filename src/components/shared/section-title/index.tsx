@@ -11,7 +11,7 @@ type Props = {
 const SectionTitle = ({ className, children }: PropsWithChildren<Props>) => (
   <div
     className={cn(
-      'hidden h-[57px] border-b border-slate-400 lg:sticky lg:top-0 lg:z-10 lg:flex lg:w-full lg:self-start lg:bg-gray-100 dark:border-slate-700 lg:dark:bg-slate-900',
+      'hidden min-h-[57px] border-b border-slate-400 lg:sticky lg:top-0 lg:z-10 lg:flex lg:w-full lg:min-w-0 lg:flex-wrap lg:content-start lg:items-stretch lg:self-start lg:bg-gray-100 dark:border-slate-700 lg:dark:bg-slate-900',
       className
     )}
   >

@@ -36,7 +36,7 @@ const MenuItem = ({ menu }: Props) => {
         <Checkbox id={menu} checked={isSelected} onCheckedChange={handleCheckedChange} />
         <span
           className={cn(
-            'text-body-md text-slate-600 dark:text-slate-400',
+            'text-body-md text-slate-600 lg:whitespace-nowrap dark:text-slate-400',
             isSelected && 'dark:text-slate-200'
           )}
         >

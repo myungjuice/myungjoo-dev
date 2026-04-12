@@ -119,7 +119,12 @@ const generateUniqueSideItems = (count: number) => {
 const sideItems = generateUniqueSideItems(2);
 
 const SideContent = ({ stickyTopClassName = 'lg:top-[57px]' }: Props) => (
-  <div className={cn('w-full flex-1 space-y-8 p-6 lg:sticky lg:self-start', stickyTopClassName)}>
+  <div
+    className={cn(
+      'w-full min-w-0 flex-1 space-y-8 p-6 lg:sticky lg:self-start',
+      stickyTopClassName
+    )}
+  >
     {sideItems.map((item, idx) => (
       <FadeInUp key={item.createdAt + idx} delay={idx * 0.1}>
         <SideContentItem {...item} />

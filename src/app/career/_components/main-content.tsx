@@ -23,7 +23,7 @@ const MainContent = () => {
     .filter(Boolean);
 
   return (
-    <div className='flex flex-2 flex-col'>
+    <div className='flex min-w-0 grow-0 flex-col 2xl:flex-[2_1_0%]'>
       {filteredCompanies.map((company, idx) => (
         <FadeInUp key={company.id} delay={idx * 0.1}>
           <div
@@ -69,11 +69,11 @@ const MainContent = () => {
                 )}
               >
                 <div className='flex items-center justify-between gap-2 border-slate-800 sm:border-l-4 sm:px-2'>
-                  <p className='text-body-md-bold text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
+                  <p className='text-body-md-bold wrap-break-word text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
                     {project.title}
                   </p>
                 </div>
-                <p className='text-body-sm text-gray-600 xl:text-body-md dark:text-slate-400'>
+                <p className='text-body-sm wrap-break-word text-gray-600 xl:text-body-md dark:text-slate-400'>
                   {project.description}
                 </p>
               </div>

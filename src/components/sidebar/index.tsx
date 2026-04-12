@@ -10,9 +10,10 @@ const sidebarVariants = cva(
   'flex w-full flex-col border-slate-400 lg:self-stretch lg:border-r dark:border-slate-700 lg:items-start',
   {
     variants: {
+      // HINT: flex 자식이 기본 shrink-1 이라 lg에서 본문에 밀려 폭이 거의 0까지 줄어 한 글자씩 세로로 깨짐 → min-w + shrink-0
       size: {
-        md: 'lg:w-[226px]',
-        lg: 'lg:w-[300px]',
+        md: 'lg:w-[260px] lg:min-w-[260px] lg:max-w-[260px] lg:shrink-0',
+        lg: 'lg:w-[300px] lg:min-w-[300px] lg:max-w-[300px] lg:shrink-0',
       },
     },
     defaultVariants: {

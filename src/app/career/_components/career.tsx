@@ -47,7 +47,7 @@ const Career = () => {
           <SidebarContent />
         </Sidebar.Container>
       </Sidebar>
-      <div className='flex min-h-0 flex-1 flex-col'>
+      <div className='flex min-h-0 min-w-0 flex-1 flex-col'>
         <SectionTitle>
           {selectedFilter.map(filter => (
             <SectionTitle.Item key={filter} onClose={handleClick}>
@@ -56,7 +56,7 @@ const Career = () => {
           ))}
         </SectionTitle>
 
-        <div className='flex flex-col 2xl:flex-row'>
+        <div className='flex min-w-0 flex-col 2xl:flex-row'>
           <MainContent />
           <Divider />
           <SideContent />

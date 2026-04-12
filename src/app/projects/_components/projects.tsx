@@ -42,7 +42,7 @@ const Project = () => {
           <SidebarContent />
         </Sidebar.Container>
       </Sidebar>
-      <div className='flex min-h-0 flex-1 flex-col'>
+      <div className='flex min-h-0 min-w-0 flex-1 flex-col'>
         <SectionTitle className='h-14'>
           {selectedTechs.map(filter => (
             <SectionTitle.Item key={filter} onClose={handleClick}>

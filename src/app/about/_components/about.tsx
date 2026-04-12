@@ -38,14 +38,14 @@ const About = () => {
         </Sidebar.Container>
       </Sidebar>
 
-      <div className='flex min-h-0 flex-1 flex-col'>
+      <div className='flex min-h-0 min-w-0 flex-1 flex-col'>
         <SectionTitle className='h-[59px]'>
           <SectionTitle.Item>
             {language === 'ko' ? aboutMenuKoMap[selectedMenu as Menu] : selectedMenu}
           </SectionTitle.Item>
         </SectionTitle>
 
-        <div className='flex flex-col 2xl:flex-row'>
+        <div className='flex min-w-0 flex-col 2xl:flex-row'>
           <MainContent />
           <Divider stickyTopClassName='lg:top-[75px]' />
           <SideContent stickyTopClassName='lg:top-[59px]' />
