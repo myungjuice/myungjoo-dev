@@ -36,13 +36,13 @@ const Project = () => {
   );
 
   return (
-    <div className='flex flex-col lg:h-full lg:flex-row'>
+    <div className='flex flex-col lg:flex-row lg:items-stretch'>
       <Sidebar size='md'>
         <Sidebar.Container desktopTitle={language === 'ko' ? '프로젝트' : 'project'}>
           <SidebarContent />
         </Sidebar.Container>
       </Sidebar>
-      <div className='flex h-full flex-1 flex-col'>
+      <div className='flex min-h-0 flex-1 flex-col'>
         <SectionTitle className='h-14'>
           {selectedTechs.map(filter => (
             <SectionTitle.Item key={filter} onClose={handleClick}>

@@ -83,7 +83,7 @@ export default Hello;
   );
 
   return (
-    <div className='flex h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-8'>
+    <div className='flex min-h-full flex-col items-center justify-center gap-5 px-4 py-10 xl:gap-8'>
       <div className='h-[110px] sm:h-[139px]'>
         <FadeInUp>
           <Typewriter lines={lines} isLoop />

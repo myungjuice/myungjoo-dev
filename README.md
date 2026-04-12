@@ -42,7 +42,7 @@
 
 ## 🔗 백엔드 레포 바로가기
 
-👉 [https://github.com/wkdaudwn11/myungjoo-dev-be](https://github.com/wkdaudwn11/myungjoo-dev-be)
+👉 [https://github.com/myungjuice/myungjoo-dev-be](https://github.com/myungjuice/myungjoo-dev-be)
 
 ## 🧰 사용 기술 스택
 

@@ -7,7 +7,7 @@ import SidebarContainer from './sidebar-container';
 import SidebarTab from './sidebar-tab';
 
 const sidebarVariants = cva(
-  'flex h-full w-full border-slate-400 lg:border-r dark:border-slate-700',
+  'flex w-full flex-col border-slate-400 lg:self-stretch lg:border-r dark:border-slate-700 lg:items-start',
   {
     variants: {
       size: {
@@ -29,7 +29,9 @@ type Props = {
 };
 
 const Sidebar = ({ size, className, children }: PropsWithChildren<Props>) => (
-  <aside className={cn(sidebarVariants({ size, className }))}>{children}</aside>
+  <aside className={cn(sidebarVariants({ size, className }))}>
+    <div className='flex w-full flex-row lg:sticky lg:top-0 lg:z-5 lg:self-start'>{children}</div>
+  </aside>
 );
 
 Sidebar.Tab = SidebarTab;

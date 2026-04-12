@@ -5,10 +5,10 @@ import Header from './header';
 
 const Layout = ({ children }: PropsWithChildren) => (
   <div className='bg-white p-4 sm:p-10 dark:bg-slate-950'>
-    <div className='relative mx-auto flex h-[calc(100vh-32px)] min-h-[calc(100vh-32px)] max-w-[2560px] min-w-80 flex-col overflow-visible rounded-lg border border-slate-400 bg-gray-100 sm:h-[calc(100vh-80px)] sm:min-h-[calc(100vh-80px)] dark:border-slate-700 dark:bg-slate-900'>
+    <div className='relative mx-auto flex h-[calc(100vh-32px)] max-w-[2560px] min-w-80 flex-col rounded-lg border border-slate-400 bg-gray-100 sm:h-[calc(100vh-80px)] dark:border-slate-700 dark:bg-slate-900'>
       <a
         href={process.env.NEXT_PUBLIC_GITHUB_URL}
-        className='absolute -top-10 -right-10 z-[51] hidden sm:block'
+        className='absolute -top-10 -right-10 z-1 hidden sm:block'
         target='_blank'
         aria-label='View source on Github'
         rel='noopener noreferrer'
@@ -18,9 +18,12 @@ const Layout = ({ children }: PropsWithChildren) => (
           height='80'
           viewBox='0 0 250 250'
           aria-hidden='true'
-          className='fill-white text-green-500 dark:fill-slate-950 hover:[&_path.octo-arm]:animate-octocat-wave'
+          className='text-green-600 dark:text-green-400 hover:[&_path.octo-arm]:animate-octocat-wave'
         >
-          <path d='M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z' />
+          <path
+            className='fill-white dark:fill-slate-950'
+            d='M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z'
+          />
           <path
             d='M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2'
             className='octo-arm'
@@ -35,7 +38,7 @@ const Layout = ({ children }: PropsWithChildren) => (
         </svg>
       </a>
       <Header />
-      <main className='flex-1'>{children}</main>
+      <main className='min-h-0 flex-1 overflow-x-hidden overflow-y-auto'>{children}</main>
       <Footer />
     </div>
   </div>

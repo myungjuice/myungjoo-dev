@@ -3,7 +3,7 @@ const common = {
     id: 1,
     tech: 'react',
     thumbnailUrl: '/images/portfolio_thumbnail.png',
-    githubUrl: 'https://github.com/wkdaudwn11/portfolio',
+    githubUrl: 'https://github.com/myungjuice/portfolio',
   },
 };
 

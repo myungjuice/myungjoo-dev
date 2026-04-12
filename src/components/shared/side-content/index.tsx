@@ -1,6 +1,11 @@
 import FadeInUp from '@/components/shared/fade-in-up';
+import { cn } from '@/lib/utils';
 
 import SideContentItem from './side-content-item';
+
+interface Props {
+  stickyTopClassName?: string;
+}
 
 const rawCodeList = [
   `function Greeting({ name }: { name: string }) {
@@ -100,7 +105,7 @@ const generateUniqueSideItems = (count: number) => {
     usedIndexes.add(rawIndex);
 
     items.push({
-      username: 'wkdaudwn11',
+      username: 'myungjuice',
       createdAt,
       comments: Math.floor(Math.random() * 999),
       stars: Math.floor(Math.random() * 999),
@@ -113,8 +118,8 @@ const generateUniqueSideItems = (count: number) => {
 
 const sideItems = generateUniqueSideItems(2);
 
-const SideContent = () => (
-  <div className='w-full flex-1 space-y-8 p-6 lg:sticky lg:top-28 lg:self-start'>
+const SideContent = ({ stickyTopClassName = 'lg:top-[57px]' }: Props) => (
+  <div className={cn('w-full flex-1 space-y-8 p-6 lg:sticky lg:self-start', stickyTopClassName)}>
     {sideItems.map((item, idx) => (
       <FadeInUp key={item.createdAt + idx} delay={idx * 0.1}>
         <SideContentItem {...item} />

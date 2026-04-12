@@ -27,7 +27,7 @@ const About = () => {
   } = useTranslation();
 
   return (
-    <div className='flex flex-col lg:h-full lg:flex-row'>
+    <div className='flex flex-col lg:flex-row lg:items-stretch'>
       <Sidebar>
         <Sidebar.Tab />
         <Sidebar.Container
@@ -38,18 +38,18 @@ const About = () => {
         </Sidebar.Container>
       </Sidebar>
 
-      <div className='flex h-full flex-1 flex-col'>
+      <div className='flex min-h-0 flex-1 flex-col'>
         <SectionTitle className='h-[59px]'>
           <SectionTitle.Item>
             {language === 'ko' ? aboutMenuKoMap[selectedMenu as Menu] : selectedMenu}
           </SectionTitle.Item>
         </SectionTitle>
 
-        <div className='flex h-full flex-col 2xl:flex-row'>
+        <div className='flex flex-col 2xl:flex-row'>
           <MainContent />
-          <Divider />
-          <SideContent />
-          <Divider />
+          <Divider stickyTopClassName='lg:top-[75px]' />
+          <SideContent stickyTopClassName='lg:top-[59px]' />
+          <Divider stickyTopClassName='lg:top-[75px]' />
         </div>
       </div>
     </div>
