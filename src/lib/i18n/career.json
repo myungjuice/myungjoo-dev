@@ -4,15 +4,40 @@
       "id": "cdri",
       "name": "㈜ 씨디알아이",
       "period": "2025.07.21 ~",
-      "slogan": "AI 기반 뷰티테크 산업 관련 프론트엔드 개발",
-      "role": "Frontend Developer",
+      "slogan": "화장품 인증 대행 및 임상시험 서비스의 프론트엔드 개발과 팀 운영을 병행",
+      "role": "Frontend Developer (임시 팀장)",
       "logoUrl": "/images/cdri.jpg",
       "imageClassName": "",
       "projects": [
         {
           "id": 1,
-          "title": "입사 후 회사 적응중...",
-          "description": ""
+          "title": "사전과제 AI 검토 자동화",
+          "description": "이메일 수신 → Notion 등록 → GitHub Actions → Claude AI 코드 검토 및 합/불 판정 파이프라인 구축, Slack 자동 전송으로 채용 프로세스 효율화"
+        },
+        {
+          "id": 2,
+          "title": "AI 코드리뷰 자동화 및 Cursor Rule 팀 표준화",
+          "description": "Claude API + GitHub Actions 기반 AI 코드리뷰 파이프라인 구축 및 팀 공통 Cursor Rule 세팅"
+        },
+        {
+          "id": 3,
+          "title": "KCTL(방부력 시험 전문 스마트 연구소) 사이트 런칭",
+          "description": "Next.js + FSD 아키텍처 기반 B2B 서비스 사이트 구축, 인증 및 토스페이먼츠 결제 연동"
+        },
+        {
+          "id": 4,
+          "title": "어드민 디자인시스템 공통 모듈화 (GitHub Packages)",
+          "description": "디자인시스템 전용 레포 분리 및 GitHub Packages 배포, Storybook 도입과 CI/CD 자동화"
+        },
+        {
+          "id": 5,
+          "title": "매출 관련 ERP 구축",
+          "description": "구글 시트 기반 수기 관리를 시스템화하여 의뢰 공정 가시화 및 운영 효율 개선"
+        },
+        {
+          "id": 6,
+          "title": "npm → pnpm, craco → vite 마이그레이션",
+          "description": "로컬 구동 시간 약 10분에서 5초로 단축, CI/CD 파이프라인 최적화 및 개발환경 분리"
         }
       ]
     },
@@ -130,15 +155,40 @@
       "id": "cdri",
       "name": "CDRI Corp.",
       "period": "2025.07.21 ~",
-      "slogan": "Frontend development in the AI-driven beauty tech industry",
-      "role": "Frontend Developer",
+      "slogan": "Led frontend development and team operations for cosmetic certification and clinical testing services",
+      "role": "Frontend Developer (Acting Team Lead)",
       "logoUrl": "/images/cdri.jpg",
       "imageClassName": "",
       "projects": [
         {
           "id": 1,
-          "title": "Adjusting to the company after joining…",
-          "description": ""
+          "title": "Pre-assignment AI Review Automation",
+          "description": "Built pipeline: email receipt → Notion → GitHub Actions → Claude AI code review with pass/fail scoring, auto-sent to Slack to streamline hiring process"
+        },
+        {
+          "id": 2,
+          "title": "AI Code Review Automation & Cursor Rule Standardization",
+          "description": "Built AI code review pipeline using Claude API + GitHub Actions and established team-wide Cursor Rules"
+        },
+        {
+          "id": 3,
+          "title": "KCTL (Preservative Testing Lab) Site Launch",
+          "description": "Built B2B service site with Next.js + FSD architecture, including auth and Toss Payments integration"
+        },
+        {
+          "id": 4,
+          "title": "Admin Design System Modularization (GitHub Packages)",
+          "description": "Separated design system into dedicated repo with GitHub Packages deployment, Storybook, and CI/CD automation"
+        },
+        {
+          "id": 5,
+          "title": "Revenue ERP System Development",
+          "description": "Replaced manual Google Sheets management with a systemized workflow for order tracking and visibility"
+        },
+        {
+          "id": 6,
+          "title": "npm → pnpm, craco → Vite Migration",
+          "description": "Reduced local startup time from ~10 min to ~5 sec, optimized CI/CD pipeline and separated dev environments"
         }
       ]
     },
