@@ -116,7 +116,7 @@ const generateUniqueSideItems = (count: number) => {
   return items.sort((a, b) => a.createdAt - b.createdAt);
 };
 
-const sideItems = generateUniqueSideItems(2);
+const sideItems = generateUniqueSideItems(10);
 
 const SideContent = ({ stickyTopClassName = 'lg:top-[57px]' }: Props) => (
   <div
@@ -126,9 +126,11 @@ const SideContent = ({ stickyTopClassName = 'lg:top-[57px]' }: Props) => (
     )}
   >
     {sideItems.map((item, idx) => (
-      <FadeInUp key={item.createdAt + idx} delay={idx * 0.1}>
-        <SideContentItem {...item} />
-      </FadeInUp>
+      <div key={item.createdAt + idx} className={cn(idx >= 2 && 'hidden 2xl:block')}>
+        <FadeInUp delay={idx * 0.1}>
+          <SideContentItem {...item} />
+        </FadeInUp>
+      </div>
     ))}
   </div>
 );
