@@ -44,3 +44,8 @@ next-env.d.ts
 
 .cursor
 .cursorrules
+
+*.pdf
+
+# gstack vendored skills (too large, managed per-developer)
+.claude/skills/
