@@ -1,0 +1,1 @@
+/Users/mj/Documents/Github/wkdaudwn11/myungjoo-dev/.claude/skills/gstack/qa/SKILL.md

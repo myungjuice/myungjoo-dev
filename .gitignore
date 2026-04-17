@@ -48,4 +48,4 @@ next-env.d.ts
 *.pdf
 
 # gstack vendored skills (too large, managed per-developer)
-.claude/skills/
+.claude/skills/gstack/
