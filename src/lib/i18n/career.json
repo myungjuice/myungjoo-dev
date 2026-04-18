@@ -74,18 +74,63 @@
         },
         {
           "id": 4,
-          "title": "KCTL(방부력 시험 전문 스마트 연구소) 사이트 런칭",
-          "description": "Next.js + FSD 아키텍처 기반 B2B 서비스 사이트 구축, 인증 및 토스페이먼츠 결제 연동"
+          "title": "npm → pnpm, craco → vite 마이그레이션",
+          "description": "로컬 구동 시간 약 10분에서 5초로 단축, CI/CD 파이프라인 최적화 및 개발환경 분리",
+          "caseStudy": {
+            "context": "어드민 프로젝트들이 CRA + craco 기반으로 구성되어 있었습니다. 프로젝트 규모가 커질수록 로컬 구동 시간이 길어졌고, CI/CD 빌드 시간도 부담이 됐습니다.",
+            "problem": "초기 로컬 개발 서버 구동에 약 10분이 소요됐습니다. 개발 시작마다, 서버 재시작마다 10분을 기다려야 했고, craco는 CRA에 의존하는 구조라 유지보수 부담도 컸습니다.",
+            "action": [
+              "CRA + craco 기반 프로젝트를 Vite로 전환, 번들러 교체로 빌드 속도 근본적 개선",
+              "npm → pnpm으로 패키지 매니저 전환, 의존성 설치 속도 및 디스크 효율 개선",
+              "CI/CD 파이프라인 최적화 및 개발·스테이징·프로덕션 환경 분리"
+            ],
+            "impact": [
+              "초기 로컬 구동 시간: 약 10분 → 5~10초 (90% 이상 감축)",
+              "CI/CD 빌드 시간 단축으로 배포 사이클 개선",
+              "craco 의존성 제거로 유지보수 포인트 감소"
+            ],
+            "reflection": "마이그레이션하면서 CRA에 암묵적으로 의존하던 코드들이 예상보다 많았습니다. REACT_APP_ 환경변수 prefix 규칙, 전역 CSS 주입 방식, CRA가 자동 포함하던 polyfill 등 번들러 교체 전에 의존성을 먼저 파악해야 함을 확인했습니다."
+          }
         },
         {
           "id": 5,
-          "title": "매출 관련 ERP 구축",
-          "description": "구글 시트 기반 수기 관리를 시스템화하여 의뢰 공정 가시화 및 운영 효율 개선"
+          "title": "KCTL(방부력 시험 전문 스마트 연구소) 사이트 런칭",
+          "description": "Next.js + FSD 아키텍처 기반 B2B 서비스 사이트 구축, 인증 및 토스페이먼츠 결제 연동",
+          "caseStudy": {
+            "context": "기존 Certicos 프로젝트가 수년간 기능이 누적되면서 파일과 폴더 구조가 복잡해져 관리가 어려운 상황이었습니다. KCTL은 신규 프로젝트라 처음부터 아키텍처를 설계할 수 있는 기회였습니다.",
+            "problem": "FSD 없이 성장한 프로젝트에서 아키텍처를 중간에 전환하는 것이 현실적으로 매우 어렵다는 것을 Certicos를 통해 직접 경험했습니다. 작을 때 구조를 잡지 않으면 전환 비용이 기하급수적으로 늘어납니다.",
+            "action": [
+              "처음부터 FSD(Feature-Sliced Design) 아키텍처 적용 — 현재 규모가 작더라도 확장성을 선제적으로 확보",
+              "Tailwind CSS + shadcn(Radix UI 기반)으로 프로젝트 내 디자인시스템 구축 — UI 컴포넌트, Color, Typography, Breakpoint 정의",
+              "서비스 페이지 전반 단독 개발",
+              "Next.js App Router 기반 구축, JWT 인증 및 토스페이먼츠 결제 연동"
+            ],
+            "impact": [
+              "FSD 구조로 기능 추가 시 영향 범위를 feature 단위로 명확히 제한 가능",
+              "B2B 서비스 사이트 런칭 완료, 결제 및 인증 플로우 정상 운영"
+            ],
+            "reflection": "혼자 FSD를 적용할 때는 수월했지만, 일부 기여 코드에서 레이어 규칙이 지켜지지 않는 경우가 있었습니다. 새 아키텍처 도입 시 팀 내 가이드와 리뷰 기준을 함께 세워야 한다는 것을 배웠습니다."
+          }
         },
         {
           "id": 6,
-          "title": "npm → pnpm, craco → vite 마이그레이션",
-          "description": "로컬 구동 시간 약 10분에서 5초로 단축, CI/CD 파이프라인 최적화 및 개발환경 분리"
+          "title": "매출 관련 ERP 구축",
+          "description": "구글 시트 기반 수기 관리를 시스템화하여 의뢰 공정 가시화 및 운영 효율 개선",
+          "caseStudy": {
+            "context": "의뢰, SKU, 매출 데이터를 모두 구글 시트로 수기 관리하고 있었습니다. 전사 직원 50% 이상이 사용해야 하는 핵심 업무 데이터가 스프레드시트에만 의존하는 구조였습니다.",
+            "problem": "수기 입력으로 데이터 실수가 발생했고, 연말 매출 정산 시 구글 시트를 취합하는 과정이 번거로웠습니다. 의뢰 공정이 어느 단계에 있는지 실시간으로 파악하기 어려웠습니다.",
+            "action": [
+              "의뢰 등록·목록·상세(수정) 페이지 구축으로 의뢰 데이터 시스템화",
+              "매출 목록·상세 페이지 및 정산 기능 개발 — 연말 정산을 구글 시트 취합 없이 시스템 내에서 처리",
+              "SKU별 현황 목록·상세(수정) 페이지로 공정 가시화"
+            ],
+            "impact": [
+              "전사 직원 50%+ 사용하는 의뢰·매출·SKU 관리 시스템 구축",
+              "연말 매출 정산 프로세스를 시스템 내 처리로 전환",
+              "의뢰 공정 현황 실시간 파악 가능"
+            ],
+            "reflection": "요구사항이 '구글 시트를 시스템으로'에서 시작했지만 개발 중 매출 정산까지 스코프가 확장됐습니다. 초기에 전체 기능 범위를 먼저 정리하고 시작했다면 더 체계적으로 개발할 수 있었을 겁니다."
+          }
         }
       ]
     },
@@ -273,18 +318,63 @@
         },
         {
           "id": 4,
-          "title": "KCTL (Preservative Testing Lab) Site Launch",
-          "description": "Built B2B service site with Next.js + FSD architecture, including auth and Toss Payments integration"
+          "title": "npm → pnpm, craco → Vite Migration",
+          "description": "Reduced local startup time from ~10 min to ~5 sec, optimized CI/CD pipeline and separated dev environments",
+          "caseStudy": {
+            "context": "Admin projects were built on CRA + craco. As the codebase grew, local dev server startup times kept climbing and CI/CD builds were slow.",
+            "problem": "Initial local dev server startup took around 10 minutes. Every time someone started work or restarted the server, they waited 10 minutes. craco's tight coupling to CRA also added ongoing maintenance overhead.",
+            "action": [
+              "Replaced CRA + craco with Vite, eliminating the bundler bottleneck at the root",
+              "Migrated from npm to pnpm for faster installs and better disk efficiency",
+              "Optimized CI/CD pipeline and separated dev, staging, and production environments"
+            ],
+            "impact": [
+              "Initial local startup time: ~10 min → 5~10 sec (90%+ reduction)",
+              "Faster CI/CD builds improved the deployment cycle",
+              "Removed craco dependency, reducing one ongoing maintenance concern"
+            ],
+            "reflection": "More code had implicit CRA dependencies than expected — REACT_APP_ env prefix conventions, global CSS injection behavior, auto-included polyfills, etc. Mapping out those dependencies before touching the bundler would have made the migration smoother."
+          }
         },
         {
           "id": 5,
-          "title": "Revenue ERP System Development",
-          "description": "Replaced manual Google Sheets management with a systemized workflow for order tracking and visibility"
+          "title": "KCTL (Preservative Testing Lab) Site Launch",
+          "description": "Built B2B service site with Next.js + FSD architecture, including auth and Toss Payments integration",
+          "caseStudy": {
+            "context": "The existing Certicos project had accumulated years of features, making the file and folder structure unwieldy. KCTL was a greenfield project — a clean opportunity to get the architecture right from the start.",
+            "problem": "Retrofitting FSD onto a project that had grown without it proved extremely difficult, as experienced firsthand with Certicos. Skipping structure early means an exponentially higher cost to add it later.",
+            "action": [
+              "Applied FSD (Feature-Sliced Design) architecture from day one — proactively built for scale even while the project was still small",
+              "Built an in-project design system using Tailwind CSS + shadcn (Radix UI) — defining UI components, Color, Typography, and Breakpoints",
+              "Developed the entire service site solo",
+              "Built with Next.js App Router, JWT auth, and Toss Payments integration"
+            ],
+            "impact": [
+              "FSD structure keeps feature additions isolated — changes don't ripple across unrelated areas",
+              "B2B service site launched and running with payment and auth flows in production"
+            ],
+            "reflection": "FSD was straightforward to apply solo, but some contributed code broke the layer rules. Introducing a new architecture requires team-wide guidelines and review criteria, not just implementation."
+          }
         },
         {
           "id": 6,
-          "title": "npm → pnpm, craco → Vite Migration",
-          "description": "Reduced local startup time from ~10 min to ~5 sec, optimized CI/CD pipeline and separated dev environments"
+          "title": "Revenue ERP System Development",
+          "description": "Replaced manual Google Sheets management with a systemized workflow for order tracking and visibility",
+          "caseStudy": {
+            "context": "Order, SKU, and revenue data were all managed manually in Google Sheets. Core business data that over 50% of the company depended on was living entirely in a spreadsheet.",
+            "problem": "Manual entry led to data errors, and consolidating Google Sheets for year-end revenue reporting was tedious and error-prone. There was no way to see where an order stood in the process in real time.",
+            "action": [
+              "Built order registration, list, and detail (edit) pages to systemize order data",
+              "Developed revenue list, detail pages, and settlement features — replacing the year-end Google Sheets consolidation process",
+              "Built SKU status list and detail (edit) pages to make process progress visible"
+            ],
+            "impact": [
+              "Delivered an order, revenue, and SKU management system used by 50%+ of the company",
+              "Year-end revenue settlement now handled within the system, no spreadsheet consolidation needed",
+              "Order process status visible in real time"
+            ],
+            "reflection": "The scope started as 'replace Google Sheets' but expanded to include revenue settlement mid-development. Mapping out the full feature scope upfront would have made for a more structured build."
+          }
         }
       ]
     },
