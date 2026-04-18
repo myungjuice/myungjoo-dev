@@ -49,3 +49,5 @@ next-env.d.ts
 
 # gstack vendored skills (too large, managed per-developer)
 .claude/skills/gstack/
+
+.claude/settings.local.json

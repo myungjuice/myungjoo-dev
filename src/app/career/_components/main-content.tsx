@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { FiImage } from 'react-icons/fi';
+import { FiArrowRight, FiImage } from 'react-icons/fi';
 
 import FadeInUp from '@/components/shared/fade-in-up';
 import { careerMockData } from '@/constants/career';
@@ -48,13 +49,22 @@ const MainContent = () => {
                 )}
               </div>
 
-              <div className='space-y-1'>
-                <p className='text-heading-h6 xl:text-heading-h5'>{company.name}</p>
-                <p className='text-body-sm xl:text-body-md'>{company.period}</p>
-                <p className='text-body-sm xl:text-body-md'>{company.slogan}</p>
-                <p className='inline-block rounded text-body-sm-bold text-teal-500'>
-                  {company.role}
-                </p>
+              <div className='flex flex-1 items-start justify-between gap-2'>
+                <div className='space-y-1'>
+                  <p className='text-heading-h6 xl:text-heading-h5'>{company.name}</p>
+                  <p className='text-body-sm xl:text-body-md'>{company.period}</p>
+                  <p className='text-body-sm xl:text-body-md'>{company.slogan}</p>
+                  <p className='inline-block rounded text-body-sm-bold text-teal-500'>
+                    {company.role}
+                  </p>
+                </div>
+                <Link
+                  href={`/career/${company.id}`}
+                  className='mt-1 inline-flex shrink-0 items-center gap-1 text-body-sm text-slate-400 transition-colors hover:text-teal-500 dark:text-slate-500 dark:hover:text-teal-400'
+                >
+                  <span>{language === 'ko' ? '상세' : 'Details'}</span>
+                  <FiArrowRight className='h-3 w-3' />
+                </Link>
               </div>
             </div>
 
