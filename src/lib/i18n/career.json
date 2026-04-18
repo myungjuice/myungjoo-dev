@@ -349,22 +349,71 @@
         {
           "id": 1,
           "title": "OPWEE 쇼핑몰 개발 및 유지보수",
-          "description": "W3C 웹 표준을 준수한 자사 반응형 쇼핑몰을 신규 개발하고 운영 중 지속적인 유지보수 수행"
+          "description": "W3C 웹 표준을 준수한 자사 반응형 쇼핑몰을 신규 개발하고 운영 중 지속적인 유지보수 수행",
+          "caseStudy": {
+            "context": "언니가간다, 프랑켄모노에 이어 새 브랜드 OPWEE를 런칭하게 됐습니다. 다양한 디바이스에서 동일한 쇼핑 경험을 제공해야 했고, 신규 브랜드인 만큼 초기 완성도가 중요했습니다.",
+            "problem": "반응형 쇼핑몰을 ASP 환경에서 W3C 표준에 맞게 구현해야 했습니다. 런칭 이후에도 지속적인 운영 피드백을 반영하는 유지보수 업무가 함께였습니다.",
+            "action": [
+              "ASP 기반으로 반응형 쇼핑몰 신규 개발, W3C 웹 표준 준수로 다양한 디바이스 접근성 확보",
+              "런칭 이후 운영 중 발생하는 버그 수정 및 기능 개선 지속 수행"
+            ],
+            "impact": [
+              "신규 브랜드 OPWEE 쇼핑몰 런칭 완료",
+              "반응형 구현으로 PC, 모바일 등 다양한 디바이스에서 접근 가능"
+            ],
+            "reflection": "운영 중인 서비스를 유지보수하면서 처음 만든 코드를 다시 보는 경험이 됐습니다. 나중에 고치기 쉬운 구조로 처음부터 짜야 한다는 것을 초기에 배운 프로젝트였습니다."
+          }
         },
         {
           "id": 2,
           "title": "편의점 결제 서비스 구축",
-          "description": "갤럭시아컴즈와 협업하여 '언니가간다'의 편의점 결제 서비스를 ASP 기반으로 연동 개발"
+          "description": "갤럭시아컴즈와 협업하여 '언니가간다'의 편의점 결제 서비스를 ASP 기반으로 연동 개발",
+          "caseStudy": {
+            "context": "언니가간다의 주요 고객층은 10대였습니다. 무통장 입금, 카드 결제는 어린 학생들에게 접근성이 낮아 편의점 결제 서비스 도입이 결정됐습니다.",
+            "problem": "갤럭시아컴즈와 통신 시 결제 정보를 암호화/복호화해야 했는데, ASP의 Crypto 기능은 보안이 취약하고 기능이 매우 제한적이었습니다. ASP만으로는 요구 조건을 충족할 수 없었습니다.",
+            "action": [
+              "ASP.NET을 독학하여 Crypto 관련 기능만 ASP.NET으로 처리하는 방식으로 해결",
+              "ASP → ASP.NET → 갤럭시아컴즈 순으로 통신하는 구조를 설계하여 보안 요건 충족"
+            ],
+            "impact": [
+              "10대 고객층 대상 편의점 결제 서비스 오픈, 결제 접근성 개선"
+            ],
+            "reflection": "언어의 제약이 생겼을 때 우회 방법을 스스로 찾고 해결한 경험이었습니다. 필요한 기술은 직접 공부해서 적용하는 것이 개발자의 기본임을 이때 처음 확실히 배웠습니다."
+          }
         },
         {
           "id": 3,
           "title": "프랑켄모노 관리자 시스템 개발",
-          "description": "스타일쉐어, 무신사 등 제휴처의 주문 관리 및 이메일 발송 기능을 포함한 내부 관리자 페이지 구축"
+          "description": "스타일쉐어, 무신사 등 제휴처의 주문 관리 및 이메일 발송 기능을 포함한 내부 관리자 페이지 구축",
+          "caseStudy": {
+            "context": "스타일쉐어, 무신사, 위메프, 1300K 등 제휴업체가 늘어나면서 각 업체의 주문을 따로 확인하고 관리해야 하는 상황이 됐습니다. 담당자가 제휴업체마다 CSV를 직접 받아 수동으로 취합하고 있었습니다.",
+            "problem": "제휴업체가 늘수록 담당자의 수작업 부담이 선형적으로 증가했습니다. 주문을 한눈에 파악하는 것 자체가 어려웠고, 배송 처리도 업체별로 따로 진행해야 했습니다.",
+            "action": [
+              "각 제휴업체 CSV 업로드 → DB 저장 → 한 화면에서 통합 조회하는 관리자 시스템 개발",
+              "주문 목록 관리, 배송 처리, 이메일 발송 기능 구현",
+              "제휴업체 추가 및 기능 요청에 맞춰 퇴사 직전까지 지속 유지보수"
+            ],
+            "impact": [
+              "스타일쉐어, N스토어팜, 쿠치샵, 무신사, 위메프, 1300K 등 주문/배송을 하나의 시스템에서 통합 관리"
+            ],
+            "reflection": "제휴업체가 계속 추가되고 요청이 반복되면서, 유지보수를 고려하지 않은 구조가 얼마나 빠르게 부채가 되는지 직접 경험했습니다. 처음부터 확장을 염두에 둔 설계가 중요하다는 것을 이 프로젝트에서 배웠습니다."
+          }
         },
         {
           "id": 4,
           "title": "프랑켄모노 Web POS 시스템 개발",
-          "description": "홍대 오프라인 매장에서 사용할 웹 기반 POS 시스템을 단독으로 설계 및 개발"
+          "description": "홍대 오프라인 매장에서 사용할 웹 기반 POS 시스템을 단독으로 설계 및 개발",
+          "caseStudy": {
+            "context": "프랑켄모노 온라인 쇼핑몰에 이어 홍대에 오프라인 매장을 오픈하게 됐습니다. 매장에서 사용할 POS 시스템을 웹 기반으로 개발해야 했습니다.",
+            "problem": "POS 시스템 개발을 전담할 인원이 따로 없었고, 설계부터 구현까지 단독으로 진행해야 했습니다. 일반 웹 서비스와 달리 오프라인 현장에서 바로 쓰이는 시스템이라 안정성이 중요했습니다.",
+            "action": [
+              "ASP 기반으로 재고 관리, 결제 시스템까지 포함한 Web POS 전체를 단독 설계 및 개발"
+            ],
+            "impact": [
+              "홍대 오프라인 매장 오픈과 함께 POS 시스템 현장 투입"
+            ],
+            "reflection": "혼자 설계부터 개발까지 처음으로 담당한 프로젝트였습니다. 현장에서 실시간으로 사용되는 시스템은 버그 하나가 바로 매장 운영에 영향을 미친다는 것을 체감했고, 안정성을 최우선으로 생각하는 습관이 이때 생겼습니다."
+          }
         },
         {
           "id": 5,
@@ -724,22 +773,71 @@
         {
           "id": 1,
           "title": "OPWEE Shopping Mall Development & Maintenance",
-          "description": "Built and maintained a responsive in-house shopping mall compliant with W3C web standards"
+          "description": "Built and maintained a responsive in-house shopping mall compliant with W3C web standards",
+          "caseStudy": {
+            "context": "Following the 언니가간다 and Frankenmono brands, OPWEE was a new brand launch. Consistent shopping experience across devices was required from day one, and first impressions mattered for a new brand.",
+            "problem": "Building a responsive shopping mall in ASP while meeting W3C standards — and continuing to maintain it after launch as user feedback rolled in.",
+            "action": [
+              "Built the responsive shopping mall from scratch in ASP, meeting W3C web standards for cross-device accessibility",
+              "Continued bug fixes and feature improvements throughout the operational period"
+            ],
+            "impact": [
+              "OPWEE brand shopping mall launched",
+              "Accessible across PC, mobile, and other devices via responsive implementation"
+            ],
+            "reflection": "Going back to code I wrote earlier during maintenance made one thing clear: the cost of unclear structure compounds fast. Writing code that’s easy to change later isn’t a nice-to-have — this project was where that lesson landed."
+          }
         },
         {
           "id": 2,
           "title": "Convenience Store Payment Integration",
-          "description": "Collaborated with GalaxiaComs to integrate a payment service for convenience stores via ASP-based systems"
+          "description": "Collaborated with GalaxiaComs to integrate a payment service for convenience stores via ASP-based systems",
+          "caseStudy": {
+            "context": "언니가간다’s core customer base was teenagers. Card payments and bank transfers were too high a barrier for younger users, so convenience store payment was introduced to lower the access threshold.",
+            "problem": "Communication with GalaxiaComs required encrypting and decrypting payment data — but ASP’s Crypto support was weak and extremely limited. The standard approach wasn’t viable.",
+            "action": [
+              "Self-studied ASP.NET specifically to handle Crypto functionality, keeping everything else in ASP",
+              "Designed a communication flow of ASP → ASP.NET → GalaxiaComs to satisfy the security requirement"
+            ],
+            "impact": [
+              "Convenience store payment launched for teenage customers, meaningfully lowering payment friction"
+            ],
+            "reflection": "When the available tool can’t do the job, find another way. Learning ASP.NET specifically to solve a Crypto limitation was the first time I independently identified a constraint and worked around it — that pattern has repeated many times since."
+          }
         },
         {
           "id": 3,
           "title": "Frankenmono Admin System Development",
-          "description": "Built internal admin tools to manage orders and send emails for multiple sales partners such as StyleShare and MUSINSA"
+          "description": "Built internal admin tools to manage orders and send emails for multiple sales partners such as StyleShare and MUSINSA",
+          "caseStudy": {
+            "context": "As Frankenmono added more sales partners — StyleShare, MUSINSA, Wemakeprice, 1300K, and others — the team had to pull CSV files from each platform individually and consolidate them manually.",
+            "problem": "Every new partner added more manual work for the same person. Getting a unified view of orders across all platforms was genuinely difficult, and shipping had to be managed platform by platform.",
+            "action": [
+              "Built an admin system where staff upload CSVs from each partner — data is stored in DB and viewable in one unified dashboard",
+              "Implemented order list management, shipping processing, and email sending features",
+              "Continued maintaining and extending the system as new partners were added, through to the end of my time at the company"
+            ],
+            "impact": [
+              "Orders and shipping from StyleShare, N Store Farm, Kuczi, MUSINSA, Wemakeprice, 1300K and more managed in a single system"
+            ],
+            "reflection": "As partners kept being added and requests kept coming in, it became clear how quickly unmaintainable structure turns into debt. Building with future extension in mind from the start — not as an afterthought — is what this project taught."
+          }
         },
         {
           "id": 4,
           "title": "Frankenmono Web-based POS Development",
-          "description": "Solely designed and developed a POS system for Frankenmono’s offline store in Hongdae"
+          "description": "Solely designed and developed a POS system for Frankenmono’s offline store in Hongdae",
+          "caseStudy": {
+            "context": "After the online shopping mall, Frankenmono was opening a physical store in Hongdae. A POS system was needed for in-store operations — and there was no dedicated person to build it.",
+            "problem": "Design through implementation had to be handled solo. Unlike a typical web service, this system would be used live in a retail environment — any failure directly disrupted store operations.",
+            "action": [
+              "Solely designed and built a Web POS system in ASP covering inventory management and the full payment flow"
+            ],
+            "impact": [
+              "POS system deployed alongside the Hongdae store opening"
+            ],
+            "reflection": "The first project where I owned design through delivery completely alone. A bug in a live POS hits the store floor immediately — no buffer. That reality instilled a habit of treating stability as the baseline, not an extra, and it’s stuck since."
+          }
         },
         {
           "id": 5,
