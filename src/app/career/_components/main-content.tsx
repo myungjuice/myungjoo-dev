@@ -17,7 +17,7 @@ const MainContent = () => {
     i18n: { language },
   } = useTranslation();
 
-  const langCareerMockData = careerMockData[language as 'ko' | 'en'];
+  const langCareerMockData = careerMockData[language === 'en' ? 'en' : 'ko'];
 
   const filteredCompanies = selectedFilter
     .map(filterId => langCareerMockData[filterId])

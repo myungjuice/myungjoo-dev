@@ -20,14 +20,18 @@ const CareerDetail = ({ slug }: Props) => {
     i18n: { language },
   } = useTranslation();
 
-  const company = careerMockData[language as 'ko' | 'en'][slug];
+  const company = careerMockData[language === 'en' ? 'en' : 'ko'][slug];
 
   useEffect(() => {
     const hash = window.location.hash;
     if (!hash) return;
     const timer = setTimeout(() => {
-      const el = document.querySelector(hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      try {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch {
+        // invalid CSS selector in hash — ignore
+      }
     }, 300);
     return () => clearTimeout(timer);
   }, []);
@@ -79,7 +83,7 @@ const CareerDetail = ({ slug }: Props) => {
             <FadeInUp key={project.id} delay={0.1 + idx * 0.05} className='w-full'>
               <div
                 id={`project-${project.id}`}
-                className='w-full scroll-mt-6 space-y-2 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'
+                className='w-full scroll-mt-16 space-y-2 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'
               >
                 <div className='-mx-5 -mt-5 mb-3 flex items-center justify-between gap-2 rounded-t-lg bg-slate-200 px-5 py-3 dark:bg-slate-700'>
                   <div className='border-slate-400 sm:border-l-4 sm:px-2'>
