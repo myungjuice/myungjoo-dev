@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiArrowLeft, FiImage } from 'react-icons/fi';
 
@@ -20,6 +21,16 @@ const CareerDetail = ({ slug }: Props) => {
   } = useTranslation();
 
   const company = careerMockData[language as 'ko' | 'en'][slug];
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const timer = setTimeout(() => {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!company) return null;
 
@@ -65,8 +76,11 @@ const CareerDetail = ({ slug }: Props) => {
 
         <div className='flex flex-col gap-5'>
           {company.projects.map((project, idx) => (
-            <FadeInUp key={project.id} delay={0.1 + idx * 0.05}>
-              <div className='w-full space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'>
+            <FadeInUp key={project.id} delay={0.1 + idx * 0.05} className='w-full'>
+              <div
+                id={`project-${project.id}`}
+                className='w-full scroll-mt-6 space-y-2 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'
+              >
                 <div className='-mx-5 -mt-5 mb-3 flex items-center justify-between gap-2 rounded-t-lg bg-slate-200 px-5 py-3 dark:bg-slate-700'>
                   <div className='border-slate-400 sm:border-l-4 sm:px-2'>
                     <p className='text-body-md-bold wrap-break-word text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
@@ -111,7 +125,10 @@ const CareerDetail = ({ slug }: Props) => {
                         </p>
                         <ul className='space-y-0.5'>
                           {project.caseStudy.action.map((item, i) => (
-                            <li key={i} className='text-body-sm text-slate-700 dark:text-slate-200'>
+                            <li
+                              key={i}
+                              className='text-body-sm wrap-break-word text-slate-700 dark:text-slate-200'
+                            >
                               {`• ${item}`}
                             </li>
                           ))}
@@ -125,7 +142,10 @@ const CareerDetail = ({ slug }: Props) => {
                         </p>
                         <ul className='space-y-0.5'>
                           {project.caseStudy.impact.map((item, i) => (
-                            <li key={i} className='text-body-sm text-slate-700 dark:text-slate-200'>
+                            <li
+                              key={i}
+                              className='text-body-sm wrap-break-word text-slate-700 dark:text-slate-200'
+                            >
                               {`✅ ${item}`}
                             </li>
                           ))}
