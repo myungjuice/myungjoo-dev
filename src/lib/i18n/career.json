@@ -32,7 +32,24 @@
         {
           "id": 2,
           "title": "AI 코드리뷰 자동화 및 Cursor Rule 팀 표준화",
-          "description": "Claude API + GitHub Actions 기반 AI 코드리뷰 파이프라인 구축 및 팀 공통 Cursor Rule 세팅"
+          "description": "Claude API + GitHub Actions 기반 AI 코드리뷰 파이프라인 구축 및 팀 공통 Cursor Rule 세팅",
+          "caseStudy": {
+            "context": "프론트엔드 팀 4명이 월 평균 60회 PR을 올리는 환경에서, 코드 리뷰를 사람이 전담하고 있었습니다. 리뷰어마다 기준이 달라 코드 품질 일관성에 편차가 있었고, 반복되는 규칙 위반 지적에 리뷰 시간이 낭비됐습니다.",
+            "problem": "네이밍, 이른 추상화, 매직 넘버 등 규칙 기반의 반복적인 리뷰 코멘트가 매 PR마다 사람 손을 거쳐야 했습니다. 리뷰어가 로직과 아키텍처보다 코드 스타일 지적에 더 많은 시간을 쓰는 상황이었습니다.",
+            "action": [
+              "AI 도입 전 Cursor Rule(.mdc)을 팀 공통으로 먼저 확립 — 리뷰 기준 문서화가 선행 조건임을 확인",
+              "GitHub Actions + Claude API(Haiku) 파이프라인 구축, PR 생성 시 자동 1차 리뷰 트리거",
+              "영향도(Critical/High/Medium/Low) 분류, 최대 10개 코멘트, 100줄 이내 리뷰 프롬프트 설계",
+              "팀 대응 프로세스 수립: Critical/High는 필수 검토, Medium/Low는 이모지(👁️/👍)로 처리 상태 표시",
+              "방부력 프로젝트 1단계 테스트 후 효과 검증, 써티코스·SSO 프로젝트로 순차 확대"
+            ],
+            "impact": [
+              "월 60회 PR에 자동 1차 리뷰 적용, 반복 규칙 위반 지적 자동화",
+              "PR당 비용 500원 이하, 팀 전체 월 약 3만원 수준(4명 기준)",
+              "리뷰어가 스타일 지적 대신 로직·아키텍처 리뷰에 집중 가능"
+            ],
+            "reflection": "Cursor Rule 없이 먼저 도입했다면 무의미한 리뷰가 남발됐을 겁니다. AI 코드리뷰의 품질은 리뷰 기준의 품질과 정비례한다는 것을 직접 확인했습니다."
+          }
         },
         {
           "id": 3,
@@ -198,7 +215,24 @@
         {
           "id": 2,
           "title": "AI Code Review Automation & Cursor Rule Standardization",
-          "description": "Built AI code review pipeline using Claude API + GitHub Actions and established team-wide Cursor Rules"
+          "description": "Built AI code review pipeline using Claude API + GitHub Actions and established team-wide Cursor Rules",
+          "caseStudy": {
+            "context": "A 4-person frontend team averaging 60 PRs per month with all code reviews handled manually. Review standards varied by reviewer, leading to inconsistent code quality and time wasted on repetitive rule-violation comments.",
+            "problem": "Rule-based review comments — naming conventions, premature abstractions, magic numbers — required a human reviewer on every single PR. Reviewers were spending more time on style checks than on logic and architecture.",
+            "action": [
+              "Established team-wide Cursor Rules (.mdc) before AI adoption — documenting review standards was a prerequisite",
+              "Built a GitHub Actions + Claude API (Haiku) pipeline that auto-triggers a first-pass review on every PR",
+              "Designed prompts with severity tiers (Critical/High/Medium/Low), max 10 comments, 100 lines per review",
+              "Defined team response process: Critical/High require mandatory follow-up, Medium/Low use emoji (👁️/👍) to track review status",
+              "Rolled out to one project first, verified effectiveness, then expanded to other projects"
+            ],
+            "impact": [
+              "Automated first-pass review across 60+ PRs per month",
+              "Cost under ₩500 per PR (~₩30,000/month for a 4-person team)",
+              "Reviewers can focus on logic and architecture instead of style enforcement"
+            ],
+            "reflection": "Adopting AI review without Cursor Rules first would have produced noisy, meaningless comments. The quality of AI code review scales directly with the quality of the rules you feed it."
+          }
         },
         {
           "id": 3,

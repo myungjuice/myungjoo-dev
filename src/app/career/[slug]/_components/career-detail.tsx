@@ -39,7 +39,7 @@ const CareerDetail = ({ slug }: Props) => {
         </FadeInUp>
 
         <FadeInUp delay={0.05}>
-          <div className='mb-6 flex flex-col rounded-t-lg bg-slate-100 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-5 dark:bg-slate-700'>
+          <div className='mb-2 flex flex-col rounded-lg bg-slate-100 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-5 dark:bg-slate-700'>
             <div className='relative hidden h-28 w-28 items-center justify-center sm:flex'>
               {company.logoUrl ? (
                 <Image
@@ -63,21 +63,20 @@ const CareerDetail = ({ slug }: Props) => {
           </div>
         </FadeInUp>
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col gap-5'>
           {company.projects.map((project, idx) => (
             <FadeInUp key={project.id} delay={0.1 + idx * 0.05}>
-              <div
-                className={cn(
-                  'w-full space-y-2 bg-white p-5 dark:bg-slate-950',
-                  idx === company.projects.length - 1
-                    ? 'rounded-b-lg'
-                    : 'border-b border-slate-200 dark:border-slate-800'
-                )}
-              >
-                <div className='border-slate-800 sm:border-l-4 sm:px-2'>
-                  <p className='text-body-md-bold wrap-break-word text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
-                    {project.title}
-                  </p>
+              <div className='w-full space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'>
+                <div className='-mx-5 -mt-5 mb-3 flex items-center justify-between gap-2 rounded-t-lg bg-slate-200 px-5 py-3 dark:bg-slate-700'>
+                  <div className='border-slate-400 sm:border-l-4 sm:px-2'>
+                    <p className='text-body-md-bold wrap-break-word text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
+                      {project.title}
+                    </p>
+                  </div>
+                  <span className='shrink-0 text-body-sm text-slate-400 tabular-nums dark:text-slate-500'>
+                    {String(idx + 1).padStart(2, '0')} /{' '}
+                    {String(company.projects.length).padStart(2, '0')}
+                  </span>
                 </div>
                 <p className='text-body-sm wrap-break-word text-gray-600 xl:text-body-md dark:text-slate-400'>
                   {project.description}
