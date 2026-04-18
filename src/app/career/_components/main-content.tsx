@@ -33,7 +33,10 @@ const MainContent = () => {
               idx === filteredCompanies.length - 1 ? 'py-6 sm:py-10' : 'pt-6 sm:pt-10'
             )}
           >
-            <div className='flex flex-col rounded-t-lg bg-slate-100 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-5 dark:bg-slate-700'>
+            <Link
+              href={`/career/${company.id}`}
+              className='group flex flex-col rounded-t-lg bg-slate-100 px-4 py-4 transition-colors hover:bg-slate-200 sm:flex-row sm:items-center sm:gap-4 sm:px-5 dark:bg-slate-700 dark:hover:bg-slate-600'
+            >
               <div className='relative hidden h-28 w-28 items-center justify-center sm:flex'>
                 {company.logoUrl ? (
                   <Image
@@ -58,15 +61,12 @@ const MainContent = () => {
                     {company.role}
                   </p>
                 </div>
-                <Link
-                  href={`/career/${company.id}`}
-                  className='mt-1 inline-flex shrink-0 items-center gap-1 text-body-sm text-slate-400 transition-colors hover:text-teal-500 dark:text-slate-500 dark:hover:text-teal-400'
-                >
+                <span className='mt-1 inline-flex shrink-0 items-center gap-1 text-body-sm text-slate-400 transition-colors group-hover:text-teal-500 dark:text-slate-500 dark:group-hover:text-teal-400'>
                   <span>{language === 'ko' ? '상세' : 'Details'}</span>
                   <FiArrowRight className='h-3 w-3' />
-                </Link>
+                </span>
               </div>
-            </div>
+            </Link>
 
             {company.projects.map((project, idx2) => (
               <div
