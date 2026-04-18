@@ -53,13 +53,29 @@
         },
         {
           "id": 3,
-          "title": "KCTL(방부력 시험 전문 스마트 연구소) 사이트 런칭",
-          "description": "Next.js + FSD 아키텍처 기반 B2B 서비스 사이트 구축, 인증 및 토스페이먼츠 결제 연동"
+          "title": "어드민 디자인시스템 공통 모듈화 (GitHub Packages)",
+          "description": "디자인시스템 전용 레포 분리 및 GitHub Packages 배포, Storybook 도입과 CI/CD 자동화",
+          "caseStudy": {
+            "context": "cos-admin 프로젝트에 공통 UI 컴포넌트들이 있었지만 해당 레포에만 묶여 있어 다른 프로젝트에서 재사용할 수 없었습니다. 새 프로젝트를 시작할 때마다 같은 컴포넌트를 별도로 만들거나 코드를 복사해 쓰는 구조였습니다.",
+            "problem": "공통 컴포넌트가 패키지로 분리되지 않아 프로젝트 간 공유가 불가능했습니다. 한 곳에서 버그를 수정해도 다른 프로젝트에는 반영되지 않았고, 유지보수 포인트가 프로젝트 수만큼 늘어났습니다.",
+            "action": [
+              "cos-admin에 있던 공통 컴포넌트 46개를 독립 레포로 분리, 린트 기준에 맞게 정리하며 @cdri-development-team/design-system 패키지로 구성",
+              "GitHub Packages로 배포해 npm install 한 줄로 어느 프로젝트에서든 사용 가능하게 — npm private registry 대신 기존 GitHub Team Plan의 Packages 용량 활용으로 추가 비용 0원",
+              "Storybook으로 컴포넌트 문서화, GitHub Pages로 배포 — 내부용이라 별도 도메인 불필요, 레포지토리에서 한 번에 관리",
+              "Semantic versioning + Husky + lint-staged로 배포 품질 자동화"
+            ],
+            "impact": [
+              "46개 컴포넌트 재사용 가능한 패키지로 분리, 프로젝트마다 중복 구현 제거",
+              "GitHub Packages + GitHub Pages 조합으로 추가 인프라 비용 0원",
+              "버그 수정이 패키지 버전 업으로 모든 프로젝트에 일괄 반영 가능"
+            ],
+            "reflection": "컴포넌트를 분리하면서 린트 기준에 안 맞는 코드가 예상보다 많았습니다. 처음부터 팀 코딩 컨벤션과 린트 규칙을 맞춰두었다면 마이그레이션 공수가 줄었을 겁니다."
+          }
         },
         {
           "id": 4,
-          "title": "어드민 디자인시스템 공통 모듈화 (GitHub Packages)",
-          "description": "디자인시스템 전용 레포 분리 및 GitHub Packages 배포, Storybook 도입과 CI/CD 자동화"
+          "title": "KCTL(방부력 시험 전문 스마트 연구소) 사이트 런칭",
+          "description": "Next.js + FSD 아키텍처 기반 B2B 서비스 사이트 구축, 인증 및 토스페이먼츠 결제 연동"
         },
         {
           "id": 5,
@@ -236,13 +252,29 @@
         },
         {
           "id": 3,
-          "title": "KCTL (Preservative Testing Lab) Site Launch",
-          "description": "Built B2B service site with Next.js + FSD architecture, including auth and Toss Payments integration"
+          "title": "Admin Design System Modularization (GitHub Packages)",
+          "description": "Separated design system into dedicated repo with GitHub Packages deployment, Storybook, and CI/CD automation",
+          "caseStudy": {
+            "context": "Shared UI components lived inside cos-admin but were locked to that repo, unavailable to other projects. Every new project either rebuilt the same components or copied code directly.",
+            "problem": "Without a shared package, there was no way to propagate fixes across projects. A bug fixed in one codebase stayed unfixed in the others. Maintenance burden grew with every new project added.",
+            "action": [
+              "Extracted 46 components from cos-admin into a standalone repo, cleaned up linting issues during migration, and packaged as @cdri-development-team/design-system",
+              "Published via GitHub Packages — zero additional cost by using the existing GitHub Team Plan's included storage instead of an npm private registry",
+              "Set up Storybook with 42 component stories, deployed via GitHub Pages — internal tool, no custom domain needed, managed alongside the repo in one place",
+              "Automated release quality with Semantic versioning, Husky, and lint-staged"
+            ],
+            "impact": [
+              "46 components extracted into a reusable package — no more duplicate implementations across projects",
+              "Infrastructure cost: ₩0 — GitHub Packages + GitHub Pages on an existing Team Plan",
+              "Bug fixes now propagate to all projects with a single version bump"
+            ],
+            "reflection": "More lint violations surfaced during migration than expected. Aligning on coding conventions and lint rules earlier would have made the extraction much smoother."
+          }
         },
         {
           "id": 4,
-          "title": "Admin Design System Modularization (GitHub Packages)",
-          "description": "Separated design system into dedicated repo with GitHub Packages deployment, Storybook, and CI/CD automation"
+          "title": "KCTL (Preservative Testing Lab) Site Launch",
+          "description": "Built B2B service site with Next.js + FSD architecture, including auth and Toss Payments integration"
         },
         {
           "id": 5,
