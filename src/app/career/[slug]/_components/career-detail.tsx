@@ -84,61 +84,61 @@ const CareerDetail = ({ slug }: Props) => {
                 </p>
 
                 {project.caseStudy && (
-                  <div className='mt-4 space-y-4 border-t border-slate-200 pt-4 dark:border-slate-700'>
+                  <div className='mt-4 space-y-3 border-t border-slate-200 pt-4 dark:border-slate-800'>
                     {project.caseStudy.context && (
-                      <div>
-                        <p className='mb-1 text-body-sm-bold text-slate-700 dark:text-slate-300'>
-                          {language === 'ko' ? '상황' : 'Context'}
+                      <div className='space-y-1'>
+                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
+                          {`// ${language === 'ko' ? '상황' : 'context'}`}
                         </p>
-                        <p className='text-body-sm text-gray-600 dark:text-slate-400'>
+                        <p className='text-body-sm text-slate-700 dark:text-slate-200'>
                           {project.caseStudy.context}
                         </p>
                       </div>
                     )}
                     {project.caseStudy.problem && (
-                      <div>
-                        <p className='mb-1 text-body-sm-bold text-slate-700 dark:text-slate-300'>
-                          {language === 'ko' ? '문제' : 'Problem'}
+                      <div className='space-y-1'>
+                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
+                          {`// ${language === 'ko' ? '문제' : 'problem'}`}
                         </p>
-                        <p className='text-body-sm text-gray-600 dark:text-slate-400'>
+                        <p className='text-body-sm text-slate-700 dark:text-slate-200'>
                           {project.caseStudy.problem}
                         </p>
                       </div>
                     )}
                     {project.caseStudy.action && project.caseStudy.action.length > 0 && (
-                      <div>
-                        <p className='mb-1 text-body-sm-bold text-slate-700 dark:text-slate-300'>
-                          {language === 'ko' ? '한 것' : 'Action'}
+                      <div className='space-y-1'>
+                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
+                          {`// ${language === 'ko' ? '한 것' : 'action'}`}
                         </p>
-                        <ul className='space-y-1'>
+                        <ul className='space-y-0.5'>
                           {project.caseStudy.action.map((item, i) => (
-                            <li key={i} className='text-body-sm text-gray-600 dark:text-slate-400'>
-                              • {item}
+                            <li key={i} className='text-body-sm text-slate-700 dark:text-slate-200'>
+                              {`• ${item}`}
                             </li>
                           ))}
                         </ul>
                       </div>
                     )}
                     {project.caseStudy.impact && project.caseStudy.impact.length > 0 && (
-                      <div>
-                        <p className='mb-1 text-body-sm-bold text-slate-700 dark:text-slate-300'>
-                          {language === 'ko' ? '결과' : 'Impact'}
+                      <div className='space-y-1'>
+                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
+                          {`// ${language === 'ko' ? '결과' : 'impact'}`}
                         </p>
-                        <ul className='space-y-1'>
+                        <ul className='space-y-0.5'>
                           {project.caseStudy.impact.map((item, i) => (
-                            <li key={i} className='text-body-sm text-gray-600 dark:text-slate-400'>
-                              ✅ {item}
+                            <li key={i} className='text-body-sm text-slate-700 dark:text-slate-200'>
+                              {`✅ ${item}`}
                             </li>
                           ))}
                         </ul>
                       </div>
                     )}
                     {project.caseStudy.reflection && (
-                      <div>
-                        <p className='mb-1 text-body-sm-bold text-slate-700 dark:text-slate-300'>
-                          {language === 'ko' ? '배운 것' : 'Reflection'}
+                      <div className='space-y-1'>
+                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
+                          {`// ${language === 'ko' ? '배운 것' : 'reflection'}`}
                         </p>
-                        <p className='text-body-sm text-gray-600 dark:text-slate-400'>
+                        <p className='text-body-sm text-slate-700 dark:text-slate-200'>
                           {project.caseStudy.reflection}
                         </p>
                       </div>

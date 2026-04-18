@@ -12,7 +12,22 @@
         {
           "id": 1,
           "title": "사전과제 AI 검토 자동화",
-          "description": "이메일 수신 → Notion 등록 → GitHub Actions → Claude AI 코드 검토 및 합/불 판정 파이프라인 구축, Slack 자동 전송으로 채용 프로세스 효율화"
+          "description": "이메일 수신 → Notion 등록 → GitHub Actions → Claude AI 코드 검토 및 합/불 판정 파이프라인 구축, Slack 자동 전송으로 채용 프로세스 효율화",
+          "caseStudy": {
+            "context": "채용 프로세스에서 매주 10개 내외의 사전과제가 이메일로 접수됐습니다. 팀 리드가 전담 검토하는 구조로, 별도 도구 없이 코드를 직접 열어보는 방식이었습니다.",
+            "problem": "매주 10개 과제를 수기로 검토하는 데 약 5시간이 소요됐습니다. 검토 기준이 검토자 개인 판단에 의존해 일관성이 낮았고, 과제 파악 후 면접 질문을 별도로 준비해야 했습니다.",
+            "action": [
+              "이메일 수신 → Notion 자동 등록 → GitHub Actions 트리거 파이프라인 구축",
+              "Claude API로 코드 품질 자동 검토 및 0-100점 점수 산출, 70점 미만 자동 불합격 처리",
+              "AI가 과제별 면접 질문 자동 추천, 검토 리포트 Notion 저장 + Slack 자동 전송"
+            ],
+            "impact": [
+              "주당 검토 시간: 5시간 → 3시간 30분 (약 30% 단축)",
+              "70점 미만 과제 자동 필터링으로 경계선 과제에만 집중 가능",
+              "면접 질문 사전 준비 시간 추가 절감"
+            ],
+            "reflection": "AI 점수를 처음에는 합/불 판단의 절대 기준으로 쓰려 했으나, 70점 기준선은 실제 사례로 직접 캘리브레이션해야 했습니다. 결국 점수보다 AI가 짚어준 '주목할 부분'이 검토 집중도를 높이는 데 더 가치 있었습니다."
+          }
         },
         {
           "id": 2,
@@ -163,7 +178,22 @@
         {
           "id": 1,
           "title": "Pre-assignment AI Review Automation",
-          "description": "Built pipeline: email receipt → Notion → GitHub Actions → Claude AI code review with pass/fail scoring, auto-sent to Slack to streamline hiring process"
+          "description": "Built pipeline: email receipt → Notion → GitHub Actions → Claude AI code review with pass/fail scoring, auto-sent to Slack to streamline hiring process",
+          "caseStudy": {
+            "context": "Around 10 pre-assignment submissions arrived by email each week. The team lead was responsible for reviewing all of them manually, opening each codebase one by one without any tooling.",
+            "problem": "Manually reviewing 10 assignments per week took around 5 hours. Review criteria relied heavily on individual judgment, leading to inconsistency. Preparing interview questions for each candidate required additional time on top of the review.",
+            "action": [
+              "Built an automated pipeline: email receipt → Notion registration → GitHub Actions trigger",
+              "Used Claude API to auto-review code quality with a 0-100 score; submissions below 70 were automatically rejected",
+              "AI generates per-candidate interview questions; review reports auto-saved to Notion and sent to Slack"
+            ],
+            "impact": [
+              "Weekly review time: 5 hrs → 3.5 hrs (~30% reduction)",
+              "Automated filtering of sub-70 submissions, letting reviewers focus on borderline cases",
+              "Eliminated separate interview question prep time"
+            ],
+            "reflection": "Initially tried to use the AI score as a hard pass/fail threshold, but the 70-point cutoff needed manual calibration across real cases. In the end, the AI's highlighted areas of concern were more valuable for directing review attention than the score itself."
+          }
         },
         {
           "id": 2,
