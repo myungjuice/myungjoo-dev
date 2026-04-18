@@ -146,27 +146,94 @@
         {
           "id": 1,
           "title": "EzPlay 리뉴얼 및 텔레그램 미니앱 연동",
-          "description": "기존 EzPlay를 포크하여 디자인을 개선하고 텔레그램 로그인 및 미니앱을 추가하여 새로운 도메인으로 재런칭"
+          "description": "기존 EzPlay를 포크하여 디자인을 개선하고 텔레그램 로그인 및 미니앱을 추가하여 새로운 도메인으로 재런칭",
+          "caseStudy": {
+            "context": "기존 EzPlay는 서비스 종료가 예정된 상태였지만, 이후 방향이 확정되지 않아 현상 유지가 필요한 상황이었습니다. 동시에 텔레그램 미니앱 연동이라는 신규 기능 개발 요구사항이 생겼습니다.",
+            "problem": "종료 예정인 기존 레포에 신규 기능을 직접 추가하면, 이후 서비스 종료 결정 시 분리 작업이 복잡해질 우려가 있었습니다. 기존 서비스와 신규 개발을 명확히 분리할 방법이 필요했습니다.",
+            "action": [
+              "기존 레포를 건드리지 않고 fork하여 신규 레포에서 독립적으로 개발 — 기존 서비스 영향 없이 신규 기능 개발 가능하도록 분리",
+              "텔레그램 로그인 및 미니앱 연동 기능 추가, 디자인 개선 후 새 도메인으로 재런칭"
+            ],
+            "impact": [
+              "기존 EzPlay 서비스에 영향 없이 신규 기능 출시",
+              "신규 레포에서 독립적으로 운영 가능한 구조 확보"
+            ],
+            "reflection": "서비스 종료 예정이더라도 신규 기능 요구는 언제든 생길 수 있습니다. fork 전략으로 기존 코드와 독립적으로 개발하는 방식이 리스크를 최소화하는 현실적인 접근임을 확인했습니다."
+          }
         },
         {
           "id": 2,
           "title": "Roblox 관리자 사이트 개발",
-          "description": "내부에서 Roblox 포인트 지급, 권한 관리 등을 위한 관리자 시스템을 구축"
+          "description": "내부에서 Roblox 포인트 지급, 권한 관리 등을 위한 관리자 시스템을 구축",
+          "caseStudy": {
+            "context": "로블록스 TF팀이 유저 조회, 포인트 지급, 상품 등록 등의 반복 작업을 수동으로 처리하고 있었습니다.",
+            "problem": "수작업으로 처리하다 보니 시간이 지연됐고, 실수 가능성도 있었습니다. TF팀의 반복 업무를 시스템화할 도구가 없었습니다.",
+            "action": [
+              "유저 조회, 포인트 지급, 상품 등록 등 TF팀의 반복 작업을 처리하는 관리자 시스템 구축"
+            ],
+            "impact": [
+              "수작업 처리 → 시스템화로 TF팀 운영 효율 개선"
+            ],
+            "reflection": "내부 툴이라도 실제로 사용하는 팀의 업무 흐름에 맞춰 설계하지 않으면 사용률이 낮아집니다. 사용자가 어떤 순서로 작업하는지 먼저 파악하는 것이 중요하다는 것을 배웠습니다."
+          }
         },
         {
           "id": 3,
           "title": "Supertree, PlayDapp, Members 홈페이지 런칭",
-          "description": "Locomotive Scroll, framer-motion을 활용해 인터랙션 중심의 브랜드 사이트 구현"
+          "description": "Locomotive Scroll, framer-motion을 활용해 인터랙션 중심의 브랜드 사이트 구현",
+          "caseStudy": {
+            "context": "PlayDapp 생태계 브랜드 사이트 3개(Supertree → PlayDapp → Members)를 순차적으로 런칭해야 했습니다. 인터랙션 중심의 몰입감 있는 브랜드 사이트가 목표였습니다.",
+            "problem": "패럴랙스 스크롤, 세로↔가로 스크롤 전환, 스크롤 기반 이미지 교체 인터랙션 등 모두 처음 구현해보는 것들이었습니다. Supertree 홈페이지에서는 특정 구간에 도달하면 세로 스크롤이 가로 스크롤로 전환됐다가 다시 세로로 돌아오는 흐름을 구현해야 했고, PlayDapp 홈페이지에서는 스크롤에 따라 이미지가 순차 교체되는 애플 스타일의 인터랙션을 처음 시도했습니다.",
+            "action": [
+              "Supertree: Locomotive Scroll 기반 패럴랙스 구현, 특정 구간에서 세로↔가로 스크롤 전환 처리",
+              "PlayDapp: 스크롤 위치에 따라 이미지가 프레임 단위로 교체되는 인터랙션 구현",
+              "Members: 기본 레이아웃 중심의 브랜드 홈페이지 구현"
+            ],
+            "impact": [
+              "브랜드 사이트 3개 순차 런칭 완료"
+            ],
+            "reflection": "처음 접하는 인터랙션도 레퍼런스 분석과 반복 구현으로 완성할 수 있었습니다. 복잡한 스크롤 인터랙션은 구현 자체보다 성능 최적화와 크로스 브라우저 대응이 더 많은 시간을 차지한다는 것을 배웠습니다."
+          }
         },
         {
           "id": 4,
           "title": "PlayDapp Marketplace 리뉴얼",
-          "description": "Polygon, Ethereum 기반 마켓을 통합하고 Next.js + Typescript + Emotion 기반으로 완전 리빌딩"
+          "description": "Polygon, Ethereum 기반 마켓을 통합하고 Next.js + Typescript + Emotion 기반으로 완전 리빌딩",
+          "caseStudy": {
+            "context": "Polygon 마켓과 Ethereum 마켓이 별도 레포지토리로 운영됐습니다. SDK가 두 개로 나뉘어 있다는 이유로 레포도 두 개였고, 이벤트 페이지 하나를 추가해도 두 레포를 모두 작업해야 하는 비효율적인 구조였습니다.",
+            "problem": "기능 추가마다 작업량이 두 배였고, 양쪽 코드 품질을 맞추는 것도 부담이었습니다. 동일한 기능을 두 번 구현하면서 사소한 차이가 생기고, 버그 수정도 두 군데를 고쳐야 했습니다.",
+            "action": [
+              "로그인 시 네트워크를 선택하게 하고 전역 상태로 관리, SDK 호출 시점에 분기처리하는 방식으로 단일 레포 통합 방안을 직접 설계하고 제안",
+              "통합을 계기로 JS → TS, React → Next.js 전환, 디자인 리뉴얼까지 포함한 대규모 리빌딩으로 확대",
+              "5명 FE팀, 약 3개월 진행. 랜딩 페이지, NFT 판매·구매 페이지, 공통 컴포넌트 담당 (전체의 약 20~30%)",
+              "블록체인 경험이 없어 퇴근 후 기존 코드를 직접 분석하며 지갑 연동, SDK 호출, 코인 잔액 확인 등을 독학"
+            ],
+            "impact": [
+              "두 개의 레포지토리를 하나로 통합, 기능 추가 시 작업량 절반으로 감소",
+              "JS → TS, React → Next.js 전환으로 타입 안정성 및 SEO 기반 확보"
+            ],
+            "reflection": "개발 중반부터 디자인이 계속 변경되어 후반에는 철야 작업까지 이어졌습니다. 디자인 확정 시점과 개발 착수 시점을 명확히 합의하는 것이 프로젝트 일정에 얼마나 중요한지 직접 경험했습니다."
+          }
         },
         {
           "id": 5,
           "title": "Marketplace 기능 고도화",
-          "description": "Solana 네트워크 추가, NFT 합성 기능 추가, 슬랙 에러 알림 등 운영에 필요한 기능 고도화"
+          "description": "Solana 네트워크 추가, NFT 합성 기능 추가, 슬랙 에러 알림 등 운영에 필요한 기능 고도화",
+          "caseStudy": {
+            "context": "Polygon, Ethereum 기반 마켓을 운영하던 중 Solana 네트워크 추가 요청이 들어왔습니다. Ethereum 계열 네트워크에는 익숙해진 상태였지만, Solana는 완전히 다른 네트워크였습니다.",
+            "problem": "Solana 도입은 단순 기능 추가가 아니었습니다. 지갑 연동 방식, 로그인 인증, 판매·구매 플로우가 기존 구현과 달랐고, 영향 범위가 사이트 전체에 걸쳤습니다. 단일 기능처럼 보였지만 사실상 전체 아키텍처를 건드려야 하는 작업이었습니다.",
+            "action": [
+              "Solana 지갑 연동 및 인증 로직 추가, 판매·구매 플로우에 네트워크 분기 처리",
+              "NFT 합성 시스템 구현 — R 등급 다수 → SR, SR 다수 → SSR 합성, 보유 등급에 따라 '신과함께' 게임 연동 혜택 제공",
+              "Slack 에러 알림 연동으로 운영 이슈 실시간 감지 체계 구축"
+            ],
+            "impact": [
+              "Ethereum 계열 외 Solana 네트워크 지원으로 마켓 커버리지 확대",
+              "NFT 합성 이벤트 운영 및 게임 연동 기반 확보",
+              "Slack 알림으로 운영 이슈 실시간 대응 가능"
+            ],
+            "reflection": "Solana 도입 초기에 영향 범위를 충분히 파악하지 못해 예상보다 작업이 많이 늘어났습니다. 새 네트워크 도입처럼 전체 영향도가 큰 작업은 기술 검토를 먼저 충분히 진행해야 한다는 것을 배웠습니다."
+          }
         }
       ]
     },
@@ -390,27 +457,94 @@
         {
           "id": 1,
           "title": "EzPlay Renewal with Telegram Mini-App Integration",
-          "description": "Forked the original EzPlay project, redesigned UI, and integrated Telegram login and mini-app features for relaunch under a new domain"
+          "description": "Forked the original EzPlay project, redesigned UI, and integrated Telegram login and mini-app features for relaunch under a new domain",
+          "caseStudy": {
+            "context": "The original EzPlay was slated for shutdown, but the final direction hadn't been decided — so the existing service needed to stay untouched. At the same time, a new requirement came in to add Telegram mini-app integration.",
+            "problem": "Adding new features directly to a shutdown-pending repo risked complicating future cleanup. A clear separation between the existing service and new development was needed.",
+            "action": [
+              "Forked the original repo and developed independently in a new repository — keeping the existing service unaffected while enabling new feature development",
+              "Integrated Telegram login and mini-app features, improved the UI design, and relaunched under a new domain"
+            ],
+            "impact": [
+              "Shipped new features without touching the original EzPlay service",
+              "Established an independently operable codebase on the new repo"
+            ],
+            "reflection": "Even on a shutdown-track service, new feature requests can arrive at any time. Forking to develop independently proved to be the most pragmatic way to minimize risk while still shipping."
+          }
         },
         {
           "id": 2,
           "title": "Roblox Admin Panel Development",
-          "description": "Built an internal admin system for managing Roblox point distribution and user permissions"
+          "description": "Built an internal admin system for managing Roblox point distribution and user permissions",
+          "caseStudy": {
+            "context": "A dedicated Roblox TF team was manually handling repetitive tasks like user lookups, point distribution, and product registration.",
+            "problem": "Manual processing introduced delays and potential for human error. The team lacked any internal tooling to handle these recurring tasks efficiently.",
+            "action": [
+              "Built an admin panel covering user lookup, point distribution, and product registration to systemize the TF team's recurring manual work"
+            ],
+            "impact": [
+              "Manual processes replaced with a system, improving the TF team's operational efficiency"
+            ],
+            "reflection": "Even internal tools need to be designed around how the actual users work. A panel built without understanding the team's task flow ends up unused. Learning the workflow first is the right starting point."
+          }
         },
         {
           "id": 3,
           "title": "Brand Website Launch for Supertree, PlayDapp, and Members",
-          "description": "Developed interactive brand sites using Locomotive Scroll and framer-motion"
+          "description": "Developed interactive brand sites using Locomotive Scroll and framer-motion",
+          "caseStudy": {
+            "context": "Three brand sites in the PlayDapp ecosystem — Supertree, PlayDapp, and Members — needed to launch sequentially. The goal was immersive, interaction-driven brand experiences.",
+            "problem": "Parallax scrolling, horizontal-to-vertical scroll switching, and scroll-based image replacement were all being implemented for the first time. The Supertree site required a section where vertical scrolling transitions into horizontal and back again. The PlayDapp site needed frame-by-frame image swapping tied to scroll position — the Apple homepage pattern — also a first.",
+            "action": [
+              "Supertree: implemented parallax using Locomotive Scroll, with scroll direction switching at specific sections (vertical → horizontal → vertical)",
+              "PlayDapp: built scroll-driven image replacement where frames swap sequentially as the user scrolls",
+              "Members: implemented a standard brand homepage with clean layout and basic interactions"
+            ],
+            "impact": [
+              "All three brand sites launched sequentially as planned"
+            ],
+            "reflection": "Even unfamiliar interactions are achievable through reference analysis and iteration. The bigger lesson was that complex scroll interactions cost more time in performance optimization and cross-browser fixes than in the initial implementation itself."
+          }
         },
         {
           "id": 4,
           "title": "PlayDapp Marketplace Renewal",
-          "description": "Unified Ethereum and Polygon networks into a single marketplace and rebuilt the system using Next.js, TypeScript, and Emotion"
+          "description": "Unified Ethereum and Polygon networks into a single marketplace and rebuilt the system using Next.js, TypeScript, and Emotion",
+          "caseStudy": {
+            "context": "The Polygon and Ethereum marketplaces ran as separate repositories. The stated reason was that the SDKs were split by network — so the repos were too. Adding a single event page meant doing the work twice across both repos.",
+            "problem": "Every feature addition doubled the workload. Keeping both codebases in sync was a constant overhead, and subtle divergences kept creeping in. Bug fixes had to be applied in two places.",
+            "action": [
+              "Designed and proposed a single-repo architecture: network selected at login, stored globally, and used at the SDK call point to branch — making one repo viable for both networks",
+              "The consolidation expanded into a full rebuild: JS → TS, React → Next.js, and a full design refresh",
+              "5-person FE team, ~3 months. Owned the landing page, NFT buy/sell pages, and shared components (~20–30% of total scope)",
+              "No prior blockchain experience — studied the existing codebase after hours to learn wallet integration, SDK calls, and coin balance checks"
+            ],
+            "impact": [
+              "Two repos unified into one — feature additions now require a single implementation instead of two",
+              "JS → TS and React → Next.js migration improved type safety and established an SEO foundation"
+            ],
+            "reflection": "Design kept changing mid-development and the team ended up pulling all-nighters toward the end. Getting design sign-off before development starts is not a formality — it directly determines whether the project finishes on time."
+          }
         },
         {
           "id": 5,
           "title": "Marketplace Feature Enhancements",
-          "description": "Added Solana network, NFT synthesis functionality, and Slack error notifications to support operations"
+          "description": "Added Solana network, NFT synthesis functionality, and Slack error notifications to support operations",
+          "caseStudy": {
+            "context": "With the Polygon and Ethereum marketplace running, a request came in to add Solana network support. Ethereum-family networks were familiar by then — but Solana was an entirely different chain.",
+            "problem": "Adding Solana wasn't a scoped feature addition. Wallet integration, login auth, and buy/sell flows all differed from the existing implementation. The blast radius touched the entire site. What looked like one feature was effectively an architecture-level change.",
+            "action": [
+              "Added Solana wallet integration and auth logic, branched the buy/sell flow by network",
+              "Built an NFT synthesis system: R-tier NFTs combine into SR, SR into SSR — higher tier unlocks in-game benefits in the '신과함께' game integration",
+              "Integrated Slack error alerts for real-time visibility into production issues"
+            ],
+            "impact": [
+              "Marketplace expanded beyond Ethereum-family to cover Solana",
+              "NFT synthesis event shipped and game integration foundation laid",
+              "Slack alerts enabled real-time response to production issues"
+            ],
+            "reflection": "The scope of Solana's impact wasn't fully understood upfront, and the work ended up significantly larger than expected. Any change that touches auth, wallet, and transaction flows site-wide needs a proper technical scope review before the first line of code."
+          }
         }
       ]
     },
