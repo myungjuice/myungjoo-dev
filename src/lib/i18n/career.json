@@ -12,32 +12,125 @@
         {
           "id": 1,
           "title": "사전과제 AI 검토 자동화",
-          "description": "이메일 수신 → Notion 등록 → GitHub Actions → Claude AI 코드 검토 및 합/불 판정 파이프라인 구축, Slack 자동 전송으로 채용 프로세스 효율화"
+          "description": "이메일 수신 → Notion 등록 → GitHub Actions → Claude AI 코드 검토 및 합/불 판정 파이프라인 구축, Slack 자동 전송으로 채용 프로세스 효율화",
+          "caseStudy": {
+            "context": "채용 프로세스에서 매주 10개 내외의 사전과제가 이메일로 접수됐습니다. 팀 리드가 전담 검토하는 구조로, 별도 도구 없이 코드를 직접 열어보는 방식이었습니다.",
+            "problem": "매주 10개 과제를 수기로 검토하는 데 약 5시간이 소요됐습니다. 검토 기준이 검토자 개인 판단에 의존해 일관성이 낮았고, 과제 파악 후 면접 질문을 별도로 준비해야 했습니다.",
+            "action": [
+              "이메일 수신 → Notion 자동 등록 → GitHub Actions 트리거 파이프라인 구축",
+              "Claude API로 코드 품질 자동 검토 및 0-100점 점수 산출, 70점 미만 자동 불합격 처리",
+              "AI가 과제별 면접 질문 자동 추천, 검토 리포트 Notion 저장 + Slack 자동 전송"
+            ],
+            "impact": [
+              "주당 검토 시간: 5시간 → 3시간 30분 (약 30% 단축)",
+              "70점 미만 과제 자동 필터링으로 경계선 과제에만 집중 가능",
+              "면접 질문 사전 준비 시간 추가 절감"
+            ],
+            "reflection": "AI 점수를 처음에는 합/불 판단의 절대 기준으로 쓰려 했으나, 70점 기준선은 실제 사례로 직접 캘리브레이션해야 했습니다. 결국 점수보다 AI가 짚어준 '주목할 부분'이 검토 집중도를 높이는 데 더 가치 있었습니다."
+          }
         },
         {
           "id": 2,
           "title": "AI 코드리뷰 자동화 및 Cursor Rule 팀 표준화",
-          "description": "Claude API + GitHub Actions 기반 AI 코드리뷰 파이프라인 구축 및 팀 공통 Cursor Rule 세팅"
+          "description": "Claude API + GitHub Actions 기반 AI 코드리뷰 파이프라인 구축 및 팀 공통 Cursor Rule 세팅",
+          "caseStudy": {
+            "context": "프론트엔드 팀 4명이 월 평균 60회 PR을 올리는 환경에서, 코드 리뷰를 사람이 전담하고 있었습니다. 리뷰어마다 기준이 달라 코드 품질 일관성에 편차가 있었고, 반복되는 규칙 위반 지적에 리뷰 시간이 낭비됐습니다.",
+            "problem": "네이밍, 이른 추상화, 매직 넘버 등 규칙 기반의 반복적인 리뷰 코멘트가 매 PR마다 사람 손을 거쳐야 했습니다. 리뷰어가 로직과 아키텍처보다 코드 스타일 지적에 더 많은 시간을 쓰는 상황이었습니다.",
+            "action": [
+              "AI 도입 전 Cursor Rule(.mdc)을 팀 공통으로 먼저 확립 — 리뷰 기준 문서화가 선행 조건임을 확인",
+              "GitHub Actions + Claude API(Haiku) 파이프라인 구축, PR 생성 시 자동 1차 리뷰 트리거",
+              "영향도(Critical/High/Medium/Low) 분류, 최대 10개 코멘트, 100줄 이내 리뷰 프롬프트 설계",
+              "팀 대응 프로세스 수립: Critical/High는 필수 검토, Medium/Low는 이모지(👁️/👍)로 처리 상태 표시",
+              "방부력 프로젝트 1단계 테스트 후 효과 검증, 써티코스·SSO 프로젝트로 순차 확대"
+            ],
+            "impact": [
+              "월 60회 PR에 자동 1차 리뷰 적용, 반복 규칙 위반 지적 자동화",
+              "PR당 비용 500원 이하, 팀 전체 월 약 3만원 수준(4명 기준)",
+              "리뷰어가 스타일 지적 대신 로직·아키텍처 리뷰에 집중 가능"
+            ],
+            "reflection": "Cursor Rule 없이 먼저 도입했다면 무의미한 리뷰가 남발됐을 겁니다. AI 코드리뷰의 품질은 리뷰 기준의 품질과 정비례한다는 것을 직접 확인했습니다."
+          }
         },
         {
           "id": 3,
-          "title": "KCTL(방부력 시험 전문 스마트 연구소) 사이트 런칭",
-          "description": "Next.js + FSD 아키텍처 기반 B2B 서비스 사이트 구축, 인증 및 토스페이먼츠 결제 연동"
+          "title": "어드민 디자인시스템 공통 모듈화 (GitHub Packages)",
+          "description": "디자인시스템 전용 레포 분리 및 GitHub Packages 배포, Storybook 도입과 CI/CD 자동화",
+          "caseStudy": {
+            "context": "cos-admin 프로젝트에 공통 UI 컴포넌트들이 있었지만 해당 레포에만 묶여 있어 다른 프로젝트에서 재사용할 수 없었습니다. 새 프로젝트를 시작할 때마다 같은 컴포넌트를 별도로 만들거나 코드를 복사해 쓰는 구조였습니다.",
+            "problem": "공통 컴포넌트가 패키지로 분리되지 않아 프로젝트 간 공유가 불가능했습니다. 한 곳에서 버그를 수정해도 다른 프로젝트에는 반영되지 않았고, 유지보수 포인트가 프로젝트 수만큼 늘어났습니다.",
+            "action": [
+              "cos-admin에 있던 공통 컴포넌트 46개를 독립 레포로 분리, 린트 기준에 맞게 정리하며 @cdri-development-team/design-system 패키지로 구성",
+              "GitHub Packages로 배포해 npm install 한 줄로 어느 프로젝트에서든 사용 가능하게 — npm private registry 대신 기존 GitHub Team Plan의 Packages 용량 활용으로 추가 비용 0원",
+              "Storybook으로 컴포넌트 문서화, GitHub Pages로 배포 — 내부용이라 별도 도메인 불필요, 레포지토리에서 한 번에 관리",
+              "Semantic versioning + Husky + lint-staged로 배포 품질 자동화"
+            ],
+            "impact": [
+              "46개 컴포넌트 재사용 가능한 패키지로 분리, 프로젝트마다 중복 구현 제거",
+              "GitHub Packages + GitHub Pages 조합으로 추가 인프라 비용 0원",
+              "버그 수정이 패키지 버전 업으로 모든 프로젝트에 일괄 반영 가능"
+            ],
+            "reflection": "컴포넌트를 분리하면서 린트 기준에 안 맞는 코드가 예상보다 많았습니다. 처음부터 팀 코딩 컨벤션과 린트 규칙을 맞춰두었다면 마이그레이션 공수가 줄었을 겁니다."
+          }
         },
         {
           "id": 4,
-          "title": "어드민 디자인시스템 공통 모듈화 (GitHub Packages)",
-          "description": "디자인시스템 전용 레포 분리 및 GitHub Packages 배포, Storybook 도입과 CI/CD 자동화"
+          "title": "npm → pnpm, craco → vite 마이그레이션",
+          "description": "로컬 구동 시간 약 10분에서 5초로 단축, CI/CD 파이프라인 최적화 및 개발환경 분리",
+          "caseStudy": {
+            "context": "어드민 프로젝트들이 CRA + craco 기반으로 구성되어 있었습니다. 프로젝트 규모가 커질수록 로컬 구동 시간이 길어졌고, CI/CD 빌드 시간도 부담이 됐습니다.",
+            "problem": "초기 로컬 개발 서버 구동에 약 10분이 소요됐습니다. 개발 시작마다, 서버 재시작마다 10분을 기다려야 했고, craco는 CRA에 의존하는 구조라 유지보수 부담도 컸습니다.",
+            "action": [
+              "CRA + craco 기반 프로젝트를 Vite로 전환, 번들러 교체로 빌드 속도 근본적 개선",
+              "npm → pnpm으로 패키지 매니저 전환, 의존성 설치 속도 및 디스크 효율 개선",
+              "CI/CD 파이프라인 최적화 및 개발·스테이징·프로덕션 환경 분리"
+            ],
+            "impact": [
+              "초기 로컬 구동 시간: 약 10분 → 5~10초 (90% 이상 감축)",
+              "CI/CD 빌드 시간 단축으로 배포 사이클 개선",
+              "craco 의존성 제거로 유지보수 포인트 감소"
+            ],
+            "reflection": "마이그레이션하면서 CRA에 암묵적으로 의존하던 코드들이 예상보다 많았습니다. REACT_APP_ 환경변수 prefix 규칙, 전역 CSS 주입 방식, CRA가 자동 포함하던 polyfill 등 번들러 교체 전에 의존성을 먼저 파악해야 함을 확인했습니다."
+          }
         },
         {
           "id": 5,
-          "title": "매출 관련 ERP 구축",
-          "description": "구글 시트 기반 수기 관리를 시스템화하여 의뢰 공정 가시화 및 운영 효율 개선"
+          "title": "KCTL(방부력 시험 전문 스마트 연구소) 사이트 런칭",
+          "description": "Next.js + FSD 아키텍처 기반 B2B 서비스 사이트 구축, 인증 및 토스페이먼츠 결제 연동",
+          "caseStudy": {
+            "context": "기존 Certicos 프로젝트가 수년간 기능이 누적되면서 파일과 폴더 구조가 복잡해져 관리가 어려운 상황이었습니다. KCTL은 신규 프로젝트라 처음부터 아키텍처를 설계할 수 있는 기회였습니다.",
+            "problem": "FSD 없이 성장한 프로젝트에서 아키텍처를 중간에 전환하는 것이 현실적으로 매우 어렵다는 것을 Certicos를 통해 직접 경험했습니다. 작을 때 구조를 잡지 않으면 전환 비용이 기하급수적으로 늘어납니다.",
+            "action": [
+              "처음부터 FSD(Feature-Sliced Design) 아키텍처 적용 — 현재 규모가 작더라도 확장성을 선제적으로 확보",
+              "Tailwind CSS + shadcn(Radix UI 기반)으로 프로젝트 내 디자인시스템 구축 — UI 컴포넌트, Color, Typography, Breakpoint 정의",
+              "서비스 페이지 전반 단독 개발",
+              "Next.js App Router 기반 구축, JWT 인증 및 토스페이먼츠 결제 연동"
+            ],
+            "impact": [
+              "FSD 구조로 기능 추가 시 영향 범위를 feature 단위로 명확히 제한 가능",
+              "B2B 서비스 사이트 런칭 완료, 결제 및 인증 플로우 정상 운영"
+            ],
+            "reflection": "혼자 FSD를 적용할 때는 수월했지만, 일부 기여 코드에서 레이어 규칙이 지켜지지 않는 경우가 있었습니다. 새 아키텍처 도입 시 팀 내 가이드와 리뷰 기준을 함께 세워야 한다는 것을 배웠습니다."
+          }
         },
         {
           "id": 6,
-          "title": "npm → pnpm, craco → vite 마이그레이션",
-          "description": "로컬 구동 시간 약 10분에서 5초로 단축, CI/CD 파이프라인 최적화 및 개발환경 분리"
+          "title": "매출 관련 ERP 구축",
+          "description": "구글 시트 기반 수기 관리를 시스템화하여 의뢰 공정 가시화 및 운영 효율 개선",
+          "caseStudy": {
+            "context": "의뢰, SKU, 매출 데이터를 모두 구글 시트로 수기 관리하고 있었습니다. 전사 직원 50% 이상이 사용해야 하는 핵심 업무 데이터가 스프레드시트에만 의존하는 구조였습니다.",
+            "problem": "수기 입력으로 데이터 실수가 발생했고, 연말 매출 정산 시 구글 시트를 취합하는 과정이 번거로웠습니다. 의뢰 공정이 어느 단계에 있는지 실시간으로 파악하기 어려웠습니다.",
+            "action": [
+              "의뢰 등록·목록·상세(수정) 페이지 구축으로 의뢰 데이터 시스템화",
+              "매출 목록·상세 페이지 및 정산 기능 개발 — 연말 정산을 구글 시트 취합 없이 시스템 내에서 처리",
+              "SKU별 현황 목록·상세(수정) 페이지로 공정 가시화"
+            ],
+            "impact": [
+              "전사 직원 50%+ 사용하는 의뢰·매출·SKU 관리 시스템 구축",
+              "연말 매출 정산 프로세스를 시스템 내 처리로 전환",
+              "의뢰 공정 현황 실시간 파악 가능"
+            ],
+            "reflection": "요구사항이 '구글 시트를 시스템으로'에서 시작했지만 개발 중 매출 정산까지 스코프가 확장됐습니다. 초기에 전체 기능 범위를 먼저 정리하고 시작했다면 더 체계적으로 개발할 수 있었을 겁니다."
+          }
         }
       ]
     },
@@ -53,27 +146,94 @@
         {
           "id": 1,
           "title": "EzPlay 리뉴얼 및 텔레그램 미니앱 연동",
-          "description": "기존 EzPlay를 포크하여 디자인을 개선하고 텔레그램 로그인 및 미니앱을 추가하여 새로운 도메인으로 재런칭"
+          "description": "기존 EzPlay를 포크하여 디자인을 개선하고 텔레그램 로그인 및 미니앱을 추가하여 새로운 도메인으로 재런칭",
+          "caseStudy": {
+            "context": "기존 EzPlay는 서비스 종료가 예정된 상태였지만, 이후 방향이 확정되지 않아 현상 유지가 필요한 상황이었습니다. 동시에 텔레그램 미니앱 연동이라는 신규 기능 개발 요구사항이 생겼습니다.",
+            "problem": "종료 예정인 기존 레포에 신규 기능을 직접 추가하면, 이후 서비스 종료 결정 시 분리 작업이 복잡해질 우려가 있었습니다. 기존 서비스와 신규 개발을 명확히 분리할 방법이 필요했습니다.",
+            "action": [
+              "기존 레포를 건드리지 않고 fork하여 신규 레포에서 독립적으로 개발 — 기존 서비스 영향 없이 신규 기능 개발 가능하도록 분리",
+              "텔레그램 로그인 및 미니앱 연동 기능 추가, 디자인 개선 후 새 도메인으로 재런칭"
+            ],
+            "impact": [
+              "기존 EzPlay 서비스에 영향 없이 신규 기능 출시",
+              "신규 레포에서 독립적으로 운영 가능한 구조 확보"
+            ],
+            "reflection": "서비스 종료 예정이더라도 신규 기능 요구는 언제든 생길 수 있습니다. fork 전략으로 기존 코드와 독립적으로 개발하는 방식이 리스크를 최소화하는 현실적인 접근임을 확인했습니다."
+          }
         },
         {
           "id": 2,
           "title": "Roblox 관리자 사이트 개발",
-          "description": "내부에서 Roblox 포인트 지급, 권한 관리 등을 위한 관리자 시스템을 구축"
+          "description": "내부에서 Roblox 포인트 지급, 권한 관리 등을 위한 관리자 시스템을 구축",
+          "caseStudy": {
+            "context": "로블록스 TF팀이 유저 조회, 포인트 지급, 상품 등록 등의 반복 작업을 수동으로 처리하고 있었습니다.",
+            "problem": "수작업으로 처리하다 보니 시간이 지연됐고, 실수 가능성도 있었습니다. TF팀의 반복 업무를 시스템화할 도구가 없었습니다.",
+            "action": [
+              "유저 조회, 포인트 지급, 상품 등록 등 TF팀의 반복 작업을 처리하는 관리자 시스템 구축"
+            ],
+            "impact": [
+              "수작업 처리 → 시스템화로 TF팀 운영 효율 개선"
+            ],
+            "reflection": "내부 툴이라도 실제로 사용하는 팀의 업무 흐름에 맞춰 설계하지 않으면 사용률이 낮아집니다. 사용자가 어떤 순서로 작업하는지 먼저 파악하는 것이 중요하다는 것을 배웠습니다."
+          }
         },
         {
           "id": 3,
           "title": "Supertree, PlayDapp, Members 홈페이지 런칭",
-          "description": "Locomotive Scroll, framer-motion을 활용해 인터랙션 중심의 브랜드 사이트 구현"
+          "description": "Locomotive Scroll, framer-motion을 활용해 인터랙션 중심의 브랜드 사이트 구현",
+          "caseStudy": {
+            "context": "PlayDapp 생태계 브랜드 사이트 3개(Supertree → PlayDapp → Members)를 순차적으로 런칭해야 했습니다. 인터랙션 중심의 몰입감 있는 브랜드 사이트가 목표였습니다.",
+            "problem": "패럴랙스 스크롤, 세로↔가로 스크롤 전환, 스크롤 기반 이미지 교체 인터랙션 등 모두 처음 구현해보는 것들이었습니다. Supertree 홈페이지에서는 특정 구간에 도달하면 세로 스크롤이 가로 스크롤로 전환됐다가 다시 세로로 돌아오는 흐름을 구현해야 했고, PlayDapp 홈페이지에서는 스크롤에 따라 이미지가 순차 교체되는 애플 스타일의 인터랙션을 처음 시도했습니다.",
+            "action": [
+              "Supertree: Locomotive Scroll 기반 패럴랙스 구현, 특정 구간에서 세로↔가로 스크롤 전환 처리",
+              "PlayDapp: 스크롤 위치에 따라 이미지가 프레임 단위로 교체되는 인터랙션 구현",
+              "Members: 기본 레이아웃 중심의 브랜드 홈페이지 구현"
+            ],
+            "impact": [
+              "브랜드 사이트 3개 순차 런칭 완료"
+            ],
+            "reflection": "처음 접하는 인터랙션도 레퍼런스 분석과 반복 구현으로 완성할 수 있었습니다. 복잡한 스크롤 인터랙션은 구현 자체보다 성능 최적화와 크로스 브라우저 대응이 더 많은 시간을 차지한다는 것을 배웠습니다."
+          }
         },
         {
           "id": 4,
           "title": "PlayDapp Marketplace 리뉴얼",
-          "description": "Polygon, Ethereum 기반 마켓을 통합하고 Next.js + Typescript + Emotion 기반으로 완전 리빌딩"
+          "description": "Polygon, Ethereum 기반 마켓을 통합하고 Next.js + Typescript + Emotion 기반으로 완전 리빌딩",
+          "caseStudy": {
+            "context": "Polygon 마켓과 Ethereum 마켓이 별도 레포지토리로 운영됐습니다. SDK가 두 개로 나뉘어 있다는 이유로 레포도 두 개였고, 이벤트 페이지 하나를 추가해도 두 레포를 모두 작업해야 하는 비효율적인 구조였습니다.",
+            "problem": "기능 추가마다 작업량이 두 배였고, 양쪽 코드 품질을 맞추는 것도 부담이었습니다. 동일한 기능을 두 번 구현하면서 사소한 차이가 생기고, 버그 수정도 두 군데를 고쳐야 했습니다.",
+            "action": [
+              "로그인 시 네트워크를 선택하게 하고 전역 상태로 관리, SDK 호출 시점에 분기처리하는 방식으로 단일 레포 통합 방안을 직접 설계하고 제안",
+              "통합을 계기로 JS → TS, React → Next.js 전환, 디자인 리뉴얼까지 포함한 대규모 리빌딩으로 확대",
+              "5명 FE팀, 약 3개월 진행. 랜딩 페이지, NFT 판매·구매 페이지, 공통 컴포넌트 담당 (전체의 약 20~30%)",
+              "블록체인 경험이 없어 퇴근 후 기존 코드를 직접 분석하며 지갑 연동, SDK 호출, 코인 잔액 확인 등을 독학"
+            ],
+            "impact": [
+              "두 개의 레포지토리를 하나로 통합, 기능 추가 시 작업량 절반으로 감소",
+              "JS → TS, React → Next.js 전환으로 타입 안정성 및 SEO 기반 확보"
+            ],
+            "reflection": "개발 중반부터 디자인이 계속 변경되어 후반에는 철야 작업까지 이어졌습니다. 디자인 확정 시점과 개발 착수 시점을 명확히 합의하는 것이 프로젝트 일정에 얼마나 중요한지 직접 경험했습니다."
+          }
         },
         {
           "id": 5,
           "title": "Marketplace 기능 고도화",
-          "description": "Solana 네트워크 추가, NFT 합성 기능 추가, 슬랙 에러 알림 등 운영에 필요한 기능 고도화"
+          "description": "Solana 네트워크 추가, NFT 합성 기능 추가, 슬랙 에러 알림 등 운영에 필요한 기능 고도화",
+          "caseStudy": {
+            "context": "Polygon, Ethereum 기반 마켓을 운영하던 중 Solana 네트워크 추가 요청이 들어왔습니다. Ethereum 계열 네트워크에는 익숙해진 상태였지만, Solana는 완전히 다른 네트워크였습니다.",
+            "problem": "Solana 도입은 단순 기능 추가가 아니었습니다. 지갑 연동 방식, 로그인 인증, 판매·구매 플로우가 기존 구현과 달랐고, 영향 범위가 사이트 전체에 걸쳤습니다. 단일 기능처럼 보였지만 사실상 전체 아키텍처를 건드려야 하는 작업이었습니다.",
+            "action": [
+              "Solana 지갑 연동 및 인증 로직 추가, 판매·구매 플로우에 네트워크 분기 처리",
+              "NFT 합성 시스템 구현 — R 등급 다수 → SR, SR 다수 → SSR 합성, 보유 등급에 따라 '신과함께' 게임 연동 혜택 제공",
+              "Slack 에러 알림 연동으로 운영 이슈 실시간 감지 체계 구축"
+            ],
+            "impact": [
+              "Ethereum 계열 외 Solana 네트워크 지원으로 마켓 커버리지 확대",
+              "NFT 합성 이벤트 운영 및 게임 연동 기반 확보",
+              "Slack 알림으로 운영 이슈 실시간 대응 가능"
+            ],
+            "reflection": "Solana 도입 초기에 영향 범위를 충분히 파악하지 못해 예상보다 작업이 많이 늘어났습니다. 새 네트워크 도입처럼 전체 영향도가 큰 작업은 기술 검토를 먼저 충분히 진행해야 한다는 것을 배웠습니다."
+          }
         }
       ]
     },
@@ -89,27 +249,91 @@
         {
           "id": 1,
           "title": "광고 통합 플랫폼 백오피스 개발",
-          "description": "Figma 기반 화면 기획부터 백엔드 API 연동, EC2 배포까지 전체 프론트엔드 구현을 담당"
+          "description": "Figma 기반 화면 기획부터 백엔드 API 연동, EC2 배포까지 전체 프론트엔드 구현을 담당",
+          "caseStudy": {
+            "context": "Facebook, Google 광고 데이터를 통합하여 인사이트를 제공하는 플랫폼을 개발하게 됐습니다. 초기에는 디자이너가 없었고, 관리자 사이트부터 먼저 착수해야 하는 상황이었습니다.",
+            "problem": "디자이너 없이 개발자가 UI 기획부터 직접 해야 했습니다. 기능 정의와 화면 설계를 동시에 진행해야 했고, 인프라 구축(CI/CD, 배포 환경)까지 혼자 담당해야 했습니다.",
+            "action": [
+              "회의에서 나온 요구사항을 바탕으로 Figma로 직접 UI 설계 — 여러 차례 회의를 거쳐 기능과 UX 개선 후 개발 착수",
+              "React + Styled-components 환경으로 관리자 사이트 구축, Backend API 연동",
+              "AWS Pipeline + CodeBuild + CodeDeploy로 CI/CD 파이프라인 구성, AWS ECS + Docker + Nginx로 배포 환경 구축"
+            ],
+            "impact": [
+              "관리자 사이트 개발 및 배포 완료",
+              "이후 디자이너 합류로 서비스 페이지 개발로 확장"
+            ],
+            "reflection": "디자이너 없이 UI를 설계하면서 사용자 입장으로 생각하는 훈련이 됐습니다. 개발자도 UX에 대한 기본 소양이 있어야 커뮤니케이션 비용이 줄어든다는 것을 처음으로 실감한 프로젝트였습니다."
+          }
         },
         {
           "id": 2,
           "title": "광고주 플랫폼 데이터 시각화 시스템 구축",
-          "description": "amCharts와 Plotly를 활용하여 광고 및 SNS 채널 데이터를 시각화하고 인사이트 제공 기능 개발"
+          "description": "amCharts와 Plotly를 활용하여 광고 및 SNS 채널 데이터를 시각화하고 인사이트 제공 기능 개발",
+          "caseStudy": {
+            "context": "광고 플랫폼의 관리자 사이트 이후, 실제 광고주가 사용하는 서비스 페이지 개발로 범위가 확장됐습니다. Facebook, Google 광고 데이터와 Instagram, Twitter 등 SNS 채널의 텍스트 데이터를 자연어 처리하여 시각화하는 것이 핵심이었습니다.",
+            "problem": "다양한 채널에서 수집된 다차원 데이터를 어떻게 직관적으로 보여줄지가 과제였습니다. 일반적인 차트로는 표현하기 어려운 3차원 데이터도 포함되어 있었습니다.",
+            "action": [
+              "amChart를 주력으로 광고 채널별 지표 시각화 구현",
+              "Plotly.js로 다차원 데이터를 표현하는 3D Scatter Chart 구현 — 일반 차트로는 표현이 어려운 데이터에 적합한 라이브러리를 선택"
+            ],
+            "impact": [
+              "Facebook, Google 광고 데이터와 SNS 자연어 분석 결과를 한 화면에서 확인 가능한 광고주 플랫폼 완성"
+            ],
+            "reflection": "차트 라이브러리마다 강점이 다릅니다. 일반 시계열/비교 차트는 amChart, 다차원 데이터 표현은 Plotly처럼 데이터 구조에 맞는 도구를 선택하는 것이 중요하다는 것을 배웠습니다."
+          }
         },
         {
           "id": 3,
           "title": "KBS 드라마 AI 시청률 예측 데모 사이트",
-          "description": "Python 기반 드라마 데이터 크롤링과 React를 활용한 시청률 예측 분석 결과 시각화"
+          "description": "Python 기반 드라마 데이터 크롤링과 React를 활용한 시청률 예측 분석 결과 시각화",
+          "caseStudy": {
+            "context": "KBS, 한국마이크로소프트를 수요기업으로 하는 Digital Dream 9 공모전에 참가했습니다. '최근 3년간 방영된 드라마 데이터를 크롤링하여 KBS 미니시리즈 성과를 예측하는 AI 알고리즘 개발'이 과제였습니다.",
+            "problem": "크롤링부터 AI 알고리즘, 시각화까지 전 스택을 제한된 기간 안에 연결해야 했습니다. 드라마 시청률 예측이라는 생소한 도메인에서 어떤 데이터를 수집하고 어떻게 모델에 활용할지 기획 단계부터 직접 판단해야 했습니다.",
+            "action": [
+              "Python으로 Naver TV, KaKao TV 드라마 데이터(제목, 내용, 재생수, 날짜, 댓글) 크롤링 개발",
+              "React로 시청률 예측 결과 및 시청자 반응 분석을 보여주는 데모 웹사이트 개발"
+            ],
+            "impact": [
+              "공모전 최종 선정 — KBS, 한국마이크로소프트 수요기업 채택"
+            ],
+            "reflection": "제한된 시간 안에 백엔드(크롤링)부터 프론트엔드까지 전 과정을 소화해야 했습니다. 완성도보다 핵심 기능을 먼저 동작시키는 것이 중요하다는 것을 배웠고, 공모전 최종 선정이라는 결과로 이어져 뿌듯했던 프로젝트였습니다."
+          }
         },
         {
           "id": 4,
           "title": "디다이브 회사 홈페이지 및 관리자 시스템 개발",
-          "description": "Express와 MongoDB 기반 API를 구축하고, 관리자 시스템의 구독자/파일 관리 등 주요 기능 개발"
+          "description": "Express와 MongoDB 기반 API를 구축하고, 관리자 시스템의 구독자/파일 관리 등 주요 기능 개발",
+          "caseStudy": {
+            "context": "회사 홈페이지 개발이 필요했습니다. 실제 홈페이지 화면은 별도 프론트엔드 개발자가 담당하고, 저는 Backend와 관리자 시스템을 맡게 됐습니다.",
+            "problem": "React 중심으로 일하다 처음으로 Backend(Express.js)까지 단독 담당하게 됐습니다. API 설계부터 DB 연동, 관리자 기능 구현까지 풀스택으로 소화해야 했습니다.",
+            "action": [
+              "Express.js로 Backend API 구축, React로 관리자 페이지 개발",
+              "구독자 관리, 이메일 발송, Insight 관리, 회사 소개서 파일 업로드 기능 구현"
+            ],
+            "impact": [
+              "홈페이지 런칭 완료, 관리자 시스템으로 콘텐츠 운영 가능"
+            ],
+            "reflection": "Frontend 위주로 일하다 Backend까지 처음 담당해보니, API 설계를 잘못하면 Frontend 작업이 복잡해진다는 것을 직접 경험했습니다. 풀스택으로 작업하면 전체 흐름을 이해하는 데 유리하다는 것도 배웠습니다."
+          }
         },
         {
           "id": 5,
           "title": "크롤링 데이터 관리 플랫폼 개발",
-          "description": "Meteor.js 초기 구조를 React로 리팩토링하고, 다양한 수집 조건을 기반으로 데이터 수집/표시 기능 구현"
+          "description": "Meteor.js 초기 구조를 React로 리팩토링하고, 다양한 수집 조건을 기반으로 데이터 수집/표시 기능 구현",
+          "caseStudy": {
+            "context": "사내 데이터 분석팀이 Google Playstore, Instagram 등 여러 채널의 댓글 데이터를 수동으로 수집하고 있었습니다. 채널마다 수집 방식이 달라 데이터를 모으는 데 시간이 많이 걸렸습니다.",
+            "problem": "분석팀이 직접 사용할 내부 툴이 없어 수작업 의존도가 높았습니다. 수집한 데이터를 정리해서 실제 분석에 활용하기까지의 과정도 번거로웠습니다.",
+            "action": [
+              "수집 채널, 기간, 키워드를 입력하면 크롤링을 실행하고 결과를 CSV로 다운로드하는 플랫폼 개발",
+              "Google Playstore, Google Maps, Instagram, Naver Shopping, Timon 등 다채널 지원",
+              "React로 화면 개발 및 Backend 크롤링 API 연동"
+            ],
+            "impact": [
+              "수동 수집 → 조건 입력 기반 자동 수집으로 분석팀 업무 효율 개선",
+              "CSV 다운로드로 수집 데이터를 분석 툴에 바로 활용 가능"
+            ],
+            "reflection": "실제 사용자의 워크플로우에 맞게 UI를 설계하는 것이 중요하다는 것을 내부 툴 개발에서 더 크게 느꼈습니다. 채널별 크롤링 조건이 달라서 인터페이스를 유연하게 설계해야 했고, 그 경험이 이후 관리자 시스템 설계에도 도움이 됐습니다."
+          }
         }
       ]
     },
@@ -125,22 +349,71 @@
         {
           "id": 1,
           "title": "OPWEE 쇼핑몰 개발 및 유지보수",
-          "description": "W3C 웹 표준을 준수한 자사 반응형 쇼핑몰을 신규 개발하고 운영 중 지속적인 유지보수 수행"
+          "description": "W3C 웹 표준을 준수한 자사 반응형 쇼핑몰을 신규 개발하고 운영 중 지속적인 유지보수 수행",
+          "caseStudy": {
+            "context": "언니가간다, 프랑켄모노에 이어 새 브랜드 OPWEE를 런칭하게 됐습니다. 다양한 디바이스에서 동일한 쇼핑 경험을 제공해야 했고, 신규 브랜드인 만큼 초기 완성도가 중요했습니다.",
+            "problem": "반응형 쇼핑몰을 ASP 환경에서 W3C 표준에 맞게 구현해야 했습니다. 런칭 이후에도 지속적인 운영 피드백을 반영하는 유지보수 업무가 함께였습니다.",
+            "action": [
+              "ASP 기반으로 반응형 쇼핑몰 신규 개발, W3C 웹 표준 준수로 다양한 디바이스 접근성 확보",
+              "런칭 이후 운영 중 발생하는 버그 수정 및 기능 개선 지속 수행"
+            ],
+            "impact": [
+              "신규 브랜드 OPWEE 쇼핑몰 런칭 완료",
+              "반응형 구현으로 PC, 모바일 등 다양한 디바이스에서 접근 가능"
+            ],
+            "reflection": "운영 중인 서비스를 유지보수하면서 처음 만든 코드를 다시 보는 경험이 됐습니다. 나중에 고치기 쉬운 구조로 처음부터 짜야 한다는 것을 초기에 배운 프로젝트였습니다."
+          }
         },
         {
           "id": 2,
           "title": "편의점 결제 서비스 구축",
-          "description": "갤럭시아컴즈와 협업하여 '언니가간다'의 편의점 결제 서비스를 ASP 기반으로 연동 개발"
+          "description": "갤럭시아컴즈와 협업하여 '언니가간다'의 편의점 결제 서비스를 ASP 기반으로 연동 개발",
+          "caseStudy": {
+            "context": "언니가간다의 주요 고객층은 10대였습니다. 무통장 입금, 카드 결제는 어린 학생들에게 접근성이 낮아 편의점 결제 서비스 도입이 결정됐습니다.",
+            "problem": "갤럭시아컴즈와 통신 시 결제 정보를 암호화/복호화해야 했는데, ASP의 Crypto 기능은 보안이 취약하고 기능이 매우 제한적이었습니다. ASP만으로는 요구 조건을 충족할 수 없었습니다.",
+            "action": [
+              "ASP.NET을 독학하여 Crypto 관련 기능만 ASP.NET으로 처리하는 방식으로 해결",
+              "ASP → ASP.NET → 갤럭시아컴즈 순으로 통신하는 구조를 설계하여 보안 요건 충족"
+            ],
+            "impact": [
+              "10대 고객층 대상 편의점 결제 서비스 오픈, 결제 접근성 개선"
+            ],
+            "reflection": "언어의 제약이 생겼을 때 우회 방법을 스스로 찾고 해결한 경험이었습니다. 필요한 기술은 직접 공부해서 적용하는 것이 개발자의 기본임을 이때 처음 확실히 배웠습니다."
+          }
         },
         {
           "id": 3,
           "title": "프랑켄모노 관리자 시스템 개발",
-          "description": "스타일쉐어, 무신사 등 제휴처의 주문 관리 및 이메일 발송 기능을 포함한 내부 관리자 페이지 구축"
+          "description": "스타일쉐어, 무신사 등 제휴처의 주문 관리 및 이메일 발송 기능을 포함한 내부 관리자 페이지 구축",
+          "caseStudy": {
+            "context": "스타일쉐어, 무신사, 위메프, 1300K 등 제휴업체가 늘어나면서 각 업체의 주문을 따로 확인하고 관리해야 하는 상황이 됐습니다. 담당자가 제휴업체마다 CSV를 직접 받아 수동으로 취합하고 있었습니다.",
+            "problem": "제휴업체가 늘수록 담당자의 수작업 부담이 선형적으로 증가했습니다. 주문을 한눈에 파악하는 것 자체가 어려웠고, 배송 처리도 업체별로 따로 진행해야 했습니다.",
+            "action": [
+              "각 제휴업체 CSV 업로드 → DB 저장 → 한 화면에서 통합 조회하는 관리자 시스템 개발",
+              "주문 목록 관리, 배송 처리, 이메일 발송 기능 구현",
+              "제휴업체 추가 및 기능 요청에 맞춰 퇴사 직전까지 지속 유지보수"
+            ],
+            "impact": [
+              "스타일쉐어, N스토어팜, 쿠치샵, 무신사, 위메프, 1300K 등 주문/배송을 하나의 시스템에서 통합 관리"
+            ],
+            "reflection": "제휴업체가 계속 추가되고 요청이 반복되면서, 유지보수를 고려하지 않은 구조가 얼마나 빠르게 부채가 되는지 직접 경험했습니다. 처음부터 확장을 염두에 둔 설계가 중요하다는 것을 이 프로젝트에서 배웠습니다."
+          }
         },
         {
           "id": 4,
           "title": "프랑켄모노 Web POS 시스템 개발",
-          "description": "홍대 오프라인 매장에서 사용할 웹 기반 POS 시스템을 단독으로 설계 및 개발"
+          "description": "홍대 오프라인 매장에서 사용할 웹 기반 POS 시스템을 단독으로 설계 및 개발",
+          "caseStudy": {
+            "context": "프랑켄모노 온라인 쇼핑몰에 이어 홍대에 오프라인 매장을 오픈하게 됐습니다. 매장에서 사용할 POS 시스템을 웹 기반으로 개발해야 했습니다.",
+            "problem": "POS 시스템 개발을 전담할 인원이 따로 없었고, 설계부터 구현까지 단독으로 진행해야 했습니다. 일반 웹 서비스와 달리 오프라인 현장에서 바로 쓰이는 시스템이라 안정성이 중요했습니다.",
+            "action": [
+              "ASP 기반으로 재고 관리, 결제 시스템까지 포함한 Web POS 전체를 단독 설계 및 개발"
+            ],
+            "impact": [
+              "홍대 오프라인 매장 오픈과 함께 POS 시스템 현장 투입"
+            ],
+            "reflection": "혼자 설계부터 개발까지 처음으로 담당한 프로젝트였습니다. 현장에서 실시간으로 사용되는 시스템은 버그 하나가 바로 매장 운영에 영향을 미친다는 것을 체감했고, 안정성을 최우선으로 생각하는 습관이 이때 생겼습니다."
+          }
         },
         {
           "id": 5,
@@ -163,32 +436,125 @@
         {
           "id": 1,
           "title": "Pre-assignment AI Review Automation",
-          "description": "Built pipeline: email receipt → Notion → GitHub Actions → Claude AI code review with pass/fail scoring, auto-sent to Slack to streamline hiring process"
+          "description": "Built pipeline: email receipt → Notion → GitHub Actions → Claude AI code review with pass/fail scoring, auto-sent to Slack to streamline hiring process",
+          "caseStudy": {
+            "context": "Around 10 pre-assignment submissions arrived by email each week. The team lead was responsible for reviewing all of them manually, opening each codebase one by one without any tooling.",
+            "problem": "Manually reviewing 10 assignments per week took around 5 hours. Review criteria relied heavily on individual judgment, leading to inconsistency. Preparing interview questions for each candidate required additional time on top of the review.",
+            "action": [
+              "Built an automated pipeline: email receipt → Notion registration → GitHub Actions trigger",
+              "Used Claude API to auto-review code quality with a 0-100 score; submissions below 70 were automatically rejected",
+              "AI generates per-candidate interview questions; review reports auto-saved to Notion and sent to Slack"
+            ],
+            "impact": [
+              "Weekly review time: 5 hrs → 3.5 hrs (~30% reduction)",
+              "Automated filtering of sub-70 submissions, letting reviewers focus on borderline cases",
+              "Eliminated separate interview question prep time"
+            ],
+            "reflection": "Initially tried to use the AI score as a hard pass/fail threshold, but the 70-point cutoff needed manual calibration across real cases. In the end, the AI's highlighted areas of concern were more valuable for directing review attention than the score itself."
+          }
         },
         {
           "id": 2,
           "title": "AI Code Review Automation & Cursor Rule Standardization",
-          "description": "Built AI code review pipeline using Claude API + GitHub Actions and established team-wide Cursor Rules"
+          "description": "Built AI code review pipeline using Claude API + GitHub Actions and established team-wide Cursor Rules",
+          "caseStudy": {
+            "context": "A 4-person frontend team averaging 60 PRs per month with all code reviews handled manually. Review standards varied by reviewer, leading to inconsistent code quality and time wasted on repetitive rule-violation comments.",
+            "problem": "Rule-based review comments — naming conventions, premature abstractions, magic numbers — required a human reviewer on every single PR. Reviewers were spending more time on style checks than on logic and architecture.",
+            "action": [
+              "Established team-wide Cursor Rules (.mdc) before AI adoption — documenting review standards was a prerequisite",
+              "Built a GitHub Actions + Claude API (Haiku) pipeline that auto-triggers a first-pass review on every PR",
+              "Designed prompts with severity tiers (Critical/High/Medium/Low), max 10 comments, 100 lines per review",
+              "Defined team response process: Critical/High require mandatory follow-up, Medium/Low use emoji (👁️/👍) to track review status",
+              "Rolled out to one project first, verified effectiveness, then expanded to other projects"
+            ],
+            "impact": [
+              "Automated first-pass review across 60+ PRs per month",
+              "Cost under ₩500 per PR (~₩30,000/month for a 4-person team)",
+              "Reviewers can focus on logic and architecture instead of style enforcement"
+            ],
+            "reflection": "Adopting AI review without Cursor Rules first would have produced noisy, meaningless comments. The quality of AI code review scales directly with the quality of the rules you feed it."
+          }
         },
         {
           "id": 3,
-          "title": "KCTL (Preservative Testing Lab) Site Launch",
-          "description": "Built B2B service site with Next.js + FSD architecture, including auth and Toss Payments integration"
+          "title": "Admin Design System Modularization (GitHub Packages)",
+          "description": "Separated design system into dedicated repo with GitHub Packages deployment, Storybook, and CI/CD automation",
+          "caseStudy": {
+            "context": "Shared UI components lived inside cos-admin but were locked to that repo, unavailable to other projects. Every new project either rebuilt the same components or copied code directly.",
+            "problem": "Without a shared package, there was no way to propagate fixes across projects. A bug fixed in one codebase stayed unfixed in the others. Maintenance burden grew with every new project added.",
+            "action": [
+              "Extracted 46 components from cos-admin into a standalone repo, cleaned up linting issues during migration, and packaged as @cdri-development-team/design-system",
+              "Published via GitHub Packages — zero additional cost by using the existing GitHub Team Plan's included storage instead of an npm private registry",
+              "Set up Storybook with 42 component stories, deployed via GitHub Pages — internal tool, no custom domain needed, managed alongside the repo in one place",
+              "Automated release quality with Semantic versioning, Husky, and lint-staged"
+            ],
+            "impact": [
+              "46 components extracted into a reusable package — no more duplicate implementations across projects",
+              "Infrastructure cost: ₩0 — GitHub Packages + GitHub Pages on an existing Team Plan",
+              "Bug fixes now propagate to all projects with a single version bump"
+            ],
+            "reflection": "More lint violations surfaced during migration than expected. Aligning on coding conventions and lint rules earlier would have made the extraction much smoother."
+          }
         },
         {
           "id": 4,
-          "title": "Admin Design System Modularization (GitHub Packages)",
-          "description": "Separated design system into dedicated repo with GitHub Packages deployment, Storybook, and CI/CD automation"
+          "title": "npm → pnpm, craco → Vite Migration",
+          "description": "Reduced local startup time from ~10 min to ~5 sec, optimized CI/CD pipeline and separated dev environments",
+          "caseStudy": {
+            "context": "Admin projects were built on CRA + craco. As the codebase grew, local dev server startup times kept climbing and CI/CD builds were slow.",
+            "problem": "Initial local dev server startup took around 10 minutes. Every time someone started work or restarted the server, they waited 10 minutes. craco's tight coupling to CRA also added ongoing maintenance overhead.",
+            "action": [
+              "Replaced CRA + craco with Vite, eliminating the bundler bottleneck at the root",
+              "Migrated from npm to pnpm for faster installs and better disk efficiency",
+              "Optimized CI/CD pipeline and separated dev, staging, and production environments"
+            ],
+            "impact": [
+              "Initial local startup time: ~10 min → 5~10 sec (90%+ reduction)",
+              "Faster CI/CD builds improved the deployment cycle",
+              "Removed craco dependency, reducing one ongoing maintenance concern"
+            ],
+            "reflection": "More code had implicit CRA dependencies than expected — REACT_APP_ env prefix conventions, global CSS injection behavior, auto-included polyfills, etc. Mapping out those dependencies before touching the bundler would have made the migration smoother."
+          }
         },
         {
           "id": 5,
-          "title": "Revenue ERP System Development",
-          "description": "Replaced manual Google Sheets management with a systemized workflow for order tracking and visibility"
+          "title": "KCTL (Preservative Testing Lab) Site Launch",
+          "description": "Built B2B service site with Next.js + FSD architecture, including auth and Toss Payments integration",
+          "caseStudy": {
+            "context": "The existing Certicos project had accumulated years of features, making the file and folder structure unwieldy. KCTL was a greenfield project — a clean opportunity to get the architecture right from the start.",
+            "problem": "Retrofitting FSD onto a project that had grown without it proved extremely difficult, as experienced firsthand with Certicos. Skipping structure early means an exponentially higher cost to add it later.",
+            "action": [
+              "Applied FSD (Feature-Sliced Design) architecture from day one — proactively built for scale even while the project was still small",
+              "Built an in-project design system using Tailwind CSS + shadcn (Radix UI) — defining UI components, Color, Typography, and Breakpoints",
+              "Developed the entire service site solo",
+              "Built with Next.js App Router, JWT auth, and Toss Payments integration"
+            ],
+            "impact": [
+              "FSD structure keeps feature additions isolated — changes don't ripple across unrelated areas",
+              "B2B service site launched and running with payment and auth flows in production"
+            ],
+            "reflection": "FSD was straightforward to apply solo, but some contributed code broke the layer rules. Introducing a new architecture requires team-wide guidelines and review criteria, not just implementation."
+          }
         },
         {
           "id": 6,
-          "title": "npm → pnpm, craco → Vite Migration",
-          "description": "Reduced local startup time from ~10 min to ~5 sec, optimized CI/CD pipeline and separated dev environments"
+          "title": "Revenue ERP System Development",
+          "description": "Replaced manual Google Sheets management with a systemized workflow for order tracking and visibility",
+          "caseStudy": {
+            "context": "Order, SKU, and revenue data were all managed manually in Google Sheets. Core business data that over 50% of the company depended on was living entirely in a spreadsheet.",
+            "problem": "Manual entry led to data errors, and consolidating Google Sheets for year-end revenue reporting was tedious and error-prone. There was no way to see where an order stood in the process in real time.",
+            "action": [
+              "Built order registration, list, and detail (edit) pages to systemize order data",
+              "Developed revenue list, detail pages, and settlement features — replacing the year-end Google Sheets consolidation process",
+              "Built SKU status list and detail (edit) pages to make process progress visible"
+            ],
+            "impact": [
+              "Delivered an order, revenue, and SKU management system used by 50%+ of the company",
+              "Year-end revenue settlement now handled within the system, no spreadsheet consolidation needed",
+              "Order process status visible in real time"
+            ],
+            "reflection": "The scope started as 'replace Google Sheets' but expanded to include revenue settlement mid-development. Mapping out the full feature scope upfront would have made for a more structured build."
+          }
         }
       ]
     },
@@ -204,27 +570,94 @@
         {
           "id": 1,
           "title": "EzPlay Renewal with Telegram Mini-App Integration",
-          "description": "Forked the original EzPlay project, redesigned UI, and integrated Telegram login and mini-app features for relaunch under a new domain"
+          "description": "Forked the original EzPlay project, redesigned UI, and integrated Telegram login and mini-app features for relaunch under a new domain",
+          "caseStudy": {
+            "context": "The original EzPlay was slated for shutdown, but the final direction hadn't been decided — so the existing service needed to stay untouched. At the same time, a new requirement came in to add Telegram mini-app integration.",
+            "problem": "Adding new features directly to a shutdown-pending repo risked complicating future cleanup. A clear separation between the existing service and new development was needed.",
+            "action": [
+              "Forked the original repo and developed independently in a new repository — keeping the existing service unaffected while enabling new feature development",
+              "Integrated Telegram login and mini-app features, improved the UI design, and relaunched under a new domain"
+            ],
+            "impact": [
+              "Shipped new features without touching the original EzPlay service",
+              "Established an independently operable codebase on the new repo"
+            ],
+            "reflection": "Even on a shutdown-track service, new feature requests can arrive at any time. Forking to develop independently proved to be the most pragmatic way to minimize risk while still shipping."
+          }
         },
         {
           "id": 2,
           "title": "Roblox Admin Panel Development",
-          "description": "Built an internal admin system for managing Roblox point distribution and user permissions"
+          "description": "Built an internal admin system for managing Roblox point distribution and user permissions",
+          "caseStudy": {
+            "context": "A dedicated Roblox TF team was manually handling repetitive tasks like user lookups, point distribution, and product registration.",
+            "problem": "Manual processing introduced delays and potential for human error. The team lacked any internal tooling to handle these recurring tasks efficiently.",
+            "action": [
+              "Built an admin panel covering user lookup, point distribution, and product registration to systemize the TF team's recurring manual work"
+            ],
+            "impact": [
+              "Manual processes replaced with a system, improving the TF team's operational efficiency"
+            ],
+            "reflection": "Even internal tools need to be designed around how the actual users work. A panel built without understanding the team's task flow ends up unused. Learning the workflow first is the right starting point."
+          }
         },
         {
           "id": 3,
           "title": "Brand Website Launch for Supertree, PlayDapp, and Members",
-          "description": "Developed interactive brand sites using Locomotive Scroll and framer-motion"
+          "description": "Developed interactive brand sites using Locomotive Scroll and framer-motion",
+          "caseStudy": {
+            "context": "Three brand sites in the PlayDapp ecosystem — Supertree, PlayDapp, and Members — needed to launch sequentially. The goal was immersive, interaction-driven brand experiences.",
+            "problem": "Parallax scrolling, horizontal-to-vertical scroll switching, and scroll-based image replacement were all being implemented for the first time. The Supertree site required a section where vertical scrolling transitions into horizontal and back again. The PlayDapp site needed frame-by-frame image swapping tied to scroll position — the Apple homepage pattern — also a first.",
+            "action": [
+              "Supertree: implemented parallax using Locomotive Scroll, with scroll direction switching at specific sections (vertical → horizontal → vertical)",
+              "PlayDapp: built scroll-driven image replacement where frames swap sequentially as the user scrolls",
+              "Members: implemented a standard brand homepage with clean layout and basic interactions"
+            ],
+            "impact": [
+              "All three brand sites launched sequentially as planned"
+            ],
+            "reflection": "Even unfamiliar interactions are achievable through reference analysis and iteration. The bigger lesson was that complex scroll interactions cost more time in performance optimization and cross-browser fixes than in the initial implementation itself."
+          }
         },
         {
           "id": 4,
           "title": "PlayDapp Marketplace Renewal",
-          "description": "Unified Ethereum and Polygon networks into a single marketplace and rebuilt the system using Next.js, TypeScript, and Emotion"
+          "description": "Unified Ethereum and Polygon networks into a single marketplace and rebuilt the system using Next.js, TypeScript, and Emotion",
+          "caseStudy": {
+            "context": "The Polygon and Ethereum marketplaces ran as separate repositories. The stated reason was that the SDKs were split by network — so the repos were too. Adding a single event page meant doing the work twice across both repos.",
+            "problem": "Every feature addition doubled the workload. Keeping both codebases in sync was a constant overhead, and subtle divergences kept creeping in. Bug fixes had to be applied in two places.",
+            "action": [
+              "Designed and proposed a single-repo architecture: network selected at login, stored globally, and used at the SDK call point to branch — making one repo viable for both networks",
+              "The consolidation expanded into a full rebuild: JS → TS, React → Next.js, and a full design refresh",
+              "5-person FE team, ~3 months. Owned the landing page, NFT buy/sell pages, and shared components (~20–30% of total scope)",
+              "No prior blockchain experience — studied the existing codebase after hours to learn wallet integration, SDK calls, and coin balance checks"
+            ],
+            "impact": [
+              "Two repos unified into one — feature additions now require a single implementation instead of two",
+              "JS → TS and React → Next.js migration improved type safety and established an SEO foundation"
+            ],
+            "reflection": "Design kept changing mid-development and the team ended up pulling all-nighters toward the end. Getting design sign-off before development starts is not a formality — it directly determines whether the project finishes on time."
+          }
         },
         {
           "id": 5,
           "title": "Marketplace Feature Enhancements",
-          "description": "Added Solana network, NFT synthesis functionality, and Slack error notifications to support operations"
+          "description": "Added Solana network, NFT synthesis functionality, and Slack error notifications to support operations",
+          "caseStudy": {
+            "context": "With the Polygon and Ethereum marketplace running, a request came in to add Solana network support. Ethereum-family networks were familiar by then — but Solana was an entirely different chain.",
+            "problem": "Adding Solana wasn't a scoped feature addition. Wallet integration, login auth, and buy/sell flows all differed from the existing implementation. The blast radius touched the entire site. What looked like one feature was effectively an architecture-level change.",
+            "action": [
+              "Added Solana wallet integration and auth logic, branched the buy/sell flow by network",
+              "Built an NFT synthesis system: R-tier NFTs combine into SR, SR into SSR — higher tier unlocks in-game benefits in the '신과함께' game integration",
+              "Integrated Slack error alerts for real-time visibility into production issues"
+            ],
+            "impact": [
+              "Marketplace expanded beyond Ethereum-family to cover Solana",
+              "NFT synthesis event shipped and game integration foundation laid",
+              "Slack alerts enabled real-time response to production issues"
+            ],
+            "reflection": "The scope of Solana's impact wasn't fully understood upfront, and the work ended up significantly larger than expected. Any change that touches auth, wallet, and transaction flows site-wide needs a proper technical scope review before the first line of code."
+          }
         }
       ]
     },
@@ -240,27 +673,91 @@
         {
           "id": 1,
           "title": "Ad Platform Admin Dashboard Development",
-          "description": "Led frontend implementation from UI design using Figma to API integration and deployment on EC2"
+          "description": "Led frontend implementation from UI design using Figma to API integration and deployment on EC2",
+          "caseStudy": {
+            "context": "Development started on an integrated advertising platform — pulling in data from Facebook and Google to surface insights. There was no designer at the time, and the admin dashboard needed to be built first.",
+            "problem": "Without a designer, the developer had to own UI planning as well as implementation. Feature scoping and screen design had to happen in parallel, alongside setting up the full infrastructure (CI/CD, deployment).",
+            "action": [
+              "Designed the UI in Figma based on requirements gathered from meetings — iterated through multiple review sessions to refine features and UX before development",
+              "Built the admin dashboard with React + Styled-components, integrated Backend APIs",
+              "Set up CI/CD with AWS Pipeline + CodeBuild + CodeDeploy, deployed on AWS ECS + Docker + Nginx"
+            ],
+            "impact": [
+              "Admin dashboard built and deployed",
+              "After a designer joined, the project expanded to the advertiser-facing service pages"
+            ],
+            "reflection": "Designing UI without a designer forced a shift in perspective — thinking from the user's point of view became necessary, not optional. That experience made it clear that developers with a baseline UX sense produce far less back-and-forth with designers later."
+          }
         },
         {
           "id": 2,
           "title": "Advertising Data Visualization System",
-          "description": "Visualized advertising and SNS channel data using amCharts and Plotly to deliver actionable insights"
+          "description": "Visualized advertising and SNS channel data using amCharts and Plotly to deliver actionable insights",
+          "caseStudy": {
+            "context": "After the admin dashboard, the project expanded to the advertiser-facing service pages. The core challenge was visualizing Facebook and Google ad data alongside natural language analysis results from SNS channels like Instagram and Twitter.",
+            "problem": "Presenting multidimensional data from multiple sources in an intuitive way was the main challenge. Some datasets couldn't be meaningfully expressed with standard 2D charts.",
+            "action": [
+              "Used amChart as the primary library for channel-by-channel advertising metrics",
+              "Implemented a 3D Scatter Chart with Plotly.js for multidimensional data that standard charts couldn't handle"
+            ],
+            "impact": [
+              "Delivered a unified advertiser platform showing Facebook/Google ad data alongside SNS natural language analysis results in one view"
+            ],
+            "reflection": "Different charting libraries have different strengths. amChart works well for time-series and comparison charts; Plotly handles multidimensional data. Matching the tool to the data structure — not just picking the most familiar library — is what makes the difference."
+          }
         },
         {
           "id": 3,
           "title": "KBS Drama AI Viewership Prediction Demo",
-          "description": "Scraped drama data using Python and built a React-based interface to visualize AI-predicted ratings"
+          "description": "Scraped drama data using Python and built a React-based interface to visualize AI-predicted ratings",
+          "caseStudy": {
+            "context": "Entered the Digital Dream 9 competition with KBS and Microsoft Korea as the client companies. The challenge: build an AI algorithm to predict KBS mini-series performance using three years of drama data.",
+            "problem": "The full stack had to be connected — scraping, AI modeling, and visualization — within a short competition window. The domain (drama viewership prediction) was entirely unfamiliar, so data strategy had to be figured out from scratch.",
+            "action": [
+              "Scraped drama data from Naver TV and KaKao TV using Python — titles, descriptions, play counts, dates, and comments",
+              "Built a React-based demo site visualizing viewership predictions and audience sentiment analysis"
+            ],
+            "impact": [
+              "Selected as a finalist — adopted by KBS and Microsoft Korea as a competition winner"
+            ],
+            "reflection": "Covering the full stack from scraping to frontend under competition time pressure made one thing clear: get the core feature working first, polish later. The win validated the approach — and it remains one of the more satisfying projects to ship."
+          }
         },
         {
           "id": 4,
           "title": "Corporate Website & Admin System",
-          "description": "Developed Express and MongoDB-based APIs and built core admin features like subscription and file management"
+          "description": "Developed Express and MongoDB-based APIs and built core admin features like subscription and file management",
+          "caseStudy": {
+            "context": "The company needed a new website. The actual homepage UI was handled by another frontend developer — I was responsible for the Backend and admin system.",
+            "problem": "Coming from a frontend-focused background, this was the first time owning Backend development end-to-end. API design, DB integration, and admin feature implementation all had to be handled solo.",
+            "action": [
+              "Built Backend APIs with Express.js, developed the admin panel with React",
+              "Implemented subscriber management, email sending, insight management, and company profile file upload"
+            ],
+            "impact": [
+              "Website launched, admin system enabled content operations"
+            ],
+            "reflection": "Working full-stack for the first time made one thing obvious: poorly designed APIs make frontend work hard. Owning both sides of the stack gives you a much clearer mental model of the whole system — and that perspective stuck."
+          }
         },
         {
           "id": 5,
           "title": "Crawling Data Management Platform",
-          "description": "Refactored from Meteor.js to React and implemented flexible data collection and display features"
+          "description": "Refactored from Meteor.js to React and implemented flexible data collection and display features",
+          "caseStudy": {
+            "context": "The internal data analysis team was manually collecting comment data from Google Playstore, Instagram, and other channels. Each channel had its own collection process, making data gathering slow and inconsistent.",
+            "problem": "No internal tooling existed, so the team depended heavily on manual work. Getting collected data into a usable format for analysis added another layer of friction.",
+            "action": [
+              "Built a platform where users input the channel, date range, and keywords — the system runs the crawl and exports results as CSV",
+              "Supported Google Playstore, Google Maps, Instagram, Naver Shopping, and Timon",
+              "Developed the frontend with React and integrated Backend crawling APIs"
+            ],
+            "impact": [
+              "Replaced manual collection with a condition-based automated system, improving analyst efficiency",
+              "CSV export enabled direct use of collected data in analysis tools"
+            ],
+            "reflection": "Internal tools demand the same attention to workflow design as user-facing products — maybe more, because the users have no patience for friction when it slows their actual job. Designing around how analysts actually work, not how developers assume they work, made the difference here."
+          }
         }
       ]
     },
@@ -276,22 +773,71 @@
         {
           "id": 1,
           "title": "OPWEE Shopping Mall Development & Maintenance",
-          "description": "Built and maintained a responsive in-house shopping mall compliant with W3C web standards"
+          "description": "Built and maintained a responsive in-house shopping mall compliant with W3C web standards",
+          "caseStudy": {
+            "context": "Following the 언니가간다 and Frankenmono brands, OPWEE was a new brand launch. Consistent shopping experience across devices was required from day one, and first impressions mattered for a new brand.",
+            "problem": "Building a responsive shopping mall in ASP while meeting W3C standards — and continuing to maintain it after launch as user feedback rolled in.",
+            "action": [
+              "Built the responsive shopping mall from scratch in ASP, meeting W3C web standards for cross-device accessibility",
+              "Continued bug fixes and feature improvements throughout the operational period"
+            ],
+            "impact": [
+              "OPWEE brand shopping mall launched",
+              "Accessible across PC, mobile, and other devices via responsive implementation"
+            ],
+            "reflection": "Going back to code I wrote earlier during maintenance made one thing clear: the cost of unclear structure compounds fast. Writing code that’s easy to change later isn’t a nice-to-have — this project was where that lesson landed."
+          }
         },
         {
           "id": 2,
           "title": "Convenience Store Payment Integration",
-          "description": "Collaborated with GalaxiaComs to integrate a payment service for convenience stores via ASP-based systems"
+          "description": "Collaborated with GalaxiaComs to integrate a payment service for convenience stores via ASP-based systems",
+          "caseStudy": {
+            "context": "언니가간다’s core customer base was teenagers. Card payments and bank transfers were too high a barrier for younger users, so convenience store payment was introduced to lower the access threshold.",
+            "problem": "Communication with GalaxiaComs required encrypting and decrypting payment data — but ASP’s Crypto support was weak and extremely limited. The standard approach wasn’t viable.",
+            "action": [
+              "Self-studied ASP.NET specifically to handle Crypto functionality, keeping everything else in ASP",
+              "Designed a communication flow of ASP → ASP.NET → GalaxiaComs to satisfy the security requirement"
+            ],
+            "impact": [
+              "Convenience store payment launched for teenage customers, meaningfully lowering payment friction"
+            ],
+            "reflection": "When the available tool can’t do the job, find another way. Learning ASP.NET specifically to solve a Crypto limitation was the first time I independently identified a constraint and worked around it — that pattern has repeated many times since."
+          }
         },
         {
           "id": 3,
           "title": "Frankenmono Admin System Development",
-          "description": "Built internal admin tools to manage orders and send emails for multiple sales partners such as StyleShare and MUSINSA"
+          "description": "Built internal admin tools to manage orders and send emails for multiple sales partners such as StyleShare and MUSINSA",
+          "caseStudy": {
+            "context": "As Frankenmono added more sales partners — StyleShare, MUSINSA, Wemakeprice, 1300K, and others — the team had to pull CSV files from each platform individually and consolidate them manually.",
+            "problem": "Every new partner added more manual work for the same person. Getting a unified view of orders across all platforms was genuinely difficult, and shipping had to be managed platform by platform.",
+            "action": [
+              "Built an admin system where staff upload CSVs from each partner — data is stored in DB and viewable in one unified dashboard",
+              "Implemented order list management, shipping processing, and email sending features",
+              "Continued maintaining and extending the system as new partners were added, through to the end of my time at the company"
+            ],
+            "impact": [
+              "Orders and shipping from StyleShare, N Store Farm, Kuczi, MUSINSA, Wemakeprice, 1300K and more managed in a single system"
+            ],
+            "reflection": "As partners kept being added and requests kept coming in, it became clear how quickly unmaintainable structure turns into debt. Building with future extension in mind from the start — not as an afterthought — is what this project taught."
+          }
         },
         {
           "id": 4,
           "title": "Frankenmono Web-based POS Development",
-          "description": "Solely designed and developed a POS system for Frankenmono’s offline store in Hongdae"
+          "description": "Solely designed and developed a POS system for Frankenmono’s offline store in Hongdae",
+          "caseStudy": {
+            "context": "After the online shopping mall, Frankenmono was opening a physical store in Hongdae. A POS system was needed for in-store operations — and there was no dedicated person to build it.",
+            "problem": "Design through implementation had to be handled solo. Unlike a typical web service, this system would be used live in a retail environment — any failure directly disrupted store operations.",
+            "action": [
+              "Solely designed and built a Web POS system in ASP covering inventory management and the full payment flow"
+            ],
+            "impact": [
+              "POS system deployed alongside the Hongdae store opening"
+            ],
+            "reflection": "The first project where I owned design through delivery completely alone. A bug in a live POS hits the store floor immediately — no buffer. That reality instilled a habit of treating stability as the baseline, not an extra, and it’s stuck since."
+          }
         },
         {
           "id": 5,

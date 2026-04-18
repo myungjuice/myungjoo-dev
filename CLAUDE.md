@@ -143,8 +143,8 @@ export const useStore = <T>(selector: (state: StoreType) => T): T =>
 | 새 기능 아이디어, 기획 브레인스토밍, "이거 만들 가치 있어?" | `/office-hours`    |
 | 코드 작성 전 설계/아키텍처 검토                             | `/plan-eng-review` |
 | PR 전 코드 리뷰, "내 코드 봐줘"                             | `/review`          |
+| "이거 테스트해줘", "버그 찾아줘", 브라우저 QA               | `/qa`              |
 | "배포해줘", "PR 만들어줘", "푸시해줘"                       | `/ship`            |
 | 버그, 에러, "왜 안되지?", 스택 트레이스 디버깅              | `/investigate`     |
 | 위험한 작업 (프로덕션, DB 수정 등)                          | `/careful`         |
 | "여기까지 저장해줘", "어디까지 했지?", 작업 중간 상태 저장  | `/checkpoint`      |
-| "이거 테스트해줘", "버그 찾아줘", 브라우저 QA               | `/qa`              |
