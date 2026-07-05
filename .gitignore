@@ -48,3 +48,6 @@ next-env.d.ts
 *.pdf
 
 .claude/settings.local.json
+
+# superpowers 작업 기록 (로컬 전용)
+docs/superpowers/
