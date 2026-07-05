@@ -34,7 +34,7 @@
 | 코드 하이라이팅 | Shiki ^4.0.2                                         |
 | 폰트            | Fira Code (Google Fonts, CSS 변수 `--font-fira`)     |
 | 테스트          | Jest + React Testing Library (jsdom 환경)            |
-| 패키지 관리     | pnpm 10.12.1 (Node >= 22.22.1)                       |
+| 패키지 관리     | pnpm 10.34.3 (Node >= 22.22.1)                       |
 
 ---
 
