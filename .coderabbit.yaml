@@ -12,9 +12,9 @@ reviews:
   auto_review:
     enabled: true
     drafts: false # Draft PR은 리뷰 안 함
+    # default 브랜치(develop)는 기본 리뷰 대상 — 추가 브랜치만 지정 (정규식 해석되므로 앵커 필수)
     base_branches:
-      - develop
-      - main
+      - '^main$'
 
   # 리뷰/스파스체크아웃 제외 (빌드 산출물·의존성·자동 생성 파일 등)
   path_filters:
