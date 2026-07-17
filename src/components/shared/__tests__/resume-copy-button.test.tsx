@@ -3,7 +3,38 @@ import userEvent from '@testing-library/user-event';
 
 import { langStore } from '@/store/use-lang-store';
 
+import HeaderDesktop from '../../layout/header/header-desktop';
+import HeaderMobile from '../../layout/header/header-mobile';
 import ResumeCopyButton from '../resume-copy-button';
+
+jest.mock('@/components/shared/language-toggle', () => {
+  function LanguageToggleMock() {
+    return <button>언어 전환</button>;
+  }
+
+  return LanguageToggleMock;
+});
+jest.mock('@/components/shared/theme-dropdown-button', () => {
+  function ThemeDropdownButtonMock() {
+    return <button>테마 전환</button>;
+  }
+
+  return ThemeDropdownButtonMock;
+});
+jest.mock('../../layout/header/logo-title', () => {
+  function LogoTitleMock() {
+    return <div>로고</div>;
+  }
+
+  return LogoTitleMock;
+});
+jest.mock('../../layout/header/nav-item', () => {
+  function NavItemMock() {
+    return <li>메뉴</li>;
+  }
+
+  return NavItemMock;
+});
 
 describe('ResumeCopyButton 컴포넌트', () => {
   beforeEach(() => {
@@ -34,5 +65,20 @@ describe('ResumeCopyButton 컴포넌트', () => {
     await user.click(screen.getByRole('menuitem', { name: '상세본 복사' }));
 
     expect(screen.getByText('복사하지 못했어요. 다시 시도해 주세요')).toBeInTheDocument();
+  });
+
+  it('데스크톱 헤더에 이력서 복사 버튼을 렌더링한다', () => {
+    render(<HeaderDesktop />);
+
+    expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
+  });
+
+  it('모바일 메뉴에 이력서 복사 버튼을 렌더링한다', async () => {
+    const user = userEvent.setup();
+    render(<HeaderMobile />);
+
+    await user.click(screen.getByRole('button', { name: 'Toggle menu' }));
+
+    expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 });
