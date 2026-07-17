@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiArrowLeft, FiImage } from 'react-icons/fi';
 
+import CareerLinkCopyButton from '@/components/shared/career-link-copy-button';
 import FadeInUp from '@/components/shared/fade-in-up';
 import { careerMockData } from '@/constants/career';
 import { cn } from '@/lib/utils';
@@ -41,6 +42,20 @@ const CareerDetail = ({ slug }: Props) => {
   if (!company) return null;
 
   const backLabel = language === 'ko' ? '경력으로 돌아가기' : 'Back to Career';
+  const linkCopyText =
+    language === 'en'
+      ? {
+          companyLabel: 'Copy company link',
+          projectLabel: 'Copy case study link',
+          companySuccess: 'Company page link copied',
+          projectSuccess: 'Case study link copied',
+        }
+      : {
+          companyLabel: '회사 링크 복사',
+          projectLabel: '케이스 스터디 링크 복사',
+          companySuccess: '회사 페이지 링크를 복사했어요',
+          projectSuccess: '케이스 스터디 링크를 복사했어요',
+        };
 
   return (
     <div className='flex min-h-full w-full flex-col'>
@@ -71,11 +86,20 @@ const CareerDetail = ({ slug }: Props) => {
                 <FiImage className='h-14 w-14 text-slate-500 dark:text-slate-400' />
               )}
             </div>
-            <div className='space-y-1'>
-              <p className='text-heading-h6 xl:text-heading-h5'>{company.name}</p>
-              <p className='text-body-sm xl:text-body-md'>{company.period}</p>
-              <p className='text-body-sm xl:text-body-md'>{company.slogan}</p>
-              <p className='inline-block rounded text-body-sm-bold text-teal-500'>{company.role}</p>
+            <div className='flex flex-1 items-start justify-between gap-2'>
+              <div className='space-y-1'>
+                <p className='text-heading-h6 xl:text-heading-h5'>{company.name}</p>
+                <p className='text-body-sm xl:text-body-md'>{company.period}</p>
+                <p className='text-body-sm xl:text-body-md'>{company.slogan}</p>
+                <p className='inline-block rounded text-body-sm-bold text-teal-500'>
+                  {company.role}
+                </p>
+              </div>
+              <CareerLinkCopyButton
+                slug={slug}
+                label={linkCopyText.companyLabel}
+                successMessage={linkCopyText.companySuccess}
+              />
             </div>
           </div>
         </FadeInUp>
@@ -96,15 +120,23 @@ const CareerDetail = ({ slug }: Props) => {
                 className='w-full scroll-mt-16 space-y-2 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'
               >
                 <div className='-mx-5 -mt-5 mb-3 flex items-center justify-between gap-2 rounded-t-lg bg-slate-200 px-5 py-3 dark:bg-slate-700'>
-                  <div className='border-slate-400 sm:border-l-4 sm:px-2'>
+                  <div className='min-w-0 flex-1 border-slate-400 sm:border-l-4 sm:px-2'>
                     <p className='text-body-md-bold wrap-break-word text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
                       {project.title}
                     </p>
                   </div>
-                  <span className='shrink-0 text-body-sm text-slate-400 tabular-nums dark:text-slate-500'>
-                    {String(idx + 1).padStart(2, '0')} /{' '}
-                    {String(company.projects.length).padStart(2, '0')}
-                  </span>
+                  <div className='flex shrink-0 items-center gap-2'>
+                    <CareerLinkCopyButton
+                      slug={slug}
+                      projectId={project.id}
+                      label={linkCopyText.projectLabel}
+                      successMessage={linkCopyText.projectSuccess}
+                    />
+                    <span className='text-body-sm text-slate-400 tabular-nums dark:text-slate-500'>
+                      {String(idx + 1).padStart(2, '0')} /{' '}
+                      {String(company.projects.length).padStart(2, '0')}
+                    </span>
+                  </div>
                 </div>
                 <p className='text-body-sm wrap-break-word text-gray-600 xl:text-body-md dark:text-slate-400'>
                   {project.description}
