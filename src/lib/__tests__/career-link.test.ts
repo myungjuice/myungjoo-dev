@@ -32,4 +32,14 @@ describe('createCareerLink', () => {
       })
     ).toBe('https://www.myungjoo.dev/career/supertree#project-1');
   });
+
+  it('환경 정보가 없으면 origin과 무관하게 고정 배포 도메인으로 URL을 만든다', () => {
+    expect(
+      createCareerLink({
+        slug: 'ellen',
+        origin: 'https://preview.example.com',
+        environment: undefined,
+      })
+    ).toBe('https://www.myungjoo.dev/career/ellen');
+  });
 });
