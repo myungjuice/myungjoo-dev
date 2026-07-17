@@ -12,7 +12,16 @@ const DialogClose = DialogPrimitive.Close;
 const DialogTitle = DialogPrimitive.Title;
 const DialogDescription = DialogPrimitive.Description;
 
-const DialogContent = ({ className, children, ...props }: DialogPrimitive.DialogContentProps) => (
+type DialogContentProps = DialogPrimitive.DialogContentProps & {
+  closeLabel?: string;
+};
+
+const DialogContent = ({
+  className,
+  children,
+  closeLabel = '닫기',
+  ...props
+}: DialogContentProps) => (
   <DialogPrimitive.Portal>
     <DialogPrimitive.Overlay className='fixed inset-0 z-50 bg-slate-950/70 data-[state=closed]:animate-out data-[state=open]:animate-in' />
     <DialogPrimitive.Content
@@ -24,7 +33,7 @@ const DialogContent = ({ className, children, ...props }: DialogPrimitive.Dialog
     >
       {children}
       <DialogPrimitive.Close
-        aria-label='닫기'
+        aria-label={closeLabel}
         className='absolute top-4 right-4 cursor-pointer rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
       >
         <FiX aria-hidden='true' className='size-4' />
