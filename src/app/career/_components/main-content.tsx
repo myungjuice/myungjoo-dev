@@ -10,6 +10,8 @@ import { careerMockData } from '@/constants/career';
 import { cn } from '@/lib/utils';
 import { useCareerPageStore } from '@/store/use-career-page-store';
 
+import CareerSummaryDialog from './career-summary-dialog';
+
 const MainContent = () => {
   const selectedFilter = useCareerPageStore(state => state.selectedFilter);
 
@@ -25,6 +27,9 @@ const MainContent = () => {
 
   return (
     <div className='flex min-w-0 grow-0 flex-col 2xl:flex-[2_1_0%]'>
+      <div className='px-6 pt-6 sm:px-10 sm:pt-10'>
+        <CareerSummaryDialog />
+      </div>
       {filteredCompanies.map((company, idx) => (
         <FadeInUp key={company.id} delay={idx * 0.1}>
           <div

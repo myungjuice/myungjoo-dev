@@ -445,6 +445,22 @@
           "description": "채굴기 상태 모니터링 및 제어 기능을 제공하는 ASP 기반 웹 페이지 구현"
         }
       ]
+    },
+    "summary": {
+      "trigger": "한 화면으로 보기",
+      "count": "선택된 경력 {{count}}개",
+      "summaryCount": "경력 {{count}}개",
+      "title": "경력 요약",
+      "close": "닫기",
+      "contribution": "전반적 기여",
+      "achievements": "주요 성과",
+      "caseStudy": {
+        "context": "상황",
+        "problem": "문제",
+        "actions": "실행",
+        "impact": "성과",
+        "reflection": "회고"
+      }
     }
   },
   "en": {
@@ -899,6 +915,22 @@
           "description": "Developed an ASP-based interface to monitor and control the status of Ethereum mining rigs"
         }
       ]
+    },
+    "summary": {
+      "trigger": "View in one screen",
+      "count": "{{count}} selected careers",
+      "summaryCount": "{{count}} careers",
+      "title": "Career Summary",
+      "close": "Close",
+      "contribution": "Contribution",
+      "achievements": "Key Achievements",
+      "caseStudy": {
+        "context": "Context",
+        "problem": "Problem",
+        "actions": "Actions",
+        "impact": "Impact",
+        "reflection": "Reflection"
+      }
     }
   }
 }
