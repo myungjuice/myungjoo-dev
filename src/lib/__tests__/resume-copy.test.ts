@@ -12,6 +12,18 @@ describe('createResumeText', () => {
     expect(result).not.toContain('## 프로젝트 상세');
   });
 
+  it('한국어 요약본에 현재 포트폴리오 저장소 URL을 포함한다', () => {
+    expect(createResumeText('ko', 'summary')).toContain(
+      'https://github.com/myungjuice/myungjoo-dev'
+    );
+  });
+
+  it('한국어 상세본에 현재 포트폴리오 저장소 URL을 포함한다', () => {
+    expect(createResumeText('ko', 'detailed')).toContain(
+      'https://github.com/myungjuice/myungjoo-dev'
+    );
+  });
+
   it('영어 상세본에 케이스 스터디의 다섯 항목을 포함한다', () => {
     const result = createResumeText('en', 'detailed');
 
