@@ -1,5 +1,6 @@
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { toast } from 'sonner';
 
 import { langStore } from '@/store/use-lang-store';
 
@@ -37,10 +38,17 @@ jest.mock('../../layout/header/nav-item', () => {
 
   return NavItemMock;
 });
+jest.mock('sonner', () => ({
+  toast: {
+    error: jest.fn(),
+    success: jest.fn(),
+  },
+}));
 
 describe('ResumeCopyButton 컴포넌트', () => {
   beforeEach(() => {
     langStore.setState({ lang: 'ko' });
+    jest.clearAllMocks();
     Object.defineProperty(navigator, 'clipboard', {
       configurable: true,
       value: { writeText: jest.fn() },
@@ -58,7 +66,7 @@ describe('ResumeCopyButton 컴포넌트', () => {
     Reflect.deleteProperty(navigator, 'clipboard');
   });
 
-  it('요약본을 선택하면 기본 버튼을 유지하고 새 성공 토스트를 표시한다', async () => {
+  it('요약본을 선택하면 성공 토스트를 호출하고 기본 버튼을 유지한다', async () => {
     const user = userEvent.setup();
     const writeText = jest.fn().mockResolvedValue(undefined);
     Object.assign(navigator.clipboard, { writeText });
@@ -74,12 +82,11 @@ describe('ResumeCopyButton 컴포넌트', () => {
     await user.click(screen.getByRole('menuitem', { name: '요약본 복사' }));
 
     expect(writeText).toHaveBeenCalledWith(expect.stringContaining('# 장명주'));
-    expect(screen.getByRole('status')).toHaveTextContent('이력서 요약본을 복사했어요');
-    expect(screen.getByRole('status')).toHaveClass('top-4', 'left-1/2', '-translate-x-1/2');
+    expect(toast.success).toHaveBeenCalledWith('이력서 요약본을 복사했어요');
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 
-  it('상세본을 선택하면 기본 버튼을 유지하고 새 성공 토스트를 표시한다', async () => {
+  it('상세본을 선택하면 성공 토스트를 호출하고 기본 버튼을 유지한다', async () => {
     const user = userEvent.setup();
     Object.assign(navigator.clipboard, {
       writeText: jest.fn().mockResolvedValue(undefined),
@@ -89,11 +96,11 @@ describe('ResumeCopyButton 컴포넌트', () => {
     await user.click(screen.getByRole('button', { name: '이력서 복사' }));
     await user.click(screen.getByRole('menuitem', { name: '상세본 복사' }));
 
-    expect(screen.getByRole('status')).toHaveTextContent('이력서 상세본을 복사했어요');
+    expect(toast.success).toHaveBeenCalledWith('이력서 상세본을 복사했어요');
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 
-  it('클립보드 복사 실패 시 오류 토스트만 표시하고 기본 버튼 상태를 유지한다', async () => {
+  it('클립보드 복사 실패 시 오류 토스트를 호출하고 기본 버튼 상태를 유지한다', async () => {
     const user = userEvent.setup();
     Object.assign(navigator.clipboard, {
       writeText: jest.fn().mockRejectedValue(new Error('denied')),
@@ -103,29 +110,8 @@ describe('ResumeCopyButton 컴포넌트', () => {
     await user.click(screen.getByRole('button', { name: '이력서 복사' }));
     await user.click(screen.getByRole('menuitem', { name: '상세본 복사' }));
 
-    expect(screen.getByRole('status')).toHaveTextContent('복사하지 못했어요. 다시 시도해 주세요');
-    expect(screen.getByRole('status')).toHaveClass('top-4', 'left-1/2', '-translate-x-1/2');
+    expect(toast.error).toHaveBeenCalledWith('복사하지 못했어요. 다시 시도해 주세요');
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
-  });
-
-  it('성공 피드백을 3초 후에 초기화한다', async () => {
-    jest.useFakeTimers();
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    Object.assign(navigator.clipboard, {
-      writeText: jest.fn().mockResolvedValue(undefined),
-    });
-
-    render(<ResumeCopyButton />);
-    await user.click(screen.getByRole('button', { name: '이력서 복사' }));
-    await user.click(screen.getByRole('menuitem', { name: '요약본 복사' }));
-
-    act(() => {
-      jest.advanceTimersByTime(3000);
-    });
-
-    expect(screen.queryByRole('status')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
-    jest.useRealTimers();
   });
 
   it('데스크톱 헤더에 이력서 복사 버튼을 렌더링한다', () => {
