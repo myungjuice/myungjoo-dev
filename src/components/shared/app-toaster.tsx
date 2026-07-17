@@ -1,7 +1,13 @@
 'use client';
 
 import { useTheme } from 'next-themes';
+import type { CSSProperties } from 'react';
 import { Toaster } from 'sonner';
+
+const toasterStyle: CSSProperties & Record<'--width', string> = {
+  '--width': 'fit-content',
+  maxWidth: 'calc(100vw - 2rem)',
+};
 
 const AppToaster = () => {
   const { resolvedTheme } = useTheme();
@@ -12,6 +18,7 @@ const AppToaster = () => {
       duration={3000}
       position='top-center'
       richColors
+      style={toasterStyle}
       theme={theme}
       toastOptions={{
         classNames: {
