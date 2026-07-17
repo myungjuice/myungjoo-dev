@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiCopy } from 'react-icons/fi';
+import { FiCheck, FiCopy } from 'react-icons/fi';
 
 import {
   DropdownMenu,
@@ -11,46 +11,66 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { createResumeText, type ResumeFormat } from '@/lib/resume-copy';
+import { cn } from '@/lib/utils';
 import { useLangStore } from '@/store/use-lang-store';
+
+type Toast = {
+  message: string;
+  variant: 'success' | 'error';
+};
 
 const ResumeCopyButton = () => {
   const lang = useLangStore(state => state.lang);
   const { t } = useTranslation('header');
-  const [feedback, setFeedback] = useState('');
+  const [toast, setToast] = useState<Toast | null>(null);
+  const [copiedFormat, setCopiedFormat] = useState<ResumeFormat | null>(null);
 
   useEffect(() => {
-    if (!feedback) {
+    if (!toast) {
       return;
     }
 
     const timer = window.setTimeout(() => {
-      setFeedback('');
+      setToast(null);
+      setCopiedFormat(null);
     }, 3000);
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [feedback]);
+  }, [toast]);
 
   const handleCopy = async (format: ResumeFormat) => {
     try {
       await navigator.clipboard.writeText(createResumeText(lang, format));
-      setFeedback(t(`resume-copy-${format}-success`));
+      setCopiedFormat(format);
+      setToast({
+        message: t(`resume-copy-${format}-success`),
+        variant: 'success',
+      });
     } catch {
-      setFeedback(t('resume-copy-failure'));
+      setToast({ message: t('resume-copy-failure'), variant: 'error' });
     }
   };
 
   return (
-    <div className='flex items-center gap-2'>
+    <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
             type='button'
-            className='inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+            className={cn(
+              'inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none',
+              copiedFormat &&
+                'bg-emerald-100 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-700'
+            )}
           >
-            <FiCopy aria-hidden='true' className='size-4' />
-            {t('resume-copy')}
+            {copiedFormat ? (
+              <FiCheck aria-hidden='true' className='size-4' />
+            ) : (
+              <FiCopy aria-hidden='true' className='size-4' />
+            )}
+            {copiedFormat ? t('resume-copy-complete') : t('resume-copy')}
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
@@ -62,10 +82,21 @@ const ResumeCopyButton = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <span aria-live='polite' className='text-sm text-muted-foreground'>
-        {feedback}
-      </span>
-    </div>
+      {toast && (
+        <div
+          role='status'
+          aria-live='polite'
+          className={cn(
+            'fixed right-4 bottom-4 z-50 rounded-md px-4 py-3 text-sm shadow-lg',
+            toast.variant === 'success'
+              ? 'bg-emerald-600 text-white'
+              : 'text-destructive-foreground bg-destructive'
+          )}
+        >
+          {toast.message}
+        </div>
+      )}
+    </>
   );
 };
 
