@@ -59,6 +59,29 @@ describe('CareerSummaryDialog', () => {
 
     expect(screen.queryByRole('heading', { name: '경력 요약' })).not.toBeInTheDocument();
   });
+
+  it('ESC 키를 누르면 모달 내용을 숨긴다', async () => {
+    const user = userEvent.setup();
+    render(<CareerSummaryDialog />);
+
+    await user.click(screen.getByRole('button', { name: '한 화면으로 보기' }));
+    await user.keyboard('{Escape}');
+
+    expect(screen.queryByRole('heading', { name: '경력 요약' })).not.toBeInTheDocument();
+  });
+
+  it('배경을 클릭하면 모달 내용을 숨긴다', async () => {
+    const user = userEvent.setup();
+    render(<CareerSummaryDialog />);
+
+    await user.click(screen.getByRole('button', { name: '한 화면으로 보기' }));
+    const overlay = document.querySelector('[data-state="open"].inset-0');
+
+    expect(overlay).toBeInTheDocument();
+    await user.click(overlay!);
+
+    expect(screen.queryByRole('heading', { name: '경력 요약' })).not.toBeInTheDocument();
+  });
 });
 
 describe('CareerSummaryCompany', () => {

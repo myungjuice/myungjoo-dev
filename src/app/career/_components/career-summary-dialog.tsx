@@ -58,7 +58,7 @@ const CareerSummaryDialog = () => {
             {labels.count}
           </DialogDescription>
         </DialogHeader>
-        <div className='max-h-[calc(100vh-12rem)] space-y-8 overflow-y-auto px-6 pb-6'>
+        <div className='max-h-[70vh] space-y-8 overflow-y-auto px-6 pb-6'>
           {companies.map(company => (
             <div
               key={company.id}
