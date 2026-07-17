@@ -171,9 +171,7 @@
             "action": [
               "유저 조회, 포인트 지급, 상품 등록 등 TF팀의 반복 작업을 처리하는 관리자 시스템 구축"
             ],
-            "impact": [
-              "수작업 처리 → 시스템화로 TF팀 운영 효율 개선"
-            ],
+            "impact": ["수작업 처리 → 시스템화로 TF팀 운영 효율 개선"],
             "reflection": "내부 툴이라도 실제로 사용하는 팀의 업무 흐름에 맞춰 설계하지 않으면 사용률이 낮아집니다. 사용자가 어떤 순서로 작업하는지 먼저 파악하는 것이 중요하다는 것을 배웠습니다."
           }
         },
@@ -189,9 +187,7 @@
               "PlayDapp: 스크롤 위치에 따라 이미지가 프레임 단위로 교체되는 인터랙션 구현",
               "Members: 기본 레이아웃 중심의 브랜드 홈페이지 구현"
             ],
-            "impact": [
-              "브랜드 사이트 3개 순차 런칭 완료"
-            ],
+            "impact": ["브랜드 사이트 3개 순차 런칭 완료"],
             "reflection": "처음 접하는 인터랙션도 레퍼런스 분석과 반복 구현으로 완성할 수 있었습니다. 복잡한 스크롤 인터랙션은 구현 자체보다 성능 최적화와 크로스 브라우저 대응이 더 많은 시간을 차지한다는 것을 배웠습니다."
           }
         },
@@ -293,9 +289,7 @@
               "Python으로 Naver TV, KaKao TV 드라마 데이터(제목, 내용, 재생수, 날짜, 댓글) 크롤링 개발",
               "React로 시청률 예측 결과 및 시청자 반응 분석을 보여주는 데모 웹사이트 개발"
             ],
-            "impact": [
-              "공모전 최종 선정 — KBS, 한국마이크로소프트 수요기업 채택"
-            ],
+            "impact": ["공모전 최종 선정 — KBS, 한국마이크로소프트 수요기업 채택"],
             "reflection": "제한된 시간 안에 백엔드(크롤링)부터 프론트엔드까지 전 과정을 소화해야 했습니다. 완성도보다 핵심 기능을 먼저 동작시키는 것이 중요하다는 것을 배웠고, 공모전 최종 선정이라는 결과로 이어져 뿌듯했던 프로젝트였습니다."
           }
         },
@@ -310,9 +304,7 @@
               "Express.js로 Backend API 구축, React로 관리자 페이지 개발",
               "구독자 관리, 이메일 발송, Insight 관리, 회사 소개서 파일 업로드 기능 구현"
             ],
-            "impact": [
-              "홈페이지 런칭 완료, 관리자 시스템으로 콘텐츠 운영 가능"
-            ],
+            "impact": ["홈페이지 런칭 완료, 관리자 시스템으로 콘텐츠 운영 가능"],
             "reflection": "Frontend 위주로 일하다 Backend까지 처음 담당해보니, API 설계를 잘못하면 Frontend 작업이 복잡해진다는 것을 직접 경험했습니다. 풀스택으로 작업하면 전체 흐름을 이해하는 데 유리하다는 것도 배웠습니다."
           }
         },
@@ -375,9 +367,7 @@
               "ASP.NET을 독학하여 Crypto 관련 기능만 ASP.NET으로 처리하는 방식으로 해결",
               "ASP → ASP.NET → 갤럭시아컴즈 순으로 통신하는 구조를 설계하여 보안 요건 충족"
             ],
-            "impact": [
-              "10대 고객층 대상 편의점 결제 서비스 오픈, 결제 접근성 개선"
-            ],
+            "impact": ["10대 고객층 대상 편의점 결제 서비스 오픈, 결제 접근성 개선"],
             "reflection": "언어의 제약이 생겼을 때 우회 방법을 스스로 찾고 해결한 경험이었습니다. 필요한 기술은 직접 공부해서 적용하는 것이 개발자의 기본임을 이때 처음 확실히 배웠습니다."
           }
         },
@@ -409,9 +399,7 @@
             "action": [
               "ASP 기반으로 재고 관리, 결제 시스템까지 포함한 Web POS 전체를 단독 설계 및 개발"
             ],
-            "impact": [
-              "홍대 오프라인 매장 오픈과 함께 POS 시스템 현장 투입"
-            ],
+            "impact": ["홍대 오프라인 매장 오픈과 함께 POS 시스템 현장 투입"],
             "reflection": "혼자 설계부터 개발까지 처음으로 담당한 프로젝트였습니다. 현장에서 실시간으로 사용되는 시스템은 버그 하나가 바로 매장 운영에 영향을 미친다는 것을 체감했고, 안정성을 최우선으로 생각하는 습관이 이때 생겼습니다."
           }
         },
@@ -613,9 +601,7 @@
               "PlayDapp: built scroll-driven image replacement where frames swap sequentially as the user scrolls",
               "Members: implemented a standard brand homepage with clean layout and basic interactions"
             ],
-            "impact": [
-              "All three brand sites launched sequentially as planned"
-            ],
+            "impact": ["All three brand sites launched sequentially as planned"],
             "reflection": "Even unfamiliar interactions are achievable through reference analysis and iteration. The bigger lesson was that complex scroll interactions cost more time in performance optimization and cross-browser fixes than in the initial implementation itself."
           }
         },
@@ -734,9 +720,7 @@
               "Built Backend APIs with Express.js, developed the admin panel with React",
               "Implemented subscriber management, email sending, insight management, and company profile file upload"
             ],
-            "impact": [
-              "Website launched, admin system enabled content operations"
-            ],
+            "impact": ["Website launched, admin system enabled content operations"],
             "reflection": "Working full-stack for the first time made one thing obvious: poorly designed APIs make frontend work hard. Owning both sides of the stack gives you a much clearer mental model of the whole system — and that perspective stuck."
           }
         },
@@ -833,9 +817,7 @@
             "action": [
               "Solely designed and built a Web POS system in ASP covering inventory management and the full payment flow"
             ],
-            "impact": [
-              "POS system deployed alongside the Hongdae store opening"
-            ],
+            "impact": ["POS system deployed alongside the Hongdae store opening"],
             "reflection": "The first project where I owned design through delivery completely alone. A bug in a live POS hits the store floor immediately — no buffer. That reality instilled a habit of treating stability as the baseline, not an extra, and it’s stuck since."
           }
         },
