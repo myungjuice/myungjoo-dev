@@ -13,15 +13,10 @@ const DialogTitle = DialogPrimitive.Title;
 const DialogDescription = DialogPrimitive.Description;
 
 type DialogContentProps = DialogPrimitive.DialogContentProps & {
-  closeLabel?: string;
+  closeLabel: string;
 };
 
-const DialogContent = ({
-  className,
-  children,
-  closeLabel = '닫기',
-  ...props
-}: DialogContentProps) => (
+const DialogContent = ({ className, children, closeLabel, ...props }: DialogContentProps) => (
   <DialogPrimitive.Portal>
     <DialogPrimitive.Overlay className='fixed inset-0 z-50 bg-slate-950/70 data-[state=closed]:animate-out data-[state=open]:animate-in' />
     <DialogPrimitive.Content

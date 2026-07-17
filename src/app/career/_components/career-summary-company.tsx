@@ -1,17 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 import type { CareerCompany } from '@/types/career';
 
 import CareerSummaryCaseStudy from './career-summary-case-study';
 
 export type CareerSummaryCompanyProps = {
   company: CareerCompany;
-  language: 'ko' | 'en';
 };
 
-const CareerSummaryCompany = ({ company, language }: CareerSummaryCompanyProps) => {
-  const labels =
-    language === 'ko'
-      ? { contribution: '전반적 기여', achievements: '주요 성과' }
-      : { contribution: 'Contribution', achievements: 'Key Achievements' };
+const CareerSummaryCompany = ({ company }: CareerSummaryCompanyProps) => {
+  const { t } = useTranslation('career');
   const { overview } = company;
 
   return (
@@ -24,14 +22,14 @@ const CareerSummaryCompany = ({ company, language }: CareerSummaryCompanyProps) 
 
       {overview?.contribution && (
         <section className='space-y-1'>
-          <h3 className='text-body-md-bold'>{labels.contribution}</h3>
+          <h3 className='text-body-md-bold'>{t('summary.contribution')}</h3>
           <p className='text-body-sm text-slate-600 dark:text-slate-400'>{overview.contribution}</p>
         </section>
       )}
 
       {overview?.achievements && overview.achievements.length > 0 && (
         <section className='space-y-1'>
-          <h3 className='text-body-md-bold'>{labels.achievements}</h3>
+          <h3 className='text-body-md-bold'>{t('summary.achievements')}</h3>
           <ul className='list-disc space-y-1 pl-5'>
             {overview.achievements.map(achievement => (
               <li key={achievement} className='text-body-sm text-slate-600 dark:text-slate-400'>
@@ -44,7 +42,7 @@ const CareerSummaryCompany = ({ company, language }: CareerSummaryCompanyProps) 
 
       <div className='space-y-6'>
         {company.projects.map(project => (
-          <CareerSummaryCaseStudy key={project.id} project={project} language={language} />
+          <CareerSummaryCaseStudy key={project.id} project={project} />
         ))}
       </div>
     </div>

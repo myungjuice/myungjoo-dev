@@ -50,6 +50,12 @@ describe('CareerSummaryDialog', () => {
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
   });
 
+  it('요약 모달 문구는 career 번역 리소스에서 제공한다', () => {
+    expect(i18n.t('career:summary.trigger')).toBe('한 화면으로 보기');
+    expect(i18n.t('career:summary.close')).toBe('닫기');
+    expect(i18n.t('career:summary.caseStudy.context')).toBe('상황');
+  });
+
   it('닫기 버튼을 클릭하면 모달 내용을 숨긴다', async () => {
     const user = userEvent.setup();
     render(<CareerSummaryDialog />);
@@ -89,7 +95,7 @@ describe('CareerSummaryDialog', () => {
 
 describe('CareerSummaryCompany', () => {
   it('회사 개요와 케이스 스터디의 상세 항목을 표시한다', () => {
-    render(<CareerSummaryCompany company={careerMockData.ko.cdri} language='ko' />);
+    render(<CareerSummaryCompany company={careerMockData.ko.cdri} />);
 
     expect(screen.getByText('전반적 기여')).toBeInTheDocument();
     expect(screen.getByText('주요 성과')).toBeInTheDocument();
@@ -105,7 +111,7 @@ describe('CareerSummaryCompany', () => {
 describe('CareerSummaryCaseStudy', () => {
   it('값이 없는 개요와 케이스 스터디 항목의 라벨을 표시하지 않는다', () => {
     const project = { id: 99, title: '빈 항목', description: '설명', caseStudy: {} };
-    render(<CareerSummaryCaseStudy project={project} language='en' />);
+    render(<CareerSummaryCaseStudy project={project} />);
 
     expect(screen.queryByText('Context')).not.toBeInTheDocument();
     expect(screen.queryByText('Actions')).not.toBeInTheDocument();

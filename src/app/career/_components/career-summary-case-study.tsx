@@ -1,21 +1,13 @@
+import { useTranslation } from 'react-i18next';
+
 import type { CareerProject } from '@/types/career';
 
 export type CareerSummaryCaseStudyProps = {
   project: CareerProject;
-  language: 'ko' | 'en';
 };
 
-const CareerSummaryCaseStudy = ({ project, language }: CareerSummaryCaseStudyProps) => {
-  const labels =
-    language === 'ko'
-      ? { context: '상황', problem: '문제', actions: '실행', impact: '성과', reflection: '회고' }
-      : {
-          context: 'Context',
-          problem: 'Problem',
-          actions: 'Actions',
-          impact: 'Impact',
-          reflection: 'Reflection',
-        };
+const CareerSummaryCaseStudy = ({ project }: CareerSummaryCaseStudyProps) => {
+  const { t } = useTranslation('career');
   const caseStudy = project.caseStudy;
 
   return (
@@ -29,19 +21,19 @@ const CareerSummaryCaseStudy = ({ project, language }: CareerSummaryCaseStudyPro
         <div className='space-y-3'>
           {caseStudy.context && (
             <section className='space-y-1'>
-              <h4 className='text-body-sm-bold'>{labels.context}</h4>
+              <h4 className='text-body-sm-bold'>{t('summary.caseStudy.context')}</h4>
               <p className='text-body-sm text-slate-600 dark:text-slate-400'>{caseStudy.context}</p>
             </section>
           )}
           {caseStudy.problem && (
             <section className='space-y-1'>
-              <h4 className='text-body-sm-bold'>{labels.problem}</h4>
+              <h4 className='text-body-sm-bold'>{t('summary.caseStudy.problem')}</h4>
               <p className='text-body-sm text-slate-600 dark:text-slate-400'>{caseStudy.problem}</p>
             </section>
           )}
           {caseStudy.action && caseStudy.action.length > 0 && (
             <section className='space-y-1'>
-              <h4 className='text-body-sm-bold'>{labels.actions}</h4>
+              <h4 className='text-body-sm-bold'>{t('summary.caseStudy.actions')}</h4>
               <ul className='list-disc space-y-1 pl-5'>
                 {caseStudy.action.map(item => (
                   <li key={item} className='text-body-sm text-slate-600 dark:text-slate-400'>
@@ -53,7 +45,7 @@ const CareerSummaryCaseStudy = ({ project, language }: CareerSummaryCaseStudyPro
           )}
           {caseStudy.impact && caseStudy.impact.length > 0 && (
             <section className='space-y-1'>
-              <h4 className='text-body-sm-bold'>{labels.impact}</h4>
+              <h4 className='text-body-sm-bold'>{t('summary.caseStudy.impact')}</h4>
               <ul className='list-disc space-y-1 pl-5'>
                 {caseStudy.impact.map(item => (
                   <li key={item} className='text-body-sm text-slate-600 dark:text-slate-400'>
@@ -65,7 +57,7 @@ const CareerSummaryCaseStudy = ({ project, language }: CareerSummaryCaseStudyPro
           )}
           {caseStudy.reflection && (
             <section className='space-y-1'>
-              <h4 className='text-body-sm-bold'>{labels.reflection}</h4>
+              <h4 className='text-body-sm-bold'>{t('summary.caseStudy.reflection')}</h4>
               <p className='text-body-sm text-slate-600 dark:text-slate-400'>
                 {caseStudy.reflection}
               </p>
