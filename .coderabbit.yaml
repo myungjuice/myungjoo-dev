@@ -1,11 +1,11 @@
 # CodeRabbit 설정 — myungjoo.dev
 # 스키마: https://docs.coderabbit.ai/reference/yaml-template
 language: 'ko-KR'
-tone_instructions: '한국어로 간결하고 실용적으로 리뷰하세요. 타입 안전성, i18n 텍스트 하드코딩(ko/en 번역 키 누락), 접근성, .claude/rules 컨벤션 위반을 우선 지적하세요.'
+tone_instructions: '한국어로 간결하고 실용적으로 리뷰하세요. 타입 안전성, i18n 텍스트 하드코딩(ko/en 번역 키 누락), 접근성, .codex/guides/engineering.md의 프로젝트 원칙 위반을 우선 지적하세요.'
 
 reviews:
   profile: assertive # 더 꼼꼼한 피드백 (사소한 지적 포함). 부담되면 chill로.
-  request_changes_workflow: false
+  request_changes_workflow: true
   high_level_summary: true # PR 설명에 변경 요약 자동 생성
   poem: false # 하이쿠/시 비활성화 (노이즈 감소)
 
@@ -28,13 +28,14 @@ reviews:
     - '!.husky/_/**'
     - '!public/**'
 
-  # 경로별 리뷰 가이드 — 프로젝트 룰(.claude/rules)을 반영
+  # 경로별 리뷰 가이드 — Codex 구현 가이드를 반영
   path_instructions:
     - path: 'src/app/**'
       instructions: >
         Next.js App Router 페이지. 페이지 전용 컴포넌트는 해당 페이지 폴더의
         _components/에 위치해야 함. 서버 컴포넌트가 기본이며 'use client'는 상태/이벤트가
-        필요한 최소 범위에만 사용. 서버 사이드 언어 감지는 getLangFromCookie() 사용.
+        필요한 최소 범위에만 사용. 실제 SSR 언어 처리가 필요한 변경에서만 서버 사이드 언어
+        감지 방식을 검토.
         사용자에게 노출되는 텍스트는 하드코딩 금지 — i18n 번역 키(ko/en)로 처리.
 
     - path: 'src/store/**'
@@ -45,16 +46,18 @@ reviews:
 
     - path: 'src/components/**'
       instructions: >
-        공용 컴포넌트. .claude/rules/code.md 기준: 이른 추상화 금지(사용 사례가 달라질
-        가능성이 있으면 중복 허용), props 드릴링 대신 컴포지션(children)·Context 사용,
-        역할/상태가 크게 다른 조건부 UI는 별도 컴포넌트로 분리. ui/는 shadcn/ui(Radix 기반)
-        컨벤션을 따르고 임의 수정 지양.
+        공용 컴포넌트. 사용 사례가 달라질 가능성이 있으면 이른 추상화보다 중복을 허용.
+        Props 전달이 반복되거나 결합도가 높을 때만 컴포지션(children)·Context를 고려하고,
+        역할/상태가 크게 다른 조건부 UI는 별도 컴포넌트 분리를 검토. ui/는 shadcn/ui(Radix 기반)
+        컨벤션을 따르며 임의 수정은 지양.
 
     - path: '**/*.{ts,tsx}'
       instructions: >
-        TypeScript strict 준수, any 남용 금지. 매직 넘버는 이름 붙은 상수로 대체.
+        TypeScript strict 준수, any 남용 금지. 의미가 불분명한 로직 수치는 이름 붙은 상수로 대체하되,
+        Tailwind 표현용 수치 클래스는 제외.
         광범위한 훅 대신 책임이 명확한 작은 훅으로 분리. 숨은 사이드 이펙트 금지
-        (함수명이 동작을 정확히 설명). 파일은 타입별이 아닌 기능/도메인 단위로 구성.
+        (함수명이 동작을 정확히 설명). 기존 공용 types/constants/store 계층은 유지하고,
+        새 파일은 관련 기능 가까이에 구성.
         Tailwind 조건부 클래스는 cn() 사용, 인라인 style 지양.
 
 chat:
