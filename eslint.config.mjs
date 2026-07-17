@@ -99,5 +99,5 @@ export default tseslint.config(
         ...globals.jest,
       },
     },
-  },
+  }
 );
