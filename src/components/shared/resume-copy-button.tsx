@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiCheck, FiCopy } from 'react-icons/fi';
+import { FiCopy } from 'react-icons/fi';
 
 import {
   DropdownMenu,
@@ -23,7 +23,6 @@ const ResumeCopyButton = () => {
   const lang = useLangStore(state => state.lang);
   const { t } = useTranslation('header');
   const [toast, setToast] = useState<Toast | null>(null);
-  const [copiedFormat, setCopiedFormat] = useState<ResumeFormat | null>(null);
 
   useEffect(() => {
     if (!toast) {
@@ -32,7 +31,6 @@ const ResumeCopyButton = () => {
 
     const timer = window.setTimeout(() => {
       setToast(null);
-      setCopiedFormat(null);
     }, 3000);
 
     return () => {
@@ -43,7 +41,6 @@ const ResumeCopyButton = () => {
   const handleCopy = async (format: ResumeFormat) => {
     try {
       await navigator.clipboard.writeText(createResumeText(lang, format));
-      setCopiedFormat(format);
       setToast({
         message: t(`resume-copy-${format}-success`),
         variant: 'success',
@@ -59,18 +56,10 @@ const ResumeCopyButton = () => {
         <DropdownMenuTrigger asChild>
           <button
             type='button'
-            className={cn(
-              'inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none',
-              copiedFormat &&
-                'bg-emerald-100 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-700'
-            )}
+            className='inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
           >
-            {copiedFormat ? (
-              <FiCheck aria-hidden='true' className='size-4' />
-            ) : (
-              <FiCopy aria-hidden='true' className='size-4' />
-            )}
-            {copiedFormat ? t('resume-copy-complete') : t('resume-copy')}
+            <FiCopy aria-hidden='true' className='size-4' />
+            {t('resume-copy')}
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
