@@ -12,7 +12,7 @@
 - 코드·설정 변경이 없는 문서 또는 단순 텍스트 변경만 직접 푸시를 제안할 수 있다.
 - 직접 푸시도 대상 브랜치와 변경 요약을 먼저 제시하고 승인받은 뒤 실행한다.
 - PR 전에는 제목, 본문, 대상 브랜치, Assignee `myungjuice`, 의미 있는 라벨을 초안으로 제시한다.
-- PR 본문은 `.github/PULL_REQUEST_TEMPLATE.md`의 Overview, What’s Included, Screenshots, Related Issues, Additional Notes 구성을 따른다.
+- PR 본문을 작성하기 전에는 반드시 대상 브랜치의 `.github/PULL_REQUEST_TEMPLATE.md`를 직접 읽는다. 템플릿이 있으면 제목·섹션·체크박스·안내 구조를 그대로 사용하고, 실제 작업 내용만 채운다. CLI로 PR을 생성할 때도 임의의 축약 본문으로 템플릿을 대체하지 않는다.
 - 사용자 승인 후에만 브랜치 푸시와 PR 생성을 실행한다.
 
 ## 라벨

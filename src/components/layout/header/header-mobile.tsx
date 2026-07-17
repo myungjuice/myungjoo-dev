@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 import LanguageToggle from '@/components/shared/language-toggle';
+import ResumeCopyButton from '@/components/shared/resume-copy-button';
 import ThemeDropdownButton from '@/components/shared/theme-dropdown-button';
 import { navLinks, overlayAnimation, menuAnimation } from '@/constants/header';
 import { cn } from '@/lib/utils';
@@ -84,7 +85,8 @@ const HeaderMobile = () => {
                 <p className='flex items-center text-body-md text-slate-600 dark:text-slate-400'>
                   # {t('mobile-theme-preferences')}:
                 </p>
-                <div className='flex items-center gap-2'>
+                <div className='flex flex-wrap items-center justify-end gap-2'>
+                  <ResumeCopyButton />
                   <LanguageToggle />
                   <ThemeDropdownButton />
                 </div>
