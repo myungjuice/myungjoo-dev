@@ -55,7 +55,10 @@ describe('CareerSummaryDialog', () => {
     render(<CareerSummaryDialog />);
 
     await user.click(screen.getByRole('button', { name: '한 화면으로 보기' }));
-    await user.click(screen.getByRole('button', { name: '닫기' }));
+    const closeButton = screen.getByRole('button', { name: '닫기' });
+
+    expect(closeButton).toHaveClass('size-6');
+    await user.click(closeButton);
 
     expect(screen.queryByRole('heading', { name: '경력 요약' })).not.toBeInTheDocument();
   });

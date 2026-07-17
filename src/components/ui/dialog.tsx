@@ -34,7 +34,7 @@ const DialogContent = ({
       {children}
       <DialogPrimitive.Close
         aria-label={closeLabel}
-        className='absolute top-4 right-4 cursor-pointer rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+        className='absolute top-4 right-4 inline-flex size-6 items-center justify-center rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
       >
         <FiX aria-hidden='true' className='size-4' />
       </DialogPrimitive.Close>
