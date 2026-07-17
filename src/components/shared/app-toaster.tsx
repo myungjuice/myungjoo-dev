@@ -5,8 +5,7 @@ import type { CSSProperties } from 'react';
 import { Toaster } from 'sonner';
 
 const toasterStyle: CSSProperties & Record<'--width', string> = {
-  '--width': 'fit-content',
-  maxWidth: 'calc(100vw - 2rem)',
+  '--width': 'min(240px, calc(100vw - 2rem))',
 };
 
 const AppToaster = () => {

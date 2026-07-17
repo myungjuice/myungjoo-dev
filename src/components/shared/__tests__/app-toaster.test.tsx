@@ -34,8 +34,7 @@ describe('AppToaster 컴포넌트', () => {
       duration: 3000,
       richColors: true,
       style: {
-        '--width': 'fit-content',
-        maxWidth: 'calc(100vw - 2rem)',
+        '--width': 'min(240px, calc(100vw - 2rem))',
       },
     });
     expect(toasterProps.toastOptions.classNames.toast).toContain('!py-2');
