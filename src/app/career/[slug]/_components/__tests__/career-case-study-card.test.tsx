@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { careerMockData } from '@/constants/career';
 import type { CareerProject } from '@/types/career';
 
 import CareerCaseStudyCard from '../career-case-study-card';
@@ -75,11 +76,13 @@ describe('CareerCaseStudyCard', () => {
   it('영문 checkbox 레이블을 제공한다', () => {
     mockLanguage = 'en';
 
-    render(<CareerCaseStudyCard {...props} viewed={false} />);
+    render(
+      <CareerCaseStudyCard {...props} project={careerMockData.en.cdri.projects[0]} viewed={false} />
+    );
 
     expect(
       screen.getByRole('checkbox', {
-        name: '사전과제 AI 검토 자동화 viewed status',
+        name: 'Pre-assignment AI Review Automation viewed status',
       })
     ).toBeInTheDocument();
   });
