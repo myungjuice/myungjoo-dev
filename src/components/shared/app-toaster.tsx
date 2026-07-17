@@ -7,7 +7,7 @@ const AppToaster = () => {
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === 'light' || resolvedTheme === 'dark' ? resolvedTheme : 'system';
 
-  return <Toaster duration={3000} position='top-center' theme={theme} />;
+  return <Toaster duration={3000} mobileOffset={0} position='top-center' theme={theme} />;
 };
 
 export default AppToaster;

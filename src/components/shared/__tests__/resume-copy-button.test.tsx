@@ -96,7 +96,7 @@ describe('ResumeCopyButton 컴포넌트', () => {
     const renderToast = jest.mocked(toast.custom).mock.calls[0][0];
     render(renderToast('success-toast'));
     expect(screen.getByTestId('resume-copy-toast-success')).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent('이력서 요약본을 복사했어요');
+    expect(screen.getByText('이력서 요약본을 복사했어요')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 
@@ -115,7 +115,7 @@ describe('ResumeCopyButton 컴포넌트', () => {
     const renderToast = jest.mocked(toast.custom).mock.calls[0][0];
     render(renderToast('success-toast'));
     expect(screen.getByTestId('resume-copy-toast-success')).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent('이력서 상세본을 복사했어요');
+    expect(screen.getByText('이력서 상세본을 복사했어요')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 
@@ -134,7 +134,7 @@ describe('ResumeCopyButton 컴포넌트', () => {
     const renderToast = jest.mocked(toast.custom).mock.calls[0][0];
     render(renderToast('error-toast'));
     expect(screen.getByTestId('resume-copy-toast-error')).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent('복사하지 못했어요. 다시 시도해 주세요');
+    expect(screen.getByText('복사하지 못했어요. 다시 시도해 주세요')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 

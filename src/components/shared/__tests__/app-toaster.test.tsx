@@ -32,6 +32,7 @@ describe('AppToaster 컴포넌트', () => {
       theme: 'dark',
       position: 'top-center',
       duration: 3000,
+      mobileOffset: 0,
     });
     expect(toasterProps).not.toHaveProperty('richColors');
     expect(toasterProps).not.toHaveProperty('style');

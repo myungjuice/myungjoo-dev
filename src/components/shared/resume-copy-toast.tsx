@@ -24,13 +24,11 @@ const ResumeCopyToast = ({ type, message, theme }: ResumeCopyToastProps) => {
 
   return (
     <div
-      aria-live='polite'
       className={cn(
         'inline-flex w-max max-w-[calc(100vw-2rem)] items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium shadow-sm transition-[opacity,transform] duration-200 ease-out',
         'scale-95 opacity-0 [[data-sonner-toast][data-mounted=true]_&]:scale-100 [[data-sonner-toast][data-mounted=true]_&]:opacity-100 [[data-sonner-toast][data-removed=true]_&]:scale-95 [[data-sonner-toast][data-removed=true]_&]:opacity-0',
         toastStyles[type][theme]
       )}
-      role='status'
     >
       <Icon
         aria-hidden='true'
