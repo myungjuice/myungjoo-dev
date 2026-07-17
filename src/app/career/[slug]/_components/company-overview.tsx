@@ -35,24 +35,30 @@ const CompanyOverview = ({ role, overview, language }: Props) => {
           <p className='text-body-sm-bold text-slate-700 dark:text-slate-200'>{label.role}</p>
           <p className='text-body-sm text-slate-600 dark:text-slate-400'>{role}</p>
         </div>
-        <div className='space-y-1'>
-          <p className='text-body-sm-bold text-slate-700 dark:text-slate-200'>
-            {label.contribution}
-          </p>
-          <p className='text-body-sm text-slate-600 dark:text-slate-400'>{overview.contribution}</p>
-        </div>
-        <div className='space-y-1'>
-          <p className='text-body-sm-bold text-slate-700 dark:text-slate-200'>
-            {label.achievements}
-          </p>
-          <ul className='space-y-0.5'>
-            {overview.achievements.map(achievement => (
-              <li key={achievement} className='text-body-sm text-slate-600 dark:text-slate-400'>
-                {achievement}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {overview.contribution && (
+          <div className='space-y-1'>
+            <p className='text-body-sm-bold text-slate-700 dark:text-slate-200'>
+              {label.contribution}
+            </p>
+            <p className='text-body-sm text-slate-600 dark:text-slate-400'>
+              {overview.contribution}
+            </p>
+          </div>
+        )}
+        {overview.achievements.length > 0 && (
+          <div className='space-y-1'>
+            <p className='text-body-sm-bold text-slate-700 dark:text-slate-200'>
+              {label.achievements}
+            </p>
+            <ul className='list-disc space-y-1 pl-5'>
+              {overview.achievements.map(achievement => (
+                <li key={achievement} className='text-body-sm text-slate-600 dark:text-slate-400'>
+                  {achievement}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   );

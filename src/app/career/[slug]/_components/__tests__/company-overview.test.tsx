@@ -33,3 +33,36 @@ it('영문 라벨을 표시한다', () => {
   expect(screen.getByText('Contribution')).toBeInTheDocument();
   expect(screen.getByText('Key Achievements')).toBeInTheDocument();
 });
+
+it('전반적 기여가 비어 있으면 해당 블록을 표시하지 않는다', () => {
+  render(
+    <CompanyOverview
+      role='Frontend Developer'
+      overview={{ ...overview, contribution: '' }}
+      language='ko'
+    />
+  );
+
+  expect(screen.queryByText('전반적 기여')).not.toBeInTheDocument();
+});
+
+it('주요 성과가 비어 있으면 해당 블록과 목록 항목을 표시하지 않는다', () => {
+  const { container } = render(
+    <CompanyOverview
+      role='Frontend Developer'
+      overview={{ ...overview, achievements: [] }}
+      language='ko'
+    />
+  );
+
+  expect(screen.queryByText('주요 성과')).not.toBeInTheDocument();
+  expect(container.querySelectorAll('li')).toHaveLength(0);
+});
+
+it('주요 성과 목록에 불릿 스타일을 적용한다', () => {
+  const { container } = render(
+    <CompanyOverview role='Frontend Developer' overview={overview} language='ko' />
+  );
+
+  expect(container.querySelector('ul')).toHaveClass('list-disc');
+});

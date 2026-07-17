@@ -1,4 +1,25 @@
+import * as careerConstants from '@/constants/career';
+
 import { createResumeText } from '../resume-copy';
+
+const createResumeTextWithCareerData = (
+  careerMockData: typeof careerConstants.careerMockData,
+  format: 'summary' | 'detailed'
+) => {
+  let result = '';
+
+  jest.isolateModules(() => {
+    jest.doMock('@/constants/career', () => ({
+      ...jest.requireActual<typeof import('@/constants/career')>('@/constants/career'),
+      careerMockData,
+    }));
+
+    const resumeCopy = jest.requireActual<typeof import('../resume-copy')>('../resume-copy');
+    result = resumeCopy.createResumeText('ko', format);
+  });
+
+  return result;
+};
 
 describe('createResumeText', () => {
   it('한국어 요약본에 소개, 기술, 경력, 프로젝트, 링크를 포함한다', () => {
@@ -54,5 +75,52 @@ describe('createResumeText', () => {
     expect(result).toContain('### Key Achievements');
     expect(result).toContain('Combined frontend development and acting team-lead responsibilities');
     expect(result).toContain('Reduced pre-assignment review time by about 30%');
+  });
+
+  it('개요가 없는 회사는 빈 주요 성과 제목이나 불릿을 만들지 않는다', () => {
+    const result = createResumeTextWithCareerData(
+      {
+        ...careerConstants.careerMockData,
+        ko: Object.fromEntries(
+          careerConstants.careerFilterList.map(careerId => [
+            careerId,
+            { ...careerConstants.careerMockData.ko[careerId], overview: undefined },
+          ])
+        ) as typeof careerConstants.careerMockData.ko,
+      },
+      'summary'
+    );
+
+    expect(result).not.toContain('주요 성과');
+    expect(result).not.toContain('- 주요 성과:');
+  });
+
+  it('빈 주요 성과는 제목이나 불릿을 만들지 않는다', () => {
+    const result = createResumeTextWithCareerData(
+      {
+        ...careerConstants.careerMockData,
+        ko: Object.fromEntries(
+          careerConstants.careerFilterList.map(careerId => [
+            careerId,
+            {
+              ...careerConstants.careerMockData.ko[careerId],
+              overview: {
+                ...careerConstants.careerMockData.ko[careerId].overview!,
+                achievements: [],
+              },
+            },
+          ])
+        ) as typeof careerConstants.careerMockData.ko,
+      },
+      'detailed'
+    );
+
+    expect(result).not.toContain('### 주요 성과');
+    expect(result).not.toContain('- 주요 성과:');
+  });
+
+  afterEach(() => {
+    jest.resetModules();
+    jest.unmock('@/constants/career');
   });
 });
