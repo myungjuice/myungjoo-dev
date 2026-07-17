@@ -84,6 +84,14 @@ describe('ResumeCopyButton 컴포넌트', () => {
 
     expect(writeText).toHaveBeenCalledWith(expect.stringContaining('# 장명주'));
     expect(toast.custom).toHaveBeenCalledTimes(1);
+    expect(toast.custom).toHaveBeenCalledWith(expect.any(Function), {
+      style: {
+        left: '50%',
+        width: 'fit-content',
+        maxWidth: 'calc(100vw - 2rem)',
+        transform: 'var(--y) translateX(-50%)',
+      },
+    });
     expect(toast.success).not.toHaveBeenCalled();
     const renderToast = jest.mocked(toast.custom).mock.calls[0][0];
     render(renderToast('success-toast'));

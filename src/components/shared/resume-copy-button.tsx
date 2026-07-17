@@ -22,7 +22,14 @@ const ResumeCopyButton = () => {
   const theme = resolvedTheme === 'dark' ? 'dark' : 'light';
 
   const showCopyToast = (type: 'success' | 'error', message: string) => {
-    toast.custom(id => <ResumeCopyToast key={id} message={message} theme={theme} type={type} />);
+    toast.custom(id => <ResumeCopyToast key={id} message={message} theme={theme} type={type} />, {
+      style: {
+        left: '50%',
+        width: 'fit-content',
+        maxWidth: 'calc(100vw - 2rem)',
+        transform: 'var(--y) translateX(-50%)',
+      },
+    });
   };
 
   const handleCopy = async (format: ResumeFormat) => {

@@ -9,7 +9,6 @@
     "resume-copy": "이력서 복사",
     "resume-copy-summary": "요약본 복사",
     "resume-copy-detailed": "상세본 복사",
-    "resume-copy-complete": "복사 완료",
     "resume-copy-summary-success": "이력서 요약본을 복사했어요",
     "resume-copy-detailed-success": "이력서 상세본을 복사했어요",
     "resume-copy-failure": "복사하지 못했어요. 다시 시도해 주세요"
@@ -24,7 +23,6 @@
     "resume-copy": "Copy Resume",
     "resume-copy-summary": "Copy Summary",
     "resume-copy-detailed": "Copy Detailed Resume",
-    "resume-copy-complete": "Copied",
     "resume-copy-summary-success": "Resume summary copied",
     "resume-copy-detailed-success": "Detailed resume copied",
     "resume-copy-failure": "Couldn't copy. Please try again."
