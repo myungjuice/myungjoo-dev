@@ -11,6 +11,8 @@ import { careerMockData } from '@/constants/career';
 import { cn } from '@/lib/utils';
 import type { CareerFilterItem } from '@/types/career';
 
+import CompanyOverview from './company-overview';
+
 type Props = {
   slug: CareerFilterItem;
 };
@@ -76,6 +78,14 @@ const CareerDetail = ({ slug }: Props) => {
               <p className='inline-block rounded text-body-sm-bold text-teal-500'>{company.role}</p>
             </div>
           </div>
+        </FadeInUp>
+
+        <FadeInUp delay={0.08}>
+          <CompanyOverview
+            role={company.role}
+            overview={company.overview}
+            language={language === 'en' ? 'en' : 'ko'}
+          />
         </FadeInUp>
 
         <div className='flex flex-col gap-5'>
