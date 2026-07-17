@@ -60,7 +60,7 @@ const ResumeCopyButton = () => {
           <button
             type='button'
             className={cn(
-              'inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none',
+              'inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none',
               copiedFormat &&
                 'bg-emerald-100 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-700'
             )}
@@ -74,10 +74,10 @@ const ResumeCopyButton = () => {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuItem onSelect={() => void handleCopy('summary')}>
+          <DropdownMenuItem className='cursor-pointer' onSelect={() => void handleCopy('summary')}>
             {t('resume-copy-summary')}
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => void handleCopy('detailed')}>
+          <DropdownMenuItem className='cursor-pointer' onSelect={() => void handleCopy('detailed')}>
             {t('resume-copy-detailed')}
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -87,7 +87,7 @@ const ResumeCopyButton = () => {
           role='status'
           aria-live='polite'
           className={cn(
-            'fixed right-4 bottom-4 z-50 rounded-md px-4 py-3 text-sm shadow-lg',
+            'fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-md px-4 py-3 text-sm shadow-lg',
             toast.variant === 'success'
               ? 'bg-emerald-600 text-white'
               : 'text-destructive-foreground bg-destructive'

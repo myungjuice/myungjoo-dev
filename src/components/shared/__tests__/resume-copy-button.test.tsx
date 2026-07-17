@@ -64,11 +64,18 @@ describe('ResumeCopyButton 컴포넌트', () => {
     Object.assign(navigator.clipboard, { writeText });
 
     render(<ResumeCopyButton />);
+    expect(screen.getByRole('button', { name: '이력서 복사' })).toHaveClass('cursor-pointer');
+
     await user.click(screen.getByRole('button', { name: '이력서 복사' }));
+
+    expect(screen.getByRole('menuitem', { name: '요약본 복사' })).toHaveClass('cursor-pointer');
+    expect(screen.getByRole('menuitem', { name: '상세본 복사' })).toHaveClass('cursor-pointer');
+
     await user.click(screen.getByRole('menuitem', { name: '요약본 복사' }));
 
     expect(writeText).toHaveBeenCalledWith(expect.stringContaining('# 장명주'));
     expect(screen.getByRole('status')).toHaveTextContent('요약본을 복사했어요');
+    expect(screen.getByRole('status')).toHaveClass('top-4', 'left-1/2', '-translate-x-1/2');
     expect(screen.getByRole('button', { name: '복사 완료' })).toBeInTheDocument();
   });
 
@@ -83,6 +90,7 @@ describe('ResumeCopyButton 컴포넌트', () => {
     await user.click(screen.getByRole('menuitem', { name: '상세본 복사' }));
 
     expect(screen.getByRole('status')).toHaveTextContent('복사하지 못했어요. 다시 시도해 주세요');
+    expect(screen.getByRole('status')).toHaveClass('top-4', 'left-1/2', '-translate-x-1/2');
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 
