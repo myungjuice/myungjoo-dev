@@ -1,4 +1,25 @@
+import * as careerConstants from '@/constants/career';
+
 import { createResumeText } from '../resume-copy';
+
+const createResumeTextWithCareerData = (
+  careerMockData: typeof careerConstants.careerMockData,
+  format: 'summary' | 'detailed'
+) => {
+  let result = '';
+
+  jest.isolateModules(() => {
+    jest.doMock('@/constants/career', () => ({
+      ...jest.requireActual<typeof import('@/constants/career')>('@/constants/career'),
+      careerMockData,
+    }));
+
+    const resumeCopy = jest.requireActual<typeof import('../resume-copy')>('../resume-copy');
+    result = resumeCopy.createResumeText('ko', format);
+  });
+
+  return result;
+};
 
 describe('createResumeText', () => {
   it('한국어 요약본에 소개, 기술, 경력, 프로젝트, 링크를 포함한다', () => {
@@ -38,5 +59,68 @@ describe('createResumeText', () => {
 
   it('케이스 스터디가 없는 프로젝트도 상세본 생성에 실패하지 않는다', () => {
     expect(() => createResumeText('ko', 'detailed')).not.toThrow();
+  });
+
+  it('한국어 요약본에는 회사별 주요 성과를 포함하고 전반적 기여는 포함하지 않는다', () => {
+    const result = createResumeText('ko', 'summary');
+
+    expect(result).toContain('주요 성과: 사전과제 검토 시간 약 30% 단축');
+    expect(result).not.toContain('채용·코드리뷰·디자인시스템·개발환경·사내 운영 도구');
+  });
+
+  it('영어 상세본에는 회사별 전반적 기여와 주요 성과를 포함한다', () => {
+    const result = createResumeText('en', 'detailed');
+
+    expect(result).toContain('### Contribution');
+    expect(result).toContain('### Key Achievements');
+    expect(result).toContain('Combined frontend development and acting team-lead responsibilities');
+    expect(result).toContain('Reduced pre-assignment review time by about 30%');
+  });
+
+  it('개요가 없는 회사는 빈 주요 성과 제목이나 불릿을 만들지 않는다', () => {
+    const result = createResumeTextWithCareerData(
+      {
+        ...careerConstants.careerMockData,
+        ko: Object.fromEntries(
+          careerConstants.careerFilterList.map(careerId => [
+            careerId,
+            { ...careerConstants.careerMockData.ko[careerId], overview: undefined },
+          ])
+        ) as typeof careerConstants.careerMockData.ko,
+      },
+      'summary'
+    );
+
+    expect(result).not.toContain('주요 성과');
+    expect(result).not.toContain('- 주요 성과:');
+  });
+
+  it('빈 주요 성과는 제목이나 불릿을 만들지 않는다', () => {
+    const result = createResumeTextWithCareerData(
+      {
+        ...careerConstants.careerMockData,
+        ko: Object.fromEntries(
+          careerConstants.careerFilterList.map(careerId => [
+            careerId,
+            {
+              ...careerConstants.careerMockData.ko[careerId],
+              overview: {
+                ...careerConstants.careerMockData.ko[careerId].overview!,
+                achievements: [],
+              },
+            },
+          ])
+        ) as typeof careerConstants.careerMockData.ko,
+      },
+      'detailed'
+    );
+
+    expect(result).not.toContain('### 주요 성과');
+    expect(result).not.toContain('- 주요 성과:');
+  });
+
+  afterEach(() => {
+    jest.resetModules();
+    jest.unmock('@/constants/career');
   });
 });

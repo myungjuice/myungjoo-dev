@@ -6,6 +6,16 @@
       "period": "2025.07.21 ~",
       "slogan": "화장품 인증 대행 및 임상시험 서비스의 프론트엔드 개발과 팀 운영을 병행",
       "role": "Frontend Developer (임시 팀장)",
+      "overview": {
+        "contribution": "화장품 인증·임상시험 서비스의 프론트엔드 개발과 임시 팀장 역할을 병행하며, 채용·코드리뷰·디자인시스템·개발환경·사내 운영 도구 전반의 자동화와 표준화를 주도.",
+        "achievements": [
+          "사전과제 검토 시간 약 30% 단축",
+          "월 60회 이상 PR에 AI 1차 리뷰 적용",
+          "46개 컴포넌트를 재사용 패키지로 분리",
+          "로컬 구동 시간을 약 10분에서 5~10초로 단축",
+          "전사 직원 50% 이상이 사용하는 ERP 구축"
+        ]
+      },
       "logoUrl": "/images/cdri.jpg",
       "imageClassName": "",
       "projects": [
@@ -140,6 +150,15 @@
       "period": "2021.06.01 ~ 2024.12.31",
       "slogan": "PlayDapp 생태계 내에서 블록체인 기반 프론트엔드 플랫폼(마켓, 포털, 미니앱 등) 개발",
       "role": "Frontend Developer (React)",
+      "overview": {
+        "contribution": "PlayDapp 생태계의 마켓·포털·미니앱 등 블록체인 기반 서비스를 React와 Next.js로 개발하며, 신규 서비스 출시부터 대형 마켓 리빌딩과 운영 기능 고도화까지 담당.",
+        "achievements": [
+          "PlayDapp Marketplace의 Ethereum·Polygon 레포지토리 통합",
+          "JavaScript에서 TypeScript, React에서 Next.js로 전환",
+          "Solana 네트워크 및 NFT 합성 기능 확장",
+          "브랜드 사이트 3개 순차 런칭"
+        ]
+      },
       "logoUrl": "/images/supertree.svg",
       "imageClassName": "p-[15%]",
       "projects": [
@@ -239,6 +258,14 @@
       "period": "2019.08.12 ~ 2021.05.30",
       "slogan": "광고 통합 플랫폼과 AI 분석 서비스의 프론트엔드를 React 기반으로 주도 개발",
       "role": "Frontend Developer (React)",
+      "overview": {
+        "contribution": "광고 통합 플랫폼과 AI 분석 서비스의 프론트엔드를 주도하며, 화면 기획·API 연동·배포부터 데이터 시각화와 운영 도구 개발까지 폭넓게 담당.",
+        "achievements": [
+          "Facebook·Google 광고 데이터와 SNS 분석 결과를 통합한 광고주 플랫폼 구축",
+          "KBS·한국마이크로소프트 수요기업 공모전 최종 선정",
+          "수동 수집 업무를 조건 기반 자동 수집 플랫폼으로 전환"
+        ]
+      },
       "logoUrl": "/images/d.dive.png",
       "imageClassName": "p-[5%]",
       "projects": [
@@ -335,6 +362,15 @@
       "period": "2017.07.17 ~ 2019.06.30",
       "slogan": "자사 쇼핑몰 신규 개발 및 유지보수, 편의점 결제 서비스와 Web 기반 POS 시스템 개발",
       "role": "Fullstack Developer (ASP, MSSQL)",
+      "overview": {
+        "contribution": "ASP와 MSSQL 기반으로 자사 쇼핑몰, 결제 서비스, 주문 관리, Web POS 등 커머스 운영에 필요한 웹 시스템을 풀스택으로 개발·유지보수.",
+        "achievements": [
+          "OPWEE 반응형 쇼핑몰 런칭",
+          "10대 고객층을 위한 편의점 결제 서비스 오픈",
+          "다수 제휴처의 주문·배송을 통합 관리하는 관리자 시스템 구축",
+          "홍대 오프라인 매장용 Web POS 현장 도입"
+        ]
+      },
       "logoUrl": "/images/ellen.png",
       "imageClassName": "",
       "projects": [
@@ -418,6 +454,16 @@
       "period": "2025.07.21 ~",
       "slogan": "Led frontend development and team operations for cosmetic certification and clinical testing services",
       "role": "Frontend Developer (Acting Team Lead)",
+      "overview": {
+        "contribution": "Combined frontend development and acting team-lead responsibilities for cosmetic certification and clinical testing services, leading automation and standardization across hiring, code review, design systems, development environments, and internal operations.",
+        "achievements": [
+          "Reduced pre-assignment review time by about 30%",
+          "Automated first-pass review for 60+ PRs per month",
+          "Extracted 46 reusable components into a package",
+          "Reduced local startup from about 10 minutes to 5–10 seconds",
+          "Delivered an ERP used by 50%+ of the company"
+        ]
+      },
       "logoUrl": "/images/cdri.jpg",
       "imageClassName": "",
       "projects": [
@@ -552,6 +598,15 @@
       "period": "2021.06.01 ~ 2024.12.31",
       "slogan": "Developed blockchain-based frontend platforms within the PlayDapp ecosystem, including marketplaces, portals, and mini-apps",
       "role": "Frontend Developer (React, Next.js)",
+      "overview": {
+        "contribution": "Developed blockchain-based marketplace, portal, and mini-app services in the PlayDapp ecosystem with React and Next.js, covering launches, large-scale marketplace rebuilding, and operational enhancements.",
+        "achievements": [
+          "Unified Ethereum and Polygon marketplace repositories",
+          "Migrated JavaScript to TypeScript and React to Next.js",
+          "Expanded support with Solana and NFT synthesis",
+          "Launched three brand sites"
+        ]
+      },
       "logoUrl": "/images/supertree.svg",
       "imageClassName": "p-[15%]",
       "projects": [
@@ -653,6 +708,14 @@
       "period": "2019.08.12 ~ 2021.05.30",
       "slogan": "Led frontend development of integrated advertising platforms and AI analytics services using React",
       "role": "Frontend Developer (React)",
+      "overview": {
+        "contribution": "Led frontend work for integrated advertising platforms and AI analytics services, covering UI planning, API integration, deployment, data visualization, and operational tooling.",
+        "achievements": [
+          "Built an advertiser platform unifying Facebook/Google data with SNS analysis",
+          "Selected as a finalist for a KBS and Microsoft Korea demand-company competition",
+          "Replaced manual collection with a condition-based automated data platform"
+        ]
+      },
       "logoUrl": "/images/d.dive.png",
       "imageClassName": "p-[5%]",
       "projects": [
@@ -751,6 +814,15 @@
       "period": "2017.07.17 ~ 2019.06.30",
       "slogan": "Developed and maintained proprietary e-commerce systems including shopping mall, convenience store payment, and web-based POS",
       "role": "Fullstack Developer (ASP, MSSQL)",
+      "overview": {
+        "contribution": "Developed and maintained commerce systems with ASP and MSSQL, including an in-house shopping mall, payment service, order management, and web-based POS.",
+        "achievements": [
+          "Launched the responsive OPWEE shopping mall",
+          "Opened convenience-store payments for teenage customers",
+          "Built a unified order and shipping admin system for multiple partners",
+          "Deployed a web POS for the Hongdae offline store"
+        ]
+      },
       "logoUrl": "/images/ellen.png",
       "imageClassName": "",
       "projects": [
