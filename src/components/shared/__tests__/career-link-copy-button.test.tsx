@@ -8,6 +8,7 @@ import CareerDetail from '@/app/career/[slug]/_components/career-detail';
 import CareerLinkCopyButton from '../career-link-copy-button';
 
 const originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+let mockLanguage = 'ko';
 
 jest.mock('next-themes', () => ({
   useTheme: () => ({ resolvedTheme: 'dark' }),
@@ -27,7 +28,7 @@ jest.mock('next/link', () => ({
 }));
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    i18n: { language: 'ko' },
+    i18n: { language: mockLanguage },
     t: (key: string) => {
       if (key === 'resume-copy-failure') {
         return '복사하지 못했어요. 다시 시도해 주세요';
@@ -54,6 +55,7 @@ jest.mock('sonner', () => ({
 describe('CareerLinkCopyButton 컴포넌트', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockLanguage = 'ko';
     Object.defineProperty(navigator, 'clipboard', {
       configurable: true,
       value: { writeText: jest.fn() },
@@ -138,10 +140,50 @@ describe('CareerLinkCopyButton 컴포넌트', () => {
     expect(screen.getByText('복사하지 못했어요. 다시 시도해 주세요')).toBeInTheDocument();
   });
 
-  it('회사 헤더와 모든 케이스 스터디 헤더에 링크 복사 버튼을 연결한다', () => {
+  it('회사와 6개 케이스 스터디 헤더에서 실제 앵커 URL을 복사한다', async () => {
+    const user = userEvent.setup();
+    const writeText = jest.fn().mockResolvedValue(undefined);
+    Object.assign(navigator.clipboard, { writeText });
+
     render(<CareerDetail slug='cdri' />);
 
-    expect(screen.getByRole('button', { name: '회사 링크 복사' })).toBeInTheDocument();
-    expect(screen.getAllByRole('button', { name: '케이스 스터디 링크 복사' })).toHaveLength(6);
+    const [firstProjectCopyButton] = screen.getAllByRole('button', {
+      name: '케이스 스터디 링크 복사',
+    });
+    expect(firstProjectCopyButton.parentElement).toHaveClass('shrink-0');
+    expect(firstProjectCopyButton.parentElement?.previousElementSibling).toHaveClass(
+      'min-w-0',
+      'flex-1'
+    );
+
+    await user.click(screen.getByRole('button', { name: '회사 링크 복사' }));
+    for (const button of screen.getAllByRole('button', { name: '케이스 스터디 링크 복사' })) {
+      await user.click(button);
+    }
+
+    expect(writeText.mock.calls.map(([url]) => url)).toEqual([
+      'https://www.myungjoo.dev/career/cdri',
+      'https://www.myungjoo.dev/career/cdri#project-1',
+      'https://www.myungjoo.dev/career/cdri#project-2',
+      'https://www.myungjoo.dev/career/cdri#project-3',
+      'https://www.myungjoo.dev/career/cdri#project-4',
+      'https://www.myungjoo.dev/career/cdri#project-5',
+      'https://www.myungjoo.dev/career/cdri#project-6',
+    ]);
+  });
+
+  it('영문 헤더는 영문 접근 가능한 이름과 성공 메시지를 전달한다', async () => {
+    const user = userEvent.setup();
+    mockLanguage = 'en';
+    Object.assign(navigator.clipboard, { writeText: jest.fn().mockResolvedValue(undefined) });
+
+    render(<CareerDetail slug='cdri' />);
+
+    await user.click(screen.getByRole('button', { name: 'Copy company link' }));
+    expect(screen.getAllByRole('button', { name: 'Copy case study link' })).toHaveLength(6);
+
+    const renderToast = jest.mocked(toast.custom).mock.calls[0][0];
+    render(renderToast('success-toast'));
+    expect(screen.getByText('Company page link copied')).toBeInTheDocument();
   });
 });

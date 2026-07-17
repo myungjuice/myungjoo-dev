@@ -120,19 +120,19 @@ const CareerDetail = ({ slug }: Props) => {
                 className='w-full scroll-mt-16 space-y-2 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'
               >
                 <div className='-mx-5 -mt-5 mb-3 flex items-center justify-between gap-2 rounded-t-lg bg-slate-200 px-5 py-3 dark:bg-slate-700'>
-                  <div className='border-slate-400 sm:border-l-4 sm:px-2'>
+                  <div className='min-w-0 flex-1 border-slate-400 sm:border-l-4 sm:px-2'>
                     <p className='text-body-md-bold wrap-break-word text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
                       {project.title}
                     </p>
                   </div>
-                  <div className='flex items-center'>
+                  <div className='flex shrink-0 items-center gap-2'>
                     <CareerLinkCopyButton
                       slug={slug}
                       projectId={project.id}
                       label={linkCopyText.projectLabel}
                       successMessage={linkCopyText.projectSuccess}
                     />
-                    <span className='shrink-0 text-body-sm text-slate-400 tabular-nums dark:text-slate-500'>
+                    <span className='text-body-sm text-slate-400 tabular-nums dark:text-slate-500'>
                       {String(idx + 1).padStart(2, '0')} /{' '}
                       {String(company.projects.length).padStart(2, '0')}
                     </span>
