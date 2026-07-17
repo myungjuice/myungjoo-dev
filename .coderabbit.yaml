@@ -5,7 +5,7 @@ tone_instructions: '한국어로 간결하고 실용적으로 리뷰하세요. �
 
 reviews:
   profile: assertive # 더 꼼꼼한 피드백 (사소한 지적 포함). 부담되면 chill로.
-  request_changes_workflow: false
+  request_changes_workflow: true
   high_level_summary: true # PR 설명에 변경 요약 자동 생성
   poem: false # 하이쿠/시 비활성화 (노이즈 감소)
 
