@@ -1,9 +1,11 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import { useTranslation } from 'react-i18next';
 import { FiCopy } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+import ResumeCopyToast from '@/components/shared/resume-copy-toast';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,13 +18,19 @@ import { useLangStore } from '@/store/use-lang-store';
 const ResumeCopyButton = () => {
   const lang = useLangStore(state => state.lang);
   const { t } = useTranslation('header');
+  const { resolvedTheme } = useTheme();
+  const theme = resolvedTheme === 'dark' ? 'dark' : 'light';
+
+  const showCopyToast = (type: 'success' | 'error', message: string) => {
+    toast.custom(id => <ResumeCopyToast key={id} message={message} theme={theme} type={type} />);
+  };
 
   const handleCopy = async (format: ResumeFormat) => {
     try {
       await navigator.clipboard.writeText(createResumeText(lang, format));
-      toast.success(t(`resume-copy-${format}-success`));
+      showCopyToast('success', t(`resume-copy-${format}-success`));
     } catch {
-      toast.error(t('resume-copy-failure'));
+      showCopyToast('error', t('resume-copy-failure'));
     }
   };
 

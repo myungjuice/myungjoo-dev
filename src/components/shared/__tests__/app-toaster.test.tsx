@@ -23,7 +23,7 @@ describe('AppToaster 컴포넌트', () => {
     mockResolvedTheme = 'dark';
   });
 
-  it('해석된 사이트 테마와 컴팩트한 Sonner 설정을 전달한다', () => {
+  it('해석된 사이트 테마와 Sonner 수명 주기 설정을 전달한다', () => {
     render(<AppToaster />);
 
     const toasterProps = mockToaster.mock.calls[0][0];
@@ -32,18 +32,10 @@ describe('AppToaster 컴포넌트', () => {
       theme: 'dark',
       position: 'top-center',
       duration: 3000,
-      richColors: true,
-      style: {
-        '--width': 'min(240px, calc(100vw - 2rem))',
-      },
     });
-    expect(toasterProps.toastOptions.classNames.toast).toContain('!py-2');
-    expect(toasterProps.toastOptions.classNames).toMatchObject({
-      toast: expect.stringContaining('!min-h-0 !px-3 !py-2'),
-      icon: '!size-4',
-      content: '!gap-2',
-      title: '!text-sm',
-    });
+    expect(toasterProps).not.toHaveProperty('richColors');
+    expect(toasterProps).not.toHaveProperty('style');
+    expect(toasterProps).not.toHaveProperty('toastOptions');
   });
 
   it('해석할 수 없는 테마에는 system을 전달한다', () => {
