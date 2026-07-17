@@ -16,6 +16,11 @@ export type CareerProject = {
   caseStudy?: CaseStudy;
 };
 
+export type CareerOverview = {
+  contribution: string;
+  achievements: string[];
+};
+
 export type CareerCompany = {
   id: CareerFilterItem;
   name: string;
@@ -25,5 +30,6 @@ export type CareerCompany = {
   tags?: string[];
   logoUrl?: string;
   imageClassName?: string;
+  overview?: CareerOverview;
   projects: CareerProject[];
 };
