@@ -187,8 +187,13 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               ))}
             </div>
           </aside>
-          <section className='min-h-[420px] bg-slate-100 p-3 dark:bg-slate-800'>
-            <PDFViewer showToolbar={false} width='100%' height='100%' className='min-h-[520px]'>
+          <section className='min-h-[420px] border-0 bg-slate-100 p-3 dark:bg-slate-800 [&>iframe]:border-0'>
+            <PDFViewer
+              showToolbar={false}
+              width='100%'
+              height='100%'
+              className='min-h-[520px] border-0'
+            >
               <ResumePdfDocument data={data} />
             </PDFViewer>
           </section>
