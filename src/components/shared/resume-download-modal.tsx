@@ -78,7 +78,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               onClose();
               requestAnimationFrame(() => triggerRef?.current?.focus());
             }}
-            className='rounded p-1 hover:bg-slate-800'
+            className='cursor-pointer rounded p-1 hover:bg-slate-800'
           >
             <FiX />
           </button>
@@ -124,7 +124,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                       ref={key === 'language' ? firstControlRef : undefined}
                       aria-pressed={selection[key as keyof typeof selection] === value}
                       onClick={() => set(key as keyof typeof selection, value)}
-                      className={`rounded border px-3 py-2 text-sm ${selection[key as keyof typeof selection] === value ? 'border-cyan-400 bg-cyan-500/20 text-cyan-200' : 'border-slate-600 hover:border-slate-400'}`}
+                      className={`cursor-pointer rounded border px-3 py-2 text-sm ${selection[key as keyof typeof selection] === value ? 'border-cyan-400 bg-cyan-500/20 text-cyan-200' : 'border-slate-600 hover:border-slate-400'}`}
                     >
                       {text}
                     </button>
@@ -139,7 +139,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                   type='button'
                   onClick={() => set('template', templateId)}
                   aria-label={`${t('resume-download-template')} ${templateId}`}
-                  className={`rounded border p-2 ${selection.template === templateId ? 'border-cyan-400' : 'border-slate-700'}`}
+                  className={`cursor-pointer rounded border p-2 ${selection.template === templateId ? 'border-cyan-400' : 'border-slate-700'}`}
                 >
                   <div className='h-16 bg-white p-2 text-[5px] text-slate-800'>
                     {templateId === 'A' && (
@@ -196,7 +196,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         <footer className='flex justify-end border-t border-slate-700 p-4'>
           <button
             type='button'
-            className='rounded bg-cyan-600 px-4 py-2 font-medium hover:bg-cyan-500'
+            className='cursor-pointer rounded bg-cyan-600 px-4 py-2 font-medium hover:bg-cyan-500'
             onClick={async () => {
               try {
                 const blob = await pdf(<ResumePdfDocument data={data} />).toBlob();
