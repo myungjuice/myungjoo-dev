@@ -71,7 +71,6 @@ export function TemplateA({ data }: { data: ResumePdfDocumentData }) {
         <Link src={data.portfolio.href} style={s.link}>
           {data.portfolio.name} ↗
         </Link>
-        <Text>{data.portfolio.description}</Text>
         {data.links.map(link => (
           <Link key={link.label} src={link.href} style={s.link}>
             {link.label} ↗

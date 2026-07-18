@@ -37,7 +37,7 @@ export const resumeLabels = {
   ko: {
     skills: '기술 스택',
     careers: '경력',
-    projects: '프로젝트',
+    projects: '참고 링크',
     intro: '소개',
     detailCta: '자세한 경력과 프로젝트는 포트폴리오에서 확인해 주세요',
     site: '사이트',
@@ -47,7 +47,7 @@ export const resumeLabels = {
   en: {
     skills: 'Skills',
     careers: 'Experience',
-    projects: 'Projects',
+    projects: 'Reference links',
     intro: 'About',
     detailCta: 'See the full career and project details on my portfolio',
     site: 'Website',
