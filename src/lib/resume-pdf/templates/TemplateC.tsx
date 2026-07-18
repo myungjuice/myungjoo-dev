@@ -45,6 +45,13 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
               {data.format === 'detailed' && c.contribution ? (
                 <Text style={s.text}>{c.contribution}</Text>
               ) : null}
+              {data.format === 'detailed' && c.achievements.length > 0
+                ? c.achievements.map(a => (
+                    <Text key={a} style={s.project}>
+                      • {a}
+                    </Text>
+                  ))
+                : null}
               {c.projects.map(p => (
                 <View key={p.id} style={s.project}>
                   <Link src={p.href} style={[s.projectName, s.link]}>
