@@ -31,7 +31,7 @@ const DialogContent = ({ className, children, closeLabel, ...props }: DialogCont
         aria-label={closeLabel}
         className='absolute top-4 right-4 inline-flex size-6 cursor-pointer items-center justify-center rounded-sm transition-colors hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none dark:hover:bg-slate-800'
       >
-        <FiX aria-hidden='true' className='size-4' />
+        <FiX aria-hidden='true' className='size-6' />
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPrimitive.Portal>
