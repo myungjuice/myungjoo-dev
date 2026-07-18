@@ -1,7 +1,7 @@
 'use client';
 
 import { PDFViewer, pdf } from '@react-pdf/renderer';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiX } from 'react-icons/fi';
 
@@ -9,24 +9,31 @@ import { createResumePdfData } from '@/lib/resume-pdf/data';
 import { ResumePdfDocument } from '@/lib/resume-pdf/ResumePdfDocument';
 import type { ResumePdfFormat, ResumePdfLanguage, ResumePdfTemplate } from '@/lib/resume-pdf/types';
 
-type Props = { open: boolean; onClose: () => void };
+type Props = { open: boolean; onClose: () => void; triggerRef?: RefObject<HTMLButtonElement> };
 const defaults = {
   language: 'ko' as ResumePdfLanguage,
   format: 'summary' as ResumePdfFormat,
   template: 'A' as ResumePdfTemplate,
 };
 
-export default function ResumeDownloadModal({ open, onClose }: Props) {
+export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props) {
   const { t } = useTranslation('header');
   const [selection, setSelection] = useState(defaults);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const firstControlRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    if (open) setSelection(defaults);
+    if (open) {
+      setSelection(defaults);
+      requestAnimationFrame(() => firstControlRef.current?.focus());
+    }
   }, [open]);
   useEffect(() => {
     if (!open) return;
     const fn = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        requestAnimationFrame(() => triggerRef?.current?.focus());
+      }
     };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
@@ -62,7 +69,10 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
           <button
             type='button'
             aria-label={t('resume-download-close')}
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              requestAnimationFrame(() => triggerRef?.current?.focus());
+            }}
             className='rounded p-1 hover:bg-slate-800'
           >
             <FiX />
@@ -92,9 +102,9 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
                   'template',
                   t('resume-download-template'),
                   [
-                    ['A', 'A · 계층형'],
-                    ['B', 'B · 프로필 패널'],
-                    ['C', 'C · 타임라인'],
+                    ['A', t('resume-download-template-a')],
+                    ['B', t('resume-download-template-b')],
+                    ['C', t('resume-download-template-c')],
                   ],
                 ],
               ] as const
@@ -106,6 +116,7 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
                     <button
                       key={value}
                       type='button'
+                      ref={key === 'language' ? firstControlRef : undefined}
                       aria-pressed={selection[key as keyof typeof selection] === value}
                       onClick={() => set(key as keyof typeof selection, value)}
                       className={`rounded border px-3 py-2 text-sm ${selection[key as keyof typeof selection] === value ? 'border-cyan-400 bg-cyan-500/20 text-cyan-200' : 'border-slate-600 hover:border-slate-400'}`}
@@ -116,24 +127,57 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
                 </div>
               </fieldset>
             ))}
-            <div className='grid grid-cols-3 gap-2' aria-label='템플릿 미리보기'>
-              {(['A', 'B', 'C'] as ResumePdfTemplate[]).map(t => (
+            <div className='grid grid-cols-3 gap-2' aria-label={t('resume-download-template')}>
+              {(['A', 'B', 'C'] as ResumePdfTemplate[]).map(templateId => (
                 <button
-                  key={t}
+                  key={templateId}
                   type='button'
-                  onClick={() => set('template', t)}
-                  aria-label={`템플릿 ${t}`}
-                  className={`rounded border p-2 ${selection.template === t ? 'border-cyan-400' : 'border-slate-700'}`}
+                  onClick={() => set('template', templateId)}
+                  aria-label={`${t('resume-download-template')} ${templateId}`}
+                  className={`rounded border p-2 ${selection.template === templateId ? 'border-cyan-400' : 'border-slate-700'}`}
                 >
-                  <div
-                    className={`h-16 bg-white p-2 ${t === 'B' ? 'grid grid-cols-[35%_65%] gap-1' : t === 'C' ? 'space-y-1' : ''}`}
-                  >
-                    {t === 'B' && <span className='row-span-3 bg-slate-200' />}
-                    <span className='block h-1 w-2/3 bg-slate-800' />
-                    <span className='block h-1 w-full bg-slate-300' />
-                    <span className='block h-1 w-4/5 bg-slate-300' />
+                  <div className='h-16 bg-white p-2 text-[5px] text-slate-800'>
+                    {templateId === 'A' && (
+                      <>
+                        <div className='mb-1 h-2 w-2/3 bg-slate-800' />
+                        <div className='mb-1 h-px bg-slate-400' />
+                        <div className='h-1 w-full bg-slate-300' />
+                        <div className='mt-1 h-1 w-4/5 bg-slate-300' />
+                      </>
+                    )}
+                    {templateId === 'B' && (
+                      <div className='grid h-full grid-cols-[35%_65%] gap-1'>
+                        <div className='bg-slate-200 p-1'>
+                          <div className='h-1 w-full bg-slate-700' />
+                          <div className='mt-1 h-1 w-3/4 bg-slate-400' />
+                        </div>
+                        <div>
+                          <div className='h-1 w-2/3 bg-slate-800' />
+                          <div className='mt-2 h-px bg-slate-400' />
+                          <div className='mt-1 h-1 w-full bg-slate-300' />
+                          <div className='mt-1 h-1 w-4/5 bg-slate-300' />
+                        </div>
+                      </div>
+                    )}
+                    {templateId === 'C' && (
+                      <>
+                        <div className='mb-1 flex justify-between'>
+                          <span className='h-2 w-1/3 bg-slate-800' />
+                          <span className='h-1 w-1/4 bg-slate-400' />
+                        </div>
+                        <div className='border-l-2 border-slate-500 pl-1'>
+                          <div className='h-1 w-full bg-slate-300' />
+                          <div className='mt-1 h-1 w-3/4 bg-slate-300' />
+                        </div>
+                        <div className='mt-2 border-l-2 border-slate-500 pl-1'>
+                          <div className='h-1 w-4/5 bg-slate-300' />
+                        </div>
+                      </>
+                    )}
                   </div>
-                  <span className='text-xs'>{t}</span>
+                  <span className='text-xs'>
+                    {t(`resume-download-template-${templateId.toLowerCase()}`)}
+                  </span>
                 </button>
               ))}
             </div>
@@ -155,7 +199,7 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
               a.href = url;
               a.download = `resume-${selection.language}-${selection.format}-${selection.template}.pdf`;
               a.click();
-              URL.revokeObjectURL(url);
+              setTimeout(() => URL.revokeObjectURL(url), 1000);
             }}
           >
             {t('resume-download-pdf')}
