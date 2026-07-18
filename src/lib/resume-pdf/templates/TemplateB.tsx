@@ -29,7 +29,7 @@ export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
         <View style={s.section}>
           <Text style={s.sectionTitle}>{l.careers}</Text>
           {data.careers.map(c => (
-            <View key={c.id} style={s.career} wrap={false}>
+            <View key={c.id} style={s.career} wrap>
               <Link src={c.href} style={[s.careerName, s.link]}>
                 {c.name} ↗
               </Link>
