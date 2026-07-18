@@ -50,7 +50,8 @@ describe('ResumePdfDocument templates', () => {
     const data = createResumePdfData('en', 'detailed', 'B');
     expect(data.name).toBe('MyungJoo Jang');
     expect(data.bio.toLowerCase()).toContain('frontend');
-    expect(data.links.some(link => link.href === data.baseUrl)).toBe(true);
+    expect(data.links.some(link => link.href === data.baseUrl)).toBe(false);
+    expect(data.links.some(link => link.label === 'LinkedIn')).toBe(true);
     expect(data.portfolio.githubUrl).toMatch(/^https?:\/\//);
   });
 

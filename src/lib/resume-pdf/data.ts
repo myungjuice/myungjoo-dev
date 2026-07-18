@@ -105,7 +105,7 @@ export const createResumePdfData = (
       href: `${parsedBaseUrl}/projects`,
       githubUrl: portfolio.githubUrl,
     },
-    links: [{ label: 'Website', href: parsedBaseUrl }, ...links],
+    links,
     baseUrl: parsedBaseUrl,
   };
 };
