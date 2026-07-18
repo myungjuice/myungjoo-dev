@@ -1,7 +1,7 @@
 import { StyleSheet } from '@react-pdf/renderer';
 
 export const pdfStyles = StyleSheet.create({
-  page: { padding: 42, fontSize: 9, color: '#182033', fontFamily: 'Helvetica' },
+  page: { padding: 42, fontSize: 9, color: '#182033', fontFamily: 'Noto Sans KR' },
   header: { marginBottom: 18 },
   name: { fontSize: 26, fontWeight: 700, marginBottom: 5 },
   title: { fontSize: 11, color: '#31506d' },
@@ -32,7 +32,7 @@ export const pdfStyles = StyleSheet.create({
     marginRight: 4,
     marginBottom: 4,
   },
-  panelPage: { padding: 0 },
+  panelPage: { padding: 0, fontFamily: 'Noto Sans KR' },
   panelLayout: { flexDirection: 'row', width: '100%' },
   panel: { width: '30%', backgroundColor: '#eef2f6', padding: 25 },
   panelBody: { width: '70%', padding: 30 },

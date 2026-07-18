@@ -1,12 +1,13 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
-import { join } from 'node:path';
 import React from 'react';
-import { renderToBuffer } from '@react-pdf/renderer';
+import { Font, renderToBuffer } from '@react-pdf/renderer';
+import { join } from 'node:path';
 import dataModule from '../src/lib/resume-pdf/data.ts';
 import documentModule from '../src/lib/resume-pdf/ResumePdfDocument.tsx';
 const { createResumePdfData } = dataModule;
 const { ResumePdfDocument } = documentModule;
+Font.register({ family: 'Noto Sans KR', src: join(process.cwd(), 'src/lib/resume-pdf/fonts/NotoSansKR-Regular.ttf') });
 
 const outDir = join(process.cwd(), 'tmp', 'resume-pdf-verification');
 await mkdir(outDir, { recursive: true });

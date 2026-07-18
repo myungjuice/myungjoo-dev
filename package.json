@@ -14,6 +14,7 @@
     "verify:resume-pdf": "pnpm dlx tsx scripts/verify-resume-pdf.mjs"
   },
   "dependencies": {
+    "@fontsource/noto-sans-kr": "^5.2.9",
     "@radix-ui/react-accordion": "^1.2.15",
     "@radix-ui/react-checkbox": "^1.3.6",
     "@radix-ui/react-dialog": "^1.1.19",
