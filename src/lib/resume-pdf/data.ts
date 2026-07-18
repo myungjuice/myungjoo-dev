@@ -1,5 +1,4 @@
 import { careerFilterList, careerMockData } from '@/constants/career';
-import { page } from '@/constants/metadata';
 import { projectsMockData } from '@/constants/projects';
 import about from '@/lib/i18n/about';
 
@@ -23,7 +22,7 @@ export const resolveResumeBaseUrl = (
   location?: Pick<Location, 'hostname' | 'protocol' | 'port'>
 ): string => {
   if (location?.hostname === 'localhost' || location?.hostname === '127.0.0.1') {
-    return `http://localhost:${location.port || '3000'}`;
+    return 'http://localhost:3000';
   }
   return DEPLOYED_URL;
 };
@@ -40,19 +39,31 @@ export const createResumePdfData = (
   template: ResumePdfTemplate,
   baseUrl = DEPLOYED_URL
 ): ResumePdfDocumentData => {
+  const parsedBaseUrl = (() => {
+    try {
+      const parsed = new URL(baseUrl);
+      return parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'
+        ? 'http://localhost:3000'
+        : DEPLOYED_URL;
+    } catch {
+      return DEPLOYED_URL;
+    }
+  })();
   const localizedAbout = about[language];
   const careers = careerFilterList.map(id => {
     const career = careerMockData[language][id];
     return {
       ...career,
       id,
-      href: `${baseUrl}/career/${id}`,
-      contribution: career.overview?.contribution,
-      achievements: career.overview?.achievements ?? [],
-      projects: career.projects.map(project => ({
-        ...project,
-        href: `${baseUrl}/career/${id}#project-${project.id}`,
-      })),
+      href: `${parsedBaseUrl}/career/${id}`,
+      contribution: format === 'detailed' ? career.overview?.contribution : undefined,
+      achievements: format === 'detailed' ? (career.overview?.achievements ?? []) : [],
+      projects: (format === 'detailed' ? career.projects : career.projects.slice(0, 1)).map(
+        project => ({
+          ...project,
+          href: `${parsedBaseUrl}/career/${id}#project-${project.id}`,
+        })
+      ),
     };
   });
   const portfolio = projectsMockData[language].portfolio;
@@ -70,16 +81,22 @@ export const createResumePdfData = (
     template,
     name: language === 'ko' ? '장명주' : 'MyungJoo Jang',
     title: language === 'ko' ? 'Frontend Developer' : 'Frontend Developer',
-    bio: stripComment(localizedAbout.bio).join(' '),
-    skills: stripComment(localizedAbout['hard-skills']),
+    bio: (format === 'detailed'
+      ? stripComment(localizedAbout.bio)
+      : stripComment(localizedAbout.bio).slice(0, 2)
+    ).join(' '),
+    skills:
+      format === 'detailed'
+        ? stripComment(localizedAbout['hard-skills'])
+        : stripComment(localizedAbout['hard-skills']).slice(0, 5),
     careers,
     portfolio: {
       name: portfolio.name,
       description: portfolio.description.trim(),
-      href: `${baseUrl}/projects`,
+      href: `${parsedBaseUrl}/projects`,
       githubUrl: portfolio.githubUrl,
     },
-    links: [{ label: 'Portfolio', href: page.root.url }, ...links],
-    baseUrl,
+    links: [{ label: 'Portfolio', href: parsedBaseUrl }, ...links],
+    baseUrl: parsedBaseUrl,
   };
 };
