@@ -8,7 +8,7 @@ import type {
   ResumePdfTemplate,
 } from './types';
 
-const DEPLOYED_URL = 'https://www.myungjoo.dev';
+const DEPLOYED_URL = resumeContent.ko.links.website;
 
 export const resolveResumeBaseUrl = (
   location?: Pick<Location, 'hostname' | 'protocol' | 'port'>
