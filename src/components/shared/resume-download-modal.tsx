@@ -4,10 +4,11 @@ import { PDFViewer, pdf } from '@react-pdf/renderer';
 import { useTheme } from 'next-themes';
 import { memo, useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiCopy, FiDownload, FiLoader, FiX } from 'react-icons/fi';
+import { FiCopy, FiDownload, FiLoader } from 'react-icons/fi';
 import { toast } from 'sonner';
 
 import ResumeCopyToast from '@/components/shared/resume-copy-toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { createResumeText } from '@/lib/resume-copy';
 import { createResumePdfData, createResumePdfFileName } from '@/lib/resume-pdf/data';
 import { ResumePdfDocument } from '@/lib/resume-pdf/ResumePdfDocument';
@@ -57,7 +58,6 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
   }));
   const [isPreviewLoading, setIsPreviewLoading] = useState(true);
   const viewerRef = useRef<HTMLElement>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
   const firstControlRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (open) {
@@ -66,20 +66,8 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         language: resolveResumeLanguage(i18n.language),
       });
       setIsPreviewLoading(true);
-      requestAnimationFrame(() => firstControlRef.current?.focus());
     }
   }, [i18n.language, open]);
-  useEffect(() => {
-    if (!open) return;
-    const fn = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-        requestAnimationFrame(() => triggerRef?.current?.focus());
-      }
-    };
-    window.addEventListener('keydown', fn);
-    return () => window.removeEventListener('keydown', fn);
-  }, [open, onClose]);
   useEffect(() => {
     if (!isPreviewLoading) return;
     let iframe: HTMLIFrameElement | null = null;
@@ -118,45 +106,30 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
       ),
     [selection.language, selection.format]
   );
-  if (!open) return null;
   const set = (key: keyof typeof selection, value: string) => {
     if (selection[key] === value) return;
     setIsPreviewLoading(true);
     setSelection(s => ({ ...s, [key]: value }) as typeof s);
   };
   return (
-    <div
-      className='fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-2 sm:p-4 dark:bg-black/70'
-      role='presentation'
-      onMouseDown={e => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div
-        ref={dialogRef}
-        role='dialog'
-        aria-modal='true'
-        aria-labelledby='resume-download-title'
-        className='flex h-[94vh] max-h-[98vh] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-slate-300 bg-white text-slate-900 max-md:h-[96vh] max-md:max-w-full dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
+    <Dialog open={open} onOpenChange={nextOpen => !nextOpen && onClose()}>
+      <DialogContent
+        closeLabel={t('resume-download-close')}
+        className='flex h-[94vh] max-h-[98vh] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-slate-300 bg-white p-0 text-slate-900 max-md:h-[96vh] max-md:max-w-full dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
+        onOpenAutoFocus={event => {
+          event.preventDefault();
+          requestAnimationFrame(() => firstControlRef.current?.focus());
+        }}
+        onCloseAutoFocus={event => {
+          event.preventDefault();
+          requestAnimationFrame(() => triggerRef?.current?.focus());
+        }}
       >
-        <header className='flex items-center justify-between border-b border-slate-300 px-5 py-4 dark:border-slate-700'>
-          <h2 id='resume-download-title' className='text-lg font-semibold'>
-            {t('resume-download')}
-          </h2>
-          <button
-            type='button'
-            aria-label={t('resume-download-close')}
-            onClick={() => {
-              onClose();
-              requestAnimationFrame(() => triggerRef?.current?.focus());
-            }}
-            className='cursor-pointer rounded p-1 hover:bg-slate-200 dark:hover:bg-slate-800'
-          >
-            <FiX />
-          </button>
-        </header>
+        <DialogHeader className='flex-row items-center justify-between border-b border-slate-300 px-5 py-4 dark:border-slate-700'>
+          <DialogTitle className='text-lg font-semibold'>{t('resume-download')}</DialogTitle>
+        </DialogHeader>
         <div className='flex min-h-0 flex-1 flex-col'>
-          <aside className='flex flex-wrap items-end gap-x-8 gap-y-4 border-b border-slate-300 p-4 dark:border-slate-700'>
+          <aside className='flex flex-wrap items-end gap-x-8 gap-y-4 border-b border-slate-300 p-4 pr-56 max-md:pr-4 dark:border-slate-700'>
             {(
               [
                 [
@@ -217,7 +190,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
             <ResumePdfPreview data={data} />
           </section>
         </div>
-        <footer className='flex justify-end gap-3 border-t border-slate-300 p-4 dark:border-slate-700'>
+        <footer className='absolute top-[88px] right-4 z-10 flex justify-end gap-3 border-0 p-0 max-md:top-[116px] max-md:right-2'>
           <button
             type='button'
             className='inline-flex cursor-pointer items-center gap-2 rounded border border-slate-300 bg-transparent px-4 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800'
@@ -293,7 +266,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
             {t('resume-download-pdf')}
           </button>
         </footer>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

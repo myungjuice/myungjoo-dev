@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { createRef } from 'react';
 
 import ResumeDownloadModal from '../resume-download-modal';
 
@@ -42,6 +43,28 @@ describe('ResumeDownloadModal interactions', () => {
     fireEvent.click(screen.getByRole('button', { name: 'resume-download-close' }));
     expect(onClose).toHaveBeenCalled();
     expect(screen.getByRole('button', { name: 'resume-download-pdf' })).toBeInTheDocument();
+  });
+
+  it('Escape로 닫고 트리거 버튼에 포커스를 돌려준다', async () => {
+    const onClose = jest.fn();
+    const triggerRef = createRef<HTMLButtonElement>();
+    const { rerender } = render(
+      <>
+        <button ref={triggerRef}>이력서 열기</button>
+        <ResumeDownloadModal open onClose={onClose} triggerRef={triggerRef} />
+      </>
+    );
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(onClose).toHaveBeenCalled();
+    rerender(
+      <>
+        <button ref={triggerRef}>이력서 열기</button>
+        <ResumeDownloadModal open={false} onClose={onClose} triggerRef={triggerRef} />
+      </>
+    );
+    await waitFor(() => expect(triggerRef.current).toHaveFocus());
   });
 
   it('영어 환경에서는 English를 기본 선택하고 재오픈 시 현재 언어를 반영한다', () => {
