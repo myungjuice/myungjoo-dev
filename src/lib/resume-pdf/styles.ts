@@ -19,13 +19,17 @@ export const pdfStyles = StyleSheet.create({
   text: { lineHeight: 1.45 },
   career: {
     marginBottom: 22,
-    padding: 12,
+  },
+  careerHead: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+    padding: 8,
     backgroundColor: '#f5f7fa',
     borderLeftWidth: 3,
     borderLeftColor: '#8aa4c0',
     borderRadius: 4,
   },
-  careerHead: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 3 },
   careerName: { fontWeight: 700 },
   muted: { color: '#667085' },
   project: { marginTop: 6, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: '#c8d0dc' },
@@ -46,11 +50,6 @@ export const pdfStyles = StyleSheet.create({
   timeline: { borderLeftWidth: 2, borderLeftColor: '#b8c3d1', paddingLeft: 10 },
   timelineItem: {
     marginBottom: 22,
-    padding: 12,
-    backgroundColor: '#f5f7fa',
-    borderLeftWidth: 3,
-    borderLeftColor: '#8aa4c0',
-    borderRadius: 4,
   },
   compactHeader: {
     flexDirection: 'row',
