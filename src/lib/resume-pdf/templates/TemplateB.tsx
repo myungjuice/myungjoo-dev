@@ -6,7 +6,7 @@ import { resumeLabels, type ResumePdfDocumentData } from '../types';
 export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
   const l = resumeLabels[data.language];
   return (
-    <View style={s.panelPage}>
+    <View style={s.panelLayout}>
       <View style={s.panel}>
         <Text style={s.name}>{data.name}</Text>
         <Text style={s.title}>{data.title}</Text>
