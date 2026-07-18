@@ -1,7 +1,8 @@
 'use client';
 
-import { PDFViewer } from '@react-pdf/renderer';
+import { PDFViewer, pdf } from '@react-pdf/renderer';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiX } from 'react-icons/fi';
 
 import { createResumePdfData } from '@/lib/resume-pdf/data';
@@ -16,6 +17,7 @@ const defaults = {
 };
 
 export default function ResumeDownloadModal({ open, onClose }: Props) {
+  const { t } = useTranslation('header');
   const [selection, setSelection] = useState(defaults);
   const dialogRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -55,9 +57,14 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
       >
         <header className='flex items-center justify-between border-b border-slate-700 px-5 py-4'>
           <h2 id='resume-download-title' className='text-lg font-semibold'>
-            이력서 PDF 다운로드
+            {t('resume-download')}
           </h2>
-          <button aria-label='닫기' onClick={onClose} className='rounded p-1 hover:bg-slate-800'>
+          <button
+            type='button'
+            aria-label={t('resume-download-close')}
+            onClick={onClose}
+            className='rounded p-1 hover:bg-slate-800'
+          >
             <FiX />
           </button>
         </header>
@@ -67,23 +74,23 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
               [
                 [
                   'language',
-                  '언어',
+                  t('resume-download-language'),
                   [
-                    ['ko', '국문'],
-                    ['en', '영문'],
+                    ['ko', t('resume-download-korean')],
+                    ['en', t('resume-download-english')],
                   ],
                 ],
                 [
                   'format',
-                  '분량',
+                  t('resume-download-format'),
                   [
-                    ['summary', '요약'],
-                    ['detailed', '상세'],
+                    ['summary', t('resume-download-summary')],
+                    ['detailed', t('resume-download-detailed')],
                   ],
                 ],
                 [
                   'template',
-                  '템플릿',
+                  t('resume-download-template'),
                   [
                     ['A', 'A · 계층형'],
                     ['B', 'B · 프로필 패널'],
@@ -113,16 +120,18 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
               {(['A', 'B', 'C'] as ResumePdfTemplate[]).map(t => (
                 <button
                   key={t}
+                  type='button'
                   onClick={() => set('template', t)}
                   aria-label={`템플릿 ${t}`}
                   className={`rounded border p-2 ${selection.template === t ? 'border-cyan-400' : 'border-slate-700'}`}
                 >
                   <div
-                    className={`h-16 bg-white ${t === 'B' ? 'grid grid-cols-[35%_65%]' : t === 'C' ? 'space-y-1 p-2' : 'p-2'}`}
+                    className={`h-16 bg-white p-2 ${t === 'B' ? 'grid grid-cols-[35%_65%] gap-1' : t === 'C' ? 'space-y-1' : ''}`}
                   >
+                    {t === 'B' && <span className='row-span-3 bg-slate-200' />}
                     <span className='block h-1 w-2/3 bg-slate-800' />
-                    <span className='mt-2 block h-1 w-full bg-slate-300' />
-                    <span className='mt-2 block h-1 w-4/5 bg-slate-300' />
+                    <span className='block h-1 w-full bg-slate-300' />
+                    <span className='block h-1 w-4/5 bg-slate-300' />
                   </div>
                   <span className='text-xs'>{t}</span>
                 </button>
@@ -135,6 +144,23 @@ export default function ResumeDownloadModal({ open, onClose }: Props) {
             </PDFViewer>
           </section>
         </div>
+        <footer className='flex justify-end border-t border-slate-700 p-4'>
+          <button
+            type='button'
+            className='rounded bg-cyan-600 px-4 py-2 font-medium hover:bg-cyan-500'
+            onClick={async () => {
+              const blob = await pdf(<ResumePdfDocument data={data} />).toBlob();
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `resume-${selection.language}-${selection.format}-${selection.template}.pdf`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            {t('resume-download-pdf')}
+          </button>
+        </footer>
       </div>
     </div>
   );
