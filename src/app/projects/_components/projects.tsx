@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import SectionTitle from '@/components/shared/section-title';
 import Sidebar from '@/components/sidebar';
-import { techKoMap } from '@/constants/projects';
+import { techKoMap } from '@/constants/project-ui';
 import { getMappedKey } from '@/lib/utils';
 import { useProjectsPageStore } from '@/store/use-projects-page-store';
 import type { Tech } from '@/types/projects';

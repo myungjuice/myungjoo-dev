@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 
-import { techList } from '@/constants/projects';
+import { techList } from '@/constants/project-ui';
 import { useProjectsPageStore, projectsPageStore } from '@/store/use-projects-page-store';
 
 describe('ProjectsPageStore 테스트', () => {

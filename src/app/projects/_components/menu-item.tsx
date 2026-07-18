@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Checkbox from '@/components/ui/checkbox';
-import { techKoMap } from '@/constants/projects';
+import { techKoMap } from '@/constants/project-ui';
 import { cn } from '@/lib/utils';
 import { useProjectsPageStore } from '@/store/use-projects-page-store';
 import type { Tech } from '@/types/projects';

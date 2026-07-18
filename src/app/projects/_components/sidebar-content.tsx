@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { navLinks } from '@/constants/header';
-import { techList } from '@/constants/projects';
+import { techList } from '@/constants/project-ui';
 import type { Tech } from '@/types/projects';
 
 import MenuItem from './menu-item';
