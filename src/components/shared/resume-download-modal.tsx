@@ -1,11 +1,13 @@
 'use client';
 
 import { PDFViewer, pdf } from '@react-pdf/renderer';
+import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiCopy, FiDownload, FiX } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+import ResumeCopyToast from '@/components/shared/resume-copy-toast';
 import { createResumeText } from '@/lib/resume-copy';
 import { createResumePdfData, createResumePdfFileName } from '@/lib/resume-pdf/data';
 import { ResumePdfDocument } from '@/lib/resume-pdf/ResumePdfDocument';
@@ -24,6 +26,8 @@ const defaults = {
 
 export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props) {
   const { t } = useTranslation('header');
+  const { resolvedTheme } = useTheme();
+  const toastTheme = resolvedTheme === 'dark' ? 'dark' : 'light';
   const [selection, setSelection] = useState(defaults);
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstControlRef = useRef<HTMLButtonElement>(null);
@@ -187,9 +191,43 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                 await navigator.clipboard.writeText(
                   createResumeText(selection.language, selection.format)
                 );
-                toast.success(t(`resume-copy-${selection.format}-success`));
+                toast.custom(
+                  id => (
+                    <ResumeCopyToast
+                      key={id}
+                      message={t(`resume-copy-${selection.format}-success`)}
+                      theme={toastTheme}
+                      type='success'
+                    />
+                  ),
+                  {
+                    style: {
+                      left: '50%',
+                      width: 'fit-content',
+                      maxWidth: 'calc(100vw - 2rem)',
+                      transform: 'var(--y) translateX(-50%)',
+                    },
+                  }
+                );
               } catch {
-                toast.error(t('resume-copy-failure'));
+                toast.custom(
+                  id => (
+                    <ResumeCopyToast
+                      key={id}
+                      message={t('resume-copy-failure')}
+                      theme={toastTheme}
+                      type='error'
+                    />
+                  ),
+                  {
+                    style: {
+                      left: '50%',
+                      width: 'fit-content',
+                      maxWidth: 'calc(100vw - 2rem)',
+                      transform: 'var(--y) translateX(-50%)',
+                    },
+                  }
+                );
               }
             }}
           >
