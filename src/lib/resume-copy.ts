@@ -1,7 +1,5 @@
 import { careerFilterList, careerMockData } from '@/constants/career';
-import { page } from '@/constants/metadata';
-import { projectsMockData } from '@/constants/projects';
-import about from '@/lib/i18n/about';
+import resumeContent from '@/content/resume.json';
 import type { CareerCompany } from '@/types/career';
 
 export type ResumeLanguage = 'ko' | 'en';
@@ -48,44 +46,30 @@ const resumeTitle = {
   },
 } as const;
 
-const removeCommentSyntax = (text: string): string =>
-  text
-    .replace(/^\s*\/\*\*\s*/u, '')
-    .replace(/\s*\*\/\s*$/u, '')
-    .split('\n')
-    .map(line => line.replace(/^\s*\*\s?/u, '').trim())
-    .filter(Boolean)
-    .join('\n');
-
 const createCaseStudySection = (label: string, value?: string): string =>
   value ? `### ${label}\n${value}` : '';
 
 const createCareerOverviewText = (
   career: CareerCompany,
-  title: (typeof resumeTitle)[ResumeLanguage],
-  format: ResumeFormat
+  title: (typeof resumeTitle)[ResumeLanguage]
 ): string => {
   const overview = career.overview;
   if (!overview) return '';
 
   const achievements = overview.achievements.length
-    ? format === 'summary'
-      ? `- ${title.achievements}: ${overview.achievements.join(', ')}`
-      : `### ${title.achievements}\n${overview.achievements.map(item => `- ${item}`).join('\n')}`
+    ? `### ${title.achievements}\n${overview.achievements.map(item => `- ${item}`).join('\n')}`
     : '';
-  const contribution =
-    format === 'detailed' && overview.contribution
-      ? `### ${title.contribution}\n${overview.contribution}`
-      : '';
+  const contribution = overview.contribution
+    ? `### ${title.contribution}\n${overview.contribution}`
+    : '';
 
   return [contribution, achievements].filter(Boolean).join('\n\n');
 };
 
 export const createResumeText = (language: ResumeLanguage, format: ResumeFormat): string => {
   const title = resumeTitle[language];
-  const localizedAbout = about[language];
+  const resumeLocale = resumeContent[language];
   const careers = careerFilterList.map(careerId => careerMockData[language][careerId]);
-  const portfolio = projectsMockData[language].portfolio;
   const profileLinks = [
     process.env.NEXT_PUBLIC_GITHUB_URL,
     process.env.NEXT_PUBLIC_LINKEDIN_URL,
@@ -94,17 +78,20 @@ export const createResumeText = (language: ResumeLanguage, format: ResumeFormat)
   ].filter((url): url is string => Boolean(url));
 
   const sections = [
-    `# ${title.name}`,
-    `## ${title.introduction}\n${removeCommentSyntax(localizedAbout.bio)}`,
-    `## ${title.skills}\n${removeCommentSyntax(localizedAbout['hard-skills'])
-      .split('\n')
-      .map(skill => `- ${skill}`)
-      .join('\n')}`,
+    `# ${resumeLocale.profile.name}`,
+    `## ${title.introduction}\n${resumeLocale.profile.bio}`,
+    `## ${title.skills}\n${resumeLocale.skills.map(skill => `- ${skill}`).join('\n')}`,
     `## ${title.career}\n${careers
       .map(career =>
         [
-          `### ${career.name} | ${career.role}\n- ${title.period}: ${career.period}\n- ${career.slogan ?? ''}`.trim(),
-          createCareerOverviewText(career, title, format),
+          [
+            `### ${career.name} | ${career.role}`,
+            `- ${title.period}: ${career.period}`,
+            career.slogan ? `- ${career.slogan}` : null,
+          ]
+            .filter(Boolean)
+            .join('\n'),
+          createCareerOverviewText(career, title),
         ]
           .filter(Boolean)
           .join('\n')
@@ -114,9 +101,9 @@ export const createResumeText = (language: ResumeLanguage, format: ResumeFormat)
       .flatMap(career =>
         career.projects.map(project => `### ${project.title}\n- ${project.description}`)
       )
-      .concat(`### ${portfolio.name}\n- ${portfolio.description.trim()}`)
+      .concat(`### ${resumeLocale.portfolio.name}\n- ${resumeLocale.portfolio.description}`)
       .join('\n\n')}`,
-    `## ${title.links}\n- ${title.links}: ${page.root.url}\n- ${title.github}: ${portfolio.githubUrl}`,
+    `## ${title.links}\n- ${title.links}: ${resumeLocale.links.website}\n- ${title.github}: ${resumeLocale.links.github}`,
     profileLinks.length > 0
       ? `## ${title.publicProfiles}\n${profileLinks.map(url => `- ${url}`).join('\n')}`
       : '',

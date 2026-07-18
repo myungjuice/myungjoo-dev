@@ -11,7 +11,21 @@
     "resume-copy-detailed": "상세본 복사",
     "resume-copy-summary-success": "이력서 요약본을 복사했어요",
     "resume-copy-detailed-success": "이력서 상세본을 복사했어요",
-    "resume-copy-failure": "복사하지 못했어요. 다시 시도해 주세요"
+    "resume-copy-failure": "복사하지 못했어요. 다시 시도해 주세요",
+    "resume-download": "이력서 PDF 다운로드",
+    "resume-download-close": "닫기",
+    "resume-download-language": "언어",
+    "resume-download-format": "분량",
+    "resume-download-template": "템플릿",
+    "resume-download-template-a": "계층형",
+    "resume-download-template-b": "프로페셔널",
+    "resume-download-template-c": "타임라인",
+    "resume-download-summary": "요약",
+    "resume-download-detailed": "상세",
+    "resume-download-korean": "국문",
+    "resume-download-english": "영문",
+    "resume-download-pdf": "이력서 다운로드",
+    "resume-download-failure": "PDF를 만들지 못했어요. 다시 시도해 주세요"
   },
   "en": {
     "title": "MyungJoo Jang",
@@ -25,6 +39,20 @@
     "resume-copy-detailed": "Copy Detailed Resume",
     "resume-copy-summary-success": "Resume summary copied",
     "resume-copy-detailed-success": "Detailed resume copied",
-    "resume-copy-failure": "Couldn't copy. Please try again."
+    "resume-copy-failure": "Couldn't copy. Please try again.",
+    "resume-download": "Download resume PDF",
+    "resume-download-close": "Close",
+    "resume-download-language": "Language",
+    "resume-download-format": "Length",
+    "resume-download-template": "Template",
+    "resume-download-template-a": "Hierarchy",
+    "resume-download-template-b": "Professional",
+    "resume-download-template-c": "Timeline",
+    "resume-download-summary": "Summary",
+    "resume-download-detailed": "Detailed",
+    "resume-download-korean": "Korean",
+    "resume-download-english": "English",
+    "resume-download-pdf": "Download Resume",
+    "resume-download-failure": "Couldn't create the PDF. Please try again."
   }
 }

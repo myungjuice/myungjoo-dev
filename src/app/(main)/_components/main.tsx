@@ -9,6 +9,7 @@ import FadeInUp from '@/components/shared/fade-in-up';
 import Typewriter from '@/components/shared/typewriter';
 import { Label } from '@/components/ui/label';
 import { Toggle } from '@/components/ui/toggle';
+import resume from '@/content/resume.json';
 import { cn } from '@/lib/utils';
 
 import CodeView from './code-view';
@@ -44,7 +45,7 @@ const Hello = () => (
       <div className='flex flex-col sm:flex-row sm:items-center sm:gap-2'>
         <FaEnvelope className='hidden sm:block' />
         <span className='text-body-sm sm:text-body-md'>${t('email')} 📨</span>
-        <a href='mailto:wkdaudwn1028@gmail.com'>
+        <a href='mailto:${resume.ko.profile.email}'>
           ${t('email_button')}
         </a>
       </div>

@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-fira);
 }
+
+.resume-pdf-viewer iframe {
+  border: 0 !important;
+  outline: 0;
+  scrollbar-width: none;
+}
+
+.resume-pdf-viewer iframe::-webkit-scrollbar {
+  display: none;
+}

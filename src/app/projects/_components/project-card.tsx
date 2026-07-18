@@ -4,7 +4,7 @@ import { FaGithub } from 'react-icons/fa';
 
 import FadeInUp from '@/components/shared/fade-in-up';
 import { Button } from '@/components/ui/button';
-import { techIconMap } from '@/constants/projects';
+import { techIconMap } from '@/constants/project-ui';
 import type { ProjectItem } from '@/types/projects';
 
 type Props = {

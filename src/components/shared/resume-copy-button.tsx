@@ -46,7 +46,7 @@ const ResumeCopyButton = () => {
       <DropdownMenuTrigger asChild>
         <button
           type='button'
-          className='inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+          className='inline-flex cursor-pointer items-center gap-2 rounded-md border border-cyan-500 bg-cyan-500/20 px-3 py-2 text-sm font-medium text-cyan-700 transition-colors hover:bg-cyan-500/30 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none dark:border-cyan-400 dark:text-cyan-200'
         >
           <FiCopy aria-hidden='true' className='size-4' />
           {t('resume-copy')}

@@ -1,5 +1,5 @@
 import LanguageToggle from '@/components/shared/language-toggle';
-import ResumeCopyButton from '@/components/shared/resume-copy-button';
+import ResumeDownloadButton from '@/components/shared/resume-download-button';
 import ThemeDropdownButton from '@/components/shared/theme-dropdown-button';
 import { navLinks } from '@/constants/header';
 
@@ -17,7 +17,7 @@ const HeaderDesktop = () => (
       ))}
     </ul>
     <div className='relative z-20 flex w-auto shrink-0 justify-end gap-2'>
-      <ResumeCopyButton />
+      <ResumeDownloadButton />
       <LanguageToggle />
       <ThemeDropdownButton />
     </div>

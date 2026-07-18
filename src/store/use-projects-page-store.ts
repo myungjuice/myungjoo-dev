@@ -1,6 +1,6 @@
 import { useShallow } from 'zustand/react/shallow';
 
-import { techList } from '@/constants/projects';
+import { techList } from '@/constants/project-ui';
 import { sortByReference } from '@/lib/utils';
 import type { Tech } from '@/types/projects';
 

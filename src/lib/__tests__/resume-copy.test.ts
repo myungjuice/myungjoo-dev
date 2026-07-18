@@ -29,7 +29,7 @@ describe('createResumeText', () => {
     expect(result).toContain('## 기술 스택');
     expect(result).toContain('## 경력');
     expect(result).toContain('## 주요 프로젝트');
-    expect(result).toContain('https://myungjoo.dev');
+    expect(result).toContain('https://www.myungjoo.dev');
     expect(result).not.toContain('## 프로젝트 상세');
   });
 
@@ -61,11 +61,12 @@ describe('createResumeText', () => {
     expect(() => createResumeText('ko', 'detailed')).not.toThrow();
   });
 
-  it('한국어 요약본에는 회사별 주요 성과를 포함하고 전반적 기여는 포함하지 않는다', () => {
+  it('한국어 상세본에는 회사별 전반적 기여와 주요 성과를 포함한다', () => {
     const result = createResumeText('ko', 'summary');
 
-    expect(result).toContain('주요 성과: 사전과제 검토 시간 약 30% 단축');
-    expect(result).not.toContain('채용·코드리뷰·디자인시스템·개발환경·사내 운영 도구');
+    expect(result).toContain('### 주요 성과');
+    expect(result).toContain('사전과제 검토 시간 약 30% 단축');
+    expect(result).toContain('채용·코드리뷰·디자인시스템·개발환경·사내 운영 도구');
   });
 
   it('영어 상세본에는 회사별 전반적 기여와 주요 성과를 포함한다', () => {

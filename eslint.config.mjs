@@ -6,7 +6,15 @@ import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs', 'postcss.config.mjs', 'next.config.ts', 'tailwind.config.ts'],
+    ignores: [
+      'eslint.config.mjs',
+      'postcss.config.mjs',
+      'next.config.ts',
+      'tailwind.config.ts',
+      // This Node/tsx verification utility imports TS/TSX modules at runtime;
+      // it is covered by `pnpm verify:resume-pdf`, not the app's type-aware lint.
+      'scripts/verify-resume-pdf.mjs',
+    ],
   },
   ...nextConfig,
   prettierRecommended,

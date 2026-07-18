@@ -1,0 +1,28 @@
+import { Document, Font, Page } from '@react-pdf/renderer';
+
+import { pdfStyles as s } from './styles';
+import { TemplateA } from './templates/TemplateA';
+import { TemplateC } from './templates/TemplateC';
+import type { ResumePdfDocumentData } from './types';
+
+// Keep the font in the repository so PDF generation is deterministic in CI and
+// does not depend on whichever fonts happen to be installed on the host.
+const notoSansKr = '/fonts/NotoSansKR-Regular.ttf';
+let isNotoSansKrRegistered = false;
+const registerNotoSansKr = () => {
+  if (isNotoSansKrRegistered) return;
+  Font?.register?.({ family: 'Noto Sans KR', src: notoSansKr, fontWeight: 'normal' });
+  isNotoSansKrRegistered = true;
+};
+
+export function ResumePdfDocument({ data }: { data: ResumePdfDocumentData }) {
+  registerNotoSansKr();
+  const Content = data.template === 'A' ? TemplateA : TemplateC;
+  return (
+    <Document title={`${data.name} Resume`}>
+      <Page size='A4' wrap style={s.page}>
+        <Content data={data} />
+      </Page>
+    </Document>
+  );
+}

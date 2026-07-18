@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { FaGithub, FaEnvelope } from 'react-icons/fa';
 
+import resume from '@/content/resume.json';
+
 const CodeView = () => {
   const { t } = useTranslation('main');
 
@@ -24,7 +26,7 @@ const CodeView = () => {
           <FaEnvelope className='hidden sm:block' />
           <span className='text-body-sm sm:text-body-md'>{t('email')} 📨</span>
           <a
-            href='mailto:wkdaudwn1028@gmail.com'
+            href={`mailto:${resume.ko.profile.email}`}
             className='text-body-sm underline underline-offset-4 transition-colors hover:text-teal-500 sm:text-body-md'
           >
             {t('email_button')}

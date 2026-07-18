@@ -1,4 +1,4 @@
-import careerI18n from '@/lib/i18n/career.json';
+import careerI18n from '@/content/resume.json';
 import type { CareerCompany, CareerFilterItem } from '@/types/career';
 
 export const careerFilterList: CareerFilterItem[] = ['cdri', 'supertree', 'd.dive', 'ellen'];
