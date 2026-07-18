@@ -42,22 +42,31 @@ const defaults = {
   format: 'summary' as ResumePdfFormat,
 };
 
+const resolveResumeLanguage = (language?: string): ResumePdfLanguage =>
+  language?.toLowerCase().startsWith('en') ? 'en' : 'ko';
+
 export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props) {
-  const { t } = useTranslation('header');
+  const { t, i18n } = useTranslation('header');
   const { resolvedTheme } = useTheme();
   const toastTheme = resolvedTheme === 'dark' ? 'dark' : 'light';
-  const [selection, setSelection] = useState(defaults);
+  const [selection, setSelection] = useState(() => ({
+    ...defaults,
+    language: resolveResumeLanguage(i18n.language),
+  }));
   const [isPreviewLoading, setIsPreviewLoading] = useState(true);
   const viewerRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstControlRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (open) {
-      setSelection(defaults);
+      setSelection({
+        ...defaults,
+        language: resolveResumeLanguage(i18n.language),
+      });
       setIsPreviewLoading(true);
       requestAnimationFrame(() => firstControlRef.current?.focus());
     }
-  }, [open]);
+  }, [i18n.language, open]);
   useEffect(() => {
     if (!open) return;
     const fn = (e: KeyboardEvent) => {

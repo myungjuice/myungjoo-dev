@@ -141,7 +141,7 @@ describe('ResumeCopyButton 컴포넌트', () => {
   it('데스크톱 헤더에 이력서 다운로드 버튼을 렌더링한다', () => {
     render(<HeaderDesktop />);
 
-    expect(screen.getByRole('button', { name: '이력서 다운로드' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '이력서 PDF 다운로드' })).toBeInTheDocument();
   });
 
   it('모바일 메뉴에 이력서 다운로드 버튼을 렌더링한다', async () => {
@@ -150,6 +150,6 @@ describe('ResumeCopyButton 컴포넌트', () => {
 
     await user.click(screen.getByRole('button', { name: 'Toggle menu' }));
 
-    expect(screen.getByRole('button', { name: '이력서 다운로드' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '이력서 PDF 다운로드' })).toBeInTheDocument();
   });
 });
