@@ -3,7 +3,7 @@
 import { PDFViewer, pdf } from '@react-pdf/renderer';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiX } from 'react-icons/fi';
+import { FiDownload, FiX } from 'react-icons/fi';
 import { toast } from 'sonner';
 
 import { createResumePdfData, createResumePdfFileName } from '@/lib/resume-pdf/data';
@@ -180,7 +180,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         <footer className='flex justify-end border-t border-slate-300 p-4 dark:border-slate-700'>
           <button
             type='button'
-            className='cursor-pointer rounded-md border border-slate-300 bg-transparent px-4 py-2 font-medium text-slate-900 transition-colors hover:bg-accent hover:text-accent-foreground dark:border-slate-600 dark:text-slate-100'
+            className='inline-flex cursor-pointer items-center gap-2 rounded-md border border-input bg-background px-4 py-2 font-medium text-slate-900 shadow-xs transition-colors hover:bg-accent hover:text-accent-foreground dark:text-slate-100'
             onClick={async () => {
               try {
                 const blob = await pdf(<ResumePdfDocument data={data} />).toBlob();
@@ -202,6 +202,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               }
             }}
           >
+            <FiDownload aria-hidden='true' className='size-4' />
             {t('resume-download-pdf')}
           </button>
         </footer>
