@@ -116,7 +116,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
     <Dialog open={open} onOpenChange={nextOpen => !nextOpen && onClose()}>
       <DialogContent
         closeLabel={t('resume-download-close')}
-        className='relative !top-2 flex h-[94vh] max-h-[calc(100vh-1rem)] w-full max-w-4xl !translate-y-0 flex-col overflow-hidden rounded-lg border border-slate-300 bg-white p-0 text-slate-900 max-md:h-[96vh] max-md:max-w-full dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
+        className='flex h-[94vh] max-h-[98vh] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-slate-300 bg-white p-0 text-slate-900 max-md:h-[96vh] max-md:max-w-full dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
         onOpenAutoFocus={event => {
           event.preventDefault();
           requestAnimationFrame(() => firstControlRef.current?.focus());
