@@ -66,7 +66,6 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         language: resolveResumeLanguage(i18n.language),
       });
       setIsPreviewLoading(true);
-      requestAnimationFrame(() => firstControlRef.current?.focus());
     }
   }, [i18n.language, open]);
   useEffect(() => {
