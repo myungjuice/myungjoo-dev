@@ -180,7 +180,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         <footer className='flex justify-end border-t border-slate-300 p-4 dark:border-slate-700'>
           <button
             type='button'
-            className='inline-flex cursor-pointer items-center gap-2 rounded-md border border-input bg-background px-4 py-2 font-medium text-slate-900 shadow-xs transition-colors hover:bg-accent hover:text-accent-foreground dark:text-slate-100'
+            className='inline-flex cursor-pointer items-center gap-2 rounded border border-cyan-500 bg-cyan-500/20 px-4 py-2 font-medium text-cyan-700 transition-colors hover:bg-cyan-500/30 dark:border-cyan-400 dark:text-cyan-200'
             onClick={async () => {
               try {
                 const blob = await pdf(<ResumePdfDocument data={data} />).toBlob();
