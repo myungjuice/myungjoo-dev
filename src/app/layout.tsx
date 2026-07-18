@@ -4,6 +4,7 @@ import { type PropsWithChildren } from 'react';
 
 import Layout from '@/components/layout';
 import { shared, page } from '@/constants/metadata';
+import resume from '@/content/resume.json';
 import Providers from '@/providers';
 
 import '@/styles/globals.css';
@@ -16,7 +17,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://myungjoo.dev'),
+  metadataBase: new URL(resume.ko.links.website),
   title: page.root.title,
   description: page.root.description,
   openGraph: {

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { careerFilterList, careerMockData } from '@/constants/career';
 import { shared } from '@/constants/metadata';
+import resume from '@/content/resume.json';
 import type { CareerFilterItem } from '@/types/career';
 
 import CareerDetail from './_components/career-detail';
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `${company.name} | Career | 장명주`;
   const description = company.slogan ?? company.role;
-  const url = `https://myungjoo.dev/career/${slug}`;
+  const url = `${resume.ko.links.website}/career/${slug}`;
 
   return {
     title,

@@ -1,6 +1,7 @@
+import resume from '@/content/resume.json';
 import type { CareerFilterItem } from '@/types/career';
 
-const productionOrigin = 'https://www.myungjoo.dev';
+const productionOrigin = resume.ko.links.website;
 
 export type CareerLinkOptions = {
   slug: CareerFilterItem;
