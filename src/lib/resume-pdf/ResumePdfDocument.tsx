@@ -1,6 +1,3 @@
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import { Document, Font, Page } from '@react-pdf/renderer';
 
 import { pdfStyles as s } from './styles';
@@ -11,7 +8,7 @@ import type { ResumePdfDocumentData } from './types';
 
 // Keep the font in the repository so PDF generation is deterministic in CI and
 // does not depend on whichever fonts happen to be installed on the host.
-const notoSansKr = join(dirname(fileURLToPath(import.meta.url)), 'fonts/NotoSansKR-Regular.ttf');
+const notoSansKr = '/fonts/NotoSansKR-Regular.ttf';
 const registerNotoSansKr = () =>
   Font?.register?.({ family: 'Noto Sans KR', src: notoSansKr, fontWeight: 'normal' });
 
