@@ -54,7 +54,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
     setSelection(s => ({ ...s, [key]: value }) as typeof s);
   return (
     <div
-      className='fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-2 sm:p-4'
+      className='fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-2 sm:p-4 dark:bg-black/70'
       role='presentation'
       onMouseDown={e => {
         if (e.target === e.currentTarget) onClose();
@@ -65,9 +65,9 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         role='dialog'
         aria-modal='true'
         aria-labelledby='resume-download-title'
-        className='flex h-[94vh] max-h-[98vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-950 text-slate-100 max-md:h-[96vh] max-md:max-w-full'
+        className='flex h-[94vh] max-h-[98vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-slate-300 bg-white text-slate-900 max-md:h-[96vh] max-md:max-w-full dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
       >
-        <header className='flex items-center justify-between border-b border-slate-700 px-5 py-4'>
+        <header className='flex items-center justify-between border-b border-slate-300 px-5 py-4 dark:border-slate-700'>
           <h2 id='resume-download-title' className='text-lg font-semibold'>
             {t('resume-download')}
           </h2>
@@ -78,13 +78,13 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               onClose();
               requestAnimationFrame(() => triggerRef?.current?.focus());
             }}
-            className='cursor-pointer rounded p-1 hover:bg-slate-800'
+            className='cursor-pointer rounded p-1 hover:bg-slate-200 dark:hover:bg-slate-800'
           >
             <FiX />
           </button>
         </header>
         <div className='grid min-h-0 flex-1 grid-cols-[300px_1fr] max-md:grid-cols-1'>
-          <aside className='space-y-5 overflow-y-auto border-r border-slate-700 p-5 max-md:border-r-0 max-md:border-b'>
+          <aside className='space-y-5 overflow-y-auto border-r border-slate-300 p-5 max-md:border-r-0 max-md:border-b dark:border-slate-700'>
             {(
               [
                 [
@@ -115,7 +115,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               ] as const
             ).map(([key, label, options]) => (
               <fieldset key={key}>
-                <legend className='mb-2 text-sm text-slate-400'>{label}</legend>
+                <legend className='mb-2 text-sm text-slate-500 dark:text-slate-400'>{label}</legend>
                 <div className='flex flex-wrap gap-2'>
                   {options.map(([value, text]) => (
                     <button
@@ -124,7 +124,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                       ref={key === 'language' ? firstControlRef : undefined}
                       aria-pressed={selection[key as keyof typeof selection] === value}
                       onClick={() => set(key as keyof typeof selection, value)}
-                      className={`cursor-pointer rounded border px-3 py-2 text-sm ${selection[key as keyof typeof selection] === value ? 'border-cyan-400 bg-cyan-500/20 text-cyan-200' : 'border-slate-600 hover:border-slate-400'}`}
+                      className={`cursor-pointer rounded border px-3 py-2 text-sm ${selection[key as keyof typeof selection] === value ? 'border-cyan-500 bg-cyan-500/20 text-cyan-700 dark:border-cyan-400 dark:text-cyan-200' : 'border-slate-300 hover:border-slate-500 dark:border-slate-600 dark:hover:border-slate-400'}`}
                     >
                       {text}
                     </button>
@@ -139,7 +139,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                   type='button'
                   onClick={() => set('template', templateId)}
                   aria-label={`${t('resume-download-template')} ${templateId}`}
-                  className={`cursor-pointer rounded border p-2 ${selection.template === templateId ? 'border-cyan-400' : 'border-slate-700'}`}
+                  className={`cursor-pointer rounded border p-2 ${selection.template === templateId ? 'border-cyan-500' : 'border-slate-300 dark:border-slate-700'}`}
                 >
                   <div className='h-16 bg-white p-2 text-[5px] text-slate-800'>
                     {templateId === 'A' && (
@@ -187,13 +187,13 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               ))}
             </div>
           </aside>
-          <section className='min-h-[420px] bg-slate-800 p-3'>
+          <section className='min-h-[420px] bg-slate-100 p-3 dark:bg-slate-800'>
             <PDFViewer showToolbar={false} width='100%' height='100%' className='min-h-[520px]'>
               <ResumePdfDocument data={data} />
             </PDFViewer>
           </section>
         </div>
-        <footer className='flex justify-end border-t border-slate-700 p-4'>
+        <footer className='flex justify-end border-t border-slate-300 p-4 dark:border-slate-700'>
           <button
             type='button'
             className='cursor-pointer rounded bg-cyan-600 px-4 py-2 font-medium hover:bg-cyan-500'
