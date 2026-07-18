@@ -116,7 +116,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
     <Dialog open={open} onOpenChange={nextOpen => !nextOpen && onClose()}>
       <DialogContent
         closeLabel={t('resume-download-close')}
-        className='relative flex h-[94vh] max-h-[98vh] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-slate-300 bg-white p-0 text-slate-900 max-md:h-[96vh] max-md:max-w-full dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
+        className='relative !top-2 flex h-[94vh] max-h-[calc(100vh-1rem)] w-full max-w-4xl !translate-y-0 flex-col overflow-hidden rounded-lg border border-slate-300 bg-white p-0 text-slate-900 max-md:h-[96vh] max-md:max-w-full dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100'
         onOpenAutoFocus={event => {
           event.preventDefault();
           requestAnimationFrame(() => firstControlRef.current?.focus());
@@ -191,7 +191,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
             <ResumePdfPreview data={data} />
           </section>
         </div>
-        <footer className='absolute top-[72px] right-4 z-10 flex justify-end gap-3 border-0 p-0 max-md:top-[116px] max-md:right-2'>
+        <footer className='absolute top-[88px] right-4 z-10 flex justify-end gap-3 border-0 p-0 max-md:top-[116px] max-md:right-2'>
           <button
             type='button'
             className='inline-flex cursor-pointer items-center gap-2 rounded border border-slate-300 bg-transparent px-4 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800'
