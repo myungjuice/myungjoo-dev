@@ -1,5 +1,36 @@
 {
   "ko": {
+    "profile": {
+      "name": "장명주",
+      "title": "Frontend Developer",
+      "bio": "프론트엔드 개발자로 커리어 전환 이후 React, Next.js, Typescript 중심의 개발 경험을 쌓아왔습니다. 다양한 기업에서 실무 프로젝트를 진행하며 디자인 시스템 구축, 성능 최적화, CI/CD 파이프라인 구축 등 프론트엔드 개발 전반에 대한 이해와 경험을 바탕으로 협업 중심의 개발 문화를 지향합니다. 새로운 기술과 도전에 두려움이 없으며, 사용자의 경험을 고려한 직관적인 UI 구현에 관심이 많습니다.",
+      "email": "wkdaudwn1028@gmail.com"
+    },
+    "skills": [
+      "React, Next.js 등 최신 프론트엔드 프레임워크 활용 가능",
+      "Typescript 기반의 프로젝트 다수 경험",
+      "Zustand, Redux 등 상태 관리 라이브러리 사용 경험",
+      "Styled-components, Emotion, TailwindCSS 등 다양한 스타일링 방법론에 능숙",
+      "Vite, Turborepo, Webpack 등을 이용한 번들링 및 모노레포 구성 경험",
+      "AWS, GitHub Actions, GitLab CI, Vercel, Netlify 등 다양한 배포 환경 경험",
+      "Jira, Notion, Slack 등을 활용한 협업 경험",
+      "AI를 활용한 개발 경험",
+      "AI를 활용해 팀의 반복 작업과 개발 병목을 개선한 AX 경험"
+    ],
+    "links": {
+      "website": "https://www.myungjoo.dev",
+      "github": "https://github.com/myungjuice/myungjoo-dev",
+      "linkedin": "https://www.linkedin.com/in/myungjoo/"
+    },
+    "portfolio": {
+      "id": 1,
+      "name": "myungjoo.dev",
+      "description": "저에 대한 소개를 하는 사이트입니다.",
+      "githubUrl": "https://github.com/myungjuice/myungjoo-dev",
+      "tech": "react",
+      "thumbnailUrl": "/images/portfolio_thumbnail.png",
+      "githubButtonText": "깃허브"
+    },
     "cdri": {
       "id": "cdri",
       "name": "㈜ 씨디알아이",
@@ -468,6 +499,37 @@
     }
   },
   "en": {
+    "profile": {
+      "name": "MyungJoo Jang",
+      "title": "Frontend Developer",
+      "bio": "After transitioning to a frontend career, I've built experience around React, Next.js, and TypeScript. Participated in real-world projects at various companies, gaining hands-on experience in design systems, performance optimization, and CI/CD pipelines. I pursue a collaborative development culture with a comprehensive understanding of frontend architecture. I enjoy building intuitive UI with a strong focus on user experience and am always open to new technologies and challenges.",
+      "email": "wkdaudwn1028@gmail.com"
+    },
+    "skills": [
+      "Proficient in modern frontend frameworks such as React and Next.js",
+      "Extensive experience with TypeScript-based projects",
+      "Hands-on with state management libraries like Zustand and Redux",
+      "Skilled in various styling approaches: Styled-components, Emotion, TailwindCSS",
+      "Experienced in bundlers and monorepo tools: Vite, Turborepo, Webpack",
+      "Familiar with various deployment environments: AWS, GitHub Actions, GitLab CI, Vercel, Netlify",
+      "Collaborative experience using Jira, Notion, and Slack",
+      "Experience developing with AI tools",
+      "AX experience improving team bottlenecks and repetitive work with AI"
+    ],
+    "links": {
+      "website": "https://www.myungjoo.dev",
+      "github": "https://github.com/myungjuice/myungjoo-dev",
+      "linkedin": "https://www.linkedin.com/in/myungjoo/"
+    },
+    "portfolio": {
+      "id": 1,
+      "name": "Portfolio Website",
+      "description": "This is a website that introduces myself.",
+      "githubUrl": "https://github.com/myungjuice/myungjoo-dev",
+      "tech": "react",
+      "thumbnailUrl": "/images/portfolio_thumbnail.png",
+      "githubButtonText": "Github"
+    },
     "cdri": {
       "id": "cdri",
       "name": "CDRI Corp.",

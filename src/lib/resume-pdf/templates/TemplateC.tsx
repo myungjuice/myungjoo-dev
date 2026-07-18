@@ -45,10 +45,9 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
                 <Text style={s.muted}>{c.period}</Text>
               </View>
               <Text>{c.role}</Text>
-              {data.format === 'detailed' && c.contribution ? (
-                <Text style={s.text}>{c.contribution}</Text>
-              ) : null}
-              {data.format === 'detailed' && c.achievements.length > 0
+              {c.slogan ? <Text style={s.text}>{c.slogan}</Text> : null}
+              {c.contribution ? <Text style={s.text}>{c.contribution}</Text> : null}
+              {c.achievements.length > 0
                 ? c.achievements.map(a => (
                     <Text key={a} style={s.project}>
                       • {a}
@@ -61,6 +60,29 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
                     {p.title} ↗
                   </Link>
                   <Text>{p.description}</Text>
+                  {data.format === 'detailed' && p.caseStudy ? (
+                    <View>
+                      {p.caseStudy.context ? (
+                        <Text style={s.text}>{p.caseStudy.context}</Text>
+                      ) : null}
+                      {p.caseStudy.problem ? (
+                        <Text style={s.text}>{p.caseStudy.problem}</Text>
+                      ) : null}
+                      {p.caseStudy.action?.map(item => (
+                        <Text key={item} style={s.project}>
+                          • {item}
+                        </Text>
+                      ))}
+                      {p.caseStudy.impact?.map(item => (
+                        <Text key={item} style={s.project}>
+                          • {item}
+                        </Text>
+                      ))}
+                      {p.caseStudy.reflection ? (
+                        <Text style={s.text}>{p.caseStudy.reflection}</Text>
+                      ) : null}
+                    </View>
+                  ) : null}
                 </View>
               ))}
             </View>

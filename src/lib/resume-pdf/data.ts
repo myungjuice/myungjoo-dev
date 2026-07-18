@@ -1,6 +1,5 @@
 import { careerFilterList, careerMockData } from '@/constants/career';
-import { projectsMockData } from '@/constants/projects';
-import about from '@/lib/i18n/about';
+import resumeContent from '@/content/resume.json';
 
 import type {
   ResumePdfDocumentData,
@@ -10,13 +9,6 @@ import type {
 } from './types';
 
 const DEPLOYED_URL = 'https://www.myungjoo.dev';
-const stripComment = (value: string) =>
-  value
-    .replace(/^\s*\/\*\*?\s*/u, '')
-    .replace(/\s*\*\/\s*$/u, '')
-    .split('\n')
-    .map(line => line.replace(/^\s*\*\s?/u, '').trim())
-    .filter(Boolean);
 
 export const resolveResumeBaseUrl = (
   location?: Pick<Location, 'hostname' | 'protocol' | 'port'>
@@ -54,56 +46,48 @@ export const createResumePdfData = (
       return DEPLOYED_URL;
     }
   })();
-  const localizedAbout = about[language];
+  const resumeLocale = resumeContent[language];
   const careers = careerFilterList.map(id => {
     const career = careerMockData[language][id];
     return {
       ...career,
       id,
       href: `${parsedBaseUrl}/career/${id}`,
-      contribution: format === 'detailed' ? career.overview?.contribution : undefined,
-      achievements: format === 'detailed' ? (career.overview?.achievements ?? []) : [],
-      projects: (format === 'detailed' ? career.projects : career.projects.slice(0, 1)).map(
-        project => ({
-          ...project,
-          href: `${parsedBaseUrl}/career/${id}#project-${project.id}`,
-        })
-      ),
+      contribution: career.overview?.contribution,
+      achievements: career.overview?.achievements ?? [],
+      projects: career.projects.map(project => ({
+        ...project,
+        caseStudy: format === 'detailed' ? project.caseStudy : undefined,
+        href: `${parsedBaseUrl}/career/${id}#project-${project.id}`,
+      })),
     };
   });
-  const portfolio = projectsMockData[language].portfolio;
   const links = [
     {
       label: 'GitHub',
-      href: process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/myungjuice',
+      href: process.env.NEXT_PUBLIC_GITHUB_URL ?? resumeLocale.links.github,
     },
     {
       label: 'LinkedIn',
-      href: process.env.NEXT_PUBLIC_LINKEDIN_URL || 'https://www.linkedin.com/in/myungjoo/',
+      href: process.env.NEXT_PUBLIC_LINKEDIN_URL || resumeLocale.links.linkedin,
     },
   ].filter(link => link.href);
   return {
     language,
     format,
     template,
-    name: language === 'ko' ? '장명주' : 'MyungJoo Jang',
-    title: language === 'ko' ? 'Frontend Developer' : 'Frontend Developer',
+    name: resumeLocale.profile.name,
+    title: resumeLocale.profile.title,
     phone: process.env.NEXT_PUBLIC_RESUME_PHONE || '',
-    email: process.env.NEXT_PUBLIC_RESUME_EMAIL || 'wkdaudwn1028@gmail.com',
-    bio: (format === 'detailed'
-      ? stripComment(localizedAbout.bio)
-      : stripComment(localizedAbout.bio).slice(0, 2)
-    ).join(' '),
-    skills:
-      format === 'detailed'
-        ? stripComment(localizedAbout['hard-skills'])
-        : stripComment(localizedAbout['hard-skills']).slice(0, 5),
+    email: process.env.NEXT_PUBLIC_RESUME_EMAIL || resumeLocale.profile.email,
+    bio: resumeLocale.profile.bio,
+    skills: resumeLocale.skills,
     careers,
     portfolio: {
-      name: portfolio.name,
-      description: portfolio.description.trim(),
+      name: resumeLocale.portfolio.name,
+      description: resumeLocale.portfolio.description,
       href: `${parsedBaseUrl}/projects`,
-      githubUrl: portfolio.githubUrl,
+      githubUrl: resumeLocale.portfolio.githubUrl,
     },
     links,
     baseUrl: parsedBaseUrl,

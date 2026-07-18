@@ -6,16 +6,16 @@ jest.mock('react-i18next', () => ({ useTranslation: () => ({ t: (key: string) =>
 jest.mock('@/lib/resume-pdf/ResumePdfDocument', () => ({ ResumePdfDocument: () => <div /> }));
 
 describe('ResumeDownloadModal interactions', () => {
-  it('defaults to A and resets selection when reopened', () => {
+  it('defaults to 요약 분량과 계층형 PDF로 열리고 다시 열 때 초기화된다', () => {
     const { rerender } = render(<ResumeDownloadModal open onClose={jest.fn()} />);
-    expect(screen.getByRole('button', { name: 'resume-download-template A' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: 'resume-download-summary' })).toHaveAttribute(
       'aria-pressed',
       'true'
     );
-    fireEvent.click(screen.getByRole('button', { name: 'resume-download-template C' }));
+    expect(screen.queryByText('resume-download-template')).not.toBeInTheDocument();
     rerender(<ResumeDownloadModal open={false} onClose={jest.fn()} />);
     rerender(<ResumeDownloadModal open onClose={jest.fn()} />);
-    expect(screen.getByRole('button', { name: 'resume-download-template A' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: 'resume-download-summary' })).toHaveAttribute(
       'aria-pressed',
       'true'
     );

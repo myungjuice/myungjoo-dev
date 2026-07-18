@@ -1,8 +1,9 @@
 import i18next, { use as i18nextUse } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import career from '@/content/resume.json';
+
 import about from './about';
-import career from './career.json';
 import error from './error.json';
 import header from './header.json';
 import main from './main.json';

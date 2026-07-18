@@ -3,8 +3,9 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { projectsMockData } from '@/constants/projects';
+import resumeContent from '@/content/resume.json';
 import { useProjectsPageStore } from '@/store/use-projects-page-store';
+import type { ProjectItem } from '@/types/projects';
 
 import ProjectCard from './project-card';
 
@@ -16,11 +17,9 @@ const MainContent = () => {
   } = useTranslation();
 
   const filteredProjects = useMemo(() => {
-    const langProjectsMockData = projectsMockData[language as 'ko' | 'en'];
+    const portfolio = resumeContent[language as 'ko' | 'en'].portfolio as ProjectItem;
 
-    return Object.values(langProjectsMockData).filter(project =>
-      selectedTechs.includes(project.tech)
-    );
+    return selectedTechs.includes(portfolio.tech as 'react') ? [portfolio] : [];
   }, [language, selectedTechs]);
 
   return (

@@ -1,4 +1,4 @@
-import type { CareerFilterItem, CareerProject } from '@/types/career';
+import type { CareerFilterItem, CareerProject, CaseStudy } from '@/types/career';
 
 export type ResumePdfTemplate = 'A' | 'C';
 export type ResumePdfFormat = 'summary' | 'detailed';
@@ -13,7 +13,7 @@ export type ResumePdfCareer = {
   slogan?: string;
   contribution?: string;
   achievements: string[];
-  projects: Array<CareerProject & { href: string }>;
+  projects: Array<CareerProject & { href: string; caseStudy?: CaseStudy }>;
   href: string;
 };
 

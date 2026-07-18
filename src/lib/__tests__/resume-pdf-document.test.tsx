@@ -58,11 +58,9 @@ describe('ResumePdfDocument templates', () => {
   it('renders summary as a compact subset of detailed content', () => {
     const summary = createResumePdfData('ko', 'summary', 'A');
     const detailed = createResumePdfData('ko', 'detailed', 'A');
-    expect(summary.careers[0].contribution).toBeUndefined();
+    expect(summary.careers[0].contribution).toBeDefined();
     expect(detailed.careers[0].contribution).toBeDefined();
-    expect(summary.careers[0].projects.length).toBeLessThanOrEqual(
-      detailed.careers[0].projects.length
-    );
+    expect(summary.careers[0].projects.length).toBe(detailed.careers[0].projects.length);
   });
 
   it('keeps detailed-only content out of summary and includes it in templates', () => {
@@ -71,7 +69,7 @@ describe('ResumePdfDocument templates', () => {
     const summaryTree = ResumePdfDocument({ data: summary });
     const detailedTree = ResumePdfDocument({ data: detailed });
     const achievement = detailed.careers[0].achievements[0];
-    expect(textContent(summaryTree)).not.toContain(achievement);
+    expect(textContent(summaryTree)).toContain(achievement);
     expect(textContent(detailedTree)).toContain(achievement);
   });
 });

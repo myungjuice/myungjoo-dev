@@ -13,10 +13,8 @@ describe('resume PDF data', () => {
     expect(summary.bio).toContain('프론트엔드');
     expect(detailed.bio).toContain('frontend');
     expect(detailed.template).toBe('C');
-    expect(summary.careers[0].projects).toHaveLength(1);
-    expect(detailed.careers[0].projects.length).toBeGreaterThan(summary.careers[0].projects.length);
-    expect(summary.skills).toHaveLength(5);
-    expect(detailed.skills.length).toBeGreaterThan(summary.skills.length);
+    expect(summary.careers[0].projects.length).toBe(detailed.careers[0].projects.length);
+    expect(summary.skills).toHaveLength(detailed.skills.length);
   });
   it('uses localhost only for local environments', () => {
     expect(resolveResumeBaseUrl({ hostname: 'localhost', protocol: 'http:', port: '5173' })).toBe(
