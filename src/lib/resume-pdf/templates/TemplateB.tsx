@@ -26,6 +26,9 @@ export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
       </View>
       <View style={s.panelBody}>
         <Text style={s.text}>{data.bio}</Text>
+        <Link src={`${data.baseUrl}/career`} style={s.link}>
+          {l.detailCta} ↗
+        </Link>
         <View style={s.section}>
           <Text style={s.sectionTitle}>{l.careers}</Text>
           {data.careers.map(c => (
@@ -56,9 +59,11 @@ export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
             </View>
           ))}
         </View>
-        <Link src={data.portfolio.githubUrl} style={s.link}>
-          GitHub ↗
-        </Link>
+        {data.links.map(link => (
+          <Link key={link.label} src={link.href} style={s.link}>
+            {link.label} ↗
+          </Link>
+        ))}
       </View>
     </View>
   );

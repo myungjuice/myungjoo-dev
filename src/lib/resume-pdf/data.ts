@@ -77,8 +77,10 @@ export const createResumePdfData = (
       label: 'GitHub',
       href: process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/myungjuice',
     },
-    { label: 'LinkedIn', href: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? '' },
-    { label: 'Wanted', href: process.env.NEXT_PUBLIC_WANTED_URL ?? '' },
+    {
+      label: 'LinkedIn',
+      href: process.env.NEXT_PUBLIC_LINKEDIN_URL || 'https://www.linkedin.com/in/myungjoo/',
+    },
   ].filter(link => link.href);
   return {
     language,
@@ -103,7 +105,7 @@ export const createResumePdfData = (
       href: `${parsedBaseUrl}/projects`,
       githubUrl: portfolio.githubUrl,
     },
-    links: [{ label: 'Portfolio', href: parsedBaseUrl }, ...links],
+    links: [{ label: 'Website', href: parsedBaseUrl }, ...links],
     baseUrl: parsedBaseUrl,
   };
 };

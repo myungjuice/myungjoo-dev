@@ -19,6 +19,9 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
       <View style={s.section}>
         <Text style={s.sectionTitle}>{l.intro}</Text>
         <Text style={s.text}>{data.bio}</Text>
+        <Link src={`${data.baseUrl}/career`} style={s.link}>
+          {l.detailCta} ↗
+        </Link>
       </View>
       <View style={s.section}>
         <Text style={s.sectionTitle}>{l.skills}</Text>
@@ -69,9 +72,11 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
         <Link src={data.portfolio.href} style={s.link}>
           {data.portfolio.name} ↗
         </Link>
-        <Link src={data.portfolio.githubUrl} style={s.link}>
-          GitHub ↗
-        </Link>
+        {data.links.map(link => (
+          <Link key={link.label} src={link.href} style={s.link}>
+            {link.label} ↗
+          </Link>
+        ))}
       </View>
     </View>
   );
