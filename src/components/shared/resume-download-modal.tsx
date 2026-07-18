@@ -12,6 +12,7 @@ import { createResumeText } from '@/lib/resume-copy';
 import { createResumePdfData, createResumePdfFileName } from '@/lib/resume-pdf/data';
 import { ResumePdfDocument } from '@/lib/resume-pdf/ResumePdfDocument';
 import type { ResumePdfFormat, ResumePdfLanguage } from '@/lib/resume-pdf/types';
+import { cn } from '@/lib/utils';
 
 type Props = {
   open: boolean;
@@ -30,7 +31,6 @@ const ResumePdfPreview = memo(function ResumePdfPreview({
       width='100%'
       height='100%'
       className='min-h-[520px] border-0 bg-white'
-      style={{ border: '0', backgroundColor: '#ffffff' }}
     >
       <ResumePdfDocument data={data} />
     </PDFViewer>
@@ -41,6 +41,8 @@ const defaults = {
   language: 'ko' as ResumePdfLanguage,
   format: 'summary' as ResumePdfFormat,
 };
+const PREVIEW_READY_DELAY_MS = 1000;
+const PREVIEW_FALLBACK_DELAY_MS = 1500;
 
 const resolveResumeLanguage = (language?: string): ResumePdfLanguage =>
   language?.toLowerCase().startsWith('en') ? 'en' : 'ko';
@@ -83,7 +85,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
     let iframe: HTMLIFrameElement | null = null;
     let finishId: number | undefined;
     const handleLoad = () => {
-      finishId = window.setTimeout(() => setIsPreviewLoading(false), 1000);
+      finishId = window.setTimeout(() => setIsPreviewLoading(false), PREVIEW_READY_DELAY_MS);
     };
     const attach = () => {
       const nextIframe = viewerRef.current?.querySelector('iframe') ?? null;
@@ -98,7 +100,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
     attach();
     const observer = new MutationObserver(attach);
     if (viewerRef.current) observer.observe(viewerRef.current, { childList: true, subtree: true });
-    const fallbackId = window.setTimeout(handleLoad, 1500);
+    const fallbackId = window.setTimeout(handleLoad, PREVIEW_FALLBACK_DELAY_MS);
     return () => {
       observer.disconnect();
       iframe?.removeEventListener('load', handleLoad);
@@ -185,7 +187,12 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                       ref={key === 'language' ? firstControlRef : undefined}
                       aria-pressed={selection[key as keyof typeof selection] === value}
                       onClick={() => set(key as keyof typeof selection, value)}
-                      className={`cursor-pointer rounded border px-3 py-2 text-sm ${selection[key as keyof typeof selection] === value ? 'border-cyan-500 bg-cyan-500/20 text-cyan-700 dark:border-cyan-400 dark:text-cyan-200' : 'border-slate-300 hover:border-slate-500 dark:border-slate-600 dark:hover:border-slate-400'}`}
+                      className={cn(
+                        'cursor-pointer rounded border px-3 py-2 text-sm',
+                        selection[key as keyof typeof selection] === value
+                          ? 'border-cyan-500 bg-cyan-500/20 text-cyan-700 dark:border-cyan-400 dark:text-cyan-200'
+                          : 'border-slate-300 hover:border-slate-500 dark:border-slate-600 dark:hover:border-slate-400'
+                      )}
                     >
                       {text}
                     </button>

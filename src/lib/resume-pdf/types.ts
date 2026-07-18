@@ -30,28 +30,15 @@ export type ResumePdfDocumentData = {
   careers: ResumePdfCareer[];
   portfolio: { name: string; description: string; href: string; githubUrl: string };
   links: ResumePdfLink[];
+  labels: {
+    skills: string;
+    careers: string;
+    projects: string;
+    intro: string;
+    detailCta: string;
+    site: string;
+    contribution: string;
+    achievements: string;
+  };
   baseUrl: string;
 };
-
-export const resumeLabels = {
-  ko: {
-    skills: '기술 스택',
-    careers: '경력',
-    projects: '참고 링크',
-    intro: '소개',
-    detailCta: '자세한 경력과 프로젝트는 포트폴리오에서 확인해 주세요',
-    site: '사이트',
-    contribution: '주요 기여',
-    achievements: '주요 성과',
-  },
-  en: {
-    skills: 'Skills',
-    careers: 'Experience',
-    projects: 'Reference links',
-    intro: 'About',
-    detailCta: 'See the full career and project details on my portfolio',
-    site: 'Website',
-    contribution: 'Contribution',
-    achievements: 'Achievements',
-  },
-} as const;

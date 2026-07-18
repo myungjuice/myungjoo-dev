@@ -18,10 +18,10 @@ describe('resume PDF data', () => {
   });
   it('uses localhost only for local environments', () => {
     expect(resolveResumeBaseUrl({ hostname: 'localhost', protocol: 'http:', port: '5173' })).toBe(
-      'http://localhost:3000'
+      'http://localhost:5173'
     );
     expect(createResumePdfData('ko', 'summary', 'A', 'http://localhost:5173').baseUrl).toBe(
-      'http://localhost:3000'
+      'http://localhost:5173'
     );
     expect(createResumePdfData('ko', 'summary', 'A', 'https://preview.example.com').baseUrl).toBe(
       'https://www.myungjoo.dev'
@@ -31,11 +31,13 @@ describe('resume PDF data', () => {
     );
   });
   it('generates deterministic file names', () => {
-    expect(createResumePdfFileName('ko', 'summary', 'C')).toBe('장명주_이력서_요약.pdf');
-    expect(createResumePdfFileName('ko', 'detailed', 'A')).toBe('장명주_이력서_상세.pdf');
-    expect(createResumePdfFileName('en', 'summary', 'C')).toBe('MyungJoo_Jang_Resume_Summary.pdf');
+    expect(createResumePdfFileName('ko', 'summary', 'C')).toBe('장명주_이력서_요약_C.pdf');
+    expect(createResumePdfFileName('ko', 'detailed', 'A')).toBe('장명주_이력서_상세_A.pdf');
+    expect(createResumePdfFileName('en', 'summary', 'C')).toBe(
+      'MyungJoo_Jang_Resume_Summary_C.pdf'
+    );
     expect(createResumePdfFileName('en', 'detailed', 'A')).toBe(
-      'MyungJoo_Jang_Resume_Detailed.pdf'
+      'MyungJoo_Jang_Resume_Detailed_A.pdf'
     );
   });
   it('includes the default email and an empty phone when contact env vars are absent', () => {

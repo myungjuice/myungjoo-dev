@@ -13,7 +13,7 @@ i18nextUse.call(i18next, initReactI18next).init({
   fallbackLng: 'ko',
   supportedLngs: ['ko', 'en'],
   lng: 'ko',
-  ns: ['main', 'not-found', 'error', 'header', 'snake', 'career', 'project'],
+  ns: ['main', 'not-found', 'error', 'header', 'snake', 'career'],
   defaultNS: 'main',
   interpolation: {
     escapeValue: false,

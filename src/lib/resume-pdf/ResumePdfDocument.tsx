@@ -8,8 +8,12 @@ import type { ResumePdfDocumentData } from './types';
 // Keep the font in the repository so PDF generation is deterministic in CI and
 // does not depend on whichever fonts happen to be installed on the host.
 const notoSansKr = '/fonts/NotoSansKR-Regular.ttf';
-const registerNotoSansKr = () =>
+let isNotoSansKrRegistered = false;
+const registerNotoSansKr = () => {
+  if (isNotoSansKrRegistered) return;
   Font?.register?.({ family: 'Noto Sans KR', src: notoSansKr, fontWeight: 'normal' });
+  isNotoSansKrRegistered = true;
+};
 
 export function ResumePdfDocument({ data }: { data: ResumePdfDocumentData }) {
   registerNotoSansKr();

@@ -14,7 +14,7 @@ export const resolveResumeBaseUrl = (
   location?: Pick<Location, 'hostname' | 'protocol' | 'port'>
 ): string => {
   if (location?.hostname === 'localhost' || location?.hostname === '127.0.0.1') {
-    return 'http://localhost:3000';
+    return `http://localhost:${location.port || '3000'}`;
   }
   return DEPLOYED_URL;
 };
@@ -22,12 +22,13 @@ export const resolveResumeBaseUrl = (
 export const createResumePdfFileName = (
   language: ResumePdfLanguage,
   format: ResumePdfFormat,
-  _template: ResumePdfTemplate
+  template: ResumePdfTemplate
 ): string => {
+  const templateSuffix = `_${template}`;
   if (language === 'ko') {
-    return `장명주_이력서_${format === 'summary' ? '요약' : '상세'}.pdf`;
+    return `장명주_이력서_${format === 'summary' ? '요약' : '상세'}${templateSuffix}.pdf`;
   }
-  return `MyungJoo_Jang_Resume_${format === 'summary' ? 'Summary' : 'Detailed'}.pdf`;
+  return `MyungJoo_Jang_Resume_${format === 'summary' ? 'Summary' : 'Detailed'}${templateSuffix}.pdf`;
 };
 
 export const createResumePdfData = (
@@ -40,7 +41,7 @@ export const createResumePdfData = (
     try {
       const parsed = new URL(baseUrl);
       return parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'
-        ? 'http://localhost:3000'
+        ? `${parsed.protocol}//${parsed.host}`
         : DEPLOYED_URL;
     } catch {
       return DEPLOYED_URL;
@@ -90,6 +91,7 @@ export const createResumePdfData = (
       githubUrl: resumeLocale.portfolio.githubUrl,
     },
     links,
+    labels: resumeLocale.pdfLabels,
     baseUrl: parsedBaseUrl,
   };
 };

@@ -84,7 +84,13 @@ export const createResumeText = (language: ResumeLanguage, format: ResumeFormat)
     `## ${title.career}\n${careers
       .map(career =>
         [
-          `### ${career.name} | ${career.role}\n- ${title.period}: ${career.period}\n- ${career.slogan ?? ''}`.trim(),
+          [
+            `### ${career.name} | ${career.role}`,
+            `- ${title.period}: ${career.period}`,
+            career.slogan ? `- ${career.slogan}` : null,
+          ]
+            .filter(Boolean)
+            .join('\n'),
           createCareerOverviewText(career, title),
         ]
           .filter(Boolean)
@@ -95,7 +101,7 @@ export const createResumeText = (language: ResumeLanguage, format: ResumeFormat)
       .flatMap(career =>
         career.projects.map(project => `### ${project.title}\n- ${project.description}`)
       )
-      .concat(`### ${resumeLocale.portfolio.name}`)
+      .concat(`### ${resumeLocale.portfolio.name}\n- ${resumeLocale.portfolio.description}`)
       .join('\n\n')}`,
     `## ${title.links}\n- ${title.links}: ${resumeLocale.links.website}\n- ${title.github}: ${resumeLocale.links.github}`,
     profileLinks.length > 0

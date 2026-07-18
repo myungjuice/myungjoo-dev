@@ -1,10 +1,10 @@
 import { Link, Text, View } from '@react-pdf/renderer';
 
 import { pdfStyles as s } from '../styles';
-import { resumeLabels, type ResumePdfDocumentData } from '../types';
+import type { ResumePdfDocumentData } from '../types';
 
 export function TemplateA({ data }: { data: ResumePdfDocumentData }) {
-  const l = resumeLabels[data.language];
+  const l = data.labels;
   return (
     <View>
       <View style={s.header}>
