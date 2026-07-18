@@ -5,6 +5,7 @@ import { FiMenu, FiX } from 'react-icons/fi';
 
 import LanguageToggle from '@/components/shared/language-toggle';
 import ResumeCopyButton from '@/components/shared/resume-copy-button';
+import ResumeDownloadButton from '@/components/shared/resume-download-button';
 import ThemeDropdownButton from '@/components/shared/theme-dropdown-button';
 import { navLinks, overlayAnimation, menuAnimation } from '@/constants/header';
 import { cn } from '@/lib/utils';
@@ -87,6 +88,7 @@ const HeaderMobile = () => {
                 </p>
                 <div className='flex flex-wrap items-center justify-end gap-2'>
                   <ResumeCopyButton />
+                  <ResumeDownloadButton />
                   <LanguageToggle />
                   <ThemeDropdownButton />
                 </div>
