@@ -461,6 +461,10 @@
         "impact": "성과",
         "reflection": "회고"
       }
+    },
+    "detail": {
+      "viewed": "Viewed",
+      "viewedStatus": "{{title}} 읽음 상태"
     }
   },
   "en": {
@@ -931,6 +935,10 @@
         "impact": "Impact",
         "reflection": "Reflection"
       }
+    },
+    "detail": {
+      "viewed": "Viewed",
+      "viewedStatus": "{{title}} viewed status"
     }
   }
 }

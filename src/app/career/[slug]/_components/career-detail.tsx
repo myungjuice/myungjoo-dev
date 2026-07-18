@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiArrowLeft, FiImage } from 'react-icons/fi';
 
@@ -12,6 +12,7 @@ import { careerMockData } from '@/constants/career';
 import { cn } from '@/lib/utils';
 import type { CareerFilterItem } from '@/types/career';
 
+import CareerCaseStudyCard from './career-case-study-card';
 import CompanyOverview from './company-overview';
 
 type Props = {
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const CareerDetail = ({ slug }: Props) => {
+  const [viewedProjectIds, setViewedProjectIds] = useState<Set<number>>(() => new Set());
   const {
     i18n: { language },
   } = useTranslation();
@@ -38,6 +40,19 @@ const CareerDetail = ({ slug }: Props) => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    setViewedProjectIds(new Set());
+  }, [slug]);
+
+  const handleViewedChange = (projectId: number, viewed: boolean) => {
+    setViewedProjectIds(current => {
+      const next = new Set(current);
+      if (viewed) next.add(projectId);
+      else next.delete(projectId);
+      return next;
+    });
+  };
 
   if (!company) return null;
 
@@ -115,102 +130,15 @@ const CareerDetail = ({ slug }: Props) => {
         <div className='flex flex-col gap-5'>
           {company.projects.map((project, idx) => (
             <FadeInUp key={project.id} delay={0.1 + idx * 0.05} className='w-full'>
-              <div
-                id={`project-${project.id}`}
-                className='w-full scroll-mt-16 space-y-2 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-700/50 dark:bg-slate-900'
-              >
-                <div className='-mx-5 -mt-5 mb-3 flex items-center justify-between gap-2 rounded-t-lg bg-slate-200 px-5 py-3 dark:bg-slate-700'>
-                  <div className='min-w-0 flex-1 border-slate-400 sm:border-l-4 sm:px-2'>
-                    <p className='text-body-md-bold wrap-break-word text-gray-800 xl:text-body-lg-bold dark:text-slate-100'>
-                      {project.title}
-                    </p>
-                  </div>
-                  <div className='flex shrink-0 items-center gap-2'>
-                    <CareerLinkCopyButton
-                      slug={slug}
-                      projectId={project.id}
-                      label={linkCopyText.projectLabel}
-                      successMessage={linkCopyText.projectSuccess}
-                    />
-                    <span className='text-body-sm text-slate-400 tabular-nums dark:text-slate-500'>
-                      {String(idx + 1).padStart(2, '0')} /{' '}
-                      {String(company.projects.length).padStart(2, '0')}
-                    </span>
-                  </div>
-                </div>
-                <p className='text-body-sm wrap-break-word text-gray-600 xl:text-body-md dark:text-slate-400'>
-                  {project.description}
-                </p>
-
-                {project.caseStudy && (
-                  <div className='mt-4 space-y-3 border-t border-slate-200 pt-4 dark:border-slate-800'>
-                    {project.caseStudy.context && (
-                      <div className='space-y-1'>
-                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
-                          {`// ${language === 'ko' ? '상황' : 'context'}`}
-                        </p>
-                        <p className='text-body-sm text-slate-700 dark:text-slate-200'>
-                          {project.caseStudy.context}
-                        </p>
-                      </div>
-                    )}
-                    {project.caseStudy.problem && (
-                      <div className='space-y-1'>
-                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
-                          {`// ${language === 'ko' ? '문제' : 'problem'}`}
-                        </p>
-                        <p className='text-body-sm text-slate-700 dark:text-slate-200'>
-                          {project.caseStudy.problem}
-                        </p>
-                      </div>
-                    )}
-                    {project.caseStudy.action && project.caseStudy.action.length > 0 && (
-                      <div className='space-y-1'>
-                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
-                          {`// ${language === 'ko' ? '한 것' : 'action'}`}
-                        </p>
-                        <ul className='space-y-0.5'>
-                          {project.caseStudy.action.map((item, i) => (
-                            <li
-                              key={i}
-                              className='text-body-sm wrap-break-word text-slate-700 dark:text-slate-200'
-                            >
-                              {`• ${item}`}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {project.caseStudy.impact && project.caseStudy.impact.length > 0 && (
-                      <div className='space-y-1'>
-                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
-                          {`// ${language === 'ko' ? '결과' : 'impact'}`}
-                        </p>
-                        <ul className='space-y-0.5'>
-                          {project.caseStudy.impact.map((item, i) => (
-                            <li
-                              key={i}
-                              className='text-body-sm wrap-break-word text-slate-700 dark:text-slate-200'
-                            >
-                              {`✅ ${item}`}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {project.caseStudy.reflection && (
-                      <div className='space-y-1'>
-                        <p className='text-body-sm text-emerald-700 dark:text-[#6A9955]'>
-                          {`// ${language === 'ko' ? '배운 것' : 'reflection'}`}
-                        </p>
-                        <p className='text-body-sm text-slate-700 dark:text-slate-200'>
-                          {project.caseStudy.reflection}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
+              <CareerCaseStudyCard
+                slug={slug}
+                project={project}
+                index={idx}
+                total={company.projects.length}
+                viewed={viewedProjectIds.has(project.id)}
+                onViewedChange={handleViewedChange}
+                linkCopyText={linkCopyText}
+              />
             </FadeInUp>
           ))}
         </div>

@@ -34,6 +34,9 @@ jest.mock('react-i18next', () => ({
         return '복사하지 못했어요. 다시 시도해 주세요';
       }
 
+      if (key === 'detail.viewed') return 'Viewed';
+      if (key === 'detail.viewedStatus') return '읽음 상태';
+
       return key;
     },
   }),
@@ -147,15 +150,6 @@ describe('CareerLinkCopyButton 컴포넌트', () => {
 
     render(<CareerDetail slug='cdri' />);
 
-    const [firstProjectCopyButton] = screen.getAllByRole('button', {
-      name: '케이스 스터디 링크 복사',
-    });
-    expect(firstProjectCopyButton.parentElement).toHaveClass('shrink-0');
-    expect(firstProjectCopyButton.parentElement?.previousElementSibling).toHaveClass(
-      'min-w-0',
-      'flex-1'
-    );
-
     await user.click(screen.getByRole('button', { name: '회사 링크 복사' }));
     for (const button of screen.getAllByRole('button', { name: '케이스 스터디 링크 복사' })) {
       await user.click(button);
@@ -185,5 +179,16 @@ describe('CareerLinkCopyButton 컴포넌트', () => {
     const renderToast = jest.mocked(toast.custom).mock.calls[0][0];
     render(renderToast('success-toast'));
     expect(screen.getByText('Company page link copied')).toBeInTheDocument();
+  });
+
+  it('회사 페이지가 바뀌면 Viewed 상태를 초기화한다', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<CareerDetail slug='cdri' />);
+
+    await user.click(screen.getAllByRole('checkbox', { name: /읽음 상태/ })[0]);
+    expect(screen.queryByText(/매주 접수되는 사전과제/)).not.toBeInTheDocument();
+
+    rerender(<CareerDetail slug='supertree' />);
+    expect(screen.getAllByRole('checkbox', { name: /읽음 상태/ })[0]).not.toBeChecked();
   });
 });
