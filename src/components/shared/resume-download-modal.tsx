@@ -4,12 +4,17 @@ import { PDFViewer, pdf } from '@react-pdf/renderer';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiX } from 'react-icons/fi';
+import { toast } from 'sonner';
 
 import { createResumePdfData } from '@/lib/resume-pdf/data';
 import { ResumePdfDocument } from '@/lib/resume-pdf/ResumePdfDocument';
 import type { ResumePdfFormat, ResumePdfLanguage, ResumePdfTemplate } from '@/lib/resume-pdf/types';
 
-type Props = { open: boolean; onClose: () => void; triggerRef?: RefObject<HTMLButtonElement> };
+type Props = {
+  open: boolean;
+  onClose: () => void;
+  triggerRef?: RefObject<HTMLButtonElement | null>;
+};
 const defaults = {
   language: 'ko' as ResumePdfLanguage,
   format: 'summary' as ResumePdfFormat,
@@ -193,13 +198,20 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
             type='button'
             className='rounded bg-cyan-600 px-4 py-2 font-medium hover:bg-cyan-500'
             onClick={async () => {
-              const blob = await pdf(<ResumePdfDocument data={data} />).toBlob();
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = `resume-${selection.language}-${selection.format}-${selection.template}.pdf`;
-              a.click();
-              setTimeout(() => URL.revokeObjectURL(url), 1000);
+              try {
+                const blob = await pdf(<ResumePdfDocument data={data} />).toBlob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `myungjoo-resume-${selection.language}-${selection.format}-template-${selection.template}.pdf`;
+                a.rel = 'noopener';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+              } catch {
+                toast.error(t('resume-download-failure'));
+              }
             }}
           >
             {t('resume-download-pdf')}
