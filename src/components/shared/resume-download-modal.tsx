@@ -54,7 +54,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
     setSelection(s => ({ ...s, [key]: value }) as typeof s);
   return (
     <div
-      className='fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4'
+      className='fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-2 sm:p-4'
       role='presentation'
       onMouseDown={e => {
         if (e.target === e.currentTarget) onClose();
@@ -65,7 +65,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         role='dialog'
         aria-modal='true'
         aria-labelledby='resume-download-title'
-        className='flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-950 text-slate-100'
+        className='flex max-h-[94vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-950 text-slate-100'
       >
         <header className='flex items-center justify-between border-b border-slate-700 px-5 py-4'>
           <h2 id='resume-download-title' className='text-lg font-semibold'>
