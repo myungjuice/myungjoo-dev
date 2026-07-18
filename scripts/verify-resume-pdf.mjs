@@ -14,7 +14,7 @@ await mkdir(outDir, { recursive: true });
 const combinations = [];
 for (const language of ['ko', 'en']) {
   for (const format of ['summary', 'detailed']) {
-    for (const template of ['A', 'B', 'C']) combinations.push({ language, format, template });
+    for (const template of ['A', 'C']) combinations.push({ language, format, template });
   }
 }
 for (const { language, format, template } of combinations) {

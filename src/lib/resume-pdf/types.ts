@@ -1,6 +1,6 @@
 import type { CareerFilterItem, CareerProject } from '@/types/career';
 
-export type ResumePdfTemplate = 'A' | 'B' | 'C';
+export type ResumePdfTemplate = 'A' | 'C';
 export type ResumePdfFormat = 'summary' | 'detailed';
 export type ResumePdfLanguage = 'ko' | 'en';
 

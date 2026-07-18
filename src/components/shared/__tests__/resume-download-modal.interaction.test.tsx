@@ -12,7 +12,7 @@ describe('ResumeDownloadModal interactions', () => {
       'aria-pressed',
       'true'
     );
-    fireEvent.click(screen.getByRole('button', { name: 'resume-download-template B' }));
+    fireEvent.click(screen.getByRole('button', { name: 'resume-download-template C' }));
     rerender(<ResumeDownloadModal open={false} onClose={jest.fn()} />);
     rerender(<ResumeDownloadModal open onClose={jest.fn()} />);
     expect(screen.getByRole('button', { name: 'resume-download-template A' })).toHaveAttribute(

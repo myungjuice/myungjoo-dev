@@ -38,7 +38,7 @@ function textContent(node: unknown): string {
 }
 
 describe('ResumePdfDocument templates', () => {
-  it.each(['A', 'B', 'C'] as const)('dispatches template %s', template => {
+  it.each(['A', 'C'] as const)('dispatches template %s', template => {
     const data = createResumePdfData('ko', 'summary', template);
     expect(data.template).toBe(template);
     expect(data.careers[0].href).toMatch(/\/career\//);
@@ -47,7 +47,7 @@ describe('ResumePdfDocument templates', () => {
   });
 
   it('supports English labels/content and links', () => {
-    const data = createResumePdfData('en', 'detailed', 'B');
+    const data = createResumePdfData('en', 'detailed', 'A');
     expect(data.name).toBe('MyungJoo Jang');
     expect(data.bio.toLowerCase()).toContain('frontend');
     expect(data.links.some(link => link.href === data.baseUrl)).toBe(false);

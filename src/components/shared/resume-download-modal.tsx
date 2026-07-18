@@ -124,7 +124,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               </fieldset>
             ))}
             <div className='grid grid-cols-3 gap-2' aria-label={t('resume-download-template')}>
-              {(['A', 'B', 'C'] as ResumePdfTemplate[]).map(templateId => (
+              {(['A', 'C'] as ResumePdfTemplate[]).map(templateId => (
                 <button
                   key={templateId}
                   type='button'
@@ -141,20 +141,6 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                         <div className='h-1 w-full bg-slate-300' />
                         <div className='mt-1 h-1 w-4/5 bg-slate-300' />
                       </>
-                    )}
-                    {templateId === 'B' && (
-                      <div className='grid h-full grid-cols-[35%_65%] gap-1'>
-                        <div className='bg-slate-200 p-1'>
-                          <div className='h-1 w-full bg-slate-700' />
-                          <div className='mt-1 h-1 w-3/4 bg-slate-400' />
-                        </div>
-                        <div>
-                          <div className='h-1 w-2/3 bg-slate-800' />
-                          <div className='mt-2 h-px bg-slate-400' />
-                          <div className='mt-1 h-1 w-full bg-slate-300' />
-                          <div className='mt-1 h-1 w-4/5 bg-slate-300' />
-                        </div>
-                      </div>
                     )}
                     {templateId === 'C' && (
                       <>

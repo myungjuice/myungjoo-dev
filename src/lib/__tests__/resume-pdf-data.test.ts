@@ -33,7 +33,7 @@ describe('resume PDF data', () => {
     );
   });
   it('generates deterministic file names', () => {
-    expect(createResumePdfFileName('ko', 'summary', 'B')).toBe('장명주_이력서_요약.pdf');
+    expect(createResumePdfFileName('ko', 'summary', 'C')).toBe('장명주_이력서_요약.pdf');
     expect(createResumePdfFileName('ko', 'detailed', 'A')).toBe('장명주_이력서_상세.pdf');
     expect(createResumePdfFileName('en', 'summary', 'C')).toBe('MyungJoo_Jang_Resume_Summary.pdf');
     expect(createResumePdfFileName('en', 'detailed', 'A')).toBe(

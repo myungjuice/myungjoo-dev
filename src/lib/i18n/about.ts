@@ -3,7 +3,7 @@ const about = {
     experience: `
 /**
  * (주) 씨디알아이
- *  - 2025.07.21 ~ 
+ *  - 2025.07.21 ~ 2026.07.31
  *  - AI 기반 뷰티테크 산업 관련 프론트엔드 개발
  *
  * (주) 수퍼트리
@@ -90,7 +90,7 @@ const about = {
     experience: `
 /**
  * CDRI Corp.
- *  - 2025.07.21 ~ 
+ *  - 2025.07.21 ~ 2026.07.31
  *  - Frontend development for AI-based beauty-tech industry
  *
  * Supertree Corp.

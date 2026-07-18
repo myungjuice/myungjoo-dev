@@ -7,22 +7,19 @@ describe('ResumePdfDocument PDF rendering', () => {
   // tests are exercised by the production render smoke command (where ESM is
   // supported); keep them here as the executable acceptance contract.
   const renderTest = process.env.JEST_WORKER_ID ? it.skip : it;
-  renderTest.each(['A', 'B', 'C'] as const)(
-    'creates a PDF buffer for template %s',
-    async template => {
-      const { renderToBuffer } = await import('@react-pdf/renderer');
-      const { createResumePdfData } = await import('../resume-pdf/data');
-      const { ResumePdfDocument } = await import('../resume-pdf/ResumePdfDocument');
-      const buffer = await renderToBuffer(
-        React.createElement(ResumePdfDocument, {
-          data: createResumePdfData('ko', 'summary', template),
-        })
-      );
+  renderTest.each(['A', 'C'] as const)('creates a PDF buffer for template %s', async template => {
+    const { renderToBuffer } = await import('@react-pdf/renderer');
+    const { createResumePdfData } = await import('../resume-pdf/data');
+    const { ResumePdfDocument } = await import('../resume-pdf/ResumePdfDocument');
+    const buffer = await renderToBuffer(
+      React.createElement(ResumePdfDocument, {
+        data: createResumePdfData('ko', 'summary', template),
+      })
+    );
 
-      expect(buffer.length).toBeGreaterThan(0);
-      expect(buffer.subarray(0, 5).toString()).toBe('%PDF-');
-    }
-  );
+    expect(buffer.length).toBeGreaterThan(0);
+    expect(buffer.subarray(0, 5).toString()).toBe('%PDF-');
+  });
 
   renderTest('renders detailed content across at least one page', async () => {
     const { renderToBuffer } = await import('@react-pdf/renderer');
@@ -30,7 +27,7 @@ describe('ResumePdfDocument PDF rendering', () => {
     const { ResumePdfDocument } = await import('../resume-pdf/ResumePdfDocument');
     const buffer = await renderToBuffer(
       React.createElement(ResumePdfDocument, {
-        data: createResumePdfData('ko', 'detailed', 'B'),
+        data: createResumePdfData('ko', 'detailed', 'A'),
       })
     );
 
