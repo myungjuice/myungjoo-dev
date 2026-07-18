@@ -30,8 +30,13 @@ export const resolveResumeBaseUrl = (
 export const createResumePdfFileName = (
   language: ResumePdfLanguage,
   format: ResumePdfFormat,
-  template: ResumePdfTemplate
-): string => `myungjoo-resume-${language}-${format}-template-${template}.pdf`;
+  _template: ResumePdfTemplate
+): string => {
+  if (language === 'ko') {
+    return `장명주_이력서_${format === 'summary' ? '요약' : '상세'}.pdf`;
+  }
+  return `MyungJoo_Jang_Resume_${format === 'summary' ? 'Summary' : 'Detailed'}.pdf`;
+};
 
 export const createResumePdfData = (
   language: ResumePdfLanguage,

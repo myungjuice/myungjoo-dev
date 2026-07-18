@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { FiX } from 'react-icons/fi';
 import { toast } from 'sonner';
 
-import { createResumePdfData } from '@/lib/resume-pdf/data';
+import { createResumePdfData, createResumePdfFileName } from '@/lib/resume-pdf/data';
 import { ResumePdfDocument } from '@/lib/resume-pdf/ResumePdfDocument';
 import type { ResumePdfFormat, ResumePdfLanguage, ResumePdfTemplate } from '@/lib/resume-pdf/types';
 
@@ -203,7 +203,11 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `myungjoo-resume-${selection.language}-${selection.format}-template-${selection.template}.pdf`;
+                a.download = createResumePdfFileName(
+                  selection.language,
+                  selection.format,
+                  selection.template
+                );
                 a.rel = 'noopener';
                 document.body.appendChild(a);
                 a.click();
