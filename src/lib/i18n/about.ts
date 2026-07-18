@@ -28,7 +28,7 @@ const about = {
  * Vite, Turborepo, Webpack 등을 이용한 번들링 및 모노레포 구성 경험
  * AWS, GitHub Actions, GitLab CI, Vercel, Netlify 등 다양한 배포 환경 경험
  * Jira, Notion, Slack 등을 활용한 협업 경험
- * Claude, Codex, Cursor 등을 활용한 AI 기반 개발 및 업무 자동화 경험
+ * AI를 활용한 개발 경험
  * AI를 활용해 팀의 반복 작업과 개발 병목을 개선한 AX 경험
  */
 `,
@@ -115,7 +115,7 @@ const about = {
  * Experienced in bundlers and monorepo tools: Vite, Turborepo, Webpack
  * Familiar with various deployment environments: AWS, GitHub Actions, GitLab CI, Vercel, Netlify
  * Collaborative experience using Jira, Notion, and Slack
- * Experience using Claude, Codex, and Cursor for AI-assisted development and workflow automation
+ * Experience developing with AI tools
  * AX experience improving team bottlenecks and repetitive work with AI
  */
 `,
