@@ -3,9 +3,10 @@
 import { PDFViewer, pdf } from '@react-pdf/renderer';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiDownload, FiX } from 'react-icons/fi';
+import { FiCopy, FiDownload, FiX } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+import { createResumeText } from '@/lib/resume-copy';
 import { createResumePdfData, createResumePdfFileName } from '@/lib/resume-pdf/data';
 import { ResumePdfDocument } from '@/lib/resume-pdf/ResumePdfDocument';
 import type { ResumePdfFormat, ResumePdfLanguage, ResumePdfTemplate } from '@/lib/resume-pdf/types';
@@ -177,7 +178,24 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
             </PDFViewer>
           </section>
         </div>
-        <footer className='flex justify-end border-t border-slate-300 p-4 dark:border-slate-700'>
+        <footer className='flex justify-end gap-3 border-t border-slate-300 p-4 dark:border-slate-700'>
+          <button
+            type='button'
+            className='inline-flex cursor-pointer items-center gap-2 rounded border border-slate-300 bg-transparent px-4 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800'
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(
+                  createResumeText(selection.language, selection.format)
+                );
+                toast.success(t(`resume-copy-${selection.format}-success`));
+              } catch {
+                toast.error(t('resume-copy-failure'));
+              }
+            }}
+          >
+            <FiCopy aria-hidden='true' className='size-4' />
+            {t('resume-copy')}
+          </button>
           <button
             type='button'
             className='inline-flex cursor-pointer items-center gap-2 rounded border border-cyan-500 bg-cyan-500/20 px-4 py-2 font-medium text-cyan-700 transition-colors hover:bg-cyan-500/30 dark:border-cyan-400 dark:text-cyan-200'
