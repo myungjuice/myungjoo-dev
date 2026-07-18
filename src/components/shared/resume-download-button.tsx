@@ -11,7 +11,12 @@ export default function ResumeDownloadButton() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      <Button ref={triggerRef} type='button' onClick={() => setOpen(true)}>
+      <Button
+        ref={triggerRef}
+        type='button'
+        onClick={() => setOpen(true)}
+        className='border-cyan-500 bg-cyan-500/20 text-cyan-700 hover:bg-cyan-500/30 dark:border-cyan-400 dark:text-cyan-200'
+      >
         <FiDownload aria-hidden='true' className='size-4' />
         이력서 다운로드
       </Button>
