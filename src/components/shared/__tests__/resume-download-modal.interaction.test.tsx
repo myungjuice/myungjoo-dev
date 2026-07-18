@@ -8,14 +8,14 @@ jest.mock('@/lib/resume-pdf/ResumePdfDocument', () => ({ ResumePdfDocument: () =
 describe('ResumeDownloadModal interactions', () => {
   it('defaults to A and resets selection when reopened', () => {
     const { rerender } = render(<ResumeDownloadModal open onClose={jest.fn()} />);
-    expect(screen.getByRole('button', { name: 'resume-download-template-a' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: 'resume-download-template A' })).toHaveAttribute(
       'aria-pressed',
       'true'
     );
-    fireEvent.click(screen.getByRole('button', { name: 'resume-download-template-b' }));
+    fireEvent.click(screen.getByRole('button', { name: 'resume-download-template B' }));
     rerender(<ResumeDownloadModal open={false} onClose={jest.fn()} />);
     rerender(<ResumeDownloadModal open onClose={jest.fn()} />);
-    expect(screen.getByRole('button', { name: 'resume-download-template-a' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: 'resume-download-template A' })).toHaveAttribute(
       'aria-pressed',
       'true'
     );

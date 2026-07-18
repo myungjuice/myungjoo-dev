@@ -17,7 +17,7 @@ type Props = {
 };
 const defaults = {
   language: 'ko' as ResumePdfLanguage,
-  format: 'summary' as ResumePdfFormat,
+  format: 'detailed' as ResumePdfFormat,
   template: 'A' as ResumePdfTemplate,
 };
 
@@ -103,15 +103,6 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                     ['detailed', t('resume-download-detailed')],
                   ],
                 ],
-                [
-                  'template',
-                  t('resume-download-template'),
-                  [
-                    ['A', t('resume-download-template-a')],
-                    ['B', t('resume-download-template-b')],
-                    ['C', t('resume-download-template-c')],
-                  ],
-                ],
               ] as const
             ).map(([key, label, options]) => (
               <fieldset key={key}>
@@ -139,6 +130,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
                   type='button'
                   onClick={() => set('template', templateId)}
                   aria-label={`${t('resume-download-template')} ${templateId}`}
+                  aria-pressed={selection.template === templateId}
                   className={`cursor-pointer rounded border p-2 ${selection.template === templateId ? 'border-cyan-500' : 'border-slate-300 dark:border-slate-700'}`}
                 >
                   <div className='h-16 bg-white p-2 text-[5px] text-slate-800'>
