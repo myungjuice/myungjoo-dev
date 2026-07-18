@@ -187,7 +187,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               ))}
             </div>
           </aside>
-          <section className='min-h-[420px] border-0 bg-slate-100 p-3 dark:bg-slate-800 [&>iframe]:border-0'>
+          <section className='resume-pdf-viewer min-h-[420px] border-0 bg-slate-100 p-3 dark:bg-slate-800 [&>iframe]:border-0'>
             <PDFViewer
               showToolbar={false}
               width='100%'
@@ -201,7 +201,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         <footer className='flex justify-end border-t border-slate-300 p-4 dark:border-slate-700'>
           <button
             type='button'
-            className='cursor-pointer rounded bg-cyan-600 px-4 py-2 font-medium hover:bg-cyan-500'
+            className='cursor-pointer rounded-md border border-slate-300 bg-transparent px-4 py-2 font-medium text-slate-900 transition-colors hover:bg-accent hover:text-accent-foreground dark:border-slate-600 dark:text-slate-100'
             onClick={async () => {
               try {
                 const blob = await pdf(<ResumePdfDocument data={data} />).toBlob();

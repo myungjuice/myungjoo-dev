@@ -24,7 +24,7 @@
     "resume-download-detailed": "상세",
     "resume-download-korean": "국문",
     "resume-download-english": "영문",
-    "resume-download-pdf": "PDF 다운로드",
+    "resume-download-pdf": "이력서 다운로드",
     "resume-download-failure": "PDF를 만들지 못했어요. 다시 시도해 주세요"
   },
   "en": {
@@ -52,7 +52,7 @@
     "resume-download-detailed": "Detailed",
     "resume-download-korean": "Korean",
     "resume-download-english": "English",
-    "resume-download-pdf": "Download PDF",
+    "resume-download-pdf": "Download Resume",
     "resume-download-failure": "Couldn't create the PDF. Please try again."
   }
 }
