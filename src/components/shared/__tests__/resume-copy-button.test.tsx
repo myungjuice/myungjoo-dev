@@ -138,18 +138,18 @@ describe('ResumeCopyButton 컴포넌트', () => {
     expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
   });
 
-  it('데스크톱 헤더에 이력서 복사 버튼을 렌더링한다', () => {
+  it('데스크톱 헤더에 이력서 다운로드 버튼을 렌더링한다', () => {
     render(<HeaderDesktop />);
 
-    expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '이력서 다운로드' })).toBeInTheDocument();
   });
 
-  it('모바일 메뉴에 이력서 복사 버튼을 렌더링한다', async () => {
+  it('모바일 메뉴에 이력서 다운로드 버튼을 렌더링한다', async () => {
     const user = userEvent.setup();
     render(<HeaderMobile />);
 
     await user.click(screen.getByRole('button', { name: 'Toggle menu' }));
 
-    expect(screen.getByRole('button', { name: '이력서 복사' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '이력서 다운로드' })).toBeInTheDocument();
   });
 });
