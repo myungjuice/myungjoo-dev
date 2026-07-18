@@ -1,9 +1,10 @@
 import { Link, Text, View } from '@react-pdf/renderer';
 
 import { pdfStyles as s } from '../styles';
-import type { ResumePdfDocumentData } from '../types';
+import { resumeLabels, type ResumePdfDocumentData } from '../types';
 
 export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
+  const l = resumeLabels[data.language];
   return (
     <View style={s.panelPage}>
       <View style={s.panel}>
@@ -15,7 +16,7 @@ export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
           {data.baseUrl}
         </Link>
         <View style={s.section}>
-          <Text style={s.sectionTitle}>기술 스택</Text>
+          <Text style={s.sectionTitle}>{l.skills}</Text>
           {data.skills.map(x => (
             <Text key={x} style={s.pill}>
               {x}
@@ -26,7 +27,7 @@ export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
       <View style={s.panelBody}>
         <Text style={s.text}>{data.bio}</Text>
         <View style={s.section}>
-          <Text style={s.sectionTitle}>경력</Text>
+          <Text style={s.sectionTitle}>{l.careers}</Text>
           {data.careers.map(c => (
             <View key={c.id} style={s.career}>
               <Link src={c.href} style={[s.careerName, s.link]}>
@@ -35,6 +36,15 @@ export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
               <Text style={s.muted}>
                 {c.period} · {c.role}
               </Text>
+              {data.format === 'detailed' && c.contribution ? (
+                <Text style={s.text}>{c.contribution}</Text>
+              ) : null}
+              {data.format === 'detailed' &&
+                c.achievements.map(a => (
+                  <Text key={a} style={s.project}>
+                    • {a}
+                  </Text>
+                ))}
               {c.projects.map(p => (
                 <View key={p.id} style={s.project}>
                   <Link src={p.href} style={[s.projectName, s.link]}>
@@ -46,6 +56,9 @@ export function TemplateB({ data }: { data: ResumePdfDocumentData }) {
             </View>
           ))}
         </View>
+        <Link src={data.portfolio.githubUrl} style={s.link}>
+          GitHub ↗
+        </Link>
       </View>
     </View>
   );

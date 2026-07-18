@@ -32,3 +32,22 @@ export type ResumePdfDocumentData = {
   links: ResumePdfLink[];
   baseUrl: string;
 };
+
+export const resumeLabels = {
+  ko: {
+    skills: '기술 스택',
+    careers: '경력',
+    projects: '프로젝트',
+    intro: '소개',
+    contribution: '주요 기여',
+    achievements: '주요 성과',
+  },
+  en: {
+    skills: 'Skills',
+    careers: 'Experience',
+    projects: 'Projects',
+    intro: 'About',
+    contribution: 'Contribution',
+    achievements: 'Achievements',
+  },
+} as const;

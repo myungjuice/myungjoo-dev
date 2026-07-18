@@ -10,7 +10,7 @@ export function ResumePdfDocument({ data }: { data: ResumePdfDocumentData }) {
   const Content = data.template === 'A' ? TemplateA : data.template === 'B' ? TemplateB : TemplateC;
   return (
     <Document title={`${data.name} Resume`}>
-      <Page size='A4' style={data.template === 'B' ? s.panelPage : s.page}>
+      <Page size='A4' wrap style={data.template === 'B' ? s.panelPage : s.page}>
         <Content data={data} />
       </Page>
     </Document>

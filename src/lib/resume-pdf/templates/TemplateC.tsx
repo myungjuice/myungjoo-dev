@@ -1,9 +1,10 @@
 import { Link, Text, View } from '@react-pdf/renderer';
 
 import { pdfStyles as s } from '../styles';
-import type { ResumePdfDocumentData } from '../types';
+import { resumeLabels, type ResumePdfDocumentData } from '../types';
 
 export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
+  const l = resumeLabels[data.language];
   return (
     <View>
       <View style={s.compactHeader}>
@@ -16,11 +17,11 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
         </Text>
       </View>
       <View style={s.section}>
-        <Text style={s.sectionTitle}>소개</Text>
+        <Text style={s.sectionTitle}>{l.intro}</Text>
         <Text style={s.text}>{data.bio}</Text>
       </View>
       <View style={s.section}>
-        <Text style={s.sectionTitle}>기술 스택</Text>
+        <Text style={s.sectionTitle}>{l.skills}</Text>
         <View style={s.pills}>
           {data.skills.map(x => (
             <Text key={x} style={s.pill}>
@@ -30,7 +31,7 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
         </View>
       </View>
       <View style={s.section}>
-        <Text style={s.sectionTitle}>경력</Text>
+        <Text style={s.sectionTitle}>{l.careers}</Text>
         <View style={s.timeline}>
           {data.careers.map(c => (
             <View key={c.id} style={s.timelineItem}>
@@ -41,6 +42,9 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
                 <Text style={s.muted}>{c.period}</Text>
               </View>
               <Text>{c.role}</Text>
+              {data.format === 'detailed' && c.contribution ? (
+                <Text style={s.text}>{c.contribution}</Text>
+              ) : null}
               {c.projects.map(p => (
                 <View key={p.id} style={s.project}>
                   <Link src={p.href} style={[s.projectName, s.link]}>
@@ -54,9 +58,12 @@ export function TemplateC({ data }: { data: ResumePdfDocumentData }) {
         </View>
       </View>
       <View style={s.section}>
-        <Text style={s.sectionTitle}>프로젝트</Text>
+        <Text style={s.sectionTitle}>{l.projects}</Text>
         <Link src={data.portfolio.href} style={s.link}>
           {data.portfolio.name} ↗
+        </Link>
+        <Link src={data.portfolio.githubUrl} style={s.link}>
+          GitHub ↗
         </Link>
       </View>
     </View>
