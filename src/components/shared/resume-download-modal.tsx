@@ -192,7 +192,8 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
               showToolbar={false}
               width='100%'
               height='100%'
-              className='min-h-[520px] border-0'
+              className='min-h-[520px] border-0 bg-white'
+              style={{ border: '0', backgroundColor: '#ffffff' }}
             >
               <ResumePdfDocument data={data} />
             </PDFViewer>
