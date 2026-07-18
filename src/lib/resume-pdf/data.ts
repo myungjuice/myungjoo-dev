@@ -81,6 +81,8 @@ export const createResumePdfData = (
     template,
     name: language === 'ko' ? '장명주' : 'MyungJoo Jang',
     title: language === 'ko' ? 'Frontend Developer' : 'Frontend Developer',
+    phone: process.env.NEXT_PUBLIC_RESUME_PHONE || '',
+    email: process.env.NEXT_PUBLIC_RESUME_EMAIL || 'wkdaudwn1028@gmail.com',
     bio: (format === 'detailed'
       ? stripComment(localizedAbout.bio)
       : stripComment(localizedAbout.bio).slice(0, 2)

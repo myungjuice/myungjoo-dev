@@ -37,4 +37,34 @@ describe('resume PDF data', () => {
       'myungjoo-resume-ko-summary-template-B.pdf'
     );
   });
+  it('includes the default email and an empty phone when contact env vars are absent', () => {
+    const originalPhone = process.env.NEXT_PUBLIC_RESUME_PHONE;
+    const originalEmail = process.env.NEXT_PUBLIC_RESUME_EMAIL;
+    delete process.env.NEXT_PUBLIC_RESUME_PHONE;
+    delete process.env.NEXT_PUBLIC_RESUME_EMAIL;
+
+    const data = createResumePdfData('ko', 'summary', 'A');
+
+    expect(data.email).toBe('wkdaudwn1028@gmail.com');
+    expect(data.phone).toBe('');
+    if (originalPhone === undefined) delete process.env.NEXT_PUBLIC_RESUME_PHONE;
+    else process.env.NEXT_PUBLIC_RESUME_PHONE = originalPhone;
+    if (originalEmail === undefined) delete process.env.NEXT_PUBLIC_RESUME_EMAIL;
+    else process.env.NEXT_PUBLIC_RESUME_EMAIL = originalEmail;
+  });
+  it('prioritizes contact environment variables', () => {
+    const originalPhone = process.env.NEXT_PUBLIC_RESUME_PHONE;
+    const originalEmail = process.env.NEXT_PUBLIC_RESUME_EMAIL;
+    process.env.NEXT_PUBLIC_RESUME_PHONE = '010-1234-5678';
+    process.env.NEXT_PUBLIC_RESUME_EMAIL = 'resume@example.com';
+
+    const data = createResumePdfData('ko', 'summary', 'A');
+
+    expect(data.phone).toBe('010-1234-5678');
+    expect(data.email).toBe('resume@example.com');
+    if (originalPhone === undefined) delete process.env.NEXT_PUBLIC_RESUME_PHONE;
+    else process.env.NEXT_PUBLIC_RESUME_PHONE = originalPhone;
+    if (originalEmail === undefined) delete process.env.NEXT_PUBLIC_RESUME_EMAIL;
+    else process.env.NEXT_PUBLIC_RESUME_EMAIL = originalEmail;
+  });
 });

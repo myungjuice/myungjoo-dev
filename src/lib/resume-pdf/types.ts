@@ -23,6 +23,8 @@ export type ResumePdfDocumentData = {
   template: ResumePdfTemplate;
   name: string;
   title: string;
+  phone: string;
+  email: string;
   bio: string;
   skills: string[];
   careers: ResumePdfCareer[];
