@@ -12,7 +12,7 @@ export default function ResumeDownloadButton() {
         ref={triggerRef}
         type='button'
         onClick={() => setOpen(true)}
-        className='rounded border border-slate-500 px-3 py-2 text-sm hover:border-cyan-400'
+        className='inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
       >
         이력서 다운로드
       </button>
