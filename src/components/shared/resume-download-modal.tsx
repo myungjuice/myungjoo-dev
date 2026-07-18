@@ -65,7 +65,7 @@ export default function ResumeDownloadModal({ open, onClose, triggerRef }: Props
         role='dialog'
         aria-modal='true'
         aria-labelledby='resume-download-title'
-        className='flex max-h-[98vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-950 text-slate-100 max-md:max-w-full'
+        className='flex h-[94vh] max-h-[98vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-950 text-slate-100 max-md:h-[96vh] max-md:max-w-full'
       >
         <header className='flex items-center justify-between border-b border-slate-700 px-5 py-4'>
           <h2 id='resume-download-title' className='text-lg font-semibold'>
