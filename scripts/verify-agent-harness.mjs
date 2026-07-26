@@ -37,6 +37,30 @@ const SKILL_CONTRACTS = [
 const SKILL_FILE = REQUIRED_FILES[1];
 const REFERENCE_FILES = REQUIRED_FILES.slice(2, 5);
 const AGENT_FILES = REQUIRED_FILES.slice(6, 13);
+const AGENT_SANDBOX_MODES = {
+  'product-planner': 'read-only',
+  'product-designer': 'read-only',
+  'frontend-architect': 'read-only',
+  'frontend-developer': 'workspace-write',
+  'qa-engineer': 'read-only',
+  'code-reviewer': 'read-only',
+  'security-reviewer': 'read-only',
+};
+const HANDOFF_CONTRACT = [
+  '1. 상태: DONE | DONE_WITH_CONCERNS | NEEDS_CONTEXT | BLOCKED',
+  '2. 결론',
+  '3. 근거',
+  '4. 산출물',
+  '5. 검증',
+  '6. 미결정·위험',
+  '7. 다음 역할 입력',
+].join('\n');
+const FORBIDDEN_MODEL_SETTINGS = [
+  'model',
+  'model_reasoning_effort',
+  'default_subagent_model',
+  'default_subagent_reasoning_effort',
+];
 
 function readFile(rootDir, relativePath, errors) {
   const targetPath = path.join(rootDir, relativePath);
@@ -70,6 +94,26 @@ function hasExpectedAgentConfigFile(config, role) {
   const expectedConfigFile = new RegExp(`^config_file\\s*=\\s*"agents/${role}\\.toml"\\s*$`, 'm');
 
   return agentSection !== undefined && expectedConfigFile.test(agentSection);
+}
+
+function hasTomlStringValue(content, field, value) {
+  return new RegExp(`^${field}\\s*=\\s*"${value}"\\s*$`, 'm').test(content);
+}
+
+function hasTomlField(content, field) {
+  return new RegExp(`^${field}\\s*=`, 'm').test(content);
+}
+
+function hasHandoffContract(agent) {
+  return agent.includes(HANDOFF_CONTRACT);
+}
+
+function createAgentFixture(role) {
+  return `name = "${role}"
+sandbox_mode = "${AGENT_SANDBOX_MODES[role]}"
+developer_instructions = """
+${HANDOFF_CONTRACT}
+"""`;
 }
 
 export function validateHarness(rootDir) {
@@ -114,6 +158,7 @@ export function validateHarness(rootDir) {
 
   for (const agentFile of AGENT_FILES) {
     const agent = contents.get(agentFile);
+    const role = path.basename(agentFile, '.toml');
 
     if (agent === null) {
       continue;
@@ -124,6 +169,24 @@ export function validateHarness(rootDir) {
         errors.push(`agent 계약 누락 (${path.basename(agentFile)}): ${field}`);
       }
     }
+
+    if (!hasTomlStringValue(agent, 'name', role)) {
+      errors.push(`agent name 불일치: ${role}`);
+    }
+
+    if (!hasTomlStringValue(agent, 'sandbox_mode', AGENT_SANDBOX_MODES[role])) {
+      errors.push(`agent sandbox_mode 불일치: ${role} (expected ${AGENT_SANDBOX_MODES[role]})`);
+    }
+
+    for (const field of FORBIDDEN_MODEL_SETTINGS.slice(0, 2)) {
+      if (hasTomlField(agent, field)) {
+        errors.push(`agent ${field} 설정 금지: ${role}`);
+      }
+    }
+
+    if (!hasHandoffContract(agent)) {
+      errors.push(`agent handoff 계약 불일치: ${role}`);
+    }
   }
 
   const config = contents.get('.codex/config.toml');
@@ -133,6 +196,12 @@ export function validateHarness(rootDir) {
 
       if (!hasExpectedAgentConfigFile(config, role)) {
         errors.push(`agent config_file 연결 불일치: ${role}`);
+      }
+    }
+
+    for (const field of FORBIDDEN_MODEL_SETTINGS) {
+      if (hasTomlField(config, field)) {
+        errors.push(`config model 설정 금지: ${field}`);
       }
     }
   }
@@ -175,11 +244,9 @@ function runSelfTest() {
       writeFixtureFile(tempDir, referenceFile, SKILL_CONTRACTS.join('\n'));
     }
     for (const agentFile of AGENT_FILES) {
-      writeFixtureFile(
-        tempDir,
-        agentFile,
-        'sandbox_mode = "workspace-write"\ndeveloper_instructions = "상태 근거 검증"'
-      );
+      const role = path.basename(agentFile, '.toml');
+
+      writeFixtureFile(tempDir, agentFile, createAgentFixture(role));
     }
     const configContent = `${AGENT_FILES.map(agentFile => {
       const role = path.basename(agentFile, '.toml');
@@ -201,6 +268,77 @@ function runSelfTest() {
     );
 
     assert.deepEqual(validateHarness(tempDir), []);
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner').replace(
+        'sandbox_mode = "read-only"',
+        'sandbox_mode = "workspace-write"'
+      )
+    );
+    const sandboxErrors = validateHarness(tempDir);
+    assert.ok(
+      sandboxErrors.some(
+        error => error === 'agent sandbox_mode 불일치: product-planner (expected read-only)'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner').replace(
+        'developer_instructions',
+        'model = "fixture"\ndeveloper_instructions'
+      )
+    );
+    const modelErrors = validateHarness(tempDir);
+    assert.ok(modelErrors.some(error => error === 'agent model 설정 금지: product-planner'));
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner').replace(
+        'developer_instructions',
+        'model_reasoning_effort = "medium"\ndeveloper_instructions'
+      )
+    );
+    const reasoningErrors = validateHarness(tempDir);
+    assert.ok(
+      reasoningErrors.some(
+        error => error === 'agent model_reasoning_effort 설정 금지: product-planner'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner').replace(HANDOFF_CONTRACT, '상태 근거 검증')
+    );
+    const handoffErrors = validateHarness(tempDir);
+    assert.ok(handoffErrors.some(error => error === 'agent handoff 계약 불일치: product-planner'));
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      `${configContent}\n\ndefault_subagent_model = "fixture"`
+    );
+    const configModelErrors = validateHarness(tempDir);
+    assert.ok(
+      configModelErrors.some(error => error === 'config model 설정 금지: default_subagent_model')
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      `${configContent}\n\ndefault_subagent_reasoning_effort = "medium"`
+    );
+    const configReasoningErrors = validateHarness(tempDir);
+    assert.ok(
+      configReasoningErrors.some(
+        error => error === 'config model 설정 금지: default_subagent_reasoning_effort'
+      )
+    );
 
     writeFixtureFile(
       tempDir,

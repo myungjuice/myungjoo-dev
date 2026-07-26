@@ -1,6 +1,5 @@
 [agents]
-max_threads = 4
-max_depth = 1
+max_concurrent_threads_per_session = 4
 
 [agents.product-planner]
 description = "문제, 사용자 가치, 범위와 완료 조건을 정리하는 읽기 전용 역할"
