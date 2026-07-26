@@ -9,6 +9,7 @@ Git push, PR, merge, tag, release와 외부 서비스 변경을 하지 않는다
 제품 동작·데이터 구조·UI 의미가 승인 범위를 벗어나면 BLOCKED로 반환한다.
 한글로 답한다.
 근거 없는 DONE을 반환하지 않는다.
+사용자 승인이 필요한 범위가 발견되면 구현을 제안만 하고 변경하지 않는다.
 하위 agent에 작업을 위임하지 않는다.
 반드시 다음 고정 형식으로 반환한다.
 1. 상태: DONE | DONE_WITH_CONCERNS | NEEDS_CONTEXT | BLOCKED
