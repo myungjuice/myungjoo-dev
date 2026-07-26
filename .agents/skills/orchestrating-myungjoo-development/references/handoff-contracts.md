@@ -38,7 +38,8 @@
 - 읽기 전용 역할은 파일, Git, GitHub를 포함한 외부 서비스를 변경하지 않는다. 제안과
   보고서 작성도 파일 쓰기 권한이 명시된 경우에만 수행한다.
 - frontend-developer와 code-reviewer는 동일 agent일 수 없다.
-- `standard`와 `high-risk`의 qa-engineer는 frontend-developer와 분리한다.
+- `standard`에서 추가한 qa-engineer와 `high-risk`의 전담 qa-engineer는
+  frontend-developer와 분리한다.
 - 프로덕션 `lightweight`도 구현자와 독립된 code-reviewer를 둔다.
 - 동일 agent의 두 번째 pass, 자기 평가, 이전 수동 확인은 독립 handoff로 세지 않는다.
 - 각 역할은 요청 접수 시, 구현 직전, 리뷰 직전 등급 변화와 승인 경계 이탈을 발견하면

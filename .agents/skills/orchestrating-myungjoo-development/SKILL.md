@@ -21,6 +21,10 @@ CSP, 한 파일의 공통 Dialog, 하위 호환으로 보이는 외부 API 계�
 작업이다. 진단 요청은 읽기 전용으로 원인과 근거까지만 제시하며, 수정 권한을 추론하지
 않는다.
 
+새 기능이나 새 GitHub 이슈 구현은 새 Codex 대화에서 시작하는 것을 기본으로 한다. 새
+대화는 긴 이전 대화 대신 GitHub issue, `AGENTS.md`, 이 skill과 가이드, 저장소 상태에서
+작업 맥락을 복구한다. 제품 방향·아이디어 논의는 기존 대화에서 계속할 수 있다.
+
 ## 3. 등급 판정과 세 번의 재판정
 
 동일한 공식을 `요청 접수 시`, `구현 직전`, `리뷰 직전`에 반드시 다시 적용하고 판정 근거를
@@ -31,10 +35,11 @@ CSP, 한 파일의 공통 Dialog, 하위 호환으로 보이는 외부 API 계�
 
 ## 4. 최소 역할 라우팅
 
-등급과 작업 유형에 따라 7개 역할의 필수·조건부 참여를
-[routing matrix](references/routing-matrix.md)에서 선택한다. 역할을 줄일 때는 파일 수가
-아니라 해당 역할의 산출물이 불필요한 이유를 기록한다. 필요한 custom agent가 없다는
-이유로 역할 자체를 생략하지 않는다.
+`lightweight`는 작업 오케스트레이터가 직접 처리하는 것을 기본으로 하고 필요할 때만 단일
+Frontend Developer를 사용한다. `standard`는 Frontend Developer와 독립 Code Reviewer를
+기본으로 한다. 나머지 역할은 작업의 실제 조건이 있을 때만 추가한다. `high-risk`는 전담
+QA Engineer와 독립 Code Reviewer, 조건별 전문 역할과 복구 근거를 유지한다. 상세 조건은
+[routing matrix](references/routing-matrix.md)를 따른다.
 
 ## 5. Superpowers 연결
 
@@ -58,17 +63,20 @@ AGENTS.md가 정한 이슈, 실행 방식, 화면 설계, 사용자 동작, 데�
 
 ## 7. 구현자 독립 리뷰·QA
 
-프로덕션 코드는 `lightweight`여도 구현자와 독립된 코드 리뷰가 필수다. `standard`와
-`high-risk`의 QA는 구현자와 다른 agent가 수행한다. 같은 agent의 자기 검토나 기존 수동
-확인을 독립 증거로 세지 않는다. 분리가 불가능하면 완료로 축소 보고하지 말고
-`NEEDS_CONTEXT`로 필요한 역할과 안전한 다음 행동을 넘긴다.
+프로덕션 코드는 `lightweight`여도 구현자와 독립된 코드 리뷰가 필수다. `standard`의 Code
+Reviewer는 완료 조건 기반 QA 증거의 충분성도 확인한다. 실제 사용자 동작·브라우저
+검증·넓은 회귀가 있으면 구현자와 다른 QA Engineer를 추가하고, `high-risk`에서는 전담 QA
+Engineer를 반드시 둔다. 같은 agent의 자기 검토나 기존 수동 확인을 독립 증거로 세지
+않는다. 분리가 불가능하면 `NEEDS_CONTEXT`로 필요한 역할과 안전한 다음 행동을 넘긴다.
 
 ## 8. 검증과 완료
 
 등급별 필수 증거와 웹 공통 gate를 [quality gates](references/quality-gates.md)에서 골라
 실행한다. 명령 이름이 아니라 종료 코드, 핵심 결과, QA 관찰, 남은 위험을 기록한다.
-`high-risk`는 복구 방법과 승인 경계를 확인하고 전체 `pnpm verify`를 통과해야 한다. 모든
-역할은 고정된 [handoff 형식](references/handoff-contracts.md)으로 결과를 반환한다.
+동일한 HEAD에서 성공한 `pnpm verify`는 검증 환경과 도구가 바뀌지 않고 명령·HEAD·종료
+코드가 기록된 경우에만 재사용한다. `high-risk`는 복구 방법과 승인 경계를 확인하고 최종
+HEAD의 전체 검증 증거가 있어야 한다. 모든 역할은 고정된
+[handoff 형식](references/handoff-contracts.md)으로 결과를 반환한다.
 
 ## 9. Git/PR 금지 동작
 

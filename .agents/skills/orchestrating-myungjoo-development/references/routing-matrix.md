@@ -36,30 +36,32 @@
 특히 “한 줄 CSP”, “한 파일 공통 Dialog”, “optional 필드인 외부 API 계약”은 자동 승급을
 무효화하지 않는다.
 
-## 작업 유형별 역할
+## 역할 추가 조건
 
-표에서 필수는 반드시 별도 handoff를 받고, 조건부는 괄호 안 조건이 참일 때 참여시킨다.
-사용할 수 있는 역할명은 아래 7개뿐이다.
+사용할 수 있는 역할명은 기존 7개뿐이다. 등급별 기본 구성에 다음 조건이 실제로 있을 때만
+전문 역할을 추가한다.
 
-| 작업 유형                    | 필수 역할                                                                                              | 조건부 역할                                                                                                                   |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| 요구사항·완료 조건           | product-planner                                                                                        | product-designer (화면·상호작용), frontend-architect (기술 경계), qa-engineer (검증 가능성)                                   |
-| 화면·상호작용                | product-planner, product-designer, frontend-developer, qa-engineer, code-reviewer                      | frontend-architect (공용·상태·경계), security-reviewer (입력·링크·민감 정보)                                                  |
-| 프런트엔드 동작·상태·데이터  | product-planner, frontend-architect, frontend-developer, qa-engineer, code-reviewer                    | product-designer (사용자 경험), security-reviewer (신뢰 경계)                                                                 |
-| 버그 수정·리팩터링·테스트    | frontend-developer, qa-engineer, code-reviewer                                                         | product-planner (완료 조건 불명확), product-designer (UI 영향), frontend-architect (구조 영향), security-reviewer (보안 영향) |
-| 보안·CSP·빌드·배포           | product-planner, frontend-architect, frontend-developer, qa-engineer, code-reviewer, security-reviewer | product-designer (화면 영향)                                                                                                  |
-| 공용 UI·Dialog·design system | product-planner, product-designer, frontend-architect, frontend-developer, qa-engineer, code-reviewer  | security-reviewer (입력·포커스·외부 콘텐츠)                                                                                   |
-| 외부 API·공유 데이터 계약    | product-planner, frontend-architect, frontend-developer, qa-engineer, code-reviewer                    | product-designer (화면·오류 경험), security-reviewer (민감 데이터·권한)                                                       |
-| 문서·GitHub 준비만           | product-planner                                                                                        | code-reviewer (기술 사실·공개 변경 검토)                                                                                      |
+| 역할               | 추가 조건                                                   |
+| ------------------ | ----------------------------------------------------------- |
+| product-planner    | 제품 의미, 범위 또는 완료 조건이 불명확함                   |
+| product-designer   | 새 UI 흐름, 상호작용 또는 디자인 판단이 필요함              |
+| frontend-architect | 모듈·상태·Server/Client·외부 계약 같은 구조적 판단이 필요함 |
+| qa-engineer        | 실제 사용자 동작, 브라우저 검증 또는 넓은 회귀 범위가 있음  |
+| security-reviewer  | 보안·개인정보·입력·권한·외부 API의 신뢰 경계가 있음         |
 
 ## 등급별 최소 구성
 
-- `lightweight`: 프로덕션 코드면 frontend-developer와 구현자와 독립된 code-reviewer가
-  필수다. QA 관찰은 품질 증거로 남긴다.
-- `standard`: 해당 작업 유형의 필수 역할을 모두 사용하고 qa-engineer와 code-reviewer를
-  frontend-developer와 분리한다.
-- `high-risk`: 해당 작업 유형의 필수 역할에 전문 역할을 추가하고 qa-engineer,
-  code-reviewer, 필요한 security-reviewer를 frontend-developer와 분리한다.
+- `lightweight`: 작업 오케스트레이터 직접 수행이 기본이며 필요할 때만 단일
+  frontend-developer를 사용한다. 프로덕션 코드는 구현 주체와 독립된 code-reviewer가
+  필수이고, 오케스트레이터가 구현했어도 예외가 아니다.
+- `standard`: 작업 오케스트레이터가 제품·기술 계약을 통합한다. standard 기본 구성은
+  frontend-developer와 독립 code-reviewer를 기본으로 사용한다. code-reviewer는 완료 조건
+  기반 QA 증거도 확인하며, 위 조건이 있을 때만 qa-engineer나 전문 역할을 추가한다.
+- `high-risk`: 전담 qa-engineer와 독립 code-reviewer를 frontend-developer와 분리하고,
+  위험 조건에 맞는 전문 역할과 복구 근거를 추가한다.
+
+CI, 빌드·배포, CSP, 인증, 개인정보, 외부 API 계약, 공용 상태와 공용 UI 기반 변경은
+`high-risk`이며 작업량이 작다는 이유로 강등하지 않는다.
 
 질문, 상태 확인, 설명, 읽기 전용 진단은 전체 개발 workflow 대상이 아니다. 다만 답변을
 넘어 파일·Git·외부 서비스를 바꾸는 순간 요청 접수 시 판정부터 시작한다.

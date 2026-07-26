@@ -69,6 +69,13 @@ const AGENT_RESPONSIBILITIES = {
 const APPROVAL_CONTRACT =
   '사용자 승인이 필요한 범위가 발견되면 구현을 제안만 하고 변경하지 않는다.';
 const DELEGATION_CONTRACT = '하위 agent에 작업을 위임하지 않는다.';
+const CODE_REVIEWER_QA_CONTRACT = '승인된 완료 조건을 기준으로 QA 증거의 충분성과 공백을 확인한다.';
+const LIGHTWEIGHT_DIRECT_CONTRACT = '작업 오케스트레이터가 직접 처리하는 것을 기본';
+const STANDARD_DEFAULT_CONTRACT = 'frontend-developer와 독립 code-reviewer를 기본';
+const HIGH_RISK_QA_CONTRACT = '전담 qa-engineer와 독립 code-reviewer';
+const HIGH_RISK_SPECIALIST_CONTRACT = '위험 조건에 맞는 전문 역할과 복구 근거';
+const VERIFY_REUSE_CONTRACT = '동일한 HEAD에서 성공한 `pnpm verify`';
+const NEW_CONVERSATION_CONTRACT = '새 기능이나 새 GitHub 이슈 구현은 새 Codex 대화';
 const HANDOFF_CONTRACT = [
   '1. 상태: DONE | DONE_WITH_CONCERNS | NEEDS_CONTEXT | BLOCKED',
   '2. 결론',
@@ -78,12 +85,7 @@ const HANDOFF_CONTRACT = [
   '6. 미결정·위험',
   '7. 다음 역할 입력',
 ].join('\n');
-const FORBIDDEN_MODEL_SETTINGS = [
-  'model',
-  'model_reasoning_effort',
-  'default_subagent_model',
-  'default_subagent_reasoning_effort',
-];
+const FORBIDDEN_AGENT_MODEL_SETTINGS = ['model', 'model_reasoning_effort'];
 
 function readFile(rootDir, relativePath, errors) {
   const targetPath = path.join(rootDir, relativePath);
@@ -109,10 +111,6 @@ function writeFixtureFile(rootDir, relativePath, content) {
   const targetPath = path.join(rootDir, relativePath);
   mkdirSync(path.dirname(targetPath), { recursive: true });
   writeFileSync(targetPath, content, 'utf8');
-}
-
-function hasTomlField(content, field) {
-  return new RegExp(`^${field}\\s*=`, 'm').test(content);
 }
 
 function parseRestrictedToml(content) {
@@ -288,22 +286,56 @@ function validateConfigToml(config, errors) {
   }
 
   for (const key of parsed.topLevel.keys()) {
-    errors.push(`config TOML 허용되지 않은 key: top:${key}`);
+    if (!['model', 'model_reasoning_effort'].includes(key)) {
+      errors.push(`config TOML 허용되지 않은 key: top:${key}`);
+    }
+  }
+
+  const model = parsed.topLevel.get('model');
+  if (model?.type !== 'string' || model.value !== 'gpt-5.6-sol') {
+    errors.push('config CTO model 불일치: expected gpt-5.6-sol');
+  }
+
+  const reasoningEffort = parsed.topLevel.get('model_reasoning_effort');
+  if (reasoningEffort?.type !== 'string' || reasoningEffort.value !== 'medium') {
+    errors.push('config CTO reasoning effort 불일치: expected medium');
   }
 
   const agentsTable = parsed.tables.get('agents');
   if (agentsTable !== undefined) {
     for (const key of agentsTable.keys()) {
-      if (key !== 'max_concurrent_threads_per_session') {
+      if (
+        ![
+          'default_subagent_model',
+          'default_subagent_reasoning_effort',
+          'max_concurrent_threads_per_session',
+        ].includes(key)
+      ) {
         errors.push(`config TOML 허용되지 않은 key: agents:${key}`);
       }
     }
+
+    const defaultSubagentModel = agentsTable.get('default_subagent_model');
+    if (defaultSubagentModel?.type !== 'string' || defaultSubagentModel.value !== 'gpt-5.6-terra') {
+      errors.push('config 기본 sub-agent model 불일치: expected gpt-5.6-terra');
+    }
+
+    const defaultSubagentReasoningEffort = agentsTable.get('default_subagent_reasoning_effort');
+    if (
+      defaultSubagentReasoningEffort?.type !== 'string' ||
+      defaultSubagentReasoningEffort.value !== 'medium'
+    ) {
+      errors.push('config 기본 sub-agent reasoning effort 불일치: expected medium');
+    }
+
     const concurrency = agentsTable.get('max_concurrent_threads_per_session');
-    if (concurrency?.type !== 'number' || concurrency.value !== '4') {
-      errors.push('config 동시 agent 제한 불일치: expected 4');
+    if (concurrency?.type !== 'number' || concurrency.value !== '3') {
+      errors.push('config 동시 agent 제한 불일치: expected 3');
     }
   } else {
-    errors.push('config 동시 agent 제한 불일치: expected 4');
+    errors.push('config 기본 sub-agent model 불일치: expected gpt-5.6-terra');
+    errors.push('config 기본 sub-agent reasoning effort 불일치: expected medium');
+    errors.push('config 동시 agent 제한 불일치: expected 3');
   }
 
   for (const role of AGENT_ROLES) {
@@ -325,12 +357,14 @@ function validateConfigToml(config, errors) {
 }
 
 function createAgentFixture(role) {
+  const qaContract = role === 'code-reviewer' ? `${CODE_REVIEWER_QA_CONTRACT}\n` : '';
+
   return `name = "${role}"
 description = "fixture"
 sandbox_mode = "${AGENT_SANDBOX_MODES[role]}"
 developer_instructions = """
 ${AGENT_RESPONSIBILITIES[role]}
-${APPROVAL_CONTRACT}
+${qaContract}${APPROVAL_CONTRACT}
 ${DELEGATION_CONTRACT}
 ${HANDOFF_CONTRACT}
 """`;
@@ -364,6 +398,11 @@ export function validateHarness(rootDir) {
         errors.push(`skill 계약 누락: ${contract}`);
       }
     }
+    for (const contract of [LIGHTWEIGHT_DIRECT_CONTRACT, NEW_CONVERSATION_CONTRACT]) {
+      if (!skill.includes(contract)) {
+        errors.push(`skill 계약 누락: ${contract}`);
+      }
+    }
   }
 
   const references = REFERENCE_FILES.map(file => contents.get(file))
@@ -375,6 +414,24 @@ export function validateHarness(rootDir) {
         errors.push(`reference 계약 누락: ${contract}`);
       }
     }
+  }
+
+  const routingMatrix = contents.get(REFERENCE_FILES[0]);
+  if (routingMatrix !== null) {
+    for (const contract of [
+      STANDARD_DEFAULT_CONTRACT,
+      HIGH_RISK_QA_CONTRACT,
+      HIGH_RISK_SPECIALIST_CONTRACT,
+    ]) {
+      if (!routingMatrix.includes(contract)) {
+        errors.push(`routing 계약 누락: ${contract}`);
+      }
+    }
+  }
+
+  const qualityGates = contents.get(REFERENCE_FILES[1]);
+  if (qualityGates !== null && !qualityGates.includes(VERIFY_REUSE_CONTRACT)) {
+    errors.push(`quality gate 계약 누락: ${VERIFY_REUSE_CONTRACT}`);
   }
 
   for (const agentFile of AGENT_FILES) {
@@ -390,7 +447,7 @@ export function validateHarness(rootDir) {
     const developerInstructionsValue =
       developerInstructions?.type === 'triple' ? developerInstructions.value : '';
 
-    for (const field of FORBIDDEN_MODEL_SETTINGS.slice(0, 2)) {
+    for (const field of FORBIDDEN_AGENT_MODEL_SETTINGS) {
       if (parsedAgent.topLevel.has(field)) {
         errors.push(`agent ${field} 설정 금지: ${role}`);
       }
@@ -411,17 +468,18 @@ export function validateHarness(rootDir) {
     if (!developerInstructionsValue.includes(DELEGATION_CONTRACT)) {
       errors.push(`agent 하위 위임 금지 계약 누락: ${role}`);
     }
+
+    if (
+      role === 'code-reviewer' &&
+      !developerInstructionsValue.includes(CODE_REVIEWER_QA_CONTRACT)
+    ) {
+      errors.push('agent 완료 조건 기반 QA 증거 계약 누락: code-reviewer');
+    }
   }
 
   const config = contents.get('.codex/config.toml');
   if (config !== null) {
     validateConfigToml(config, errors);
-
-    for (const field of FORBIDDEN_MODEL_SETTINGS) {
-      if (hasTomlField(config, field)) {
-        errors.push(`config model 설정 금지: ${field}`);
-      }
-    }
   }
 
   const packageJson = readFile(rootDir, 'package.json', errors);
@@ -455,19 +513,34 @@ function runSelfTest() {
     const incompleteErrors = validateHarness(tempDir);
     assert.ok(incompleteErrors.some(error => error.includes('필수 파일 누락')));
 
-    const skillContent = `---\nname: fixture\ndescription: fixture\n---\n${SKILL_CONTRACTS.join('\n')}`;
+    const skillContent = `---\nname: fixture\ndescription: fixture\n---\n${SKILL_CONTRACTS.join('\n')}
+${LIGHTWEIGHT_DIRECT_CONTRACT}
+${NEW_CONVERSATION_CONTRACT}`;
     writeFixtureFile(tempDir, 'AGENTS.md', '# fixture');
     writeFixtureFile(tempDir, SKILL_FILE, skillContent);
-    for (const referenceFile of REFERENCE_FILES) {
-      writeFixtureFile(tempDir, referenceFile, SKILL_CONTRACTS.join('\n'));
-    }
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[0],
+      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
+    );
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[1],
+      `${SKILL_CONTRACTS.join('\n')}\n${VERIFY_REUSE_CONTRACT}`
+    );
+    writeFixtureFile(tempDir, REFERENCE_FILES[2], SKILL_CONTRACTS.join('\n'));
     for (const agentFile of AGENT_FILES) {
       const role = path.basename(agentFile, '.toml');
 
       writeFixtureFile(tempDir, agentFile, createAgentFixture(role));
     }
-    const configContent = `[agents]
-max_concurrent_threads_per_session = 4
+    const configContent = `model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+
+[agents]
+default_subagent_model = "gpt-5.6-terra"
+default_subagent_reasoning_effort = "medium"
+max_concurrent_threads_per_session = 3
 
 ${AGENT_FILES.map(agentFile => {
   const role = path.basename(agentFile, '.toml');
@@ -489,6 +562,165 @@ ${AGENT_FILES.map(agentFile => {
     );
 
     assert.deepEqual(validateHarness(tempDir), []);
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace('model = "gpt-5.6-sol"', 'model = "wrong-model"')
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'config CTO model 불일치: expected gpt-5.6-sol'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace('model_reasoning_effort = "medium"', 'model_reasoning_effort = "high"')
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'config CTO reasoning effort 불일치: expected medium'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace(
+        'default_subagent_model = "gpt-5.6-terra"',
+        'default_subagent_model = "wrong-model"'
+      )
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'config 기본 sub-agent model 불일치: expected gpt-5.6-terra'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace(
+        'default_subagent_reasoning_effort = "medium"',
+        'default_subagent_reasoning_effort = "high"'
+      )
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'config 기본 sub-agent reasoning effort 불일치: expected medium'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace(
+        'max_concurrent_threads_per_session = 3',
+        'max_concurrent_threads_per_session = 9'
+      )
+    );
+    assert.ok(
+      validateHarness(tempDir).some(error => error === 'config 동시 agent 제한 불일치: expected 3')
+    );
+
+    writeFixtureFile(tempDir, '.codex/config.toml', configContent);
+    writeFixtureFile(
+      tempDir,
+      SKILL_FILE,
+      skillContent.replace(LIGHTWEIGHT_DIRECT_CONTRACT, 'lightweight 직접 수행 계약 누락')
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === `skill 계약 누락: ${LIGHTWEIGHT_DIRECT_CONTRACT}`
+      )
+    );
+
+    writeFixtureFile(tempDir, SKILL_FILE, skillContent);
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[0],
+      `${SKILL_CONTRACTS.join('\n')}\nstandard 기본 역할 누락\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === `routing 계약 누락: ${STANDARD_DEFAULT_CONTRACT}`
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[0],
+      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
+    );
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/code-reviewer.toml',
+      createAgentFixture('code-reviewer').replace(CODE_REVIEWER_QA_CONTRACT, 'QA 증거 책임 누락')
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'agent 완료 조건 기반 QA 증거 계약 누락: code-reviewer'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/code-reviewer.toml',
+      createAgentFixture('code-reviewer')
+    );
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[0],
+      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === `routing 계약 누락: ${HIGH_RISK_QA_CONTRACT}`
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[0],
+      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n전문 역할 계약 누락`
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === `routing 계약 누락: ${HIGH_RISK_SPECIALIST_CONTRACT}`
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[0],
+      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
+    );
+    writeFixtureFile(tempDir, REFERENCE_FILES[1], SKILL_CONTRACTS.join('\n'));
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === `quality gate 계약 누락: ${VERIFY_REUSE_CONTRACT}`
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      REFERENCE_FILES[1],
+      `${SKILL_CONTRACTS.join('\n')}\n${VERIFY_REUSE_CONTRACT}`
+    );
+    writeFixtureFile(
+      tempDir,
+      SKILL_FILE,
+      skillContent.replace(NEW_CONVERSATION_CONTRACT, '새 구현 대화 계약 누락')
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === `skill 계약 누락: ${NEW_CONVERSATION_CONTRACT}`
+      )
+    );
+
+    writeFixtureFile(tempDir, SKILL_FILE, skillContent);
 
     writeFixtureFile(
       tempDir,
@@ -772,11 +1004,11 @@ ${AGENT_FILES.map(agentFile => {
     writeFixtureFile(
       tempDir,
       '.codex/config.toml',
-      configContent.replace('max_concurrent_threads_per_session = 4', 'max_threads = 4')
+      configContent.replace('max_concurrent_threads_per_session = 3', 'max_threads = 9')
     );
     const concurrencyErrors = validateHarness(tempDir);
     assert.ok(
-      concurrencyErrors.some(error => error === 'config 동시 agent 제한 불일치: expected 4')
+      concurrencyErrors.some(error => error === 'config 동시 agent 제한 불일치: expected 3')
     );
 
     writeFixtureFile(
@@ -827,28 +1059,6 @@ ${AGENT_FILES.map(agentFile => {
     );
     const handoffErrors = validateHarness(tempDir);
     assert.ok(handoffErrors.some(error => error === 'agent handoff 계약 불일치: product-planner'));
-
-    writeFixtureFile(
-      tempDir,
-      '.codex/config.toml',
-      `${configContent}\n\ndefault_subagent_model = "fixture"`
-    );
-    const configModelErrors = validateHarness(tempDir);
-    assert.ok(
-      configModelErrors.some(error => error === 'config model 설정 금지: default_subagent_model')
-    );
-
-    writeFixtureFile(
-      tempDir,
-      '.codex/config.toml',
-      `${configContent}\n\ndefault_subagent_reasoning_effort = "medium"`
-    );
-    const configReasoningErrors = validateHarness(tempDir);
-    assert.ok(
-      configReasoningErrors.some(
-        error => error === 'config model 설정 금지: default_subagent_reasoning_effort'
-      )
-    );
 
     writeFixtureFile(
       tempDir,
