@@ -1,0 +1,31 @@
+[agents]
+max_threads = 4
+max_depth = 1
+
+[agents.product-planner]
+description = "문제, 사용자 가치, 범위와 완료 조건을 정리하는 읽기 전용 역할"
+config_file = "agents/product-planner.toml"
+
+[agents.product-designer]
+description = "화면 상태와 디자인 시스템 적용 기준을 정리하는 읽기 전용 역할"
+config_file = "agents/product-designer.toml"
+
+[agents.frontend-architect]
+description = "프런트엔드 경계, 상태와 검증 전략을 검토하는 읽기 전용 역할"
+config_file = "agents/frontend-architect.toml"
+
+[agents.frontend-developer]
+description = "승인된 단일 task 범위에서 최소 변경을 구현하는 역할"
+config_file = "agents/frontend-developer.toml"
+
+[agents.qa-engineer]
+description = "완료 조건과 회귀 검증 증거를 설계하는 읽기 전용 역할"
+config_file = "agents/qa-engineer.toml"
+
+[agents.code-reviewer]
+description = "구현자와 독립적으로 정확성과 회귀를 검토하는 읽기 전용 역할"
+config_file = "agents/code-reviewer.toml"
+
+[agents.security-reviewer]
+description = "보안과 개인정보 신뢰 경계를 검토하는 읽기 전용 역할"
+config_file = "agents/security-reviewer.toml"
