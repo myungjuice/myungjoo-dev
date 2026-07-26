@@ -64,6 +64,14 @@ function writeFixtureFile(rootDir, relativePath, content) {
   writeFileSync(targetPath, content, 'utf8');
 }
 
+function hasExpectedAgentConfigFile(config, role) {
+  const sectionHeader = new RegExp(`^\\[agents\\.${role}\\]\\s*$`, 'm');
+  const agentSection = config.split(/(?=^\[)/m).find(section => sectionHeader.test(section));
+  const expectedConfigFile = new RegExp(`^config_file\\s*=\\s*"agents/${role}\\.toml"\\s*$`, 'm');
+
+  return agentSection !== undefined && expectedConfigFile.test(agentSection);
+}
+
 export function validateHarness(rootDir) {
   const errors = [];
   const contents = new Map();
@@ -121,8 +129,10 @@ export function validateHarness(rootDir) {
   const config = contents.get('.codex/config.toml');
   if (config !== null) {
     for (const agentFile of AGENT_FILES) {
-      if (!config.includes('config_file') || !config.includes(agentFile)) {
-        errors.push(`agent config_file 누락: ${agentFile}`);
+      const role = path.basename(agentFile, '.toml');
+
+      if (!hasExpectedAgentConfigFile(config, role)) {
+        errors.push(`agent config_file 연결 불일치: ${role}`);
       }
     }
   }
@@ -171,11 +181,11 @@ function runSelfTest() {
         'sandbox_mode = "workspace-write"\ndeveloper_instructions = "상태 근거 검증"'
       );
     }
-    writeFixtureFile(
-      tempDir,
-      '.codex/config.toml',
-      AGENT_FILES.map(agentFile => `config_file = "${agentFile}"`).join('\n')
-    );
+    const configContent = `${AGENT_FILES.map(agentFile => {
+      const role = path.basename(agentFile, '.toml');
+      return `[agents.${role}]\nconfig_file = "agents/${role}.toml"`;
+    }).join('\n\n')}\n\n# ${AGENT_FILES.join(' ')}`;
+    writeFixtureFile(tempDir, '.codex/config.toml', configContent);
     writeFixtureFile(tempDir, '.github/workflows/quality.yml', 'name: fixture');
     writeFixtureFile(
       tempDir,
@@ -192,6 +202,20 @@ function runSelfTest() {
 
     assert.deepEqual(validateHarness(tempDir), []);
 
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace(
+        'config_file = "agents/product-planner.toml"',
+        'config_file = "agents/product-designer.toml"'
+      )
+    );
+    const configErrors = validateHarness(tempDir);
+    assert.ok(
+      configErrors.some(error => error === 'agent config_file 연결 불일치: product-planner')
+    );
+
+    writeFixtureFile(tempDir, '.codex/config.toml', configContent);
     writeFixtureFile(tempDir, SKILL_FILE, skillContent.replace('high-risk', 'removed-contract'));
     const contractErrors = validateHarness(tempDir);
     assert.ok(contractErrors.some(error => error === 'skill 계약 누락: high-risk'));
