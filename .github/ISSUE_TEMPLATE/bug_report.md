@@ -1,41 +1,50 @@
 ---
-name: 🐛 Bug Report
-about: Report a bug to help us improve
-title: '[Bug] '
+name: 🐛 버그 신고
+about: 문제를 신고해 서비스 품질 개선에 참여해 주세요.
+title: '[fix] '
 labels: ['bug']
 assignees: ''
 ---
 
-## 🐞 Bug Description
+## 문제
 
-<!-- A clear and concise description of what the bug is -->
+<!-- 발생한 문제를 사용자의 관점에서 명확하게 설명하세요. -->
 
-## ✅ Steps to Reproduce
+## 재현 절차
 
-<!-- How to reproduce the behavior -->
+<!-- 문제가 재현되는 최소 단계를 작성하세요. -->
 
-1. Go to '...'
-2. Click on '...'
-3. Scroll down to '...'
-4. See the error
+1.
+2.
+3.
 
-## 💻 Expected Behavior
+## 기대 결과
 
-<!-- A clear description of what you expected to happen -->
+<!-- 정상 동작 시 기대한 결과를 작성하세요. -->
 
-## 📸 Screenshots (if applicable)
+## 실제 결과
 
-<!-- If applicable, add screenshots to help explain your problem -->
+<!-- 실제로 관찰한 결과와 오류 메시지를 작성하세요. -->
 
-## 🧾 Environment
+## 영향 범위
 
-<!-- Fill in where the issue occurred -->
+<!-- 영향을 받는 사용자, 화면, 기능과 심각도를 작성하세요. -->
 
-- OS: [e.g. macOS Ventura / Windows 11]
-- Browser: [e.g. Chrome 123, Safari 16.4]
-- Device: [e.g. Desktop / iPhone 14]
-- Version: [app version or Git commit hash]
+## 완료 조건
 
-## 📄 Additional Context
+<!-- 해결 완료를 판단할 수 있는 확인 가능한 조건을 작성하세요. -->
 
-<!-- Add any other context about the problem here -->
+- [ ]
+
+## 환경
+
+<!-- 문제가 발생한 환경을 작성하세요. -->
+
+- OS:
+- 브라우저:
+- 기기:
+- 버전 또는 커밋:
+
+## 참고 자료
+
+<!-- 스크린샷, 로그, 관련 이슈, 재현 링크 등 참고 자료를 첨부하세요. 없으면 `없음`을 적으세요. -->

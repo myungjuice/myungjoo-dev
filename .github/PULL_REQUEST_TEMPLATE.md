@@ -1,30 +1,55 @@
-## 🔍 Overview
+<!-- Draft 상태로 생성하고 대상 브랜치는 develop으로 지정하세요. -->
+<!-- PR 생성과 Ready 전환은 사용자 승인 후에만 진행하세요. -->
 
-<!-- Briefly describe what this PR does -->
+## 🔍 개요
 
-## ✅ What’s Included
+<!-- 이 PR의 목적과 해결하는 문제를 간결하게 설명하세요. -->
 
-<!-- Please check the relevant items below -->
+## ✅ 포함된 변경
 
-- [ ] Feature
-- [ ] Bug Fix
-- [ ] UI Enhancement
-- [ ] Performance Improvement
-- [ ] Code Refactor
-- [ ] Test Code
-- [ ] Release
-- [ ] Others (describe below)
+<!-- 해당하는 항목을 선택하고, 필요하면 아래에 세부 내용을 작성하세요. -->
 
-## 📸 Screenshots
+- [ ] 기능 추가
+- [ ] 버그 수정
+- [ ] UI 개선
+- [ ] 성능 개선
+- [ ] 코드 리팩터링
+- [ ] 테스트 코드
+- [ ] 릴리즈
+- [ ] 기타 (아래에 설명)
 
-<!-- Add screenshots if the PR includes UI work -->
+## 🧪 검증
 
-## 🔗 Related Issues
+<!-- 실행한 명령과 결과를 모두 기록하세요. 실행하지 않은 검증은 사유를 적으세요. -->
 
-<!-- Add related issue numbers if applicable -->
+| 실행 명령 | 결과 |
+| --------- | ---- |
+|           |      |
 
-- Closes #
+## 🔎 QA 및 독립 리뷰
 
-## 💬 Additional Notes
+<!-- QA 시나리오와 결과, 독립 리뷰어 및 검토 결과를 기록하세요. -->
 
-<!-- Any extra context, TODOs, or implementation details -->
+- QA:
+- 독립 리뷰:
+
+## ⚠️ 위험과 되돌리기
+
+<!-- 알려진 위험, 영향 범위, 되돌리는 방법을 기록하세요. 없으면 `없음`을 적으세요. -->
+
+- 위험:
+- 되돌리기:
+
+## 📸 스크린샷
+
+<!-- UI 변경이 있으면 스크린샷 또는 녹화 자료를 첨부하세요. 해당하지 않으면 `없음`을 적으세요. -->
+
+## 🔗 관련 이슈
+
+<!-- 선택 사항입니다. 관련 이슈가 없으면 `없음`을 유지하고, 있으면 `Closes #번호`로 교체하세요. -->
+
+- 없음
+
+## 💬 추가 메모
+
+<!-- 추가 맥락, TODO, 구현 세부 사항을 작성하세요. 없으면 `없음`을 적으세요. -->

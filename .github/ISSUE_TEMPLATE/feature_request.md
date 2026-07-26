@@ -1,27 +1,33 @@
 ---
-name: 🌟 Feature Request
-about: Suggest a new feature or improvement
-title: '[Feature] '
+name: 🌟 기능 제안
+about: 새로운 기능 또는 개선 사항을 제안해 주세요.
+title: '[feat] '
 labels: ['enhancement']
 assignees: ''
 ---
 
-## ✨ Feature Description
+## 문제와 사용자 가치
 
-<!-- Clearly describe the new feature or improvement you are suggesting -->
+<!-- 해결하려는 문제와 이 변경이 사용자에게 주는 가치를 작성하세요. -->
 
-## 💡 Motivation
+## 제안 범위
 
-<!-- Why do you need this feature? What problem does it solve? -->
+<!-- 포함할 기능, 화면, 사용자 흐름을 구체적으로 작성하세요. -->
 
-## 🧩 Proposed Solution
+## 완료 조건
 
-<!-- If you have any ideas on how to implement it, describe them here -->
+<!-- 기능 완료를 판단할 수 있는 확인 가능한 조건을 작성하세요. -->
 
-## 📄 Alternatives Considered (optional)
+- [ ]
 
-<!-- Have you considered any alternative solutions or workarounds? -->
+## 제외 범위
 
-## 🙋 Additional Context
+<!-- 이번 작업에서 의도적으로 포함하지 않는 범위를 작성하세요. -->
 
-<!-- Add any other context, mockups, or references that might help explain the request -->
+## 고려한 대안
+
+<!-- 검토한 다른 해결 방법과 선택하지 않은 이유를 작성하세요. 없으면 `없음`을 적으세요. -->
+
+## 참고 자료
+
+<!-- 목업, 관련 이슈, 사용자 피드백, 참고 링크를 첨부하세요. 없으면 `없음`을 적으세요. -->

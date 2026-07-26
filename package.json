@@ -11,6 +11,8 @@
     "fix": "npm run lint && npm run format",
     "prepare": "husky",
     "test": "jest",
+    "verify": "pnpm lint && pnpm format && pnpm test --runInBand && pnpm verify:harness && pnpm build",
+    "verify:harness": "node scripts/verify-agent-harness.mjs && node scripts/verify-agent-harness.mjs --self-test",
     "verify:resume-pdf": "pnpm dlx tsx scripts/verify-resume-pdf.mjs"
   },
   "dependencies": {
