@@ -1,7 +1,7 @@
 ---
-name: 🌟 Feature Request
-about: Suggest a new feature or improvement
-title: '[Feature] '
+name: 🌟 기능 제안
+about: 새로운 기능 또는 개선 사항을 제안해 주세요.
+title: '[feat] '
 labels: ['enhancement']
 assignees: ''
 ---

@@ -1,7 +1,7 @@
 ---
-name: 🐛 Bug Report
-about: Report a bug to help us improve
-title: '[Bug] '
+name: 🐛 버그 신고
+about: 문제를 신고해 서비스 품질 개선에 참여해 주세요.
+title: '[fix] '
 labels: ['bug']
 assignees: ''
 ---
