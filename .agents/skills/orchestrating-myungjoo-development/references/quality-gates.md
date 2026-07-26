@@ -14,6 +14,21 @@
 동작·브라우저·넓은 회귀 조건으로 QA Engineer를 추가한 경우 구현자와 분리한다.
 `high-risk`의 전담 QA Engineer와 Code Reviewer는 모두 구현자와 분리한다.
 
+## 기계 판독 계약
+
+다음 표가 역할 라우팅·검증 재사용·대화 운영에 대한 기계 판독의 단일 기준이다. 설명
+문구는 가독성을 위한 것이며 validator는 아래 key와 value의 정확한 조합을 검사한다.
+
+| key                                          | value                              |
+| -------------------------------------------- | ---------------------------------- |
+| `routing.lightweight.executor`               | `orchestrator-direct`              |
+| `routing.standard.default-agents`            | `frontend-developer,code-reviewer` |
+| `routing.standard.reviewer-qa-evidence`      | `required`                         |
+| `routing.high-risk.dedicated-qa`             | `qa-engineer`                      |
+| `routing.high-risk.specialists-and-recovery` | `required`                         |
+| `verification.same-head-reuse`               | `recorded-success-only`            |
+| `conversation.new-implementation`            | `new-conversation`                 |
+
 ## 단계별 gate
 
 ### 요청 접수 시

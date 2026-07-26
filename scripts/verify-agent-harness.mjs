@@ -69,13 +69,44 @@ const AGENT_RESPONSIBILITIES = {
 const APPROVAL_CONTRACT =
   '사용자 승인이 필요한 범위가 발견되면 구현을 제안만 하고 변경하지 않는다.';
 const DELEGATION_CONTRACT = '하위 agent에 작업을 위임하지 않는다.';
-const CODE_REVIEWER_QA_CONTRACT = '승인된 완료 조건을 기준으로 QA 증거의 충분성과 공백을 확인한다.';
-const LIGHTWEIGHT_DIRECT_CONTRACT = '작업 오케스트레이터가 직접 처리하는 것을 기본';
-const STANDARD_DEFAULT_CONTRACT = 'frontend-developer와 독립 code-reviewer를 기본';
-const HIGH_RISK_QA_CONTRACT = '전담 qa-engineer와 독립 code-reviewer';
-const HIGH_RISK_SPECIALIST_CONTRACT = '위험 조건에 맞는 전문 역할과 복구 근거';
-const VERIFY_REUSE_CONTRACT = '동일한 HEAD에서 성공한 `pnpm verify`';
-const NEW_CONVERSATION_CONTRACT = '새 기능이나 새 GitHub 이슈 구현은 새 Codex 대화';
+const CODE_REVIEWER_QA_CONTRACT =
+  '코드 검토와 함께 승인된 완료 조건을 기준으로 QA 증거의 충분성과 공백을 확인한다.';
+const POSITIVE_PROSE_CONTRACTS = [
+  {
+    file: SKILL_FILE,
+    label: 'lightweight CTO 직접 수행',
+    text: '`lightweight`는 작업 오케스트레이터가 직접 처리하는 것을 기본으로 하고 필요할 때만 단일 Frontend Developer를 사용한다.',
+  },
+  {
+    file: SKILL_FILE,
+    label: '새 구현 대화',
+    text: '새 기능이나 새 GitHub 이슈 구현은 새 Codex 대화에서 시작하는 것을 기본으로 한다.',
+  },
+  {
+    file: REFERENCE_FILES[0],
+    label: 'standard 기본 역할',
+    text: 'standard 기본 구성은 frontend-developer와 독립 code-reviewer를 기본으로 사용한다.',
+  },
+  {
+    file: REFERENCE_FILES[0],
+    label: 'high-risk 전담 QA와 전문 역할',
+    text: '`high-risk`: 전담 qa-engineer와 독립 code-reviewer를 frontend-developer와 분리하고, 위험 조건에 맞는 전문 역할과 복구 근거를 추가한다.',
+  },
+  {
+    file: REFERENCE_FILES[1],
+    label: '동일 HEAD 검증 재사용',
+    text: '동일한 HEAD에서 성공한 `pnpm verify`는 코드·설정·의존성·Node/pnpm 환경과 검증 도구가 그대로이고 성공한 명령, 대상 HEAD, 종료 코드가 기록된 경우에만 재사용한다.',
+  },
+];
+const NORMATIVE_CONTRACTS = new Map([
+  ['routing.lightweight.executor', 'orchestrator-direct'],
+  ['routing.standard.default-agents', 'frontend-developer,code-reviewer'],
+  ['routing.standard.reviewer-qa-evidence', 'required'],
+  ['routing.high-risk.dedicated-qa', 'qa-engineer'],
+  ['routing.high-risk.specialists-and-recovery', 'required'],
+  ['verification.same-head-reuse', 'recorded-success-only'],
+  ['conversation.new-implementation', 'new-conversation'],
+]);
 const HANDOFF_CONTRACT = [
   '1. 상태: DONE | DONE_WITH_CONCERNS | NEEDS_CONTEXT | BLOCKED',
   '2. 결론',
@@ -111,6 +142,70 @@ function writeFixtureFile(rootDir, relativePath, content) {
   const targetPath = path.join(rootDir, relativePath);
   mkdirSync(path.dirname(targetPath), { recursive: true });
   writeFileSync(targetPath, content, 'utf8');
+}
+
+function normalizeProse(content) {
+  return content
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function hasExactInstructionLine(content, expected) {
+  return content.split(/\r?\n/).some(line => line.trim() === expected);
+}
+
+function validateNormativeContracts(content, errors) {
+  const lines = content.split(/\r?\n/);
+  const headingIndex = lines.findIndex(line => line.trim() === '## 기계 판독 계약');
+
+  if (headingIndex === -1) {
+    errors.push('기계 판독 계약 표 누락');
+    return;
+  }
+
+  const contracts = new Map();
+  for (const line of lines.slice(headingIndex + 1)) {
+    if (/^##\s+/.test(line)) {
+      break;
+    }
+
+    const row = line.match(/^\|\s*`([^`]+)`\s*\|\s*`([^`]+)`\s*\|$/);
+    if (row === null) {
+      continue;
+    }
+
+    const [, key, value] = row;
+    if (contracts.has(key)) {
+      errors.push(`기계 판독 계약 key 중복: ${key}`);
+    } else {
+      contracts.set(key, value);
+    }
+  }
+
+  for (const [key, expectedValue] of NORMATIVE_CONTRACTS) {
+    const actualValue = contracts.get(key);
+    if (actualValue === undefined) {
+      errors.push(`기계 판독 계약 누락: ${key}`);
+    } else if (actualValue !== expectedValue) {
+      errors.push(`기계 판독 계약 값 불일치: ${key} (expected ${expectedValue})`);
+    }
+  }
+
+  for (const key of contracts.keys()) {
+    if (!NORMATIVE_CONTRACTS.has(key)) {
+      errors.push(`기계 판독 계약 허용되지 않은 key: ${key}`);
+    }
+  }
+}
+
+function createNormativeContractTable(overrides = new Map()) {
+  const rows = [...NORMATIVE_CONTRACTS].map(
+    ([key, value]) => `| \`${key}\` | \`${overrides.get(key) ?? value}\` |`
+  );
+
+  return ['## 기계 판독 계약', '', '| key | value |', '| --- | --- |', ...rows].join('\n');
 }
 
 function parseRestrictedToml(content) {
@@ -398,11 +493,6 @@ export function validateHarness(rootDir) {
         errors.push(`skill 계약 누락: ${contract}`);
       }
     }
-    for (const contract of [LIGHTWEIGHT_DIRECT_CONTRACT, NEW_CONVERSATION_CONTRACT]) {
-      if (!skill.includes(contract)) {
-        errors.push(`skill 계약 누락: ${contract}`);
-      }
-    }
   }
 
   const references = REFERENCE_FILES.map(file => contents.get(file))
@@ -416,22 +506,16 @@ export function validateHarness(rootDir) {
     }
   }
 
-  const routingMatrix = contents.get(REFERENCE_FILES[0]);
-  if (routingMatrix !== null) {
-    for (const contract of [
-      STANDARD_DEFAULT_CONTRACT,
-      HIGH_RISK_QA_CONTRACT,
-      HIGH_RISK_SPECIALIST_CONTRACT,
-    ]) {
-      if (!routingMatrix.includes(contract)) {
-        errors.push(`routing 계약 누락: ${contract}`);
-      }
-    }
+  const qualityGates = contents.get(REFERENCE_FILES[1]);
+  if (qualityGates !== null) {
+    validateNormativeContracts(qualityGates, errors);
   }
 
-  const qualityGates = contents.get(REFERENCE_FILES[1]);
-  if (qualityGates !== null && !qualityGates.includes(VERIFY_REUSE_CONTRACT)) {
-    errors.push(`quality gate 계약 누락: ${VERIFY_REUSE_CONTRACT}`);
+  for (const contract of POSITIVE_PROSE_CONTRACTS) {
+    const content = contents.get(contract.file);
+    if (content !== null && !normalizeProse(content).includes(normalizeProse(contract.text))) {
+      errors.push(`긍정형 prose 계약 불일치: ${contract.label}`);
+    }
   }
 
   for (const agentFile of AGENT_FILES) {
@@ -471,7 +555,7 @@ export function validateHarness(rootDir) {
 
     if (
       role === 'code-reviewer' &&
-      !developerInstructionsValue.includes(CODE_REVIEWER_QA_CONTRACT)
+      !hasExactInstructionLine(developerInstructionsValue, CODE_REVIEWER_QA_CONTRACT)
     ) {
       errors.push('agent 완료 조건 기반 QA 증거 계약 누락: code-reviewer');
     }
@@ -514,20 +598,19 @@ function runSelfTest() {
     assert.ok(incompleteErrors.some(error => error.includes('필수 파일 누락')));
 
     const skillContent = `---\nname: fixture\ndescription: fixture\n---\n${SKILL_CONTRACTS.join('\n')}
-${LIGHTWEIGHT_DIRECT_CONTRACT}
-${NEW_CONVERSATION_CONTRACT}`;
+${POSITIVE_PROSE_CONTRACTS[0].text}
+${POSITIVE_PROSE_CONTRACTS[1].text}`;
+    const routingContent = `${SKILL_CONTRACTS.join('\n')}
+${POSITIVE_PROSE_CONTRACTS[2].text}
+${POSITIVE_PROSE_CONTRACTS[3].text}`;
+    const qualityGateContent = `${SKILL_CONTRACTS.join('\n')}
+${POSITIVE_PROSE_CONTRACTS[4].text}
+
+${createNormativeContractTable()}`;
     writeFixtureFile(tempDir, 'AGENTS.md', '# fixture');
     writeFixtureFile(tempDir, SKILL_FILE, skillContent);
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[0],
-      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
-    );
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[1],
-      `${SKILL_CONTRACTS.join('\n')}\n${VERIFY_REUSE_CONTRACT}`
-    );
+    writeFixtureFile(tempDir, REFERENCE_FILES[0], routingContent);
+    writeFixtureFile(tempDir, REFERENCE_FILES[1], qualityGateContent);
     writeFixtureFile(tempDir, REFERENCE_FILES[2], SKILL_CONTRACTS.join('\n'));
     for (const agentFile of AGENT_FILES) {
       const role = path.basename(agentFile, '.toml');
@@ -562,6 +645,62 @@ ${AGENT_FILES.map(agentFile => {
     );
 
     assert.deepEqual(validateHarness(tempDir), []);
+
+    const negativeProseCases = [
+      {
+        file: SKILL_FILE,
+        content: skillContent,
+        from: '기본으로 하고 필요할 때만',
+        to: '기본으로 하지 않고 필요할 때만',
+        label: 'lightweight CTO 직접 수행',
+      },
+      {
+        file: SKILL_FILE,
+        content: skillContent,
+        from: '새 Codex 대화에서 시작하는 것을 기본으로 한다.',
+        to: '새 Codex 대화에서 시작하지 않는 것을 기본으로 한다.',
+        label: '새 구현 대화',
+      },
+      {
+        file: REFERENCE_FILES[0],
+        content: routingContent,
+        from: '독립 code-reviewer를 기본으로 사용한다.',
+        to: '독립 code-reviewer를 기본으로 사용하지 않는다.',
+        label: 'standard 기본 역할',
+      },
+      {
+        file: REFERENCE_FILES[0],
+        content: routingContent,
+        from: '위험 조건에 맞는 전문 역할과 복구 근거를 추가한다.',
+        to: '위험 조건에 맞는 전문 역할과 복구 근거를 추가하지 않는다.',
+        label: 'high-risk 전담 QA와 전문 역할',
+      },
+      {
+        file: REFERENCE_FILES[1],
+        content: qualityGateContent,
+        from: '기록된 경우에만 재사용한다.',
+        to: '기록된 경우에도 재사용하지 않는다.',
+        label: '동일 HEAD 검증 재사용',
+      },
+    ];
+
+    for (const testCase of negativeProseCases) {
+      const decoy =
+        testCase.label === 'lightweight CTO 직접 수행'
+          ? `\n<!-- ${POSITIVE_PROSE_CONTRACTS[0].text} -->\n\`\`\`md\n${POSITIVE_PROSE_CONTRACTS[0].text}\n\`\`\``
+          : '';
+      writeFixtureFile(
+        tempDir,
+        testCase.file,
+        `${testCase.content.replace(testCase.from, testCase.to)}${decoy}`
+      );
+      assert.ok(
+        validateHarness(tempDir).some(
+          error => error === `긍정형 prose 계약 불일치: ${testCase.label}`
+        )
+      );
+      writeFixtureFile(tempDir, testCase.file, testCase.content);
+    }
 
     writeFixtureFile(
       tempDir,
@@ -628,36 +767,11 @@ ${AGENT_FILES.map(agentFile => {
     writeFixtureFile(tempDir, '.codex/config.toml', configContent);
     writeFixtureFile(
       tempDir,
-      SKILL_FILE,
-      skillContent.replace(LIGHTWEIGHT_DIRECT_CONTRACT, 'lightweight 직접 수행 계약 누락')
-    );
-    assert.ok(
-      validateHarness(tempDir).some(
-        error => error === `skill 계약 누락: ${LIGHTWEIGHT_DIRECT_CONTRACT}`
-      )
-    );
-
-    writeFixtureFile(tempDir, SKILL_FILE, skillContent);
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[0],
-      `${SKILL_CONTRACTS.join('\n')}\nstandard 기본 역할 누락\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
-    );
-    assert.ok(
-      validateHarness(tempDir).some(
-        error => error === `routing 계약 누락: ${STANDARD_DEFAULT_CONTRACT}`
-      )
-    );
-
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[0],
-      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
-    );
-    writeFixtureFile(
-      tempDir,
       '.codex/agents/code-reviewer.toml',
-      createAgentFixture('code-reviewer').replace(CODE_REVIEWER_QA_CONTRACT, 'QA 증거 책임 누락')
+      createAgentFixture('code-reviewer').replace(
+        CODE_REVIEWER_QA_CONTRACT,
+        '코드 검토와 함께 승인된 완료 조건을 기준으로 QA 증거의 충분성과 공백을 확인하지 않는다.'
+      )
     );
     assert.ok(
       validateHarness(tempDir).some(
@@ -670,57 +784,21 @@ ${AGENT_FILES.map(agentFile => {
       '.codex/agents/code-reviewer.toml',
       createAgentFixture('code-reviewer')
     );
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[0],
-      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
-    );
-    assert.ok(
-      validateHarness(tempDir).some(
-        error => error === `routing 계약 누락: ${HIGH_RISK_QA_CONTRACT}`
-      )
-    );
 
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[0],
-      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n전문 역할 계약 누락`
-    );
-    assert.ok(
-      validateHarness(tempDir).some(
-        error => error === `routing 계약 누락: ${HIGH_RISK_SPECIALIST_CONTRACT}`
-      )
-    );
-
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[0],
-      `${SKILL_CONTRACTS.join('\n')}\n${STANDARD_DEFAULT_CONTRACT}\n${HIGH_RISK_QA_CONTRACT}\n${HIGH_RISK_SPECIALIST_CONTRACT}`
-    );
-    writeFixtureFile(tempDir, REFERENCE_FILES[1], SKILL_CONTRACTS.join('\n'));
-    assert.ok(
-      validateHarness(tempDir).some(
-        error => error === `quality gate 계약 누락: ${VERIFY_REUSE_CONTRACT}`
-      )
-    );
-
-    writeFixtureFile(
-      tempDir,
-      REFERENCE_FILES[1],
-      `${SKILL_CONTRACTS.join('\n')}\n${VERIFY_REUSE_CONTRACT}`
-    );
-    writeFixtureFile(
-      tempDir,
-      SKILL_FILE,
-      skillContent.replace(NEW_CONVERSATION_CONTRACT, '새 구현 대화 계약 누락')
-    );
-    assert.ok(
-      validateHarness(tempDir).some(
-        error => error === `skill 계약 누락: ${NEW_CONVERSATION_CONTRACT}`
-      )
-    );
-
-    writeFixtureFile(tempDir, SKILL_FILE, skillContent);
+    for (const [key, value] of NORMATIVE_CONTRACTS) {
+      const mutatedTable = createNormativeContractTable(new Map([[key, `${value}-invalid`]]));
+      writeFixtureFile(
+        tempDir,
+        REFERENCE_FILES[1],
+        qualityGateContent.replace(createNormativeContractTable(), mutatedTable)
+      );
+      assert.ok(
+        validateHarness(tempDir).some(
+          error => error === `기계 판독 계약 값 불일치: ${key} (expected ${value})`
+        )
+      );
+    }
+    writeFixtureFile(tempDir, REFERENCE_FILES[1], qualityGateContent);
 
     writeFixtureFile(
       tempDir,
