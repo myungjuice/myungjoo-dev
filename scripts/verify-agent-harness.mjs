@@ -111,16 +111,8 @@ function writeFixtureFile(rootDir, relativePath, content) {
   writeFileSync(targetPath, content, 'utf8');
 }
 
-function hasTomlStringValue(content, field, value) {
-  return new RegExp(`^${field}\\s*=\\s*"${value}"\\s*$`, 'm').test(content);
-}
-
 function hasTomlField(content, field) {
   return new RegExp(`^${field}\\s*=`, 'm').test(content);
-}
-
-function hasHandoffContract(agent) {
-  return agent.includes(HANDOFF_CONTRACT);
 }
 
 function parseRestrictedToml(content) {
@@ -137,7 +129,10 @@ function parseRestrictedToml(content) {
 
     if (openDeveloperInstructions !== null) {
       if (line === '"""') {
+        openDeveloperInstructions.record.value = openDeveloperInstructions.lines.join('\n');
         openDeveloperInstructions = null;
+      } else {
+        openDeveloperInstructions.lines.push(rawLine);
       }
       continue;
     }
@@ -179,10 +174,11 @@ function parseRestrictedToml(content) {
     }
 
     const type = tripleStringMatch !== null ? 'triple' : stringMatch !== null ? 'string' : 'number';
-    current.set(key, { type, value: type === 'triple' ? '' : match[2] });
+    const record = { type, value: type === 'triple' ? '' : match[2] };
+    current.set(key, record);
 
     if (type === 'triple') {
-      openDeveloperInstructions = { key, table: currentTable };
+      openDeveloperInstructions = { key, lines: [], record, table: currentTable };
     }
   }
 
@@ -239,9 +235,32 @@ function validateAgentToml(agent, role, errors) {
     }
   }
 
-  if (parsed.topLevel.get('developer_instructions')?.type !== 'triple') {
-    errors.push(`agent TOML developer_instructions 문법 불일치: ${role}`);
+  const requiredFields = {
+    name: 'string',
+    description: 'string',
+    sandbox_mode: 'string',
+    developer_instructions: 'triple',
+  };
+  for (const [field, type] of Object.entries(requiredFields)) {
+    const record = parsed.topLevel.get(field);
+    if (record === undefined) {
+      errors.push(`agent 필수 key 누락: ${role}:${field}`);
+    } else if (record.type !== type) {
+      errors.push(`agent 필수 key 타입 불일치: ${role}:${field}`);
+    }
   }
+
+  const name = parsed.topLevel.get('name');
+  if (name?.type === 'string' && name.value !== role) {
+    errors.push(`agent name 불일치: ${role}`);
+  }
+
+  const sandboxMode = parsed.topLevel.get('sandbox_mode');
+  if (sandboxMode?.type === 'string' && sandboxMode.value !== AGENT_SANDBOX_MODES[role]) {
+    errors.push(`agent sandbox_mode 불일치: ${role} (expected ${AGENT_SANDBOX_MODES[role]})`);
+  }
+
+  return parsed;
 }
 
 function validateConfigToml(config, errors) {
@@ -366,41 +385,30 @@ export function validateHarness(rootDir) {
       continue;
     }
 
-    validateAgentToml(agent, role, errors);
-
-    for (const field of ['sandbox_mode', 'developer_instructions', '상태', '근거', '검증']) {
-      if (!agent.includes(field)) {
-        errors.push(`agent 계약 누락 (${path.basename(agentFile)}): ${field}`);
-      }
-    }
-
-    if (!hasTomlStringValue(agent, 'name', role)) {
-      errors.push(`agent name 불일치: ${role}`);
-    }
-
-    if (!hasTomlStringValue(agent, 'sandbox_mode', AGENT_SANDBOX_MODES[role])) {
-      errors.push(`agent sandbox_mode 불일치: ${role} (expected ${AGENT_SANDBOX_MODES[role]})`);
-    }
+    const parsedAgent = validateAgentToml(agent, role, errors);
+    const developerInstructions = parsedAgent.topLevel.get('developer_instructions');
+    const developerInstructionsValue =
+      developerInstructions?.type === 'triple' ? developerInstructions.value : '';
 
     for (const field of FORBIDDEN_MODEL_SETTINGS.slice(0, 2)) {
-      if (hasTomlField(agent, field)) {
+      if (parsedAgent.topLevel.has(field)) {
         errors.push(`agent ${field} 설정 금지: ${role}`);
       }
     }
 
-    if (!hasHandoffContract(agent)) {
+    if (!developerInstructionsValue.includes(HANDOFF_CONTRACT)) {
       errors.push(`agent handoff 계약 불일치: ${role}`);
     }
 
-    if (!agent.includes(AGENT_RESPONSIBILITIES[role])) {
+    if (!developerInstructionsValue.includes(AGENT_RESPONSIBILITIES[role])) {
       errors.push(`agent 역할 책임 계약 누락: ${role}`);
     }
 
-    if (!agent.includes(APPROVAL_CONTRACT)) {
+    if (!developerInstructionsValue.includes(APPROVAL_CONTRACT)) {
       errors.push(`agent 승인 경계 계약 누락: ${role}`);
     }
 
-    if (!agent.includes(DELEGATION_CONTRACT)) {
+    if (!developerInstructionsValue.includes(DELEGATION_CONTRACT)) {
       errors.push(`agent 하위 위임 금지 계약 누락: ${role}`);
     }
   }
@@ -481,6 +489,136 @@ ${AGENT_FILES.map(agentFile => {
     );
 
     assert.deepEqual(validateHarness(tempDir), []);
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+        .replace(`${AGENT_RESPONSIBILITIES['product-planner']}\n`, '')
+        .replace(
+          'developer_instructions = """',
+          `# ${AGENT_RESPONSIBILITIES['product-planner']}\ndeveloper_instructions = """`
+        )
+    );
+    const commentedResponsibilityErrors = validateHarness(tempDir);
+    assert.ok(
+      commentedResponsibilityErrors.some(
+        error => error === 'agent 역할 책임 계약 누락: product-planner'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+        .replace(`${APPROVAL_CONTRACT}\n`, '')
+        .replace(
+          'developer_instructions = """',
+          `# ${APPROVAL_CONTRACT}\ndeveloper_instructions = """`
+        )
+    );
+    const commentedApprovalErrors = validateHarness(tempDir);
+    assert.ok(
+      commentedApprovalErrors.some(error => error === 'agent 승인 경계 계약 누락: product-planner')
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+        .replace(`${DELEGATION_CONTRACT}\n`, '')
+        .replace(
+          'developer_instructions = """',
+          `# ${DELEGATION_CONTRACT}\ndeveloper_instructions = """`
+        )
+    );
+    const commentedDelegationErrors = validateHarness(tempDir);
+    assert.ok(
+      commentedDelegationErrors.some(
+        error => error === 'agent 하위 위임 금지 계약 누락: product-planner'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+        .replace(`${HANDOFF_CONTRACT}\n`, '')
+        .replace(
+          'developer_instructions = """',
+          `${HANDOFF_CONTRACT.split('\n')
+            .map(line => `# ${line}`)
+            .join('\n')}\ndeveloper_instructions = """`
+        )
+    );
+    const commentedHandoffErrors = validateHarness(tempDir);
+    assert.ok(
+      commentedHandoffErrors.some(error => error === 'agent handoff 계약 불일치: product-planner')
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+        .replace('name = "product-planner"\n', '')
+        .replace(
+          'developer_instructions = """',
+          'developer_instructions = """\nname = "product-planner"'
+        )
+    );
+    const nameInInstructionsErrors = validateHarness(tempDir);
+    assert.ok(
+      nameInInstructionsErrors.some(error => error === 'agent 필수 key 누락: product-planner:name')
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+        .replace('sandbox_mode = "read-only"\n', '')
+        .replace(
+          'developer_instructions = """',
+          'developer_instructions = """\nsandbox_mode = "read-only"'
+        )
+    );
+    const sandboxInInstructionsErrors = validateHarness(tempDir);
+    assert.ok(
+      sandboxInInstructionsErrors.some(
+        error => error === 'agent 필수 key 누락: product-planner:sandbox_mode'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner').replace('description = "fixture"', 'description = 4')
+    );
+    const descriptionTypeErrors = validateHarness(tempDir);
+    assert.ok(
+      descriptionTypeErrors.some(
+        error => error === 'agent 필수 key 타입 불일치: product-planner:description'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+        .replace('developer_instructions = """', '# developer_instructions = """')
+        .replace(`${AGENT_RESPONSIBILITIES['product-planner']}\n`, '')
+    );
+    const commentedInstructionsErrors = validateHarness(tempDir);
+    assert.ok(
+      commentedInstructionsErrors.some(
+        error => error === 'agent 필수 key 누락: product-planner:developer_instructions'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+    );
 
     writeFixtureFile(tempDir, '.codex/agents/rogue.toml', createAgentFixture('product-planner'));
     const rogueAgentFileErrors = validateHarness(tempDir);
