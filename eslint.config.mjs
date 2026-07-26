@@ -14,6 +14,9 @@ export default tseslint.config(
       // This Node/tsx verification utility imports TS/TSX modules at runtime;
       // it is covered by `pnpm verify:resume-pdf`, not the app's type-aware lint.
       'scripts/verify-resume-pdf.mjs',
+      // 이 Node 검증 스크립트는 tsconfig project 범위 밖이므로 type-aware lint에서 제외한다.
+      // 실제 품질 게이트는 `pnpm verify:harness`의 self-test와 Prettier다.
+      'scripts/verify-agent-harness.mjs',
     ],
   },
   ...nextConfig,
