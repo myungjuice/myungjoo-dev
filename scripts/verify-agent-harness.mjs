@@ -472,8 +472,8 @@ max_concurrent_threads_per_session = 3`;
       tempDir,
       '.codex/agents/product-planner.toml',
       createAgentFixture('product-planner').replace(
-        'developer_instructions = """',
-        '# developer_instructions = """'
+        'developer_instructions = """\nfixture\n"""',
+        ''
       )
     );
     assert.ok(
@@ -498,6 +498,20 @@ max_concurrent_threads_per_session = 3`;
     assert.ok(
       validateHarness(tempDir).some(
         error => error === 'config 필수 key 타입 불일치: agents:default_subagent_model'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace(
+        'default_subagent_reasoning_effort = "medium"',
+        'default_subagent_reasoning_effort = 3'
+      )
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'config 필수 key 타입 불일치: agents:default_subagent_reasoning_effort'
       )
     );
 
