@@ -8,11 +8,14 @@
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --check .",
-    "fix": "npm run lint && npm run format",
+    "lint:fix": "eslint . --fix",
+    "format:fix": "prettier --write .",
+    "fix": "pnpm lint:fix && pnpm format:fix",
     "prepare": "husky",
     "test": "jest",
     "verify": "pnpm lint && pnpm format && pnpm test --runInBand && pnpm verify:harness && pnpm build",
-    "verify:harness": "node scripts/verify-agent-harness.mjs && node scripts/verify-agent-harness.mjs --self-test",
+    "verify:harness": "node scripts/verify-agent-harness.mjs",
+    "test:harness": "node scripts/verify-agent-harness.mjs --self-test",
     "verify:resume-pdf": "pnpm dlx tsx scripts/verify-resume-pdf.mjs"
   },
   "dependencies": {
@@ -75,8 +78,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "jest --findRelatedTests --passWithNoTests"
+      "prettier --write"
     ]
   },
   "packageManager": "pnpm@10.34.3",

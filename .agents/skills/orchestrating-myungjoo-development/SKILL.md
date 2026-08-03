@@ -8,9 +8,9 @@ description: Use when planning, implementing, debugging, refactoring, testing, r
 ## 1. 목적과 핵심 원칙
 
 개발 요청을 위험에 맞는 역할, 승인, 증거로 연결한다. 코드 양이나 파일 수가 아니라
-난이도·범위·위험도의 최댓값으로 `lightweight`, `standard`, `high-risk`를 정한다. 한 줄
-CSP, 한 파일의 공통 Dialog, 하위 호환으로 보이는 외부 API 계약도 예외가 아니다. 상세
-판정과 역할은 [routing matrix](references/routing-matrix.md), 증거는
+난이도·범위·위험도의 최댓값으로 `lightweight`, `standard`, `high-risk`를 정한다. 보안,
+외부 계약, 데이터, CI·배포, 전역 장애 영향은 변경량과 무관하게 `high-risk`다. 상세 판정과
+역할은 [routing matrix](references/routing-matrix.md), 증거는
 [quality gates](references/quality-gates.md), 역할 출력은
 [handoff contracts](references/handoff-contracts.md)를 따른다.
 
@@ -21,17 +21,15 @@ CSP, 한 파일의 공통 Dialog, 하위 호환으로 보이는 외부 API 계�
 작업이다. 진단 요청은 읽기 전용으로 원인과 근거까지만 제시하며, 수정 권한을 추론하지
 않는다.
 
-새 기능이나 새 GitHub 이슈 구현은 새 Codex 대화에서 시작하는 것을 기본으로 한다. 새
-대화는 긴 이전 대화 대신 GitHub issue, `AGENTS.md`, 이 skill과 가이드, 저장소 상태에서
-작업 맥락을 복구한다. 제품 방향·아이디어 논의는 기존 대화에서 계속할 수 있다.
+작은 후속 작업과 리뷰 수정은 같은 세션에서 이어간다. 독립 마일스톤 완료, 이슈·저장소
+전환 또는 맥락 품질 저하가 예상되면 새 세션을 제안하고 사용자 승인 후 handoff를 만든다.
 
 ## 3. 등급 판정과 세 번의 재판정
 
 동일한 공식을 `요청 접수 시`, `구현 직전`, `리뷰 직전`에 반드시 다시 적용하고 판정 근거를
-남긴다. 새 의존성, 외부 계약, 사용자 동작, 데이터 구조, 공용 UI, 보안·배포 영향이나
-승인된 완료 조건 밖의 범위를 발견하면 즉시 멈춘다. 이전 등급과 승인은 새 범위를 덮지
-않는다. 더 높은 등급으로 재판정하고 사용자에게 영향, 선택지, 권장안, 승인 경계를 다시
-제시한다.
+남긴다. 보안, 외부 계약, 데이터, CI·배포, 전역 장애 영향이나 승인된 완료 조건 밖의
+범위를 발견하면 즉시 멈춘다. 이전 등급과 승인은 새 범위를 덮지 않는다. 더 높은 등급으로
+재판정하고 사용자에게 영향, 선택지, 권장안, 승인 경계를 다시 제시한다.
 
 ## 4. 최소 역할 라우팅
 
