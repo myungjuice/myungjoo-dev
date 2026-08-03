@@ -68,6 +68,67 @@ function writeFixtureFile(rootDir, relativePath, content) {
   writeFileSync(targetPath, content, 'utf8');
 }
 
+function stripTrailingComment(line) {
+  let escaped = false;
+  let inString = false;
+  let inTripleString = false;
+
+  for (let index = 0; index < line.length; index += 1) {
+    const character = line[index];
+    if (line.slice(index, index + 3) === '"""') {
+      inTripleString = !inTripleString;
+      index += 2;
+      continue;
+    }
+    if (inTripleString) {
+      continue;
+    }
+    if (inString && escaped) {
+      escaped = false;
+    } else if (inString && character === '\\') {
+      escaped = true;
+    } else if (character === '"') {
+      inString = !inString;
+    } else if (!inString && character === '#') {
+      return line.slice(0, index).trimEnd();
+    }
+  }
+
+  return line;
+}
+
+function isValidBasicString(value) {
+  if (value.length < 2 || !value.startsWith('"') || !value.endsWith('"')) {
+    return false;
+  }
+
+  for (let index = 1; index < value.length - 1; index += 1) {
+    if (value[index] === '"') {
+      return false;
+    }
+    if (value[index] !== '\\') {
+      continue;
+    }
+
+    const escape = value[index + 1];
+    if ('btnfr"\\'.includes(escape)) {
+      index += 1;
+      continue;
+    }
+    if (escape === 'u' || escape === 'U') {
+      const length = escape === 'u' ? 4 : 8;
+      const codePoint = value.slice(index + 2, index + 2 + length);
+      if (codePoint.length === length && /^[0-9A-Fa-f]+$/.test(codePoint)) {
+        index += length + 1;
+        continue;
+      }
+    }
+    return false;
+  }
+
+  return true;
+}
+
 function parseRestrictedToml(content) {
   const topLevel = new Map();
   const tables = new Map();
@@ -77,7 +138,7 @@ function parseRestrictedToml(content) {
   let openDeveloperInstructions = null;
 
   for (const [index, rawLine] of content.split(/\r?\n/).entries()) {
-    const line = rawLine.trim();
+    const line = stripTrailingComment(rawLine).trim();
     const lineNumber = index + 1;
 
     if (openDeveloperInstructions !== null) {
@@ -110,27 +171,41 @@ function parseRestrictedToml(content) {
       continue;
     }
 
-    const tripleStringMatch = line.match(/^([A-Za-z][A-Za-z0-9_.-]*)\s*=\s*"""$/);
-    const stringMatch = line.match(/^([A-Za-z][A-Za-z0-9_.-]*)\s*=\s*"([^"]*)"$/);
-    const numberMatch = line.match(/^([A-Za-z][A-Za-z0-9_.-]*)\s*=\s*(\d+)$/);
-    const match = tripleStringMatch ?? stringMatch ?? numberMatch;
-
-    if (match === null) {
+    const assignmentMatch = line.match(/^([A-Za-z][A-Za-z0-9_.-]*)\s*=\s*(.+)$/);
+    if (assignmentMatch === null) {
       errors.push({ type: 'syntax', value: String(lineNumber) });
       continue;
     }
 
-    const key = match[1];
+    const key = assignmentMatch[1];
+    const value = assignmentMatch[2];
     if (current.has(key)) {
       errors.push({ type: 'duplicate-key', value: `${currentTable ?? 'top'}:${key}` });
       continue;
     }
 
-    const type = tripleStringMatch !== null ? 'triple' : stringMatch !== null ? 'string' : 'number';
-    const record = { type, value: type === 'triple' ? '' : match[2] };
+    const multilineTripleString = value === '"""';
+    const inlineTripleString = value.match(/^"""([\s\S]*)"""$/);
+    const type =
+      multilineTripleString || inlineTripleString !== null
+        ? 'triple'
+        : isValidBasicString(value)
+          ? 'string'
+          : /^(?:0|[1-9]\d*)$/.test(value)
+            ? 'number'
+            : null;
+    if (type === null) {
+      errors.push({ type: 'syntax', value: String(lineNumber) });
+      continue;
+    }
+
+    const record = {
+      type,
+      value: type === 'triple' ? (inlineTripleString?.[1] ?? '') : value.slice(1, -1),
+    };
     current.set(key, record);
 
-    if (type === 'triple') {
+    if (multilineTripleString) {
       openDeveloperInstructions = { key, lines: [], record, table: currentTable };
     }
   }
@@ -142,15 +217,19 @@ function parseRestrictedToml(content) {
   return { topLevel, tables, errors };
 }
 
-function validateAgentFileSet(rootDir, errors) {
+function getAgentFiles(rootDir) {
   const agentsDir = path.join(rootDir, '.codex/agents');
-  const actual = existsSync(agentsDir)
-    ? new Set(
-        readdirSync(agentsDir, { withFileTypes: true })
-          .filter(entry => entry.isFile() && entry.name.endsWith('.toml'))
-          .map(entry => entry.name)
-      )
-    : new Set();
+  if (!existsSync(agentsDir)) {
+    return [];
+  }
+
+  return readdirSync(agentsDir, { withFileTypes: true })
+    .filter(entry => entry.isFile() && entry.name.endsWith('.toml'))
+    .map(entry => `.codex/agents/${entry.name}`);
+}
+
+function validateAgentFileSet(rootDir, errors) {
+  const actual = new Set(getAgentFiles(rootDir).map(agentFile => path.basename(agentFile)));
   const missing = [...AGENT_FILENAMES].filter(filename => !actual.has(filename));
 
   if (missing.length > 0) {
@@ -321,8 +400,8 @@ export function validateHarness(rootDir) {
     }
   }
 
-  for (const agentFile of AGENT_FILES) {
-    const agent = contents.get(agentFile);
+  for (const agentFile of getAgentFiles(rootDir)) {
+    const agent = contents.get(agentFile) ?? readFile(rootDir, agentFile, errors);
     const role = path.basename(agentFile, '.toml');
 
     if (agent === null) {
@@ -341,7 +420,7 @@ export function validateHarness(rootDir) {
   if (packageJson !== null) {
     try {
       const scripts = JSON.parse(packageJson).scripts;
-      for (const name of ['verify', 'verify:harness']) {
+      for (const name of ['verify', 'verify:harness', 'test:harness']) {
         if (typeof scripts?.[name] !== 'string') {
           errors.push(`package.json script 타입 불일치: ${name}`);
         }
@@ -382,10 +461,55 @@ max_concurrent_threads_per_session = 3`;
     writeFixtureFile(
       tempDir,
       'package.json',
-      JSON.stringify({ scripts: { verify: 'pnpm verify', 'verify:harness': 'node verify.mjs' } })
+      JSON.stringify({
+        scripts: {
+          verify: 'pnpm verify',
+          'verify:harness': 'node verify.mjs',
+          'test:harness': 'node verify.mjs --self-test',
+        },
+      })
     );
 
     assert.deepEqual(validateHarness(tempDir), []);
+
+    writeFixtureFile(
+      tempDir,
+      'package.json',
+      JSON.stringify({ scripts: { verify: 'pnpm verify', 'verify:harness': 'node verify.mjs' } })
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'package.json script 타입 불일치: test:harness'
+      )
+    );
+
+    writeFixtureFile(
+      tempDir,
+      'package.json',
+      JSON.stringify({
+        scripts: {
+          verify: 'pnpm verify',
+          'verify:harness': 'node verify.mjs',
+          'test:harness': 3,
+        },
+      })
+    );
+    assert.ok(
+      validateHarness(tempDir).some(
+        error => error === 'package.json script 타입 불일치: test:harness'
+      )
+    );
+    writeFixtureFile(
+      tempDir,
+      'package.json',
+      JSON.stringify({
+        scripts: {
+          verify: 'pnpm verify',
+          'verify:harness': 'node verify.mjs',
+          'test:harness': 'node verify.mjs --self-test',
+        },
+      })
+    );
 
     writeFixtureFile(
       tempDir,
@@ -393,7 +517,59 @@ max_concurrent_threads_per_session = 3`;
       createAgentFixture('additional-agent')
     );
     assert.deepEqual(validateHarness(tempDir), []);
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/additional-agent.toml',
+      'name = "additional-agent"\n잘못된 TOML'
+    );
+    assert.ok(
+      validateHarness(tempDir).some(error => error === 'agent TOML 구문 오류: additional-agent:2')
+    );
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/additional-agent.toml',
+      createAgentFixture('additional-agent')
+    );
     rmSync(path.join(tempDir, '.codex/agents/additional-agent.toml'));
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      `name = "product-planner" # 후행 주석
+description = "fixture \\"문자열\\""
+sandbox_mode = "read-only"
+developer_instructions = """한 줄 지시문""" # 후행 주석`
+    );
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace('model = "gpt-5.6-sol"', 'model = "gpt-5.6-sol" # 후행 주석')
+    );
+    assert.deepEqual(validateHarness(tempDir), []);
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace('model = "gpt-5.6-sol"', 'model = "gpt-5.6-\\q-sol"')
+    );
+    assert.ok(validateHarness(tempDir).some(error => error === 'config TOML 구문 오류: 1'));
+
+    writeFixtureFile(
+      tempDir,
+      '.codex/config.toml',
+      configContent.replace(
+        'max_concurrent_threads_per_session = 3',
+        'max_concurrent_threads_per_session = 03'
+      )
+    );
+    assert.ok(validateHarness(tempDir).some(error => error === 'config TOML 구문 오류: 7'));
+    writeFixtureFile(tempDir, '.codex/config.toml', configContent);
+    writeFixtureFile(
+      tempDir,
+      '.codex/agents/product-planner.toml',
+      createAgentFixture('product-planner')
+    );
 
     writeFixtureFile(
       tempDir,
@@ -425,6 +601,7 @@ max_concurrent_threads_per_session = 3`;
         scripts: {
           verify: 'pnpm lint && pnpm test',
           'verify:harness': 'node verify.mjs --self-test',
+          'test:harness': 'node verify.mjs --test',
         },
       })
     );
