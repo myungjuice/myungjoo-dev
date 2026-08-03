@@ -27,7 +27,6 @@
 | `routing.high-risk.dedicated-qa`             | `qa-engineer`                      |
 | `routing.high-risk.specialists-and-recovery` | `required`                         |
 | `verification.same-head-reuse`               | `recorded-success-only`            |
-| `conversation.new-implementation`            | `new-conversation`                 |
 
 ## 단계별 gate
 

@@ -30,9 +30,8 @@
 세부 등급, 역할 routing, 품질 증거, handoff 형식은
 `.agents/skills/orchestrating-myungjoo-development/`를 따른다.
 
-새 기능이나 새 GitHub 이슈 구현은 새 Codex 대화에서 시작하는 것을 기본으로 한다. 새
-대화는 긴 이전 대화 대신 GitHub issue, `AGENTS.md`, 프로젝트 skill·guide와 저장소
-상태에서 복구한다. 제품 방향·아이디어 논의는 기존 대화에서 계속할 수 있다.
+작은 후속 작업과 리뷰 수정은 같은 세션에서 이어간다. 독립 마일스톤 완료, 이슈·저장소
+전환 또는 맥락 품질 저하가 예상되면 새 세션을 제안하고 사용자 승인 후 handoff를 만든다.
 
 ## 이슈 형식
 
