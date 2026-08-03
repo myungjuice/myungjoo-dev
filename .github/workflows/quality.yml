@@ -5,10 +5,6 @@ on:
     branches:
       - develop
       - main
-  push:
-    branches:
-      - develop
-      - main
 
 permissions:
   contents: read
@@ -36,5 +32,5 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Verify
-        run: pnpm verify
+      - name: Test and build
+        run: pnpm test --runInBand && pnpm build
